@@ -1,1 +1,161 @@
-# semantic-search-engine
+# Buscador Semántico
+## 📋 Requisitos Previos
+
+- **Python 3.8+** (para el backend)
+- **Node.js 16+** y **npm** (para el frontend)
+- **Git** (para control de versiones)
+
+## 📁 Estructura del Proyecto
+
+```
+Buscador Semantico/
+├── backend/               # API FastAPI
+│   ├── main.py           # Punto de entrada
+│   ├── requirements.txt   # Dependencias Python
+│   ├── test_main.http    # Pruebas HTTP
+│   └── src/
+│       ├── config/       # Configuración
+│       ├── modules/      # Módulos de negocio
+│       └── ontology/     # Ontología
+│
+├── frontend/             # Aplicación React + Vite
+│   ├── package.json      # Dependencias Node
+│   ├── vite.config.js    # Configuración Vite
+│   ├── index.html        # HTML principal
+│   └── src/
+│       ├── App.jsx       # Componente principal
+│       ├── main.jsx      # Entrada de React
+│       └── assets/       # Recursos estáticos
+│
+└── README.md             # Este archivo
+```
+
+## 🚀 Instalación y Ejecución
+
+### Backend (FastAPI)
+
+1. **Navega a la carpeta backend:**
+   ```bash
+   cd backend
+   ```
+
+2. **Crea un entorno virtual:**
+   ```bash
+   python -m venv venv
+   ```
+
+3. **Activa el entorno virtual:**
+   - **Windows:**
+     ```bash
+     venv\Scripts\activate
+     ```
+   - **macOS/Linux:**
+     ```bash
+     source venv/bin/activate
+     ```
+
+4. **Instala las dependencias:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+5. **Ejecuta el servidor:**
+   ```bash
+   python main.py
+   ```
+   
+   O con uvicorn directamente:
+   ```bash
+   uvicorn main:app --reload
+   ```
+
+   El servidor estará disponible en: `http://localhost:8000`
+
+   - Documentación interactiva Swagger: `http://localhost:8000/docs`
+   - Documentación ReDoc: `http://localhost:8000/redoc`
+
+### Frontend (React + Vite)
+
+1. **Abre otra terminal y navega a la carpeta frontend:**
+   ```bash
+   cd frontend
+   ```
+
+2. **Instala las dependencias:**
+   ```bash
+   npm install
+   ```
+
+3. **Ejecuta el servidor de desarrollo:**
+   ```bash
+   npm run dev
+   ```
+
+   El servidor estará disponible en: `http://localhost:5173`
+
+## 🔧 Scripts Disponibles
+
+### Backend
+- `python main.py` - Inicia el servidor
+- `pip install -r requirements.txt` - Instala dependencias
+
+### Frontend
+- `npm run dev` - Inicia el servidor de desarrollo
+- `npm run build` - Crea build de producción
+- `npm run preview` - Vista previa del build
+- `npm run lint` - Ejecuta linter
+
+## 📝 Variables de Entorno
+
+Crea un archivo `.env` en la carpeta `backend/` con las siguientes variables (según necesites):
+
+```env
+DATABASE_URL=your_database_url
+DEBUG=True
+```
+
+## 🧪 Pruebas
+
+### Backend
+Para probar los endpoints, puedes usar:
+- La documentación interactiva Swagger en `http://localhost:8000/docs`
+- El archivo `backend/test_main.http` (si usas REST Client en VS Code)
+- Herramientas como Postman o Insomnia
+
+## 📦 Dependencias Principales
+
+### Backend
+- FastAPI - Framework web
+- Uvicorn - Servidor ASGI
+- Ver `backend/requirements.txt` para la lista completa
+
+### Frontend
+- React - Librería UI
+- Vite - Build tool
+- Ver `frontend/package.json` para la lista completa
+
+## 🔗 Conexión Frontend-Backend
+
+Para conectar el frontend con el backend, asegúrate de:
+
+1. El backend esté ejecutándose en `http://localhost:8000`
+2. Configurar CORS en FastAPI si es necesario
+3. Usar la URL correcta en las peticiones fetch/axios desde React
+
+Ejemplo en React:
+```javascript
+fetch('http://localhost:8000/api/endpoint')
+  .then(response => response.json())
+  .then(data => console.log(data))
+```
+
+## 🐛 Troubleshooting
+
+### Backend
+- **Puerto 8000 en uso:** Cambia el puerto con `uvicorn main:app --reload --port 8001`
+- **ModuleNotFoundError:** Asegúrate de que el venv está activado
+
+### Frontend
+- **Puerto 5173 en uso:** Vite usará el siguiente puerto disponible automáticamente
+- **node_modules corrupto:** Elimina `node_modules` y `package-lock.json`, luego ejecuta `npm install` nuevamente
+
