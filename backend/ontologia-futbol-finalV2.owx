@@ -1,0 +1,3612 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol">
+    <Prefix name="" IRI="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="#Arbitro"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Clasificatoria"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Competicion"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Copa"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Entrenador"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Equipo"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Estadio"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#EventoPartido"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Gol"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#GolDeJuegoAbierto"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#GolDePenal"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#GolEnPropiaPorteria"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Jugador"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Liga"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Partido"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Persona"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Resultado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Supercopa"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Sustitucion"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Tarjeta"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TarjetaAmarilla"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TarjetaRoja"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Temporada"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TorneoAmistoso"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TorneoInternacional"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#albergaPartido"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#anotaGol"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#arbitra"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#asisteGol"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#asistencia"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#correspondeA"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#dirige"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#entraEn"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#esArbitradoPor"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#esDirigidoPor"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#esLocalEn"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#esParteDe"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#esRecibidaPor"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#esSedeDe"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#esVisitanteEn"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#goleador"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#juegaEn"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#jugadorEntra"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#jugadorSale"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#perteneceA"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#recibeTarjeta"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#resultadoDe"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#saleDe"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#seJuegaEn"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#tieneEquipo"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#tieneEquipoLocal"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#tieneEquipoVisitante"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#tieneEstadio"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#tieneEvento"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#tieneJugador"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#tienePartido"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#tieneResultado"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#tieneTemporada"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#esCapitan"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#esTitular"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#motivoTarjeta"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tieneAñoFin"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tieneAñoInicio"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tieneCapacidad"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tieneCiudad"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tieneDorsal"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tieneFecha"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tieneGolesLocal"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tieneGolesVisitante"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tieneJornada"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tieneMinuto"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tieneNacionalidad"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tieneNombre"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tienePais"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tienePosicion"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tieneTiempo"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#arbitro_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#arbitro_02"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#arbitro_03"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#arbitro_04"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#arbitro_05"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#arbitro_06"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#arbitro_07"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#arbitro_08"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#arbitro_09"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#copa_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#copa_02"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#entrenador_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#entrenador_02"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#entrenador_03"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#entrenador_04"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#entrenador_05"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#equipo_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#equipo_02"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#equipo_03"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#equipo_04"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#equipo_05"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#estadio_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#estadio_02"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#estadio_03"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#estadio_04"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#estadio_05"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#estadio_06"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#estadio_07"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#estadio_08"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#estadio_09"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#estadio_10"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#golDePenal_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#golEnPropiaPorteria_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#gol_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#gol_02"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#gol_03"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#gol_04"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#gol_05"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#gol_juego_abierto_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#jugador_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#jugador_02"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#jugador_03"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#jugador_04"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#jugador_05"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#jugador_06"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#jugador_07"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#jugador_08"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#jugador_09"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#jugador_10"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#jugador_11"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#jugador_12"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#jugador_13"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#liga_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#liga_02"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#liga_03"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#liga_04"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#partido_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#partido_02"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#partido_03"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#partido_04"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#partido_05"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#resultado_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#resultado_02"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#resultado_03"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#resultado_04"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#resultado_05"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#supercopa_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#sustitucion_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#sustitucion_02"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#sustitucion_03"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#sustitucion_04"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#sustitucion_05"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#tarjeta_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#tarjeta_02"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#tarjeta_03"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#tarjeta_04"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#tarjeta_roja_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#temporada_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#temporada_02"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#temporada_03"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#temporada_04"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#temporada_05"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#temporada_06"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#temporada_07"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#temporada_08"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#temporada_09"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#temporada_10"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#torneoamistoso_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#torneointernacional_01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#torneointernacional_02"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#Arbitro"/>
+        <Class IRI="#Persona"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Clasificatoria"/>
+        <Class IRI="#Competicion"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Copa"/>
+        <Class IRI="#Competicion"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Entrenador"/>
+        <Class IRI="#Persona"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#EventoPartido"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="#esParteDe"/>
+            <Class IRI="#Partido"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Gol"/>
+        <Class IRI="#EventoPartido"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Gol"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="#goleador"/>
+            <Class IRI="#Jugador"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#GolDeJuegoAbierto"/>
+        <Class IRI="#Gol"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#GolDePenal"/>
+        <Class IRI="#Gol"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#GolEnPropiaPorteria"/>
+        <Class IRI="#Gol"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Jugador"/>
+        <Class IRI="#Persona"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Jugador"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="#juegaEn"/>
+            <Class IRI="#Equipo"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Liga"/>
+        <Class IRI="#Competicion"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Partido"/>
+        <Class IRI="#Persona"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Partido"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="#tieneEquipoLocal"/>
+            <Class IRI="#Equipo"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Supercopa"/>
+        <Class IRI="#Competicion"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Sustitucion"/>
+        <Class IRI="#EventoPartido"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Sustitucion"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="#jugadorEntra"/>
+            <Class IRI="#Jugador"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Sustitucion"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="#jugadorSale"/>
+            <Class IRI="#Jugador"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Tarjeta"/>
+        <Class IRI="#EventoPartido"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TarjetaAmarilla"/>
+        <Class IRI="#Tarjeta"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TarjetaRoja"/>
+        <Class IRI="#Tarjeta"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TorneoAmistoso"/>
+        <Class IRI="#Competicion"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TorneoInternacional"/>
+        <Class IRI="#Competicion"/>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class IRI="#Arbitro"/>
+        <Class IRI="#Entrenador"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Arbitro"/>
+        <Class IRI="#Jugador"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Clasificatoria"/>
+        <Class IRI="#Copa"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Clasificatoria"/>
+        <Class IRI="#Liga"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Clasificatoria"/>
+        <Class IRI="#Supercopa"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Clasificatoria"/>
+        <Class IRI="#TorneoAmistoso"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Clasificatoria"/>
+        <Class IRI="#TorneoInternacional"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Copa"/>
+        <Class IRI="#Liga"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Copa"/>
+        <Class IRI="#Supercopa"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Copa"/>
+        <Class IRI="#TorneoAmistoso"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Copa"/>
+        <Class IRI="#TorneoInternacional"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Entrenador"/>
+        <Class IRI="#Jugador"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Gol"/>
+        <Class IRI="#Sustitucion"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Gol"/>
+        <Class IRI="#Tarjeta"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#GolDeJuegoAbierto"/>
+        <Class IRI="#GolDePenal"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#GolDeJuegoAbierto"/>
+        <Class IRI="#GolEnPropiaPorteria"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#GolDePenal"/>
+        <Class IRI="#GolEnPropiaPorteria"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Liga"/>
+        <Class IRI="#Supercopa"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Liga"/>
+        <Class IRI="#TorneoAmistoso"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Liga"/>
+        <Class IRI="#TorneoInternacional"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Supercopa"/>
+        <Class IRI="#TorneoAmistoso"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Supercopa"/>
+        <Class IRI="#TorneoInternacional"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Sustitucion"/>
+        <Class IRI="#Tarjeta"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#TarjetaAmarilla"/>
+        <Class IRI="#TarjetaRoja"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#TorneoAmistoso"/>
+        <Class IRI="#TorneoInternacional"/>
+    </DisjointClasses>
+    <ClassAssertion>
+        <Class IRI="#Arbitro"/>
+        <NamedIndividual IRI="#arbitro_01"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Arbitro"/>
+        <NamedIndividual IRI="#arbitro_02"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Arbitro"/>
+        <NamedIndividual IRI="#arbitro_03"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Arbitro"/>
+        <NamedIndividual IRI="#arbitro_04"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Arbitro"/>
+        <NamedIndividual IRI="#arbitro_05"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Arbitro"/>
+        <NamedIndividual IRI="#arbitro_06"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Arbitro"/>
+        <NamedIndividual IRI="#arbitro_07"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Arbitro"/>
+        <NamedIndividual IRI="#arbitro_08"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Arbitro"/>
+        <NamedIndividual IRI="#arbitro_09"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Copa"/>
+        <NamedIndividual IRI="#copa_01"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Copa"/>
+        <NamedIndividual IRI="#copa_02"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Entrenador"/>
+        <NamedIndividual IRI="#entrenador_01"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Entrenador"/>
+        <NamedIndividual IRI="#entrenador_02"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Entrenador"/>
+        <NamedIndividual IRI="#entrenador_03"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Entrenador"/>
+        <NamedIndividual IRI="#entrenador_04"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Entrenador"/>
+        <NamedIndividual IRI="#entrenador_05"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Equipo"/>
+        <NamedIndividual IRI="#equipo_01"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Equipo"/>
+        <NamedIndividual IRI="#equipo_02"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Equipo"/>
+        <NamedIndividual IRI="#equipo_03"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Equipo"/>
+        <NamedIndividual IRI="#equipo_04"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Equipo"/>
+        <NamedIndividual IRI="#equipo_05"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Estadio"/>
+        <NamedIndividual IRI="#estadio_01"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Estadio"/>
+        <NamedIndividual IRI="#estadio_02"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Estadio"/>
+        <NamedIndividual IRI="#estadio_03"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Estadio"/>
+        <NamedIndividual IRI="#estadio_04"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Estadio"/>
+        <NamedIndividual IRI="#estadio_05"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Estadio"/>
+        <NamedIndividual IRI="#estadio_06"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Estadio"/>
+        <NamedIndividual IRI="#estadio_07"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Estadio"/>
+        <NamedIndividual IRI="#estadio_08"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Estadio"/>
+        <NamedIndividual IRI="#estadio_09"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Estadio"/>
+        <NamedIndividual IRI="#estadio_10"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Gol"/>
+        <NamedIndividual IRI="#gol_01"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Gol"/>
+        <NamedIndividual IRI="#gol_02"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Gol"/>
+        <NamedIndividual IRI="#gol_03"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Gol"/>
+        <NamedIndividual IRI="#gol_04"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Gol"/>
+        <NamedIndividual IRI="#gol_05"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Jugador"/>
+        <NamedIndividual IRI="#jugador_01"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Jugador"/>
+        <NamedIndividual IRI="#jugador_02"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Jugador"/>
+        <NamedIndividual IRI="#jugador_03"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Jugador"/>
+        <NamedIndividual IRI="#jugador_04"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Jugador"/>
+        <NamedIndividual IRI="#jugador_05"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Jugador"/>
+        <NamedIndividual IRI="#jugador_06"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Jugador"/>
+        <NamedIndividual IRI="#jugador_07"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Jugador"/>
+        <NamedIndividual IRI="#jugador_08"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Jugador"/>
+        <NamedIndividual IRI="#jugador_09"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Jugador"/>
+        <NamedIndividual IRI="#jugador_10"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Jugador"/>
+        <NamedIndividual IRI="#jugador_11"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Jugador"/>
+        <NamedIndividual IRI="#jugador_12"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Jugador"/>
+        <NamedIndividual IRI="#jugador_13"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Liga"/>
+        <NamedIndividual IRI="#liga_01"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Liga"/>
+        <NamedIndividual IRI="#liga_02"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Liga"/>
+        <NamedIndividual IRI="#liga_03"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Liga"/>
+        <NamedIndividual IRI="#liga_04"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Partido"/>
+        <NamedIndividual IRI="#partido_01"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Partido"/>
+        <NamedIndividual IRI="#partido_02"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Partido"/>
+        <NamedIndividual IRI="#partido_03"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Partido"/>
+        <NamedIndividual IRI="#partido_04"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Partido"/>
+        <NamedIndividual IRI="#partido_05"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Resultado"/>
+        <NamedIndividual IRI="#resultado_01"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Resultado"/>
+        <NamedIndividual IRI="#resultado_02"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Resultado"/>
+        <NamedIndividual IRI="#resultado_03"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Resultado"/>
+        <NamedIndividual IRI="#resultado_04"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Resultado"/>
+        <NamedIndividual IRI="#resultado_05"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Supercopa"/>
+        <NamedIndividual IRI="#supercopa_01"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sustitucion"/>
+        <NamedIndividual IRI="#sustitucion_01"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sustitucion"/>
+        <NamedIndividual IRI="#sustitucion_02"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sustitucion"/>
+        <NamedIndividual IRI="#sustitucion_03"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sustitucion"/>
+        <NamedIndividual IRI="#sustitucion_04"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sustitucion"/>
+        <NamedIndividual IRI="#sustitucion_05"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TarjetaAmarilla"/>
+        <NamedIndividual IRI="#tarjeta_01"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TarjetaAmarilla"/>
+        <NamedIndividual IRI="#tarjeta_02"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TarjetaAmarilla"/>
+        <NamedIndividual IRI="#tarjeta_03"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TarjetaAmarilla"/>
+        <NamedIndividual IRI="#tarjeta_04"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TarjetaRoja"/>
+        <NamedIndividual IRI="#tarjeta_roja_01"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Temporada"/>
+        <NamedIndividual IRI="#temporada_01"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Temporada"/>
+        <NamedIndividual IRI="#temporada_02"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Temporada"/>
+        <NamedIndividual IRI="#temporada_03"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Temporada"/>
+        <NamedIndividual IRI="#temporada_04"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Temporada"/>
+        <NamedIndividual IRI="#temporada_05"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Temporada"/>
+        <NamedIndividual IRI="#temporada_06"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Temporada"/>
+        <NamedIndividual IRI="#temporada_07"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Temporada"/>
+        <NamedIndividual IRI="#temporada_08"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Temporada"/>
+        <NamedIndividual IRI="#temporada_09"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Temporada"/>
+        <NamedIndividual IRI="#temporada_10"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TorneoAmistoso"/>
+        <NamedIndividual IRI="#torneoamistoso_01"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TorneoInternacional"/>
+        <NamedIndividual IRI="#torneointernacional_01"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TorneoInternacional"/>
+        <NamedIndividual IRI="#torneointernacional_02"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneTemporada"/>
+        <NamedIndividual IRI="#copa_01"/>
+        <NamedIndividual IRI="#temporada_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneTemporada"/>
+        <NamedIndividual IRI="#copa_02"/>
+        <NamedIndividual IRI="#temporada_02"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#esDirigidoPor"/>
+        <NamedIndividual IRI="#equipo_01"/>
+        <NamedIndividual IRI="#entrenador_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#perteneceA"/>
+        <NamedIndividual IRI="#equipo_01"/>
+        <NamedIndividual IRI="#liga_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneEstadio"/>
+        <NamedIndividual IRI="#equipo_01"/>
+        <NamedIndividual IRI="#estadio_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#esDirigidoPor"/>
+        <NamedIndividual IRI="#equipo_02"/>
+        <NamedIndividual IRI="#entrenador_02"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#perteneceA"/>
+        <NamedIndividual IRI="#equipo_02"/>
+        <NamedIndividual IRI="#liga_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneEstadio"/>
+        <NamedIndividual IRI="#equipo_02"/>
+        <NamedIndividual IRI="#estadio_02"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#esDirigidoPor"/>
+        <NamedIndividual IRI="#equipo_03"/>
+        <NamedIndividual IRI="#entrenador_04"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#perteneceA"/>
+        <NamedIndividual IRI="#equipo_03"/>
+        <NamedIndividual IRI="#liga_04"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneEstadio"/>
+        <NamedIndividual IRI="#equipo_03"/>
+        <NamedIndividual IRI="#estadio_05"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#esDirigidoPor"/>
+        <NamedIndividual IRI="#equipo_04"/>
+        <NamedIndividual IRI="#entrenador_04"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#perteneceA"/>
+        <NamedIndividual IRI="#equipo_04"/>
+        <NamedIndividual IRI="#liga_04"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneEstadio"/>
+        <NamedIndividual IRI="#equipo_04"/>
+        <NamedIndividual IRI="#estadio_05"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#esDirigidoPor"/>
+        <NamedIndividual IRI="#equipo_05"/>
+        <NamedIndividual IRI="#entrenador_05"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#perteneceA"/>
+        <NamedIndividual IRI="#equipo_05"/>
+        <NamedIndividual IRI="#liga_03"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneEstadio"/>
+        <NamedIndividual IRI="#equipo_05"/>
+        <NamedIndividual IRI="#estadio_08"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#goleador"/>
+        <NamedIndividual IRI="#golDePenal_01"/>
+        <NamedIndividual IRI="#jugador_02"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#goleador"/>
+        <NamedIndividual IRI="#golEnPropiaPorteria_01"/>
+        <NamedIndividual IRI="#jugador_04"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#asistencia"/>
+        <NamedIndividual IRI="#gol_01"/>
+        <NamedIndividual IRI="#jugador_05"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#goleador"/>
+        <NamedIndividual IRI="#gol_01"/>
+        <NamedIndividual IRI="#jugador_02"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#asistencia"/>
+        <NamedIndividual IRI="#gol_02"/>
+        <NamedIndividual IRI="#jugador_08"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#goleador"/>
+        <NamedIndividual IRI="#gol_02"/>
+        <NamedIndividual IRI="#jugador_06"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#asistencia"/>
+        <NamedIndividual IRI="#gol_03"/>
+        <NamedIndividual IRI="#jugador_10"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#goleador"/>
+        <NamedIndividual IRI="#gol_03"/>
+        <NamedIndividual IRI="#jugador_05"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#asistencia"/>
+        <NamedIndividual IRI="#gol_04"/>
+        <NamedIndividual IRI="#jugador_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#goleador"/>
+        <NamedIndividual IRI="#gol_04"/>
+        <NamedIndividual IRI="#jugador_11"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#asistencia"/>
+        <NamedIndividual IRI="#gol_05"/>
+        <NamedIndividual IRI="#jugador_05"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#goleador"/>
+        <NamedIndividual IRI="#gol_05"/>
+        <NamedIndividual IRI="#jugador_06"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#asistencia"/>
+        <NamedIndividual IRI="#gol_juego_abierto_01"/>
+        <NamedIndividual IRI="#jugador_12"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#goleador"/>
+        <NamedIndividual IRI="#gol_juego_abierto_01"/>
+        <NamedIndividual IRI="#jugador_11"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#juegaEn"/>
+        <NamedIndividual IRI="#jugador_01"/>
+        <NamedIndividual IRI="#equipo_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#juegaEn"/>
+        <NamedIndividual IRI="#jugador_02"/>
+        <NamedIndividual IRI="#equipo_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#juegaEn"/>
+        <NamedIndividual IRI="#jugador_03"/>
+        <NamedIndividual IRI="#equipo_02"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#juegaEn"/>
+        <NamedIndividual IRI="#jugador_04"/>
+        <NamedIndividual IRI="#equipo_03"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#juegaEn"/>
+        <NamedIndividual IRI="#jugador_05"/>
+        <NamedIndividual IRI="#equipo_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#juegaEn"/>
+        <NamedIndividual IRI="#jugador_06"/>
+        <NamedIndividual IRI="#equipo_04"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#juegaEn"/>
+        <NamedIndividual IRI="#jugador_07"/>
+        <NamedIndividual IRI="#equipo_03"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#juegaEn"/>
+        <NamedIndividual IRI="#jugador_08"/>
+        <NamedIndividual IRI="#equipo_02"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#juegaEn"/>
+        <NamedIndividual IRI="#jugador_09"/>
+        <NamedIndividual IRI="#equipo_03"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#juegaEn"/>
+        <NamedIndividual IRI="#jugador_10"/>
+        <NamedIndividual IRI="#equipo_02"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#juegaEn"/>
+        <NamedIndividual IRI="#jugador_11"/>
+        <NamedIndividual IRI="#equipo_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#juegaEn"/>
+        <NamedIndividual IRI="#jugador_12"/>
+        <NamedIndividual IRI="#equipo_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#juegaEn"/>
+        <NamedIndividual IRI="#jugador_13"/>
+        <NamedIndividual IRI="#equipo_05"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneTemporada"/>
+        <NamedIndividual IRI="#liga_01"/>
+        <NamedIndividual IRI="#temporada_10"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneTemporada"/>
+        <NamedIndividual IRI="#liga_02"/>
+        <NamedIndividual IRI="#temporada_10"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneTemporada"/>
+        <NamedIndividual IRI="#liga_03"/>
+        <NamedIndividual IRI="#temporada_10"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneTemporada"/>
+        <NamedIndividual IRI="#liga_04"/>
+        <NamedIndividual IRI="#temporada_10"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#correspondeA"/>
+        <NamedIndividual IRI="#partido_01"/>
+        <NamedIndividual IRI="#temporada_10"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#esArbitradoPor"/>
+        <NamedIndividual IRI="#partido_01"/>
+        <NamedIndividual IRI="#arbitro_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#perteneceA"/>
+        <NamedIndividual IRI="#partido_01"/>
+        <NamedIndividual IRI="#liga_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#seJuegaEn"/>
+        <NamedIndividual IRI="#partido_01"/>
+        <NamedIndividual IRI="#estadio_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneEquipoLocal"/>
+        <NamedIndividual IRI="#partido_01"/>
+        <NamedIndividual IRI="#equipo_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneEquipoVisitante"/>
+        <NamedIndividual IRI="#partido_01"/>
+        <NamedIndividual IRI="#equipo_02"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#correspondeA"/>
+        <NamedIndividual IRI="#partido_02"/>
+        <NamedIndividual IRI="#temporada_09"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#esArbitradoPor"/>
+        <NamedIndividual IRI="#partido_02"/>
+        <NamedIndividual IRI="#arbitro_02"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#perteneceA"/>
+        <NamedIndividual IRI="#partido_02"/>
+        <NamedIndividual IRI="#torneointernacional_02"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#seJuegaEn"/>
+        <NamedIndividual IRI="#partido_02"/>
+        <NamedIndividual IRI="#estadio_03"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneEquipoLocal"/>
+        <NamedIndividual IRI="#partido_02"/>
+        <NamedIndividual IRI="#equipo_03"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneEquipoVisitante"/>
+        <NamedIndividual IRI="#partido_02"/>
+        <NamedIndividual IRI="#equipo_04"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#correspondeA"/>
+        <NamedIndividual IRI="#partido_04"/>
+        <NamedIndividual IRI="#temporada_10"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#esArbitradoPor"/>
+        <NamedIndividual IRI="#partido_04"/>
+        <NamedIndividual IRI="#arbitro_03"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#perteneceA"/>
+        <NamedIndividual IRI="#partido_04"/>
+        <NamedIndividual IRI="#liga_02"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#seJuegaEn"/>
+        <NamedIndividual IRI="#partido_04"/>
+        <NamedIndividual IRI="#estadio_03"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneEquipoLocal"/>
+        <NamedIndividual IRI="#partido_04"/>
+        <NamedIndividual IRI="#equipo_03"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneEquipoVisitante"/>
+        <NamedIndividual IRI="#partido_04"/>
+        <NamedIndividual IRI="#equipo_05"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#correspondeA"/>
+        <NamedIndividual IRI="#partido_05"/>
+        <NamedIndividual IRI="#temporada_09"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#esArbitradoPor"/>
+        <NamedIndividual IRI="#partido_05"/>
+        <NamedIndividual IRI="#arbitro_08"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#perteneceA"/>
+        <NamedIndividual IRI="#partido_05"/>
+        <NamedIndividual IRI="#torneointernacional_02"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#seJuegaEn"/>
+        <NamedIndividual IRI="#partido_05"/>
+        <NamedIndividual IRI="#estadio_05"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneEquipoLocal"/>
+        <NamedIndividual IRI="#partido_05"/>
+        <NamedIndividual IRI="#equipo_04"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneEquipoVisitante"/>
+        <NamedIndividual IRI="#partido_05"/>
+        <NamedIndividual IRI="#equipo_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#resultadoDe"/>
+        <NamedIndividual IRI="#resultado_01"/>
+        <NamedIndividual IRI="#partido_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#resultadoDe"/>
+        <NamedIndividual IRI="#resultado_02"/>
+        <NamedIndividual IRI="#partido_02"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#resultadoDe"/>
+        <NamedIndividual IRI="#resultado_03"/>
+        <NamedIndividual IRI="#partido_03"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#resultadoDe"/>
+        <NamedIndividual IRI="#resultado_04"/>
+        <NamedIndividual IRI="#partido_04"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#resultadoDe"/>
+        <NamedIndividual IRI="#resultado_05"/>
+        <NamedIndividual IRI="#partido_05"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneTemporada"/>
+        <NamedIndividual IRI="#supercopa_01"/>
+        <NamedIndividual IRI="#temporada_03"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#jugadorEntra"/>
+        <NamedIndividual IRI="#sustitucion_01"/>
+        <NamedIndividual IRI="#jugador_12"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#jugadorSale"/>
+        <NamedIndividual IRI="#sustitucion_01"/>
+        <NamedIndividual IRI="#jugador_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#jugadorEntra"/>
+        <NamedIndividual IRI="#sustitucion_02"/>
+        <NamedIndividual IRI="#jugador_10"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#jugadorSale"/>
+        <NamedIndividual IRI="#sustitucion_02"/>
+        <NamedIndividual IRI="#jugador_08"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#jugadorEntra"/>
+        <NamedIndividual IRI="#sustitucion_03"/>
+        <NamedIndividual IRI="#jugador_07"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#jugadorSale"/>
+        <NamedIndividual IRI="#sustitucion_03"/>
+        <NamedIndividual IRI="#jugador_04"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#jugadorEntra"/>
+        <NamedIndividual IRI="#sustitucion_04"/>
+        <NamedIndividual IRI="#jugador_06"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#jugadorSale"/>
+        <NamedIndividual IRI="#sustitucion_04"/>
+        <NamedIndividual IRI="#jugador_05"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#jugadorEntra"/>
+        <NamedIndividual IRI="#sustitucion_05"/>
+        <NamedIndividual IRI="#jugador_09"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#jugadorSale"/>
+        <NamedIndividual IRI="#sustitucion_05"/>
+        <NamedIndividual IRI="#jugador_02"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#recibeTarjeta"/>
+        <NamedIndividual IRI="#tarjeta_01"/>
+        <NamedIndividual IRI="#jugador_10"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#recibeTarjeta"/>
+        <NamedIndividual IRI="#tarjeta_02"/>
+        <NamedIndividual IRI="#jugador_12"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#esParteDe"/>
+        <NamedIndividual IRI="#tarjeta_03"/>
+        <NamedIndividual IRI="#partido_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#recibeTarjeta"/>
+        <NamedIndividual IRI="#tarjeta_03"/>
+        <NamedIndividual IRI="#jugador_01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#recibeTarjeta"/>
+        <NamedIndividual IRI="#tarjeta_04"/>
+        <NamedIndividual IRI="#jugador_08"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#recibeTarjeta"/>
+        <NamedIndividual IRI="#tarjeta_roja_01"/>
+        <NamedIndividual IRI="#jugador_07"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneTemporada"/>
+        <NamedIndividual IRI="#torneoamistoso_01"/>
+        <NamedIndividual IRI="#temporada_05"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneTemporada"/>
+        <NamedIndividual IRI="#torneointernacional_01"/>
+        <NamedIndividual IRI="#temporada_08"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#tieneTemporada"/>
+        <NamedIndividual IRI="#torneointernacional_02"/>
+        <NamedIndividual IRI="#temporada_09"/>
+    </ObjectPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#arbitro_01"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1977-01-01T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#arbitro_01"/>
+        <Literal>Española</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#arbitro_01"/>
+        <Literal>Antonio Mateu Lahoz</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#arbitro_02"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1981-06-05T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#arbitro_02"/>
+        <Literal>Alemana</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#arbitro_02"/>
+        <Literal>Felix Zwayer</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#arbitro_03"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1982-03-12T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#arbitro_03"/>
+        <Literal>Francesa</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#arbitro_03"/>
+        <Literal>Clément Turpin</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#arbitro_04"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1975-12-10T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#arbitro_04"/>
+        <Literal>Italiana</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#arbitro_04"/>
+        <Literal>Daniele Orsato</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#arbitro_05"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1980-04-22T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#arbitro_05"/>
+        <Literal>Colombiana</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#arbitro_05"/>
+        <Literal>Wilmar Roldán</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#arbitro_06"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1975-09-18T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#arbitro_06"/>
+        <Literal>Argentina</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#arbitro_06"/>
+        <Literal>Néstor Pitana</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#arbitro_07"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1980-07-14T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#arbitro_07"/>
+        <Literal>Brasileña</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#arbitro_07"/>
+        <Literal>Raphael Claus</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#arbitro_08"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1980-07-14T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#arbitro_08"/>
+        <Literal>Uruguaya</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#arbitro_08"/>
+        <Literal>Andrés Cunha</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#arbitro_09"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1977-03-05T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#arbitro_09"/>
+        <Literal>Española</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#arbitro_09"/>
+        <Literal>Jesús Gil Manzano</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#copa_01"/>
+        <Literal>Copa del Rey</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#copa_02"/>
+        <Literal>DFB Pokal</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#entrenador_01"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1980-01-25T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#entrenador_01"/>
+        <Literal>Española</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#entrenador_01"/>
+        <Literal>Xavi Hernandez</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#entrenador_02"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1959-06-10T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#entrenador_02"/>
+        <Literal>Italiana</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#entrenador_02"/>
+        <Literal>Carlo Ancelotti</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#entrenador_03"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1973-08-29T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#entrenador_03"/>
+        <Literal>Alemana</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#entrenador_03"/>
+        <Literal>Thomas Tuchel</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#entrenador_04"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1970-05-08T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#entrenador_04"/>
+        <Literal>Española</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#entrenador_04"/>
+        <Literal>Luis Enrique</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#entrenador_05"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1967-06-16T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#entrenador_05"/>
+        <Literal>Alemana</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#entrenador_05"/>
+        <Literal>Jürgen Klopp</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCiudad"/>
+        <NamedIndividual IRI="#equipo_01"/>
+        <Literal>Madrid</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#equipo_01"/>
+        <Literal>Española</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#equipo_01"/>
+        <Literal>Real Madrid</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePais"/>
+        <NamedIndividual IRI="#equipo_01"/>
+        <Literal>España</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCiudad"/>
+        <NamedIndividual IRI="#equipo_02"/>
+        <Literal>Barcelona</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#equipo_02"/>
+        <Literal>Española</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#equipo_02"/>
+        <Literal>FC Barcelona</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePais"/>
+        <NamedIndividual IRI="#equipo_02"/>
+        <Literal>España</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCiudad"/>
+        <NamedIndividual IRI="#equipo_03"/>
+        <Literal>Munich</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#equipo_03"/>
+        <Literal>Alemana</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#equipo_03"/>
+        <Literal>Bayern Munchen</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePais"/>
+        <NamedIndividual IRI="#equipo_03"/>
+        <Literal>Alemania</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCiudad"/>
+        <NamedIndividual IRI="#equipo_04"/>
+        <Literal>Paris</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#equipo_04"/>
+        <Literal>Francia</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#equipo_04"/>
+        <Literal>Paris Saint-Germain</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePais"/>
+        <NamedIndividual IRI="#equipo_04"/>
+        <Literal>Francia</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCiudad"/>
+        <NamedIndividual IRI="#equipo_05"/>
+        <Literal>Liverpool</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#equipo_05"/>
+        <Literal>Inglesa</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#equipo_05"/>
+        <Literal>Liverpool FC</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePais"/>
+        <NamedIndividual IRI="#equipo_05"/>
+        <Literal>Inglaterra</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCapacidad"/>
+        <NamedIndividual IRI="#estadio_01"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">83186</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCiudad"/>
+        <NamedIndividual IRI="#estadio_01"/>
+        <Literal>Madrid</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#estadio_01"/>
+        <Literal>Santiago Bernabéu</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePais"/>
+        <NamedIndividual IRI="#estadio_01"/>
+        <Literal>España</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCapacidad"/>
+        <NamedIndividual IRI="#estadio_02"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">99354</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCiudad"/>
+        <NamedIndividual IRI="#estadio_02"/>
+        <Literal>Barcelona</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#estadio_02"/>
+        <Literal>Camp Nou</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePais"/>
+        <NamedIndividual IRI="#estadio_02"/>
+        <Literal>España</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCapacidad"/>
+        <NamedIndividual IRI="#estadio_03"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">75024</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCiudad"/>
+        <NamedIndividual IRI="#estadio_03"/>
+        <Literal>Múnich</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#estadio_03"/>
+        <Literal>Allianz Arena</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePais"/>
+        <NamedIndividual IRI="#estadio_03"/>
+        <Literal>Alemania</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCapacidad"/>
+        <NamedIndividual IRI="#estadio_04"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">75024</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCiudad"/>
+        <NamedIndividual IRI="#estadio_04"/>
+        <Literal>Madrid</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#estadio_04"/>
+        <Literal>Metropolitano</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePais"/>
+        <NamedIndividual IRI="#estadio_04"/>
+        <Literal>España</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCapacidad"/>
+        <NamedIndividual IRI="#estadio_05"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">47929</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCiudad"/>
+        <NamedIndividual IRI="#estadio_05"/>
+        <Literal>París</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#estadio_05"/>
+        <Literal>Parc des Princes</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePais"/>
+        <NamedIndividual IRI="#estadio_05"/>
+        <Literal>Francia</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCapacidad"/>
+        <NamedIndividual IRI="#estadio_06"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">59186</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCiudad"/>
+        <NamedIndividual IRI="#estadio_06"/>
+        <Literal>Lyon</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#estadio_06"/>
+        <Literal>Groupama Stadium</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePais"/>
+        <NamedIndividual IRI="#estadio_06"/>
+        <Literal>Francia</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCapacidad"/>
+        <NamedIndividual IRI="#estadio_07"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">74879</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCiudad"/>
+        <NamedIndividual IRI="#estadio_07"/>
+        <Literal>Manchester</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#estadio_07"/>
+        <Literal>Old Trafford</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePais"/>
+        <NamedIndividual IRI="#estadio_07"/>
+        <Literal>Inglaterra</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCapacidad"/>
+        <NamedIndividual IRI="#estadio_08"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">61276</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCiudad"/>
+        <NamedIndividual IRI="#estadio_08"/>
+        <Literal>Liverpool</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#estadio_08"/>
+        <Literal>Anfield</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePais"/>
+        <NamedIndividual IRI="#estadio_08"/>
+        <Literal>Inglaterra</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCapacidad"/>
+        <NamedIndividual IRI="#estadio_09"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">78838</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCiudad"/>
+        <NamedIndividual IRI="#estadio_09"/>
+        <Literal>Buenos Aires</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#estadio_09"/>
+        <Literal>Estadio Monumental</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePais"/>
+        <NamedIndividual IRI="#estadio_09"/>
+        <Literal>Argentina</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCapacidad"/>
+        <NamedIndividual IRI="#estadio_10"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">78838</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneCiudad"/>
+        <NamedIndividual IRI="#estadio_10"/>
+        <Literal>Río de Janeiro</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#estadio_10"/>
+        <Literal>Maracaná</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePais"/>
+        <NamedIndividual IRI="#estadio_10"/>
+        <Literal>Brasil</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneMinuto"/>
+        <NamedIndividual IRI="#golDePenal_01"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneTiempo"/>
+        <NamedIndividual IRI="#golDePenal_01"/>
+        <Literal>Segundo tiempo</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneMinuto"/>
+        <NamedIndividual IRI="#golEnPropiaPorteria_01"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">33</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneTiempo"/>
+        <NamedIndividual IRI="#golEnPropiaPorteria_01"/>
+        <Literal>Segundo tiempo</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneMinuto"/>
+        <NamedIndividual IRI="#gol_01"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneTiempo"/>
+        <NamedIndividual IRI="#gol_01"/>
+        <Literal>Segundo tiempo</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneMinuto"/>
+        <NamedIndividual IRI="#gol_02"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">15</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneTiempo"/>
+        <NamedIndividual IRI="#gol_02"/>
+        <Literal>Segundo tiempo</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneMinuto"/>
+        <NamedIndividual IRI="#gol_03"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">13</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneTiempo"/>
+        <NamedIndividual IRI="#gol_03"/>
+        <Literal>Primer tiempo</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneMinuto"/>
+        <NamedIndividual IRI="#gol_04"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">32</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneTiempo"/>
+        <NamedIndividual IRI="#gol_04"/>
+        <Literal>Primer tiempo</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneMinuto"/>
+        <NamedIndividual IRI="#gol_05"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">29</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneTiempo"/>
+        <NamedIndividual IRI="#gol_05"/>
+        <Literal>Primer tiempo</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneMinuto"/>
+        <NamedIndividual IRI="#gol_juego_abierto_01"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">15</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneTiempo"/>
+        <NamedIndividual IRI="#gol_juego_abierto_01"/>
+        <Literal>Segundo tiempo</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esCapitan"/>
+        <NamedIndividual IRI="#jugador_01"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esTitular"/>
+        <NamedIndividual IRI="#jugador_01"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneDorsal"/>
+        <NamedIndividual IRI="#jugador_01"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">5</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#jugador_01"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">2003-06-29T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#jugador_01"/>
+        <Literal>Inglesa</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#jugador_01"/>
+        <Literal>Jude Bellingham</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePosicion"/>
+        <NamedIndividual IRI="#jugador_01"/>
+        <Literal>Mediocampista</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esCapitan"/>
+        <NamedIndividual IRI="#jugador_02"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneDorsal"/>
+        <NamedIndividual IRI="#jugador_02"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">7</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#jugador_02"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">2000-07-12T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#jugador_02"/>
+        <Literal>Brasileña</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#jugador_02"/>
+        <Literal>Vinícius Júnior</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePosicion"/>
+        <NamedIndividual IRI="#jugador_02"/>
+        <Literal>Delantero</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esCapitan"/>
+        <NamedIndividual IRI="#jugador_03"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esTitular"/>
+        <NamedIndividual IRI="#jugador_03"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneDorsal"/>
+        <NamedIndividual IRI="#jugador_03"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">9</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#jugador_03"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1988-08-21T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#jugador_03"/>
+        <Literal>Polaca</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#jugador_03"/>
+        <Literal>Robert Lewandowski</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePosicion"/>
+        <NamedIndividual IRI="#jugador_03"/>
+        <Literal>Delantero</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esCapitan"/>
+        <NamedIndividual IRI="#jugador_04"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esTitular"/>
+        <NamedIndividual IRI="#jugador_04"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneDorsal"/>
+        <NamedIndividual IRI="#jugador_04"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">9</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#jugador_04"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1993-07-28T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#jugador_04"/>
+        <Literal>Inglesa</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#jugador_04"/>
+        <Literal>Harry Kane</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePosicion"/>
+        <NamedIndividual IRI="#jugador_04"/>
+        <Literal>Delantero</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esCapitan"/>
+        <NamedIndividual IRI="#jugador_05"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esTitular"/>
+        <NamedIndividual IRI="#jugador_05"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneDorsal"/>
+        <NamedIndividual IRI="#jugador_05"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#jugador_05"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1998-12-20T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#jugador_05"/>
+        <Literal>Francesa</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#jugador_05"/>
+        <Literal>Kylian Mbappé</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePosicion"/>
+        <NamedIndividual IRI="#jugador_05"/>
+        <Literal>Delantero</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esCapitan"/>
+        <NamedIndividual IRI="#jugador_06"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esTitular"/>
+        <NamedIndividual IRI="#jugador_06"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneDorsal"/>
+        <NamedIndividual IRI="#jugador_06"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#jugador_06"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1997-05-15T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#jugador_06"/>
+        <Literal>Francesa</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#jugador_06"/>
+        <Literal>Ousmane Dembélé</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePosicion"/>
+        <NamedIndividual IRI="#jugador_06"/>
+        <Literal>Delantero</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esCapitan"/>
+        <NamedIndividual IRI="#jugador_07"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esTitular"/>
+        <NamedIndividual IRI="#jugador_07"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneDorsal"/>
+        <NamedIndividual IRI="#jugador_07"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#jugador_07"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1996-01-11T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#jugador_07"/>
+        <Literal>Alemana</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#jugador_07"/>
+        <Literal>Leroy Sané</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePosicion"/>
+        <NamedIndividual IRI="#jugador_07"/>
+        <Literal>Delantero</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esCapitan"/>
+        <NamedIndividual IRI="#jugador_08"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esTitular"/>
+        <NamedIndividual IRI="#jugador_08"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneDorsal"/>
+        <NamedIndividual IRI="#jugador_08"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">6</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#jugador_08"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">2004-08-05T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#jugador_08"/>
+        <Literal>Española</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#jugador_08"/>
+        <Literal>Gavi</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePosicion"/>
+        <NamedIndividual IRI="#jugador_08"/>
+        <Literal>Mediocampista</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esCapitan"/>
+        <NamedIndividual IRI="#jugador_09"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esTitular"/>
+        <NamedIndividual IRI="#jugador_09"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneDorsal"/>
+        <NamedIndividual IRI="#jugador_09"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">6</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#jugador_09"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1995-02-08T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#jugador_09"/>
+        <Literal>Alemana</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#jugador_09"/>
+        <Literal>Joshua Kimmich</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePosicion"/>
+        <NamedIndividual IRI="#jugador_09"/>
+        <Literal>Mediocampista</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esCapitan"/>
+        <NamedIndividual IRI="#jugador_10"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esTitular"/>
+        <NamedIndividual IRI="#jugador_10"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneDorsal"/>
+        <NamedIndividual IRI="#jugador_10"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">8</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#jugador_10"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">2002-11-25T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#jugador_10"/>
+        <Literal>Española</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#jugador_10"/>
+        <Literal>Pedri</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePosicion"/>
+        <NamedIndividual IRI="#jugador_10"/>
+        <Literal>Mediocampista</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esCapitan"/>
+        <NamedIndividual IRI="#jugador_11"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esTitular"/>
+        <NamedIndividual IRI="#jugador_11"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneDorsal"/>
+        <NamedIndividual IRI="#jugador_11"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">11</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#jugador_11"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">2001-01-09T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#jugador_11"/>
+        <Literal>Brasileña</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#jugador_11"/>
+        <Literal>Rodrygo Goes</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePosicion"/>
+        <NamedIndividual IRI="#jugador_11"/>
+        <Literal>Delantero</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esCapitan"/>
+        <NamedIndividual IRI="#jugador_12"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esTitular"/>
+        <NamedIndividual IRI="#jugador_12"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneDorsal"/>
+        <NamedIndividual IRI="#jugador_12"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#jugador_12"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1985-09-09T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#jugador_12"/>
+        <Literal>Croata</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#jugador_12"/>
+        <Literal>Luka Modric</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePosicion"/>
+        <NamedIndividual IRI="#jugador_12"/>
+        <Literal>Mediocampista</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esCapitan"/>
+        <NamedIndividual IRI="#jugador_13"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#esTitular"/>
+        <NamedIndividual IRI="#jugador_13"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneDorsal"/>
+        <NamedIndividual IRI="#jugador_13"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <NamedIndividual IRI="#jugador_13"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">1992-10-02T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <NamedIndividual IRI="#jugador_13"/>
+        <Literal>Brasileña</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#jugador_13"/>
+        <Literal>Alisson Becker</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tienePosicion"/>
+        <NamedIndividual IRI="#jugador_13"/>
+        <Literal>Portero</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#liga_01"/>
+        <Literal>La Liga</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#liga_02"/>
+        <Literal>Bundesliga</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#liga_03"/>
+        <Literal>Premier League</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#liga_04"/>
+        <Literal>Ligue One</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFecha"/>
+        <NamedIndividual IRI="#partido_01"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">2024-10-26T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFecha"/>
+        <NamedIndividual IRI="#partido_02"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">2024-11-02T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFecha"/>
+        <NamedIndividual IRI="#partido_04"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">2024-11-15T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneFecha"/>
+        <NamedIndividual IRI="#partido_05"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">2024-11-25T00:00:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneGolesLocal"/>
+        <NamedIndividual IRI="#resultado_01"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneGolesVisitante"/>
+        <NamedIndividual IRI="#resultado_01"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneGolesLocal"/>
+        <NamedIndividual IRI="#resultado_02"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">3</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneGolesVisitante"/>
+        <NamedIndividual IRI="#resultado_02"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">3</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneGolesLocal"/>
+        <NamedIndividual IRI="#resultado_03"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneGolesVisitante"/>
+        <NamedIndividual IRI="#resultado_03"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneGolesLocal"/>
+        <NamedIndividual IRI="#resultado_04"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneGolesVisitante"/>
+        <NamedIndividual IRI="#resultado_04"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneGolesLocal"/>
+        <NamedIndividual IRI="#resultado_05"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneGolesVisitante"/>
+        <NamedIndividual IRI="#resultado_05"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">3</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#supercopa_01"/>
+        <Literal>Supercopa de España</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneMinuto"/>
+        <NamedIndividual IRI="#sustitucion_01"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">42</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneTiempo"/>
+        <NamedIndividual IRI="#sustitucion_01"/>
+        <Literal>Segundo tiempo</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneMinuto"/>
+        <NamedIndividual IRI="#sustitucion_02"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">5</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneTiempo"/>
+        <NamedIndividual IRI="#sustitucion_02"/>
+        <Literal>Segundo tiempo</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneMinuto"/>
+        <NamedIndividual IRI="#sustitucion_03"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneTiempo"/>
+        <NamedIndividual IRI="#sustitucion_03"/>
+        <Literal>Segundo tiempo</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneMinuto"/>
+        <NamedIndividual IRI="#sustitucion_04"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">15</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneTiempo"/>
+        <NamedIndividual IRI="#sustitucion_04"/>
+        <Literal>Segundo tiempo</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneMinuto"/>
+        <NamedIndividual IRI="#sustitucion_05"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">19</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneTiempo"/>
+        <NamedIndividual IRI="#sustitucion_05"/>
+        <Literal>Segundo tiempo</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#motivoTarjeta"/>
+        <NamedIndividual IRI="#tarjeta_01"/>
+        <Literal>Juego brusco</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneMinuto"/>
+        <NamedIndividual IRI="#tarjeta_01"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">11</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneTiempo"/>
+        <NamedIndividual IRI="#tarjeta_01"/>
+        <Literal>Segundo tiempo</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#motivoTarjeta"/>
+        <NamedIndividual IRI="#tarjeta_02"/>
+        <Literal>Demorar juego</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneMinuto"/>
+        <NamedIndividual IRI="#tarjeta_02"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">34</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneTiempo"/>
+        <NamedIndividual IRI="#tarjeta_02"/>
+        <Literal>Segundo tiempo</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#motivoTarjeta"/>
+        <NamedIndividual IRI="#tarjeta_03"/>
+        <Literal>Falta fuerte</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneMinuto"/>
+        <NamedIndividual IRI="#tarjeta_03"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">11</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneTiempo"/>
+        <NamedIndividual IRI="#tarjeta_03"/>
+        <Literal>Primer tiempo</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#motivoTarjeta"/>
+        <NamedIndividual IRI="#tarjeta_04"/>
+        <Literal>Sujetar al rival</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneTiempo"/>
+        <NamedIndividual IRI="#tarjeta_04"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">44</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneTiempo"/>
+        <NamedIndividual IRI="#tarjeta_04"/>
+        <Literal>Primer tiempo</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#motivoTarjeta"/>
+        <NamedIndividual IRI="#tarjeta_roja_01"/>
+        <Literal>Doble amarilla</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneMinuto"/>
+        <NamedIndividual IRI="#tarjeta_roja_01"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">44</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneTiempo"/>
+        <NamedIndividual IRI="#tarjeta_roja_01"/>
+        <Literal>Primer tiempo</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoFin"/>
+        <NamedIndividual IRI="#temporada_01"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2016</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoInicio"/>
+        <NamedIndividual IRI="#temporada_01"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">2015</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoFin"/>
+        <NamedIndividual IRI="#temporada_02"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2017</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoInicio"/>
+        <NamedIndividual IRI="#temporada_02"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">2016</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoFin"/>
+        <NamedIndividual IRI="#temporada_03"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2018</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoInicio"/>
+        <NamedIndividual IRI="#temporada_03"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2017</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoFin"/>
+        <NamedIndividual IRI="#temporada_04"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2019</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoInicio"/>
+        <NamedIndividual IRI="#temporada_04"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2018</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoFin"/>
+        <NamedIndividual IRI="#temporada_05"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2020</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoInicio"/>
+        <NamedIndividual IRI="#temporada_05"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2019</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoFin"/>
+        <NamedIndividual IRI="#temporada_06"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2021</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoInicio"/>
+        <NamedIndividual IRI="#temporada_06"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2020</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoFin"/>
+        <NamedIndividual IRI="#temporada_07"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2022</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoInicio"/>
+        <NamedIndividual IRI="#temporada_07"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2021</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoFin"/>
+        <NamedIndividual IRI="#temporada_08"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2023</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoInicio"/>
+        <NamedIndividual IRI="#temporada_08"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2022</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoFin"/>
+        <NamedIndividual IRI="#temporada_09"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2024</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoInicio"/>
+        <NamedIndividual IRI="#temporada_09"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2023</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoFin"/>
+        <NamedIndividual IRI="#temporada_10"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2026</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneAñoInicio"/>
+        <NamedIndividual IRI="#temporada_10"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2025</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#torneoamistoso_01"/>
+        <Literal>International Champions Cup</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#torneointernacional_01"/>
+        <Literal>Copa América</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tieneNombre"/>
+        <NamedIndividual IRI="#torneointernacional_02"/>
+        <Literal>UEFA Champions LEAGUE</Literal>
+    </DataPropertyAssertion>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#arbitra"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#asistencia"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#correspondeA"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#dirige"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#esParteDe"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#goleador"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#juegaEn"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#jugadorEntra"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#jugadorSale"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#perteneceA"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#recibeTarjeta"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#seJuegaEn"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#tieneEquipoLocal"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#tieneEquipoVisitante"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#tieneEstadio"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#tieneEvento"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#tieneResultado"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#tieneTemporada"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#albergaPartido"/>
+        <ObjectProperty IRI="#seJuegaEn"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#anotaGol"/>
+        <ObjectProperty IRI="#goleador"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#asisteGol"/>
+        <ObjectProperty IRI="#asistencia"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#correspondeA"/>
+        <ObjectProperty IRI="#tienePartido"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#entraEn"/>
+        <ObjectProperty IRI="#jugadorEntra"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#esLocalEn"/>
+        <ObjectProperty IRI="#tieneEquipoLocal"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#esRecibidaPor"/>
+        <ObjectProperty IRI="#recibeTarjeta"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#esSedeDe"/>
+        <ObjectProperty IRI="#tieneEstadio"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#esVisitanteEn"/>
+        <ObjectProperty IRI="#tieneEquipoVisitante"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#juegaEn"/>
+        <ObjectProperty IRI="#tieneJugador"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#jugadorSale"/>
+        <ObjectProperty IRI="#saleDe"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#resultadoDe"/>
+        <ObjectProperty IRI="#tieneResultado"/>
+    </InverseObjectProperties>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#esParteDe"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#goleador"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#juegaEn"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#jugadorEntra"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#jugadorSale"/>
+    </FunctionalObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#albergaPartido"/>
+        <Class IRI="#Estadio"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#anotaGol"/>
+        <Class IRI="#Jugador"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#arbitra"/>
+        <Class IRI="#Arbitro"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#asisteGol"/>
+        <Class IRI="#Jugador"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#asistencia"/>
+        <Class IRI="#Gol"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#correspondeA"/>
+        <Class IRI="#Partido"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#dirige"/>
+        <Class IRI="#Entrenador"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#entraEn"/>
+        <Class IRI="#Jugador"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#esArbitradoPor"/>
+        <Class IRI="#Partido"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#esDirigidoPor"/>
+        <Class IRI="#Equipo"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#esLocalEn"/>
+        <Class IRI="#Equipo"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#esParteDe"/>
+        <Class IRI="#Partido"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#esRecibidaPor"/>
+        <Class IRI="#Jugador"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#esSedeDe"/>
+        <Class IRI="#Estadio"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#esVisitanteEn"/>
+        <Class IRI="#Equipo"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#goleador"/>
+        <Class IRI="#Gol"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#juegaEn"/>
+        <Class IRI="#Jugador"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#jugadorEntra"/>
+        <Class IRI="#Sustitucion"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#jugadorSale"/>
+        <Class IRI="#Sustitucion"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#perteneceA"/>
+        <Class IRI="#Equipo"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#recibeTarjeta"/>
+        <Class IRI="#Tarjeta"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#resultadoDe"/>
+        <Class IRI="#Resultado"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#saleDe"/>
+        <Class IRI="#Jugador"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#seJuegaEn"/>
+        <Class IRI="#Partido"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#tieneEquipo"/>
+        <Class IRI="#Competicion"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#tieneEquipoLocal"/>
+        <Class IRI="#Partido"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#tieneEquipoVisitante"/>
+        <Class IRI="#Partido"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#tieneEstadio"/>
+        <Class IRI="#Equipo"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#tieneEvento"/>
+        <Class IRI="#Partido"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#tieneJugador"/>
+        <Class IRI="#Equipo"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#tienePartido"/>
+        <Class IRI="#Temporada"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#tieneResultado"/>
+        <Class IRI="#Partido"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#tieneTemporada"/>
+        <Class IRI="#Competicion"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+        <Class IRI="#Resultado"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#albergaPartido"/>
+        <Class IRI="#Partido"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#anotaGol"/>
+        <Class IRI="#Gol"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#arbitra"/>
+        <Class IRI="#Partido"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#asisteGol"/>
+        <Class IRI="#Gol"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#asistencia"/>
+        <Class IRI="#Jugador"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#correspondeA"/>
+        <Class IRI="#Temporada"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#dirige"/>
+        <Class IRI="#Equipo"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#entraEn"/>
+        <Class IRI="#Sustitucion"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#esArbitradoPor"/>
+        <Class IRI="#Arbitro"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#esDirigidoPor"/>
+        <Class IRI="#Entrenador"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#esLocalEn"/>
+        <Class IRI="#Partido"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#esParteDe"/>
+        <Class IRI="#Temporada"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#esRecibidaPor"/>
+        <Class IRI="#Tarjeta"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#esSedeDe"/>
+        <Class IRI="#Equipo"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#esVisitanteEn"/>
+        <Class IRI="#Partido"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#goleador"/>
+        <Class IRI="#Jugador"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#juegaEn"/>
+        <Class IRI="#Equipo"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#jugadorEntra"/>
+        <Class IRI="#Jugador"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#jugadorSale"/>
+        <Class IRI="#Jugador"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#perteneceA"/>
+        <Class IRI="#Competicion"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#recibeTarjeta"/>
+        <Class IRI="#Jugador"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#resultadoDe"/>
+        <Class IRI="#Partido"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#saleDe"/>
+        <Class IRI="#Sustitucion"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#seJuegaEn"/>
+        <Class IRI="#Estadio"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#tieneEquipo"/>
+        <Class IRI="#Equipo"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#tieneEquipoLocal"/>
+        <Class IRI="#Equipo"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#tieneEquipoVisitante"/>
+        <Class IRI="#Equipo"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#tieneEstadio"/>
+        <Class IRI="#Estadio"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#tieneEvento"/>
+        <Class IRI="#EventoPartido"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#tieneJugador"/>
+        <Class IRI="#Jugador"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#tienePartido"/>
+        <Class IRI="#Partido"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#tieneResultado"/>
+        <Class IRI="#Resultado"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#tieneTemporada"/>
+        <Class IRI="#Temporada"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+        <Class IRI="#Partido"/>
+    </ObjectPropertyRange>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#esCapitan"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#esTitular"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#motivoTarjeta"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#tieneAñoFin"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#tieneAñoInicio"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#tieneCapacidad"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#tieneCiudad"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#tieneDorsal"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#tieneFecha"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#tieneGolesLocal"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#tieneGolesVisitante"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#tieneJornada"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#tieneMinuto"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#tieneNombre"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#tienePais"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#tienePosicion"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#tieneTiempo"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <DataPropertyDomain>
+        <DataProperty IRI="#esCapitan"/>
+        <Class IRI="#Jugador"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#esTitular"/>
+        <Class IRI="#Jugador"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#motivoTarjeta"/>
+        <Class IRI="#Tarjeta"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tieneAñoFin"/>
+        <Class IRI="#Temporada"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tieneAñoInicio"/>
+        <Class IRI="#Temporada"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tieneCapacidad"/>
+        <Class IRI="#Estadio"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tieneCiudad"/>
+        <Class IRI="#Equipo"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tieneCiudad"/>
+        <Class IRI="#Estadio"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tieneDorsal"/>
+        <Class IRI="#Jugador"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tieneFecha"/>
+        <Class IRI="#Partido"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <Class IRI="#Persona"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tieneGolesLocal"/>
+        <Class IRI="#Resultado"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tieneGolesVisitante"/>
+        <Class IRI="#Resultado"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tieneJornada"/>
+        <Class IRI="#Partido"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tieneMinuto"/>
+        <Class IRI="#EventoPartido"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <Class IRI="#Equipo"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <Class IRI="#Persona"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tieneNombre"/>
+        <Class IRI="#Competicion"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tieneNombre"/>
+        <Class IRI="#Equipo"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tieneNombre"/>
+        <Class IRI="#Estadio"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tieneNombre"/>
+        <Class IRI="#Persona"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tienePais"/>
+        <Class IRI="#Equipo"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tienePais"/>
+        <Class IRI="#Estadio"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tienePosicion"/>
+        <Class IRI="#Jugador"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tieneTiempo"/>
+        <Class IRI="#EventoPartido"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="#esCapitan"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#esTitular"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#motivoTarjeta"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tieneAñoFin"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tieneAñoInicio"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tieneCapacidad"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tieneCiudad"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tieneDorsal"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tieneFecha"/>
+        <Datatype abbreviatedIRI="xsd:dateTime"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tieneFechaNacimiento"/>
+        <Datatype abbreviatedIRI="xsd:dateTime"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tieneGolesLocal"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tieneGolesVisitante"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tieneJornada"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tieneMinuto"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tieneNacionalidad"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tieneNombre"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tienePais"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tienePosicion"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tieneTiempo"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+
