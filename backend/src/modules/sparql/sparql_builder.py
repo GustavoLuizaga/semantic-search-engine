@@ -94,6 +94,21 @@ class SPARQLBuilder:
         """
 
     @staticmethod
+    def query_jugadores_nacionalidad(nacionalidad: str) -> str:
+        return PREFIX + f"""
+        SELECT ?nombre ?nacionalidad ?equipo_nombre ?posicion
+        WHERE {{
+            ?jug a :Jugador ;
+                 :tieneNombre ?nombre ;
+                 :tieneNacionalidad ?nac .
+            OPTIONAL {{ ?jug :juegaEn ?eq . ?eq :tieneNombre ?equipo_nombre }}
+            OPTIONAL {{ ?jug :tienePosicion ?posicion }}
+            FILTER(CONTAINS(LCASE(?nac), "{nacionalidad.lower()}"))
+        }}
+        ORDER BY ?nombre
+        """
+
+    @staticmethod
     def query_info_estadio(estadio_id: str) -> str:
         return PREFIX + f"""
         SELECT ?nombre ?capacidad ?ciudad ?pais

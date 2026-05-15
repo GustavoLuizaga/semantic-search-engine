@@ -30,6 +30,9 @@ class OntologyMatcher:
             eq_id = self.indexer.find_by_name(equipo) if equipo else None
             return {"dorsal": dorsal, "equipo_id": eq_id}
 
+        elif intent == "jugadores_nacionalidad":
+            return {"nacionalidad": entities[0] if entities else ""}
+
         elif intent == "goleadores_ranking":
             # No necesita entidad específica
             return {}

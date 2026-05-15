@@ -158,6 +158,7 @@ class SearchService:
                 "info_equipo":        lambda: SearchService._info_equipo(match, parsed),
                 "info_jugador":       lambda: SearchService._info_jugador(match, parsed),
                 "jugador_por_dorsal": lambda: SearchService._jugador_por_dorsal(match, parsed),
+                "jugadores_nacionalidad": lambda: SearchService._jugadores_nacionalidad(match, parsed),
                 "estadios":           lambda: SearchService._info_estadio(match, parsed),
                 "arbitros":           lambda: SearchService._arbitros(),
                 "tarjetas":           lambda: SearchService._tarjetas(),
@@ -403,6 +404,58 @@ class SearchService:
                 
         # Si no lo encontró
         return "No hay resultados para la búsqueda.", None, False
+
+    @staticmethod
+    def _jugadores_nacionalidad(match, parsed):
+        if not match or not match.get("nacionalidad"):
+            return "No hay resultados para la búsqueda.", None, False
+            
+        nac_buscada = match["nacionalidad"].lower()
+        if not nac_buscada:
+            return "No hay resultados para la búsqueda.", None, False
+            
+        # Mapeo simple para gentilicios comunes
+        mapeo = {
+            "españa": "española", "española": "españa", "español": "españa",
+            "inglaterra": "inglesa", "inglesa": "inglaterra", "ingles": "inglaterra", "inglés": "inglaterra",
+            "francia": "francesa", "francesa": "francia", "frances": "francia", "francés": "francia",
+            "brasil": "brasileña", "brasileña": "brasil", "brasileño": "brasil",
+            "alemania": "alemana", "alemana": "alemania", "aleman": "alemania", "alemán": "alemania",
+            "argentina": "argentina", "argentino": "argentina",
+            "portugal": "portuguesa", "portuguesa": "portugal", "portugues": "portugal", "portugués": "portugal",
+            "italia": "italiana", "italiana": "italia", "italiano": "italia",
+            "uruguay": "uruguaya", "uruguaya": "uruguay", "uruguayo": "uruguay",
+            "colombia": "colombiana", "colombiana": "colombia", "colombiano": "colombia",
+            "croacia": "croata", "croata": "croacia"
+        }
+        nac_buscada_alt = mapeo.get(nac_buscada, nac_buscada)
+        
+        jugadores = indexer.clase_idx.get("Jugador", [])
+        data = []
+        for j_id in jugadores:
+            props = loader.data_props.get(j_id, {})
+            nac = props.get("tieneNacionalidad", "")
+            nac_low = nac.lower()
+            
+            if nac_buscada in nac_low or nac_buscada_alt in nac_low or nac_low in nac_buscada or nac_low in nac_buscada_alt:
+                nom = props.get("tieneNombre", j_id)
+                data.append({"nombre": nom, "nacionalidad": nac})
+                
+        if not data:
+            return "No hay resultados para la búsqueda.", None, False
+            
+        nombres = [d["nombre"] for d in data]
+        if len(nombres) > 5:
+            nombres_str = ", ".join(nombres[:5]) + f" y {len(nombres) - 5} más"
+        else:
+            if len(nombres) > 1:
+                nombres_str = ", ".join(nombres[:-1]) + f" y {nombres[-1]}"
+            else:
+                nombres_str = nombres[0]
+                
+        nac_capitalized = data[0]["nacionalidad"] # Usar la original
+        answer = f"Se encontraron {len(data)} jugadores con nacionalidad {nac_capitalized}, entre ellos: {nombres_str}."
+        return answer, data, True
 
     @staticmethod
     def _info_estadio(match, parsed):

@@ -31,6 +31,7 @@ class SemanticParser:
         ("resultado_partido",   ["resultado", "marcador", "ganó", "ganó", "perdio", "perdio", "empató", "empato", "vs", "contra"]),
         ("goles_partido",       ["quién anotó", "quien anoto", "quien metió", "goleadores del partido",
                                  "cuántos goles marcó", "cuantos goles marcó", "cuantos goles marco", "goles marcó"]),
+        ("jugadores_nacionalidad", ["nacionalidad", "país", "pais", "jugadores de ", "jugador de ", "jugadores son de", "jugador es de"]),
         ("jugadores_equipo",    ["jugadores", "plantilla", "quiénes juegan en", "quienes juegan en"]),
         ("info_equipo",         ["información de", "estadio de", "entrenador de", "datos del equipo",
                                  "entrena al", "entrena a", "quien entrena", "quién entrena"]),
@@ -85,6 +86,9 @@ class SemanticParser:
 
         elif intent == "jugador_por_dorsal":
             return SemanticParser._extract_dorsal_entities(q_lower)
+
+        elif intent == "jugadores_nacionalidad":
+            return SemanticParser._extract_nacionalidad_entities(q_lower)
 
         elif intent in ("goleadores_ranking", "todos_partidos", "todos_equipos",
                         "todos_jugadores", "arbitros", "tarjetas", "sustituciones"):
@@ -200,4 +204,19 @@ class SemanticParser:
                 
         team = teams_found[0] if teams_found else ""
         return [dorsal, team]
+
+    @staticmethod
+    def _extract_nacionalidad_entities(q_lower: str) -> list:
+        """Extrae la nacionalidad de la query."""
+        cleaned = q_lower
+        kws = ["jugadores con nacionalidad", "jugador con nacionalidad", "nacionalidad", 
+               "del pais", "del país", "jugadores son de", "jugador es de", "jugadores de", "jugador de"]
+        for kw in sorted(kws, key=len, reverse=True):
+            if kw in cleaned:
+                # Tomar lo que sigue después de la keyword
+                parts = cleaned.split(kw)
+                if len(parts) > 1:
+                    cleaned = parts[-1].strip(" ¿?!,")
+                break
+        return [cleaned] if cleaned else [q_lower]
 
