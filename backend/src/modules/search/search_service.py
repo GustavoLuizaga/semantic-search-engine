@@ -146,7 +146,7 @@ class SearchService:
         match  = matcher.match(parsed)
         intent = parsed.intent
 
-        answer = "No encontré información para esa consulta."
+        answer = "No hay resultados para la búsqueda."
         data   = None
         found  = False
 
@@ -179,7 +179,7 @@ class SearchService:
     @staticmethod
     def _resultado_partido(match):
         if not match or "eq_a" not in match:
-            return "No encontré los equipos en la ontología.", None, False
+            return "No hay resultados para la búsqueda.", None, False
 
         eq_a_id = match.get("eq_a")
         eq_b_id = match.get("eq_b")
@@ -197,23 +197,20 @@ class SearchService:
                     partidos_enc.append(p_id)
 
         if not partidos_enc:
-            return "No encontré partidos entre esos equipos.", None, False
+            return "No hay resultados para la búsqueda.", None, False
 
-        blocks = []
         results = []
         for p_id in partidos_enc:
             i = _info_partido(p_id)
             results.append(i)
-            loc, vis = i["equipo_local"], i["equipo_visitante"]
-            gl, gv   = i["goles_local"], i["goles_visitante"]
-            blocks.append(
-                f"{loc} {gl} - {gv} {vis}\n"
-                f"Fecha: {i['fecha']} | Competición: {i['competicion']} ({i['temporada']})\n"
-                f"Estadio: {i['estadio']} | Árbitro: {i['arbitro']}"
-            )
 
-        answer = "\n\n".join(blocks)
-        data   = results[0] if len(results) == 1 else results
+        if len(results) == 1:
+            i = results[0]
+            answer = f"El resultado fue {i['equipo_local']} {i['goles_local']} - {i['goles_visitante']} {i['equipo_visitante']}."
+        else:
+            answer = f"Se encontraron {len(results)} partidos entre esos equipos. Revisa los datos para más detalles."
+
+        data = results[0] if len(results) == 1 else results
         return answer, data, True
 
     @staticmethod
@@ -251,30 +248,28 @@ class SearchService:
                         partidos.append(p_id)
 
             if partidos:
-                lines = []
                 all_goles = []
                 for p_id in partidos:
                     info  = _info_partido(p_id)
                     goles = _goles_de_partido(p_id)
-                    lines.append(
-                        f"{info['equipo_local']} {info['goles_local']} - "
-                        f"{info['goles_visitante']} {info['equipo_visitante']}"
-                    )
                     if goles:
                         for g in goles:
-                            asis = f" (asiste: {g['asistidor']})" if g['asistidor'] else ""
-                            lines.append(f"  Gol: {g['anotador']}{asis} | Min {g['minuto']} {g['tiempo']}")
                             all_goles.append(g)
-                    else:
-                        lines.append("  (Sin detalle de goles registrados)")
-                return "\n".join(lines), all_goles, True
+                
+                if len(partidos) == 1:
+                    info = _info_partido(partidos[0])
+                    answer = f"En el partido {info['equipo_local']} vs {info['equipo_visitante']} se registraron {len(all_goles)} detalle(s) de goles."
+                else:
+                    answer = f"Se encontraron detalles de goles para {len(partidos)} partidos."
+                    
+                return answer, all_goles, True
 
-        return "No encontré información de goles.", None, False
+        return "No hay resultados para la búsqueda.", None, False
 
     @staticmethod
     def _jugadores_equipo(match):
         if not match or "equipo_id" not in match:
-            return "No encontré el equipo especificado.", None, False
+            return "No hay resultados para la búsqueda.", None, False
         eq_id  = match["equipo_id"]
         nom_eq = _nombre(eq_id)
 
@@ -283,25 +278,32 @@ class SearchService:
             if eq_id in [o for p, o in loader.obj_props.get(j_id, []) if p == "juegaEn"]
         ]
         if not jugadores:
-            return f"No encontré jugadores para {nom_eq}.", None, False
+            return "No hay resultados para la búsqueda.", None, False
 
-        lines = [f"Plantilla — {nom_eq}:"]
         data  = []
         for j_id in sorted(jugadores, key=lambda x: loader.data_props.get(x, {}).get("tieneNombre", x)):
             props = loader.data_props.get(j_id, {})
             nom   = props.get("tieneNombre", j_id)
             pos   = props.get("tienePosicion", "?")
             dor   = str(props.get("tieneDorsal", "?"))
-            cap_v = str(props.get("esCapitan", "false")).lower()
-            cap   = " (Capitán)" if cap_v == "true" else ""
-            lines.append(f"  {nom} | #{dor} | {pos}{cap}")
             data.append({"nombre": nom, "dorsal": dor, "posicion": pos})
-        return "\n".join(lines), data, True
+            
+        nombres = [d["nombre"] for d in data]
+        if len(nombres) > 5:
+            nombres_str = ", ".join(nombres[:5]) + f" y {len(nombres) - 5} más"
+        else:
+            if len(nombres) > 1:
+                nombres_str = ", ".join(nombres[:-1]) + f" y {nombres[-1]}"
+            else:
+                nombres_str = nombres[0]
+                
+        answer = f"La plantilla del {nom_eq} incluye a {len(nombres)} jugadores, entre ellos: {nombres_str}."
+        return answer, data, True
 
     @staticmethod
     def _info_equipo(match, parsed):
         if not match or "equipo_id" not in match:
-            return "No encontré el equipo especificado.", None, False
+            return "No hay resultados para la búsqueda.", None, False
         eq_id  = match["equipo_id"]
         props  = loader.data_props.get(eq_id, {})
         nom    = props.get("tieneNombre", eq_id)
@@ -326,13 +328,7 @@ class SearchService:
         elif "ciudad" in q or "de donde es" in q or "de dónde es" in q or "pais" in q or "país" in q:
             answer = f"El {nom} es de {ciudad}, {pais}."
         else:
-            answer = (
-                f"Equipo: {nom}\n"
-                f"Ciudad: {ciudad}, {pais}\n"
-                f"Estadio: {est_nom}\n"
-                f"Entrenador: {dt_nom}\n"
-                f"Liga: {comp_nom}"
-            )
+            answer = f"El {nom} es un equipo de {ciudad}, {pais}, dirigido por {dt_nom}. Juega sus partidos como local en el estadio {est_nom} y participa en la {comp_nom}."
             
         data = {"nombre": nom, "ciudad": ciudad, "pais": pais,
                 "estadio": est_nom, "entrenador": dt_nom, "liga": comp_nom}
@@ -341,7 +337,7 @@ class SearchService:
     @staticmethod
     def _info_jugador(match, parsed):
         if not match or "jugador_id" not in match:
-            return "No encontré al jugador especificado.", None, False
+            return "No hay resultados para la búsqueda.", None, False
         jug_id = match["jugador_id"]
         props  = loader.data_props.get(jug_id, {})
         nom    = props.get("tieneNombre", jug_id)
@@ -371,13 +367,8 @@ class SearchService:
         elif "goles" in q:
             answer = f"{nom} tiene {count} goles registrados."
         else:
-            answer = (
-                f"Jugador: {nom}{cap} | #{dor}\n"
-                f"Posición: {pos}\n"
-                f"Nacionalidad: {nac}\n"
-                f"Equipo: {eq_nom}\n"
-                f"Goles registrados: {count}"
-            )
+            cap_str = " (capitán)" if cap else ""
+            answer = f"{nom} es un jugador de nacionalidad {nac} que juega de {pos} en el {eq_nom}{cap_str}. Usa el dorsal #{dor} y tiene {count} goles registrados."
 
         data = {"nombre": nom, "dorsal": dor, "posicion": pos,
                 "nacionalidad": nac, "equipo": eq_nom, "goles": count}
@@ -386,7 +377,7 @@ class SearchService:
     @staticmethod
     def _jugador_por_dorsal(match, parsed):
         if not match or not match.get("dorsal"):
-            return "No entendí qué número de dorsal estás buscando.", None, False
+            return "No hay resultados para la búsqueda.", None, False
         
         dorsal = match["dorsal"]
         eq_id = match.get("equipo_id")
@@ -411,15 +402,13 @@ class SearchService:
                 return answer, data, True
                 
         # Si no lo encontró
-        eq_text = f" en el {_nombre(eq_id)}" if eq_id else ""
-        return f"No se encontró un jugador con el dorsal #{dorsal}{eq_text}.", None, False
+        return "No hay resultados para la búsqueda.", None, False
 
     @staticmethod
     def _info_estadio(match, parsed):
         if not match or "estadio_id" not in match:
             # Listar todos los estadios
             estadios = indexer.clase_idx.get("Estadio", [])
-            lines = ["Estadios registrados:"]
             data  = []
             for e_id in sorted(estadios):
                 p   = loader.data_props.get(e_id, {})
@@ -427,9 +416,15 @@ class SearchService:
                 cap = str(p.get("tieneCapacidad", "?"))
                 ciu = p.get("tieneCiudad", "?")
                 pai = p.get("tienePais", "?")
-                lines.append(f"  - {nom} | {ciu}, {pai} | Cap: {cap}")
                 data.append({"nombre": nom, "capacidad": cap, "ciudad": ciu, "pais": pai})
-            return "\n".join(lines), data, bool(estadios)
+                
+            estadios_nombres = [d["nombre"] for d in data]
+            if len(estadios_nombres) > 5:
+                est_str = ", ".join(estadios_nombres[:5]) + f" y {len(estadios_nombres) - 5} más"
+            else:
+                est_str = ", ".join(estadios_nombres)
+            answer = f"Hay {len(data)} estadios registrados, como por ejemplo: {est_str}."
+            return answer, data, bool(estadios)
 
         est_id = match["estadio_id"]
         props  = loader.data_props.get(est_id, {})
@@ -444,11 +439,7 @@ class SearchService:
         elif "donde esta" in q or "dónde está" in q or "ciudad" in q or "ubicacion" in q or "ubicación" in q:
             answer = f"El estadio {nom} está ubicado en {ciu}, {pai}."
         else:
-            answer = (
-                f"Estadio: {nom}\n"
-                f"Capacidad: {cap}\n"
-                f"Ubicación: {ciu}, {pai}"
-            )
+            answer = f"El estadio {nom} está ubicado en {ciu}, {pai}, y tiene una capacidad para {cap} espectadores."
             
         data = {"nombre": nom, "capacidad": cap, "ciudad": ciu, "pais": pai}
         return answer, data, True
@@ -457,20 +448,24 @@ class SearchService:
     def _arbitros():
         arbs = indexer.clase_idx.get("Arbitro", [])
         if not arbs:
-            return "No se encontraron árbitros.", None, False
-        lines = ["Árbitros registrados:"]
+            return "No hay resultados para la búsqueda.", None, False
         data  = []
         for a_id in sorted(arbs, key=lambda x: loader.data_props.get(x, {}).get("tieneNombre", x)):
             p   = loader.data_props.get(a_id, {})
             nom = p.get("tieneNombre", a_id)
             nac = p.get("tieneNacionalidad", "?")
-            lines.append(f"  - {nom} ({nac})")
             data.append({"nombre": nom, "nacionalidad": nac})
-        return "\n".join(lines), data, True
+            
+        nombres = [d["nombre"] for d in data]
+        if len(nombres) > 5:
+            nombres_str = ", ".join(nombres[:5]) + f" y {len(nombres) - 5} más"
+        else:
+            nombres_str = ", ".join(nombres)
+        answer = f"Hay {len(data)} árbitros registrados, como por ejemplo: {nombres_str}."
+        return answer, data, True
 
     @staticmethod
     def _tarjetas():
-        lines = ["Tarjetas registradas:"]
         data  = []
         clases_tarjeta = {"TarjetaAmarilla": "Amarilla", "TarjetaRoja": "Roja"}
         for cls, emoji in clases_tarjeta.items():
@@ -481,19 +476,19 @@ class SearchService:
                 mins   = str(props.get("tieneMinuto", "?"))
                 tiem   = props.get("tieneTiempo", "")
                 motiv  = props.get("motivoTarjeta", "")
-                lines.append(f"  {emoji} → {nom} | Min {mins} {tiem} | {motiv}")
                 data.append({"tipo": cls, "jugador": nom, "minuto": mins,
                              "tiempo": tiem, "motivo": motiv})
-        if len(lines) == 1:
-            return "No se encontraron tarjetas.", None, False
-        return "\n".join(lines), data, True
+        if not data:
+            return "No hay resultados para la búsqueda.", None, False
+            
+        answer = f"Se encontraron {len(data)} tarjetas registradas en total."
+        return answer, data, True
 
     @staticmethod
     def _sustituciones():
         sust_ids = indexer.clase_idx.get("Sustitucion", [])
         if not sust_ids:
-            return "No se encontraron sustituciones.", None, False
-        lines = ["Sustituciones registradas:"]
+            return "No hay resultados para la búsqueda.", None, False
         data  = []
         for s_id in sorted(sust_ids):
             entra_id = indexer.get_obj(s_id, "jugadorEntra")
@@ -503,9 +498,10 @@ class SearchService:
             sale     = _nombre(sale_id)  if sale_id  else "?"
             mins     = str(props.get("tieneMinuto", "?"))
             tiem     = props.get("tieneTiempo", "")
-            lines.append(f"  - Entra: {entra} | Sale: {sale} | Min {mins} {tiem}")
             data.append({"entra": entra, "sale": sale, "minuto": mins, "tiempo": tiem})
-        return "\n".join(lines), data, True
+            
+        answer = f"Se encontraron {len(data)} sustituciones registradas."
+        return answer, data, True
 
     @staticmethod
     def _goleadores_ranking():
@@ -517,57 +513,65 @@ class SearchService:
                     conteo[obj] = conteo.get(obj, 0) + 1
 
         if not conteo:
-            return "No se encontraron goleadores.", None, False
+            return "No hay resultados para la búsqueda.", None, False
 
         ranking = sorted(conteo.items(), key=lambda x: -x[1])
-        lines = ["Ranking de Goleadores:"]
         data  = []
         for i, (jug_id, goles) in enumerate(ranking, 1):
             nom = _nombre(jug_id)
-            lines.append(f"  {i}. {nom} — {goles} gol(es)")
             data.append({"jugador": nom, "goles": goles})
-        return "\n".join(lines), data, True
+            
+        nombres = [f"{d['jugador']} ({d['goles']})" for d in data[:3]]
+        top_str = ", ".join(nombres)
+        answer = f"Se encontraron {len(data)} goleadores. El Top 3 es: {top_str}."
+        return answer, data, True
 
     @staticmethod
     def _todos_partidos():
         partidos = indexer.clase_idx.get("Partido", [])
         if not partidos:
-            return "No se encontraron partidos.", None, False
-        lines = [f"Partidos registrados ({len(partidos)}):"]
+            return "No hay resultados para la búsqueda.", None, False
         data  = []
         for p_id in sorted(partidos):
             i = _info_partido(p_id)
-            loc, vis = i["equipo_local"], i["equipo_visitante"]
-            gl, gv   = i["goles_local"], i["goles_visitante"]
-            lines.append(f"  - {loc} {gl}-{gv} {vis} | {i['competicion']} | {i['fecha']}")
             data.append(i)
-        return "\n".join(lines), data, True
+            
+        answer = f"Se encontraron {len(data)} partidos registrados en total."
+        return answer, data, True
 
     @staticmethod
     def _todos_equipos():
         equipos = indexer.clase_idx.get("Equipo", [])
         if not equipos:
-            return "No se encontraron equipos.", None, False
-        lines = [f"Equipos registrados ({len(equipos)}):"]
+            return "No hay resultados para la búsqueda.", None, False
         data  = []
         for eq_id in sorted(equipos):
             nom = _nombre(eq_id)
-            lines.append(f"  - {nom}")
             data.append(nom)
-        return "\n".join(lines), data, True
+            
+        if len(data) > 5:
+            eq_str = ", ".join(data[:5]) + f" y {len(data) - 5} más"
+        else:
+            eq_str = ", ".join(data)
+        answer = f"Hay {len(data)} equipos registrados, incluyendo a: {eq_str}."
+        return answer, data, True
 
     @staticmethod
     def _todos_jugadores():
         jugadores = indexer.clase_idx.get("Jugador", [])
         if not jugadores:
-            return "No se encontraron jugadores.", None, False
-        lines = [f"Jugadores registrados ({len(jugadores)}):"]
+            return "No hay resultados para la búsqueda.", None, False
         data  = []
         for j_id in sorted(jugadores, key=lambda x: loader.data_props.get(x, {}).get("tieneNombre", x)):
             nom = _nombre(j_id)
-            lines.append(f"  - {nom}")
             data.append(nom)
-        return "\n".join(lines), data, True
+            
+        if len(data) > 5:
+            jug_str = ", ".join(data[:5]) + f" y {len(data) - 5} más"
+        else:
+            jug_str = ", ".join(data)
+        answer = f"Hay {len(data)} jugadores registrados, incluyendo a: {jug_str}."
+        return answer, data, True
 
 
 # Singleton
