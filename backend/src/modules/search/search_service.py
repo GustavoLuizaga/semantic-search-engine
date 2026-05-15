@@ -1,11 +1,11 @@
 import os
-from modules.ontology.ontology_loader import OntologyLoader
-from modules.ontology.ontology_indexer import OntologyIndexer
-from modules.semantic.semantic_parser import SemanticParser
-from modules.semantic.ontology_matcher import OntologyMatcher
-from modules.sparql.sparql_builder import SPARQLBuilder
-from modules.sparql.sparql_executor import SPARQLExecutor
-from models import SearchResponse
+from src.modules.ontology.ontology_loader import OntologyLoader
+from src.modules.ontology.ontology_indexer import OntologyIndexer
+from src.modules.semantic.semantic_parser import SemanticParser
+from src.modules.semantic.ontology_matcher import OntologyMatcher
+from src.modules.sparql.sparql_builder import SPARQLBuilder
+from src.modules.sparql.sparql_executor import SPARQLExecutor
+from src.models import SearchResponse
 
 # ── Resolver ruta del OWX ──────────────────────────────────────────────────
 _HERE    = os.path.dirname(os.path.abspath(__file__))
