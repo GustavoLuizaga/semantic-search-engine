@@ -60,7 +60,7 @@ class OntologyMatcher:
         if intent in ("resultado_partido", "goles_partido"):
             return self._match_partido(entities)
 
-        elif intent in ("jugadores_equipo", "info_equipo"):
+        elif intent in ("jugadores_equipo", "info_equipo", "capitan_equipo"):
             return self._match_equipo(entities)
 
         elif intent == "info_jugador":
@@ -68,6 +68,12 @@ class OntologyMatcher:
 
         elif intent == "estadios":
             return self._match_estadio(entities)
+
+        elif intent == "estadios_ubicacion":
+            return {"ubicacion": entities[0] if entities else ""}
+
+        elif intent == "partidos_competicion":
+            return {"competicion": entities[0] if entities else ""}
 
         elif intent == "jugador_por_dorsal":
             dorsal = entities[0] if len(entities) > 0 else ""

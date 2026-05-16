@@ -69,6 +69,9 @@ class SearchService:
             "todos_partidos":         lambda: self._todos_partidos(),
             "todos_equipos":          lambda: self._todos_equipos(),
             "todos_jugadores":        lambda: self._todos_jugadores(),
+            "capitan_equipo":         lambda: self._capitan_equipo(matched),
+            "estadios_ubicacion":     lambda: self._estadios_ubicacion(matched),
+            "partidos_competicion":   lambda: self._partidos_competicion(matched),
         }
 
         fn = dispatch.get(intent)
@@ -351,17 +354,18 @@ class SearchService:
             return "No pude identificar la nacionalidad en tu consulta.", None, False
 
         mapeo = {
-            "española": "españa", "español": "españa",
-            "inglesa":  "inglaterra", "ingles": "inglaterra", "inglés": "inglaterra",
-            "francesa": "francia",   "frances": "francia",   "francés": "francia",
-            "brasileña": "brasil",   "brasileño": "brasil",
-            "alemana":  "alemania",  "aleman": "alemania",   "alemán": "alemania",
-            "argentina": "argentina","argentino": "argentina",
-            "portuguesa": "portugal","portugues": "portugal","portugués": "portugal",
-            "italiana":  "italia",   "italiano": "italia",
-            "uruguaya":  "uruguay",  "uruguayo": "uruguay",
-            "colombiana": "colombia","colombiano": "colombia",
-            "croata":    "croacia",
+            "españa": "española", "español": "española", "española": "española",
+            "inglaterra": "inglesa", "ingles": "inglesa", "inglés": "inglesa", "inglesa": "inglesa",
+            "francia": "francesa", "frances": "francesa", "francés": "francesa", "francesa": "francesa",
+            "brasil": "brasileña", "brasileño": "brasileña", "brasileña": "brasileña",
+            "alemania": "alemana", "aleman": "alemana", "alemán": "alemana", "alemana": "alemana",
+            "argentina": "argentina", "argentino": "argentina",
+            "portugal": "portuguesa", "portugues": "portuguesa", "portugués": "portuguesa", "portuguesa": "portuguesa",
+            "italia": "italiana", "italiano": "italiana", "italiana": "italiana",
+            "uruguay": "uruguaya", "uruguayo": "uruguaya", "uruguaya": "uruguaya",
+            "colombia": "colombiana", "colombiano": "colombiana", "colombiana": "colombiana",
+            "croacia": "croata", "croata": "croata",
+            "polonia": "polaca", "polaco": "polaca", "polaca": "polaca"
         }
         nac_query = mapeo.get(nac.lower(), nac)
         print(f"  [jugadores_nacionalidad] nac_query={nac_query!r}")
@@ -424,6 +428,29 @@ class SearchService:
 
         return answer, {"nombre": nom, "capacidad": cap, "ciudad": ciu, "pais": pai}, True
 
+    # ── estadios_ubicacion ─────────────────────────────────────────────────
+    @staticmethod
+    def _estadios_ubicacion(matched: dict):
+        ubicacion = (matched.get("ubicacion") or "").strip()
+        print(f"  [estadios_ubicacion] ubicacion={ubicacion!r}")
+
+        if not ubicacion:
+            return "No pude identificar la ubicación en tu consulta.", None, False
+
+        resultados = executor.query(SPARQLBuilder.query_estadios_por_ubicacion(ubicacion))
+        print(f"  [estadios_ubicacion] filas={len(resultados)}")
+
+        if not resultados:
+            return f"No encontré estadios registrados en {ubicacion}.", None, False
+
+        data = [{"nombre":    f.get("nombre", "?"), "capacidad": f.get("capacidad", "?"),
+                 "ciudad":    f.get("ciudad", "?"), "pais":      f.get("pais", "?")}
+                for f in resultados]
+        
+        nombres = [d["nombre"] for d in data]
+        answer  = f"Se encontraron {len(data)} estadio(s) en {ubicacion}: {_resumir_lista(nombres)}."
+        return answer, data, True
+
     # ── arbitros ───────────────────────────────────────────────────────────
     @staticmethod
     def _arbitros():
@@ -477,6 +504,33 @@ class SearchService:
         answer = f"Top goleadores: {top3}."
         return answer, data, True
 
+    # ── partidos_competicion ───────────────────────────────────────────────
+    @staticmethod
+    def _partidos_competicion(matched: dict):
+        comp = (matched.get("competicion") or "").strip()
+        print(f"  [partidos_competicion] comp={comp!r}")
+
+        if not comp:
+            return "No pude identificar la competición en tu consulta.", None, False
+
+        resultados = executor.query(SPARQLBuilder.query_partidos_por_competicion(comp))
+        print(f"  [partidos_competicion] filas={len(resultados)}")
+
+        if not resultados:
+            return f"No encontré partidos registrados para la competición {comp}.", None, False
+
+        data = [{"fecha":           _fmt_fecha(f.get("fecha", "")),
+                 "local":           f.get("eq_local_nom", "?"),
+                 "visitante":       f.get("eq_visitante_nom", "?"),
+                 "goles_local":     f.get("goles_local", "-"),
+                 "goles_visitante": f.get("goles_visitante", "-"),
+                 "competicion":     f.get("compName", "?")}
+                for f in resultados]
+
+        comp_name = data[0]["competicion"]
+        answer = f"Se encontraron {len(data)} partido(s) de la competición {comp_name}."
+        return answer, data, True
+
     # ── todos_partidos ─────────────────────────────────────────────────────
     @staticmethod
     def _todos_partidos():
@@ -501,8 +555,15 @@ class SearchService:
         print(f"  [todos_equipos] filas={len(resultados)}")
         if not resultados:
             return "No hay equipos registrados.", None, False
-        data   = [f["nombre"] for f in resultados if "nombre" in f]
-        answer = f"Hay {len(data)} equipos registrados: {_resumir_lista(data)}."
+
+        data = [{"nombre":  f.get("nombre", "?"),
+                 "ciudad":  f.get("ciudad", "?"),
+                 "pais":    f.get("pais", "?"),
+                 "estadio": f.get("estadio_nombre", "?")}
+                for f in resultados]
+
+        nombres = [d["nombre"] for d in data]
+        answer  = f"Hay {len(data)} equipos registrados: {_resumir_lista(nombres)}."
         return answer, data, True
 
     # ── todos_jugadores ────────────────────────────────────────────────────
@@ -512,10 +573,42 @@ class SearchService:
         print(f"  [todos_jugadores] filas={len(resultados)}")
         if not resultados:
             return "No hay jugadores registrados.", None, False
-        data   = [f["nombre"] for f in resultados if "nombre" in f]
-        answer = f"Hay {len(data)} jugadores registrados: {_resumir_lista(data)}."
+
+        data = [{"nombre":       f.get("nombre", "?"),
+                 "nacionalidad": f.get("nacionalidad", "?"),
+                 "posicion":     f.get("posicion", "?"),
+                 "equipo":       f.get("equipo_nombre", "?")}
+                for f in resultados]
+
+        nombres = [d["nombre"] for d in data]
+        answer  = f"Hay {len(data)} jugadores registrados: {_resumir_lista(nombres)}."
         return answer, data, True
 
+    # ── capitan_equipo ─────────────────────────────────────────────────────
+    @staticmethod
+    def _capitan_equipo(matched: dict):
+        eq_id = matched.get("equipo_id")
+        print(f"  [capitan_equipo] eq_id={eq_id!r}")
+        
+        if not eq_id:
+            return "No pude identificar el equipo en tu consulta.", None, False
+
+        resultados = executor.query(SPARQLBuilder.query_capitan_equipo(eq_id))
+        print(f"  [capitan_equipo] filas={len(resultados)}")
+        
+        if not resultados:
+            return "No encontré un capitán registrado para ese equipo.", None, False
+
+        fila = resultados[0]
+        nom = fila.get("nombre", "?")
+        dor = fila.get("dorsal", "?")
+        pos = fila.get("posicion", "?")
+        
+        eq_info = executor.query(SPARQLBuilder.query_info_equipo(eq_id))
+        eq_nom  = eq_info[0].get("nombre", eq_id) if eq_info else eq_id
+
+        answer = f"El capitán del {eq_nom} es {nom} (Dorsal #{dor}, {pos})."
+        return answer, {"nombre": nom, "dorsal": dor, "posicion": pos, "equipo": eq_nom}, True
 
 # Instancia global compartida por el Router
 search_service = SearchService()

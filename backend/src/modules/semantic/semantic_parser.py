@@ -54,6 +54,7 @@ class SemanticParser:
         ("goleadores_ranking",  ["máximo goleador", "maximo goleador", "ranking goles",
                                   "quién marcó más", "quien marcó más", "quien marcó mas",
                                   "top goleador", "mejor goleador"]),
+        ("partidos_competicion",["partidos de la", "partidos del", "partidos en la", "partidos jugados en"]),
         ("todos_partidos",      ["todos los partidos", "lista partidos", "partidos jugados",
                                   "lista todos los partidos"]),
         ("todos_equipos",       ["todos los equipos", "qué equipos hay", "que equipos hay",
@@ -67,6 +68,8 @@ class SemanticParser:
         ("jugadores_nacionalidad", ["jugadores de nacionalidad", "jugador de nacionalidad",
                                      "jugadores con nacionalidad", "jugadores son de",
                                      "jugador es de"]),
+        ("capitan_equipo",      ["capitán del", "capitan del", "capitán de", "capitan de",
+                                  "quien es el capitan", "quién es el capitán"]),
         ("jugadores_equipo",    ["jugadores del", "jugadores de", "plantilla del", "plantilla de",
                                   "quiénes juegan en", "quienes juegan en"]),
         ("info_equipo",         ["entrenador de", "entrenador del", "datos del equipo",
@@ -77,6 +80,8 @@ class SemanticParser:
         ("sustituciones",       ["sustitución", "sustitucion", "sustituciones", "cambio",
                                   "entró", "entro", "salió", "salio", "cambios"]),
         ("arbitros",            ["árbitro", "arbitro", "árbitros", "arbitros"]),
+        ("estadios_ubicacion",  ["estadios en", "estadios de", "estadio en", "estadio de",
+                                  "que estadios hay en", "qué estadios hay en", "estadios del"]),
         ("estadios",            ["estadio", "capacidad", "aforo"]),
         ("jugador_por_dorsal",  ["dorsal", "numero", "número", "camiseta", "lleva el"]),
         # info_equipo e info_jugador se detectan por catálogo de nombres (ver abajo)
@@ -122,11 +127,17 @@ class SemanticParser:
         if intent in ("resultado_partido", "goles_partido"):
             return SemanticParser._extract_partido_entities(q_lower)
 
-        elif intent in ("jugadores_equipo", "info_equipo"):
+        elif intent in ("jugadores_equipo", "info_equipo", "capitan_equipo"):
             return SemanticParser._extract_equipo_entities(q_lower, intent)
 
         elif intent == "estadios":
             return SemanticParser._extract_estadio_entities(q_lower)
+
+        elif intent == "estadios_ubicacion":
+            return SemanticParser._extract_ubicacion_entities(q_lower)
+
+        elif intent == "partidos_competicion":
+            return SemanticParser._extract_competicion_entities(q_lower)
 
         elif intent == "info_jugador":
             return SemanticParser._extract_jugador_entities(q_lower)
@@ -193,6 +204,12 @@ class SemanticParser:
                 "quiénes juegan en", "quienes juegan en",
                 "jugadores", "plantilla", "dime la",
             ],
+            "capitan_equipo": [
+                "quien es el capitan del", "quién es el capitán del",
+                "quien es el capitan de", "quién es el capitán de",
+                "capitán del", "capitan del", "capitán de", "capitan de",
+                "quien es el capitan", "quién es el capitán", "del equipo", "equipo",
+            ],
             "info_equipo": [
                 "información del equipo", "informacion del equipo",
                 "datos del equipo", "datos de",
@@ -236,6 +253,11 @@ class SemanticParser:
             "¿quién es", "quien es", "quién es",
             "información de", "informacion de",
             "el jugador", "jugador",
+            "de qué juega", "de que juega", 
+            "en qué posición juega", "en que posicion juega",
+            "en qué equipo juega", "en que equipo juega", "dónde juega", "donde juega",
+            "de dónde es", "de donde es", "nacionalidad de",
+            "qué dorsal lleva", "que dorsal lleva", "dorsal de", "número de", "numero de"
         ]
         for kw in sorted(kws, key=len, reverse=True):
             cleaned = cleaned.replace(kw, "")
@@ -278,4 +300,42 @@ class SemanticParser:
                 if len(parts) > 1:
                     cleaned = parts[-1].strip(" ¿?!,")
                 break
+        return [cleaned] if cleaned else [q_lower]
+
+    @staticmethod
+    def _extract_ubicacion_entities(q_lower: str) -> list:
+        """Extrae la ubicación (ciudad o país) para buscar estadios."""
+        cleaned = q_lower
+        kws = [
+            "que estadios hay en", "qué estadios hay en",
+            "estadios en", "estadio en", "estadios de", "estadio de", "estadios del"
+        ]
+        for kw in sorted(kws, key=len, reverse=True):
+            if kw in cleaned:
+                parts = cleaned.split(kw)
+                if len(parts) > 1:
+                    cleaned = parts[-1].strip(" ¿?!,")
+                break
+        return [cleaned] if cleaned else [q_lower]
+
+    @staticmethod
+    def _extract_competicion_entities(q_lower: str) -> list:
+        """Extrae el nombre de la competición."""
+        cleaned = q_lower
+        kws = [
+            "partidos jugados en la", "partidos jugados en el", "partidos jugados en",
+            "partidos de la", "partidos del", "partidos de",
+            "partidos en la", "partidos en el", "partidos en"
+        ]
+        for kw in sorted(kws, key=len, reverse=True):
+            if kw in cleaned:
+                parts = cleaned.split(kw)
+                if len(parts) > 1:
+                    cleaned = parts[-1].strip(" ¿?!,")
+                break
+        
+        # Mapeo básico de competiciones
+        if "liga" in cleaned and "la liga" not in cleaned:
+            cleaned = cleaned.replace("liga", "la liga")
+            
         return [cleaned] if cleaned else [q_lower]
