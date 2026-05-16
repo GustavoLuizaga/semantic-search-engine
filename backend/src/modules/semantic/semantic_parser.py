@@ -1,13 +1,40 @@
 import re
 from .alias_mapper import AliasMapper
 
-# Nombres de jugadores conocidos para detección
+# ── Catálogos de nombres reales de la ontología ───────────────────────────
+# Usados para detectar el intent correcto antes de caer al fallback.
+# Actualizar aquí si se agregan individuos a la ontología.
+
+EQUIPOS_CONOCIDOS = [
+    "real madrid", "fc barcelona", "barcelona", "bayern munchen", "bayern",
+    "paris saint-germain", "psg", "liverpool fc", "liverpool",
+    # aliases (deben coincidir con alias_mapper)
+    "barça", "barca", "madrid", "merengues", "bayer",
+]
+
 JUGADORES_CONOCIDOS = [
+    # apellidos
     "bellingham", "vinícius", "vinicius", "lewandowski", "kane",
     "mbappé", "mbappe", "dembélé", "dembele", "sané", "sane",
     "gavi", "kimmich", "pedri", "rodrygo", "modric", "alisson",
-    "jude", "harry", "kylian", "ousmane", "leroy", "joshua",
-    "luka", "robert",
+    # nombres propios que son únicos
+    "jude", "kylian", "ousmane", "leroy", "joshua", "luka",
+    # nombres completos
+    "harry kane", "jude bellingham", "vinícius júnior", "vinicius junior",
+    "robert lewandowski", "kylian mbappé", "ousmane dembélé",
+    "leroy sané", "joshua kimmich", "luka modric", "alisson becker",
+    "rodrygo goes",
+]
+
+ESTADIOS_CONOCIDOS = [
+    "bernabéu", "bernabeu", "santiago bernabéu", "camp nou", "allianz arena",
+    "anfield", "parc des princes", "metropolitano", "old trafford",
+    "maracaná", "maracana", "monumental", "groupama",
+]
+
+ENTRENADORES_CONOCIDOS = [
+    "ancelotti", "carlo ancelotti", "xavi", "xavi hernandez",
+    "tuchel", "thomas tuchel", "klopp", "jürgen klopp", "luis enrique",
 ]
 
 
@@ -24,62 +51,93 @@ class ParsedQuery:
 class SemanticParser:
     # Orden de prioridad: más específico primero
     INTENTS = [
-        ("goleadores_ranking",  ["máximo goleador", "maximo goleador", "ranking goles", "quién marcó más", "quien marcó más", "quien marcó mas"]),
-        ("todos_partidos",      ["todos los partidos", "lista partidos", "partidos jugados", "lista todos los partidos"]),
-        ("todos_equipos",       ["todos los equipos", "qué equipos hay", "que equipos hay", "equipos hay"]),
+        ("goleadores_ranking",  ["máximo goleador", "maximo goleador", "ranking goles",
+                                  "quién marcó más", "quien marcó más", "quien marcó mas",
+                                  "top goleador", "mejor goleador"]),
+        ("partidos_competicion",["partidos de la", "partidos del", "partidos en la", "partidos jugados en"]),
+        ("todos_partidos",      ["todos los partidos", "lista partidos", "partidos jugados",
+                                  "lista todos los partidos"]),
+        ("todos_equipos",       ["todos los equipos", "qué equipos hay", "que equipos hay",
+                                  "equipos hay", "lista equipos"]),
         ("todos_jugadores",     ["todos los jugadores", "lista jugadores"]),
-        ("resultado_partido",   ["resultado", "marcador", "ganó", "ganó", "perdio", "perdio", "empató", "empato", "vs", "contra"]),
-        ("goles_partido",       ["quién anotó", "quien anoto", "quien metió", "goleadores del partido",
-                                 "cuántos goles marcó", "cuantos goles marcó", "cuantos goles marco", "goles marcó"]),
-        ("jugadores_nacionalidad", ["nacionalidad", "país", "pais", "jugadores de ", "jugador de ", "jugadores son de", "jugador es de"]),
-        ("jugadores_equipo",    ["jugadores", "plantilla", "quiénes juegan en", "quienes juegan en"]),
-        ("info_equipo",         ["información de", "estadio de", "entrenador de", "datos del equipo",
-                                 "entrena al", "entrena a", "quien entrena", "quién entrena"]),
+        ("resultado_partido",   ["resultado", "marcador", "ganó", "gano", "perdió", "perdio",
+                                  "empató", "empato", "vs", "contra"]),
+        ("goles_partido",       ["quién anotó", "quien anoto", "quien metió", "quien metio",
+                                  "goleadores del partido", "cuántos goles marcó",
+                                  "cuantos goles marcó", "cuantos goles marco", "goles marcó"]),
+        ("jugadores_nacionalidad", ["jugadores de nacionalidad", "jugador de nacionalidad",
+                                     "jugadores con nacionalidad", "jugadores son de",
+                                     "jugador es de"]),
+        ("capitan_equipo",      ["capitán del", "capitan del", "capitán de", "capitan de",
+                                  "quien es el capitan", "quién es el capitán"]),
+        ("jugadores_equipo",    ["jugadores del", "jugadores de", "plantilla del", "plantilla de",
+                                  "quiénes juegan en", "quienes juegan en"]),
+        ("info_equipo",         ["entrenador de", "entrenador del", "datos del equipo",
+                                  "entrena al", "entrena a", "quien entrena", "quién entrena",
+                                  "estadio del", "estadio de", "ciudad del", "ciudad de",
+                                  "información del equipo", "informacion del equipo"]),
         ("tarjetas",            ["tarjeta", "amonestado", "expulsado", "amarilla", "roja"]),
-        ("sustituciones",       ["sustitución", "sustituciones", "cambio", "entró", "salió", "cambios"]),
+        ("sustituciones",       ["sustitución", "sustitucion", "sustituciones", "cambio",
+                                  "entró", "entro", "salió", "salio", "cambios"]),
         ("arbitros",            ["árbitro", "arbitro", "árbitros", "arbitros"]),
+        ("estadios_ubicacion",  ["estadios en", "estadios de", "estadio en", "estadio de",
+                                  "que estadios hay en", "qué estadios hay en", "estadios del"]),
         ("estadios",            ["estadio", "capacidad", "aforo"]),
         ("jugador_por_dorsal",  ["dorsal", "numero", "número", "camiseta", "lleva el"]),
-        ("info_jugador",        []),  # Fallback / detectado por nombre
+        # info_equipo e info_jugador se detectan por catálogo de nombres (ver abajo)
     ]
 
     @staticmethod
     def parse(query: str) -> "ParsedQuery":
-        q_lower = query.lower()
-        intent = "info_jugador"
+        q_lower = query.lower().strip()
 
-        # Detectar intent por keywords
+        # ── 1. Detectar intent por keywords ──────────────────────────────
+        intent = None
         for intnt, keywords in SemanticParser.INTENTS:
             if keywords and any(kw in q_lower for kw in keywords):
                 intent = intnt
                 break
 
-        # Si no se detectó intent, verificar si hay nombre de jugador
-        if intent == "info_jugador":
-            tiene_jugador = any(j in q_lower for j in JUGADORES_CONOCIDOS)
-            if not tiene_jugador:
-                # No hay jugador, intent genérico
-                pass
+        # ── 2. Si no hay keyword, detectar por catálogo de nombres ───────
+        if intent is None:
+            tiene_equipo    = any(e in q_lower for e in EQUIPOS_CONOCIDOS)
+            tiene_jugador   = any(j in q_lower for j in JUGADORES_CONOCIDOS)
+            tiene_estadio   = any(s in q_lower for s in ESTADIOS_CONOCIDOS)
+            tiene_entrenador = any(t in q_lower for t in ENTRENADORES_CONOCIDOS)
 
+            if tiene_estadio:
+                intent = "estadios"
+            elif tiene_entrenador:
+                intent = "info_equipo"   # busca el equipo del entrenador
+            elif tiene_equipo and not tiene_jugador:
+                intent = "info_equipo"
+            elif tiene_jugador:
+                intent = "info_jugador"
+            else:
+                # Último fallback: intentar como jugador (el matcher fallará limpiamente)
+                intent = "info_jugador"
+
+        # ── 3. Extraer entidades ──────────────────────────────────────────
         entities = SemanticParser._extract_entities(q_lower, intent)
         return ParsedQuery(intent, entities, query)
 
+    # ── Dispatch de extracción ────────────────────────────────────────────
     @staticmethod
     def _extract_entities(q_lower: str, intent: str) -> list:
-        """Extrae entidades según el intent detectado."""
-
-        if intent == "resultado_partido":
+        if intent in ("resultado_partido", "goles_partido"):
             return SemanticParser._extract_partido_entities(q_lower)
 
-        elif intent == "goles_partido":
-            # Puede buscar goles de un jugador específico o partido
-            return SemanticParser._extract_partido_entities(q_lower)
-
-        elif intent in ("jugadores_equipo", "info_equipo"):
+        elif intent in ("jugadores_equipo", "info_equipo", "capitan_equipo"):
             return SemanticParser._extract_equipo_entities(q_lower, intent)
 
-        elif intent in ("estadios",):
+        elif intent == "estadios":
             return SemanticParser._extract_estadio_entities(q_lower)
+
+        elif intent == "estadios_ubicacion":
+            return SemanticParser._extract_ubicacion_entities(q_lower)
+
+        elif intent == "partidos_competicion":
+            return SemanticParser._extract_competicion_entities(q_lower)
 
         elif intent == "info_jugador":
             return SemanticParser._extract_jugador_entities(q_lower)
@@ -96,6 +154,8 @@ class SemanticParser:
 
         return [AliasMapper.resolve(q_lower.strip(" ¿?!"))]
 
+    # ── Extractores ───────────────────────────────────────────────────────
+
     @staticmethod
     def _extract_partido_entities(q_lower: str) -> list:
         """Extrae equipos de una query de partido."""
@@ -104,9 +164,8 @@ class SemanticParser:
         if match:
             raw1 = match.group(1).strip()
             raw2 = match.group(2).strip(" ¿?!")
-            # Limpiar keywords de intent del grupo 1
-            for kw in ["resultado", "marcador", "partido de", "partido", "¿cuál es el", "cuál es el",
-                       "quién ganó el", "quien ganó el"]:
+            for kw in ["resultado", "marcador", "partido de", "partido",
+                        "¿cuál es el", "cuál es el", "quién ganó el", "quien ganó el"]:
                 raw1 = raw1.replace(kw, "").strip()
             e1 = AliasMapper.resolve(raw1.strip(" ¿?!"))
             e2 = AliasMapper.resolve(raw2.strip(" ¿?!"))
@@ -121,50 +180,65 @@ class SemanticParser:
             if e1 and e2:
                 return [e1, e2]
 
-        # Fallback: buscar alias de equipos en la query
+        # Fallback: detectar equipos por catálogo
         teams_found = []
         from .alias_mapper import ALIASES
         for alias, canonical in ALIASES.items():
-            if alias in q_lower:
-                if canonical not in teams_found:
-                    teams_found.append(canonical)
-        # También buscar nombres completos
-        team_names = ["real madrid", "fc barcelona", "barcelona", "bayern munchen",
-                      "paris saint-germain", "liverpool fc"]
-        for tn in team_names:
-            if tn in q_lower and tn not in teams_found:
-                teams_found.append(AliasMapper.resolve(tn))
+            if alias in q_lower and canonical not in teams_found:
+                teams_found.append(canonical)
+        for tn in EQUIPOS_CONOCIDOS:
+            resolved = AliasMapper.resolve(tn)
+            if tn in q_lower and resolved not in teams_found:
+                teams_found.append(resolved)
 
-        return list(dict.fromkeys(teams_found))  # Eliminar duplicados manteniendo orden
+        return list(dict.fromkeys(teams_found))
 
     @staticmethod
     def _extract_equipo_entities(q_lower: str, intent: str) -> list:
-        """Extrae nombre de equipo para jugadores/info de equipo."""
+        """Extrae nombre de equipo."""
         cleaned = q_lower
         keywords_to_remove = {
-            "jugadores_equipo": ["jugadores del", "jugadores de los", "jugadores de", "plantilla del",
-                                 "plantilla de los", "plantilla de", "quiénes juegan en",
-                                 "quienes juegan en", "jugadores", "plantilla", "dime la"],
-            "info_equipo": ["información de", "datos del equipo", "datos de", "entrenador de",
-                            "estadio de", "entrena al", "entrena a", "quien entrena al",
-                            "quién entrena al", "quien entrena", "quién entrena",
-                            "información del", "datos del"],
+            "jugadores_equipo": [
+                "jugadores del", "jugadores de los", "jugadores de",
+                "plantilla del", "plantilla de los", "plantilla de",
+                "quiénes juegan en", "quienes juegan en",
+                "jugadores", "plantilla", "dime la",
+            ],
+            "capitan_equipo": [
+                "quien es el capitan del", "quién es el capitán del",
+                "quien es el capitan de", "quién es el capitán de",
+                "capitán del", "capitan del", "capitán de", "capitan de",
+                "quien es el capitan", "quién es el capitán", "del equipo", "equipo",
+            ],
+            "info_equipo": [
+                "información del equipo", "informacion del equipo",
+                "datos del equipo", "datos de",
+                "entrenador del", "entrenador de",
+                "estadio del", "estadio de",
+                "entrena al", "entrena a",
+                "quien entrena al", "quién entrena al",
+                "quien entrena", "quién entrena",
+                "información del", "informacion del",
+                "ciudad del", "ciudad de",
+            ],
         }
         for kw in sorted(keywords_to_remove.get(intent, []), key=len, reverse=True):
             cleaned = cleaned.replace(kw, "")
         cleaned = cleaned.strip(" ¿?!,")
-        entity  = AliasMapper.resolve(cleaned) if cleaned else ""
+        entity = AliasMapper.resolve(cleaned) if cleaned else ""
         return [entity] if entity else []
 
     @staticmethod
     def _extract_estadio_entities(q_lower: str) -> list:
         """Extrae nombre de estadio."""
         cleaned = q_lower
-        # Ordenar por longitud desc para quitar frases largas primero
-        kws = ["cuánta capacidad tiene el", "cuanta capacidad tiene el", "capacidad del",
-               "capacidad de", "aforo del", "aforo de", "dame información del",
-               "dame informacion del", "información del", "información de",
-               "informacion del", "estadio"]
+        kws = [
+            "cuánta capacidad tiene el", "cuanta capacidad tiene el",
+            "capacidad del", "capacidad de", "aforo del", "aforo de",
+            "dame información del", "dame informacion del",
+            "información del", "información de", "informacion del",
+            "estadio",
+        ]
         for kw in sorted(kws, key=len, reverse=True):
             cleaned = cleaned.replace(kw, "")
         cleaned = cleaned.strip(" ¿?!,")
@@ -174,8 +248,17 @@ class SemanticParser:
     def _extract_jugador_entities(q_lower: str) -> list:
         """Extrae nombre de jugador."""
         cleaned = q_lower
-        kws = ["dame información de", "dame informacion de", "¿quién es", "quien es",
-               "quién es", "información de", "informacion de"]
+        kws = [
+            "dame información de", "dame informacion de",
+            "¿quién es", "quien es", "quién es",
+            "información de", "informacion de",
+            "el jugador", "jugador",
+            "de qué juega", "de que juega", 
+            "en qué posición juega", "en que posicion juega",
+            "en qué equipo juega", "en que equipo juega", "dónde juega", "donde juega",
+            "de dónde es", "de donde es", "nacionalidad de",
+            "qué dorsal lleva", "que dorsal lleva", "dorsal de", "número de", "numero de"
+        ]
         for kw in sorted(kws, key=len, reverse=True):
             cleaned = cleaned.replace(kw, "")
         cleaned = cleaned.strip(" ¿?!,")
@@ -183,25 +266,20 @@ class SemanticParser:
 
     @staticmethod
     def _extract_dorsal_entities(q_lower: str) -> list:
-        """Extrae el número de dorsal y el equipo."""
-        # Buscar número
+        """Extrae número de dorsal y equipo."""
         match_num = re.search(r'\b(\d+)\b', q_lower)
         dorsal = match_num.group(1) if match_num else ""
-        
-        # Fallback: buscar alias de equipos en la query
+
         teams_found = []
         from .alias_mapper import ALIASES
         for alias, canonical in ALIASES.items():
-            if alias in q_lower:
-                if canonical not in teams_found:
-                    teams_found.append(canonical)
-        # También buscar nombres completos
-        team_names = ["real madrid", "fc barcelona", "barcelona", "bayern munchen",
-                      "paris saint-germain", "liverpool fc"]
-        for tn in team_names:
-            if tn in q_lower and tn not in teams_found:
-                teams_found.append(AliasMapper.resolve(tn))
-                
+            if alias in q_lower and canonical not in teams_found:
+                teams_found.append(canonical)
+        for tn in EQUIPOS_CONOCIDOS:
+            resolved = AliasMapper.resolve(tn)
+            if tn in q_lower and resolved not in teams_found:
+                teams_found.append(resolved)
+
         team = teams_found[0] if teams_found else ""
         return [dorsal, team]
 
@@ -209,14 +287,55 @@ class SemanticParser:
     def _extract_nacionalidad_entities(q_lower: str) -> list:
         """Extrae la nacionalidad de la query."""
         cleaned = q_lower
-        kws = ["jugadores con nacionalidad", "jugador con nacionalidad", "nacionalidad", 
-               "del pais", "del país", "jugadores son de", "jugador es de", "jugadores de", "jugador de"]
+        kws = [
+            "jugadores con nacionalidad", "jugador con nacionalidad",
+            "jugadores de nacionalidad", "jugador de nacionalidad",
+            "nacionalidad", "del pais", "del país",
+            "jugadores son de", "jugador es de",
+            "jugadores de", "jugador de",
+        ]
         for kw in sorted(kws, key=len, reverse=True):
             if kw in cleaned:
-                # Tomar lo que sigue después de la keyword
                 parts = cleaned.split(kw)
                 if len(parts) > 1:
                     cleaned = parts[-1].strip(" ¿?!,")
                 break
         return [cleaned] if cleaned else [q_lower]
 
+    @staticmethod
+    def _extract_ubicacion_entities(q_lower: str) -> list:
+        """Extrae la ubicación (ciudad o país) para buscar estadios."""
+        cleaned = q_lower
+        kws = [
+            "que estadios hay en", "qué estadios hay en",
+            "estadios en", "estadio en", "estadios de", "estadio de", "estadios del"
+        ]
+        for kw in sorted(kws, key=len, reverse=True):
+            if kw in cleaned:
+                parts = cleaned.split(kw)
+                if len(parts) > 1:
+                    cleaned = parts[-1].strip(" ¿?!,")
+                break
+        return [cleaned] if cleaned else [q_lower]
+
+    @staticmethod
+    def _extract_competicion_entities(q_lower: str) -> list:
+        """Extrae el nombre de la competición."""
+        cleaned = q_lower
+        kws = [
+            "partidos jugados en la", "partidos jugados en el", "partidos jugados en",
+            "partidos de la", "partidos del", "partidos de",
+            "partidos en la", "partidos en el", "partidos en"
+        ]
+        for kw in sorted(kws, key=len, reverse=True):
+            if kw in cleaned:
+                parts = cleaned.split(kw)
+                if len(parts) > 1:
+                    cleaned = parts[-1].strip(" ¿?!,")
+                break
+        
+        # Mapeo básico de competiciones
+        if "liga" in cleaned and "la liga" not in cleaned:
+            cleaned = cleaned.replace("liga", "la liga")
+            
+        return [cleaned] if cleaned else [q_lower]

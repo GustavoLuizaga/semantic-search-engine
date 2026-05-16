@@ -4,7 +4,7 @@ class SPARQLExecutor:
     def __init__(self, owx_path: str):
         self.g = Graph()
         try:
-            self.g.parse(owx_path, format="xml")
+            self.g.parse(owx_path, format="turtle")
         except Exception as e:
             print(f"Warning: rdflib parse error: {e}")
 
@@ -14,7 +14,7 @@ class SPARQLExecutor:
             res_list = []
             for row in results:
                 # User specifically requested dict(row) but we need str for JSON
-                row_dict = {str(k): str(v) for k, v in dict(row).items() if v is not None}
+                row_dict = {str(k): str(v) for k, v in row.asdict().items() if v is not None}
                 res_list.append(row_dict)
             return res_list
         except Exception as e:

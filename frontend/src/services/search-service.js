@@ -11,7 +11,7 @@ export const searchQuery = async (query) => {
         const result = await response.json();
         return {answer: result.answer, data: result.data};
     } catch (error) {
-        console.error("Error al realizar la búsqueda:", error);
-        return [];
+      //  console.error("Error al realizar la búsqueda:", error);
+        return response.json();
     }
 };
