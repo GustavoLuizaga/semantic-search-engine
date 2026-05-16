@@ -1,7 +1,7 @@
 PREFIX = """
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX : <http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol#>
+PREFIX : <http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/>
 """
 
 
@@ -9,9 +9,11 @@ class SPARQLBuilder:
 
     @staticmethod
     def query_partido_entre(eq_a_id: str, eq_b_id: str) -> str:
-        """Busca partidos donde eq_a es local y eq_b es visitante O viceversa."""
+        """Partidos donde eq_a juega contra eq_b (en cualquier rol)."""
         return PREFIX + f"""
-        SELECT ?partido ?golesLocal ?golesVisitante ?fecha ?estadio_nombre ?arbitro_nombre ?comp_nombre ?temp_inicio ?temp_fin
+        SELECT ?partido ?golesLocal ?golesVisitante ?fecha
+               ?estadio_nombre ?arbitro_nombre ?comp_nombre
+               ?eq_local_nom ?eq_visitante_nom
         WHERE {{
             {{
                 ?partido a :Partido ;
@@ -23,20 +25,47 @@ class SPARQLBuilder:
                          :tieneEquipoVisitante :{eq_a_id} .
             }}
             OPTIONAL {{ ?partido :tieneFecha ?fecha }}
+            OPTIONAL {{ ?partido :tieneEquipoLocal ?eql . ?eql :tieneNombre ?eq_local_nom }}
+            OPTIONAL {{ ?partido :tieneEquipoVisitante ?eqv . ?eqv :tieneNombre ?eq_visitante_nom }}
             OPTIONAL {{ ?partido :seJuegaEn ?est . ?est :tieneNombre ?estadio_nombre }}
             OPTIONAL {{ ?partido :esArbitradoPor ?arb . ?arb :tieneNombre ?arbitro_nombre }}
             OPTIONAL {{ ?partido :perteneceA ?comp . ?comp :tieneNombre ?comp_nombre }}
-            OPTIONAL {{
-                ?partido :correspondeA ?temp .
-                ?temp :tieneAñoInicio ?temp_inicio ;
-                      :tieneAñoFin ?temp_fin .
-            }}
             OPTIONAL {{
                 ?res :resultadoDe ?partido .
                 ?res :tieneGolesLocal ?golesLocal ;
                      :tieneGolesVisitante ?golesVisitante .
             }}
         }}
+        """
+
+    @staticmethod
+    def query_partidos_de_equipo(eq_id: str) -> str:
+        """Todos los partidos donde un equipo participó (como local o visitante)."""
+        return PREFIX + f"""
+        SELECT ?partido ?golesLocal ?golesVisitante ?fecha
+               ?estadio_nombre ?arbitro_nombre ?comp_nombre
+               ?eq_local_nom ?eq_visitante_nom
+        WHERE {{
+            {{
+                ?partido a :Partido ;
+                         :tieneEquipoLocal :{eq_id} .
+            }} UNION {{
+                ?partido a :Partido ;
+                         :tieneEquipoVisitante :{eq_id} .
+            }}
+            OPTIONAL {{ ?partido :tieneFecha ?fecha }}
+            OPTIONAL {{ ?partido :tieneEquipoLocal ?eql . ?eql :tieneNombre ?eq_local_nom }}
+            OPTIONAL {{ ?partido :tieneEquipoVisitante ?eqv . ?eqv :tieneNombre ?eq_visitante_nom }}
+            OPTIONAL {{ ?partido :seJuegaEn ?est . ?est :tieneNombre ?estadio_nombre }}
+            OPTIONAL {{ ?partido :esArbitradoPor ?arb . ?arb :tieneNombre ?arbitro_nombre }}
+            OPTIONAL {{ ?partido :perteneceA ?comp . ?comp :tieneNombre ?comp_nombre }}
+            OPTIONAL {{
+                ?res :resultadoDe ?partido .
+                ?res :tieneGolesLocal ?golesLocal ;
+                     :tieneGolesVisitante ?golesVisitante .
+            }}
+        }}
+        ORDER BY ?fecha
         """
 
     @staticmethod
@@ -94,6 +123,57 @@ class SPARQLBuilder:
         """
 
     @staticmethod
+    def query_info_equipo(eq_id: str) -> str:
+        """Info completa de un equipo: ciudad, país, estadio, entrenador, liga."""
+        return PREFIX + f"""
+        SELECT ?nombre ?ciudad ?pais ?estadio_nombre ?entrenador_nombre ?comp_nombre
+        WHERE {{
+            :{eq_id} :tieneNombre ?nombre .
+            OPTIONAL {{ :{eq_id} :tieneCiudad ?ciudad }}
+            OPTIONAL {{ :{eq_id} :tienePais ?pais }}
+            OPTIONAL {{ :{eq_id} :tieneEstadio ?est . ?est :tieneNombre ?estadio_nombre }}
+            OPTIONAL {{ :{eq_id} :esDirigidoPor ?dt . ?dt :tieneNombre ?entrenador_nombre }}
+            OPTIONAL {{ :{eq_id} :perteneceA ?comp . ?comp :tieneNombre ?comp_nombre }}
+        }}
+        """
+
+    @staticmethod
+    def query_jugador_por_dorsal(dorsal: str, eq_id: str = None) -> str:
+        """Jugador que lleva un dorsal específico, opcionalmente filtrado por equipo."""
+        if eq_id:
+            filtro_eq = f"?jug :juegaEn :{eq_id} ."
+        else:
+            filtro_eq = ""
+
+        return PREFIX + f"""
+        SELECT ?nombre ?equipo_nombre ?posicion
+        WHERE {{
+            ?jug a :Jugador ;
+                 :tieneNombre ?nombre ;
+                 :tieneDorsal {dorsal} .
+            {filtro_eq}
+            OPTIONAL {{ ?jug :juegaEn ?eq . ?eq :tieneNombre ?equipo_nombre }}
+            OPTIONAL {{ ?jug :tienePosicion ?posicion }}
+        }}
+        LIMIT 1
+        """
+
+    @staticmethod
+    def query_jugadores_nacionalidad(nacionalidad: str) -> str:
+        return PREFIX + f"""
+        SELECT ?nombre ?nacionalidad ?equipo_nombre ?posicion
+        WHERE {{
+            ?jug a :Jugador ;
+                 :tieneNombre ?nombre ;
+                 :tieneNacionalidad ?nacionalidad .
+            OPTIONAL {{ ?jug :juegaEn ?eq . ?eq :tieneNombre ?equipo_nombre }}
+            OPTIONAL {{ ?jug :tienePosicion ?posicion }}
+            FILTER(CONTAINS(LCASE(str(?nacionalidad)), "{nacionalidad.lower()}"))
+        }}
+        ORDER BY ?nombre
+        """
+
+    @staticmethod
     def query_info_estadio(estadio_id: str) -> str:
         return PREFIX + f"""
         SELECT ?nombre ?capacidad ?ciudad ?pais
@@ -103,6 +183,21 @@ class SPARQLBuilder:
             OPTIONAL {{ :{estadio_id} :tieneCiudad ?ciudad }}
             OPTIONAL {{ :{estadio_id} :tienePais ?pais }}
         }}
+        """
+
+    @staticmethod
+    def query_todos_estadios() -> str:
+        """Lista todos los estadios con su info básica."""
+        return PREFIX + """
+        SELECT ?nombre ?capacidad ?ciudad ?pais
+        WHERE {
+            ?est a :Estadio ;
+                 :tieneNombre ?nombre .
+            OPTIONAL { ?est :tieneCapacidad ?capacidad }
+            OPTIONAL { ?est :tieneCiudad ?ciudad }
+            OPTIONAL { ?est :tienePais ?pais }
+        }
+        ORDER BY ?nombre
         """
 
     @staticmethod
@@ -119,7 +214,6 @@ class SPARQLBuilder:
 
     @staticmethod
     def query_todas_tarjetas() -> str:
-        """Obtiene todas las tarjetas (rojas y amarillas) con el jugador."""
         return PREFIX + """
         SELECT ?tipo_clase ?nombre_jugador ?minuto ?tiempo ?motivo
         WHERE {
@@ -134,7 +228,6 @@ class SPARQLBuilder:
 
     @staticmethod
     def query_tarjetas_rojas() -> str:
-        """Solo tarjetas rojas."""
         return PREFIX + """
         SELECT ?nombre_jugador ?minuto ?tiempo ?motivo
         WHERE {
@@ -173,18 +266,19 @@ class SPARQLBuilder:
         }
         GROUP BY ?nombre ?jug
         ORDER BY DESC(?goles)
-        LIMIT 5
+        LIMIT 10
         """
 
     @staticmethod
     def query_todos_partidos() -> str:
         return PREFIX + """
-        SELECT ?partido ?fecha ?eq_local_nom ?eq_visitante_nom ?goles_local ?goles_visitante ?comp_nombre
+        SELECT ?partido ?fecha ?eq_local_nom ?eq_visitante_nom
+               ?goles_local ?goles_visitante ?comp_nombre
         WHERE {
             ?partido a :Partido .
             OPTIONAL { ?partido :tieneFecha ?fecha }
-            OPTIONAL { ?partido :tieneEquipoLocal ?eq_local . ?eq_local :tieneNombre ?eq_local_nom }
-            OPTIONAL { ?partido :tieneEquipoVisitante ?eq_vis . ?eq_vis :tieneNombre ?eq_visitante_nom }
+            OPTIONAL { ?partido :tieneEquipoLocal ?eql . ?eql :tieneNombre ?eq_local_nom }
+            OPTIONAL { ?partido :tieneEquipoVisitante ?eqv . ?eqv :tieneNombre ?eq_visitante_nom }
             OPTIONAL { ?partido :perteneceA ?comp . ?comp :tieneNombre ?comp_nombre }
             OPTIONAL {
                 ?res :resultadoDe ?partido .
@@ -193,6 +287,29 @@ class SPARQLBuilder:
             }
         }
         ORDER BY ?fecha
+        """
+
+    @staticmethod
+    def query_todos_los_equipos() -> str:
+        return PREFIX + """
+        SELECT ?nombre
+        WHERE {
+            ?equipo rdf:type :Equipo .
+            ?equipo :tieneNombre ?nombre .
+        }
+        ORDER BY ?nombre
+        """
+
+    @staticmethod
+    def query_todos_los_jugadores() -> str:
+        return PREFIX + """
+        SELECT ?nombre
+        WHERE {
+            ?jug rdf:type :Jugador .
+            ?jug rdf:type/rdfs:subClassOf* :Jugador .
+            ?jug :tieneNombre ?nombre .
+        }
+        ORDER BY ?nombre
         """
 
     @staticmethod

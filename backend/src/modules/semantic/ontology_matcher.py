@@ -1,18 +1,63 @@
 from .semantic_parser import ParsedQuery
-
+from .alias_mapper import AliasMapper
 
 class OntologyMatcher:
-    def __init__(self, indexer):
-        self.indexer = indexer
+    def __init__(self, executor):
+        # Ahora recibe el ejecutor de SPARQL en lugar del indexer
+        self.executor = executor
+
+    def _find_id_by_name(self, name: str, class_filter: str = None) -> str:
+        """Busca el ID de una entidad usando SPARQL puro y búsqueda por tokens."""
+        if not name:
+            return None
+        
+        canonical_name = AliasMapper.resolve(name)
+        tokens = [t for t in canonical_name.split() if len(t) > 2]
+        if not tokens:
+            tokens = [canonical_name]
+            
+        regex_filters = " && ".join([f'regex(str(?nombre), "{t}", "i")' for t in tokens])
+        
+        NS = "http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/"
+
+        if class_filter:
+            # MAGIA SEMÁNTICA: rdf:type/rdfs:subClassOf* busca la clase y TODAS sus subclases (ej. Delantero es Jugador)
+            query = f"""
+            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            PREFIX : <{NS}>
+            SELECT ?id WHERE {{
+                ?id rdf:type/rdfs:subClassOf* :{class_filter} .
+                ?id :tieneNombre ?nombre .
+                FILTER({regex_filters})
+            }} LIMIT 1
+            """
+        else:
+            query = f"""
+            PREFIX : <{NS}>
+            SELECT ?id WHERE {{
+                ?id :tieneNombre ?nombre .
+                FILTER({regex_filters})
+            }} LIMIT 1
+            """
+
+        res = self.executor.query(query)
+        if res:
+            full_iri = res[0].get("id", "")
+            # El TTL usa / como separador de namespace (no #)
+            NS_BASE = "http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/"
+            if full_iri.startswith(NS_BASE):
+                return full_iri[len(NS_BASE):]
+            if "#" in full_iri:
+                return full_iri.split("#")[-1]
+            return full_iri
+        return None
 
     def match(self, parsed: ParsedQuery):
         intent = parsed.intent
         entities = parsed.entities
 
-        if intent == "resultado_partido":
-            return self._match_partido(entities)
-
-        elif intent == "goles_partido":
+        if intent in ("resultado_partido", "goles_partido"):
             return self._match_partido(entities)
 
         elif intent in ("jugadores_equipo", "info_equipo"):
@@ -27,71 +72,47 @@ class OntologyMatcher:
         elif intent == "jugador_por_dorsal":
             dorsal = entities[0] if len(entities) > 0 else ""
             equipo = entities[1] if len(entities) > 1 else ""
-            eq_id = self.indexer.find_by_name(equipo) if equipo else None
+            eq_id = self._find_id_by_name(equipo, "Equipo") if equipo else None
             return {"dorsal": dorsal, "equipo_id": eq_id}
 
+        elif intent == "jugadores_nacionalidad":
+            return {"nacionalidad": entities[0] if entities else ""}
+
         elif intent == "goleadores_ranking":
-            # No necesita entidad específica
             return {}
-
-        elif intent in ("todos_partidos", "todos_equipos", "todos_jugadores",
-                        "arbitros", "tarjetas", "sustituciones"):
-            return {}
-
-        return None
-
-    def _match_partido(self, entities: list):
-        """Busca partidos que involucren las entidades dadas."""
-        if len(entities) >= 2:
-            eq1_id = self.indexer.find_by_name(entities[0])
-            eq2_id = self.indexer.find_by_name(entities[1])
-
-            if eq1_id and eq2_id:
-                return {"eq_a": eq1_id, "eq_b": eq2_id}
-
-            # Solo una entidad encontrada, buscar cualquier partido con ella
-            eq_id = eq1_id or eq2_id
-            if eq_id:
-                return {"eq_a": eq_id, "eq_b": None}
-
-        elif len(entities) == 1:
-            eq_id = self.indexer.find_by_name(entities[0])
-            if eq_id:
-                return {"eq_a": eq_id, "eq_b": None}
 
         return None
 
     def _match_equipo(self, entities: list):
         for ent in entities:
-            eq_id = self.indexer.find_by_name(ent)
-            if eq_id and self.indexer.loader.classes.get(eq_id) == "Equipo":
-                return {"equipo_id": eq_id}
-        # Intento más amplio: cualquier individuo que sea equipo
-        for ent in entities:
-            eq_id = self.indexer.find_by_name(ent)
+            eq_id = self._find_id_by_name(ent, "Equipo")
             if eq_id:
                 return {"equipo_id": eq_id}
+        # Sin fallback amplio: no queremos confundir equipos con jugadores u otras clases
         return None
 
     def _match_jugador(self, entities: list):
         for ent in entities:
-            jug_id = self.indexer.find_by_name(ent)
-            if jug_id and self.indexer.loader.classes.get(jug_id) == "Jugador":
-                return {"jugador_id": jug_id}
-        # Intento más amplio
-        for ent in entities:
-            jug_id = self.indexer.find_by_name(ent)
+            # Buscará Jugador, Delantero, Defensa, etc., gracias a la query jerárquica
+            jug_id = self._find_id_by_name(ent, "Jugador")
             if jug_id:
                 return {"jugador_id": jug_id}
+        # Sin fallback amplio: no queremos confundir jugadores con equipos u otras clases
         return None
 
     def _match_estadio(self, entities: list):
         for ent in entities:
-            est_id = self.indexer.find_by_name(ent)
-            if est_id and self.indexer.loader.classes.get(est_id) == "Estadio":
-                return {"estadio_id": est_id}
-        for ent in entities:
-            est_id = self.indexer.find_by_name(ent)
+            est_id = self._find_id_by_name(ent, "Estadio")
             if est_id:
                 return {"estadio_id": est_id}
+        return None
+
+    def _match_partido(self, entities: list):
+        if len(entities) >= 2:
+            eq_a = self._find_id_by_name(entities[0], "Equipo")
+            eq_b = self._find_id_by_name(entities[1], "Equipo")
+            return {"eq_a": eq_a, "eq_b": eq_b}
+        elif len(entities) == 1:
+            eq_a = self._find_id_by_name(entities[0], "Equipo")
+            return {"eq_a": eq_a, "eq_b": None}
         return None

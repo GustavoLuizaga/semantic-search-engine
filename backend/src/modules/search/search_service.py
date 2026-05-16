@@ -1,574 +1,521 @@
 import os
-from src.modules.ontology.ontology_loader import OntologyLoader
-from src.modules.ontology.ontology_indexer import OntologyIndexer
 from src.modules.semantic.semantic_parser import SemanticParser
 from src.modules.semantic.ontology_matcher import OntologyMatcher
 from src.modules.sparql.sparql_builder import SPARQLBuilder
 from src.modules.sparql.sparql_executor import SPARQLExecutor
 from src.models import SearchResponse
 
-# ── Resolver ruta del OWX ──────────────────────────────────────────────────
 _HERE    = os.path.dirname(os.path.abspath(__file__))
 _BACKEND = os.path.dirname(os.path.dirname(os.path.dirname(_HERE)))
-OWX_PATH = os.path.join(_BACKEND, "ontologia-futbol-finalV2.owx")
+OWX_PATH = os.path.join(_BACKEND, "ontologia-futbol.ttl")
 if not os.path.exists(OWX_PATH):
-    OWX_PATH = os.path.join(os.getcwd(), "ontologia-futbol-finalV2.owx")
+    OWX_PATH = os.path.join(os.getcwd(), "ontologia-futbol.ttl")
 
 print(f"[search_service] OWX: {OWX_PATH} | exists={os.path.exists(OWX_PATH)}")
 
-# ── Inicialización única (al arrancar) ─────────────────────────────────────
-loader   = OntologyLoader(OWX_PATH)
-indexer  = OntologyIndexer(loader)
-matcher  = OntologyMatcher(indexer)
-executor = SPARQLExecutor(OWX_PATH)   # puede tener warnings, se usa como fallback
+# ── Inicialización única ───────────────────────────────────────────────────
+executor = SPARQLExecutor(OWX_PATH)
+matcher  = OntologyMatcher(executor)
 
 # ── Helpers ────────────────────────────────────────────────────────────────
-def _fmt_fecha(raw: str) -> str:
-    if raw and "T" in raw:
-        return raw.split("T")[0]
-    return raw or "?"
+def _fmt_fecha(f_str: str) -> str:
+    if not f_str or f_str == "Sin fecha":
+        return ""
+    return f_str.split("T")[0]
 
-def _nombre(ind_id: str) -> str:
-    return indexer.nombre(ind_id) if ind_id else "?"
-
-def _resultado_de_partido(partido_id: str):
-    """Busca resultado_N cuyo resultadoDe apunta a partido_id."""
-    for subj, obj_list in loader.obj_props.items():
-        for prop, obj in obj_list:
-            if prop == "resultadoDe" and obj == partido_id:
-                return subj
-    return None
-
-def _goles_partido(partido_id: str):
-    res_id = _resultado_de_partido(partido_id)
-    if res_id:
-        p = loader.data_props.get(res_id, {})
-        return str(p.get("tieneGolesLocal", "?")), str(p.get("tieneGolesVisitante", "?"))
-    return "?", "?"
-
-def _info_partido(partido_id: str) -> dict:
-    """Construye dict completo de un partido desde el loader (sin SPARQL)."""
-    props_p  = loader.data_props.get(partido_id, {})
-    eq_loc_id  = indexer.get_obj(partido_id, "tieneEquipoLocal")
-    eq_vis_id  = indexer.get_obj(partido_id, "tieneEquipoVisitante")
-    est_id     = indexer.get_obj(partido_id, "seJuegaEn")
-    arb_id     = indexer.get_obj(partido_id, "esArbitradoPor")
-    comp_id    = indexer.get_obj(partido_id, "perteneceA")
-    temp_id    = indexer.get_obj(partido_id, "correspondeA")
-
-    eq_loc  = _nombre(eq_loc_id)  if eq_loc_id  else "Equipo no especificado"
-    eq_vis  = _nombre(eq_vis_id)  if eq_vis_id  else "Equipo no especificado"
-    estadio = _nombre(est_id)     if est_id     else "?"
-    arbitro = _nombre(arb_id)     if arb_id     else "?"
-    comp    = _nombre(comp_id)    if comp_id    else "?"
-
-    temp_inicio, temp_fin = "?", "?"
-    if temp_id:
-        tp = loader.data_props.get(temp_id, {})
-        temp_inicio = str(tp.get("tieneAñoInicio", "?"))
-        temp_fin    = str(tp.get("tieneAñoFin",    "?"))
-    temporada = f"{temp_inicio}/{temp_fin}" if temp_inicio != "?" else "?"
-
-    fecha_raw = props_p.get("tieneFecha", "?")
-    fecha     = _fmt_fecha(fecha_raw)
-    gl, gv    = _goles_partido(partido_id)
-
-    return {
-        "partido_id":       partido_id,
-        "equipo_local":     eq_loc,
-        "equipo_visitante": eq_vis,
-        "goles_local":      gl,
-        "goles_visitante":  gv,
-        "fecha":            fecha,
-        "estadio":          estadio,
-        "arbitro":          arbitro,
-        "competicion":      comp,
-        "temporada":        temporada,
-    }
-
-def _goles_de_partido(partido_id: str) -> list:
-    """Retorna lista de dicts de goles de un partido desde el loader."""
-    goles = []
-    # buscar todos los individuos que tienen esParteDe → partido_id
-    for ind_id, obj_list in loader.obj_props.items():
-        es_parte = False
-        for prop, obj in obj_list:
-            if prop == "esParteDe" and obj == partido_id:
-                es_parte = True
-                break
-        if not es_parte:
-            continue
-        # Es un evento de este partido — ¿es un Gol?
-        cls = loader.classes.get(ind_id, "")
-        if "Gol" not in cls and cls not in ("Gol", "GolDeJuegoAbierto", "GolDePenal", "GolEnPropiaPorteria"):
-            continue
-
-        props_g  = loader.data_props.get(ind_id, {})
-        gol_id   = indexer.get_obj(ind_id, "goleador")
-        asist_id = indexer.get_obj(ind_id, "asistencia")
-        minuto   = str(props_g.get("tieneMinuto", "?"))
-        tiempo   = props_g.get("tieneTiempo", "")
-        goles.append({
-            "gol_id":    ind_id,
-            "anotador":  _nombre(gol_id)   if gol_id   else "?",
-            "asistidor": _nombre(asist_id) if asist_id else "",
-            "minuto":    minuto,
-            "tiempo":    tiempo,
-            "tipo":      cls,
-        })
-    return goles
-
-def _sustituciones_de_partido(partido_id: str) -> list:
-    """Retorna sustituciones de un partido."""
-    sust = []
-    for ind_id, obj_list in loader.obj_props.items():
-        for prop, obj in obj_list:
-            if prop == "esParteDe" and obj == partido_id:
-                if loader.classes.get(ind_id) == "Sustitucion":
-                    props_s = loader.data_props.get(ind_id, {})
-                    entra_id = indexer.get_obj(ind_id, "jugadorEntra")
-                    sale_id  = indexer.get_obj(ind_id, "jugadorSale")
-                    sust.append({
-                        "entra": _nombre(entra_id) if entra_id else "?",
-                        "sale":  _nombre(sale_id)  if sale_id  else "?",
-                        "minuto": str(props_s.get("tieneMinuto", "?")),
-                        "tiempo": props_s.get("tieneTiempo", ""),
-                    })
-    return sust
+def _resumir_lista(nombres: list, total_label: str = "") -> str:
+    if not nombres:
+        return ""
+    if len(nombres) > 5:
+        return ", ".join(nombres[:5]) + f" y {len(nombres) - 5} más"
+    if len(nombres) > 1:
+        return ", ".join(nombres[:-1]) + f" y {nombres[-1]}"
+    return nombres[0]
 
 
 # ── Service ────────────────────────────────────────────────────────────────
 class SearchService:
 
-    @staticmethod
-    def execute(query: str) -> SearchResponse:
-        parsed = SemanticParser.parse(query)
-        match  = matcher.match(parsed)
+    def execute(self, query_str: str) -> SearchResponse:
+        print(f"\n{'='*60}")
+        print(f"[QUERY] {query_str!r}")
+
+        # 1. Parseo semántico
+        parsed = SemanticParser.parse(query_str)
+        print(f"[PARSER] intent={parsed.intent!r}  entities={parsed.entities}")
+
+        # 2. Matching de entidades
+        matched = matcher.match(parsed) or {}
+        print(f"[MATCHER] matched={matched}")
+
         intent = parsed.intent
-
-        answer = "No encontré información para esa consulta."
+        answer = "No se encontraron resultados para tu consulta."
         data   = None
-        found  = False
+        found  = False   # ← 'found' para coincidir con el modelo Pydantic
 
-        try:
-            dispatch = {
-                "resultado_partido":  lambda: SearchService._resultado_partido(match),
-                "goles_partido":      lambda: SearchService._goles_partido(match, parsed),
-                "jugadores_equipo":   lambda: SearchService._jugadores_equipo(match),
-                "info_equipo":        lambda: SearchService._info_equipo(match, parsed),
-                "info_jugador":       lambda: SearchService._info_jugador(match, parsed),
-                "jugador_por_dorsal": lambda: SearchService._jugador_por_dorsal(match, parsed),
-                "estadios":           lambda: SearchService._info_estadio(match, parsed),
-                "arbitros":           lambda: SearchService._arbitros(),
-                "tarjetas":           lambda: SearchService._tarjetas(),
-                "sustituciones":      lambda: SearchService._sustituciones(),
-                "goleadores_ranking": lambda: SearchService._goleadores_ranking(),
-                "todos_partidos":     lambda: SearchService._todos_partidos(),
-                "todos_equipos":      lambda: SearchService._todos_equipos(),
-                "todos_jugadores":    lambda: SearchService._todos_jugadores(),
-            }
-            fn = dispatch.get(intent)
-            if fn:
+        dispatch = {
+            "resultado_partido":      lambda: self._resultado_partido(matched),
+            "goles_partido":          lambda: self._goles_partido(matched, parsed),
+            "jugadores_equipo":       lambda: self._jugadores_equipo(matched),
+            "info_equipo":            lambda: self._info_equipo(matched, parsed),
+            "info_jugador":           lambda: self._info_jugador(matched, parsed),
+            "jugador_por_dorsal":     lambda: self._jugador_por_dorsal(matched),
+            "jugadores_nacionalidad": lambda: self._jugadores_nacionalidad(matched),
+            "estadios":               lambda: self._info_estadio(matched, parsed),
+            "arbitros":               lambda: self._arbitros(),
+            "tarjetas":               lambda: self._tarjetas(),
+            "sustituciones":          lambda: self._sustituciones(),
+            "goleadores_ranking":     lambda: self._goleadores_ranking(),
+            "todos_partidos":         lambda: self._todos_partidos(),
+            "todos_equipos":          lambda: self._todos_equipos(),
+            "todos_jugadores":        lambda: self._todos_jugadores(),
+        }
+
+        fn = dispatch.get(intent)
+        if fn:
+            try:
                 answer, data, found = fn()
-        except Exception as e:
-            answer = f"Error procesando la consulta: {e}"
-
-        return SearchResponse(query=query, intent=intent, answer=answer, data=data, found=found)
-
-    # ─────────────────────────────────────────────────────────────────────
-    @staticmethod
-    def _resultado_partido(match):
-        if not match or "eq_a" not in match:
-            return "No encontré los equipos en la ontología.", None, False
-
-        eq_a_id = match.get("eq_a")
-        eq_b_id = match.get("eq_b")
-
-        partidos_enc = []
-        for p_id in indexer.clase_idx.get("Partido", []):
-            loc_id = indexer.get_obj(p_id, "tieneEquipoLocal")
-            vis_id = indexer.get_obj(p_id, "tieneEquipoVisitante")
-            objs = {loc_id, vis_id}
-            if eq_b_id:
-                if eq_a_id in objs and eq_b_id in objs:
-                    partidos_enc.append(p_id)
-            else:
-                if eq_a_id in objs:
-                    partidos_enc.append(p_id)
-
-        if not partidos_enc:
-            return "No encontré partidos entre esos equipos.", None, False
-
-        blocks = []
-        results = []
-        for p_id in partidos_enc:
-            i = _info_partido(p_id)
-            results.append(i)
-            loc, vis = i["equipo_local"], i["equipo_visitante"]
-            gl, gv   = i["goles_local"], i["goles_visitante"]
-            blocks.append(
-                f"{loc} {gl} - {gv} {vis}\n"
-                f"Fecha: {i['fecha']} | Competición: {i['competicion']} ({i['temporada']})\n"
-                f"Estadio: {i['estadio']} | Árbitro: {i['arbitro']}"
-            )
-
-        answer = "\n\n".join(blocks)
-        data   = results[0] if len(results) == 1 else results
-        return answer, data, True
-
-    @staticmethod
-    def _goles_partido(match, parsed):
-        import unicodedata
-        def norm(s): return unicodedata.normalize('NFKD', s.lower()).encode('ascii', 'ignore').decode('ascii')
-
-        # Primero intentar buscar por jugador específico en la query raw
-        q_norm = norm(parsed.raw)
-        for jug_id in indexer.clase_idx.get("Jugador", []):
-            nom = _nombre(jug_id)
-            if nom and norm(nom) in q_norm:
-                count = sum(
-                    1 for ind_id, obj_list in loader.obj_props.items()
-                    for prop, obj in obj_list if prop == "goleador" and obj == jug_id
-                )
-                return (
-                    f"{nom} tiene {count} gol(es) registrado(s) en la ontología.",
-                    {"jugador": nom, "goles": count}, True
-                )
-
-        if match and "eq_a" in match:
-            eq_a_id = match["eq_a"]
-            eq_b_id = match.get("eq_b")
-            partidos = []
-            for p_id in indexer.clase_idx.get("Partido", []):
-                loc_id = indexer.get_obj(p_id, "tieneEquipoLocal")
-                vis_id = indexer.get_obj(p_id, "tieneEquipoVisitante")
-                objs   = {loc_id, vis_id}
-                if eq_b_id:
-                    if eq_a_id in objs and eq_b_id in objs:
-                        partidos.append(p_id)
-                else:
-                    if eq_a_id in objs:
-                        partidos.append(p_id)
-
-            if partidos:
-                lines = []
-                all_goles = []
-                for p_id in partidos:
-                    info  = _info_partido(p_id)
-                    goles = _goles_de_partido(p_id)
-                    lines.append(
-                        f"{info['equipo_local']} {info['goles_local']} - "
-                        f"{info['goles_visitante']} {info['equipo_visitante']}"
-                    )
-                    if goles:
-                        for g in goles:
-                            asis = f" (asiste: {g['asistidor']})" if g['asistidor'] else ""
-                            lines.append(f"  Gol: {g['anotador']}{asis} | Min {g['minuto']} {g['tiempo']}")
-                            all_goles.append(g)
-                    else:
-                        lines.append("  (Sin detalle de goles registrados)")
-                return "\n".join(lines), all_goles, True
-
-        return "No encontré información de goles.", None, False
-
-    @staticmethod
-    def _jugadores_equipo(match):
-        if not match or "equipo_id" not in match:
-            return "No encontré el equipo especificado.", None, False
-        eq_id  = match["equipo_id"]
-        nom_eq = _nombre(eq_id)
-
-        jugadores = [
-            j_id for j_id in indexer.clase_idx.get("Jugador", [])
-            if eq_id in [o for p, o in loader.obj_props.get(j_id, []) if p == "juegaEn"]
-        ]
-        if not jugadores:
-            return f"No encontré jugadores para {nom_eq}.", None, False
-
-        lines = [f"Plantilla — {nom_eq}:"]
-        data  = []
-        for j_id in sorted(jugadores, key=lambda x: loader.data_props.get(x, {}).get("tieneNombre", x)):
-            props = loader.data_props.get(j_id, {})
-            nom   = props.get("tieneNombre", j_id)
-            pos   = props.get("tienePosicion", "?")
-            dor   = str(props.get("tieneDorsal", "?"))
-            cap_v = str(props.get("esCapitan", "false")).lower()
-            cap   = " (Capitán)" if cap_v == "true" else ""
-            lines.append(f"  {nom} | #{dor} | {pos}{cap}")
-            data.append({"nombre": nom, "dorsal": dor, "posicion": pos})
-        return "\n".join(lines), data, True
-
-    @staticmethod
-    def _info_equipo(match, parsed):
-        if not match or "equipo_id" not in match:
-            return "No encontré el equipo especificado.", None, False
-        eq_id  = match["equipo_id"]
-        props  = loader.data_props.get(eq_id, {})
-        nom    = props.get("tieneNombre", eq_id)
-        ciudad = props.get("tieneCiudad", "?")
-        pais   = props.get("tienePais", "?")
-
-        est_id   = indexer.get_obj(eq_id, "tieneEstadio")
-        est_nom  = _nombre(est_id) if est_id else "?"
-        dt_id    = indexer.get_obj(eq_id, "esDirigidoPor")
-        dt_nom   = _nombre(dt_id) if dt_id else "?"
-        comp_id  = indexer.get_obj(eq_id, "perteneceA")
-        comp_nom = _nombre(comp_id) if comp_id else "?"
-
-        # Respuesta directa según la pregunta
-        q = parsed.raw.lower()
-        if "entrena" in q or "entrenador" in q:
-            answer = f"El entrenador del {nom} es {dt_nom}."
-        elif "estadio" in q:
-            answer = f"El estadio del {nom} es el {est_nom}."
-        elif "liga" in q or "competicion" in q or "competición" in q:
-            answer = f"El {nom} juega en la {comp_nom}."
-        elif "ciudad" in q or "de donde es" in q or "de dónde es" in q or "pais" in q or "país" in q:
-            answer = f"El {nom} es de {ciudad}, {pais}."
+                print(f"[SERVICE] found={found}  answer={answer!r}")
+            except Exception as e:
+                import traceback
+                print(f"[SERVICE ERROR] {e}")
+                traceback.print_exc()
+                answer = f"Error procesando la consulta: {e}"
         else:
-            answer = (
-                f"Equipo: {nom}\n"
-                f"Ciudad: {ciudad}, {pais}\n"
-                f"Estadio: {est_nom}\n"
-                f"Entrenador: {dt_nom}\n"
-                f"Liga: {comp_nom}"
-            )
-            
-        data = {"nombre": nom, "ciudad": ciudad, "pais": pais,
-                "estadio": est_nom, "entrenador": dt_nom, "liga": comp_nom}
-        return answer, data, True
+            print(f"[SERVICE] intent desconocido: {intent!r}")
 
-    @staticmethod
-    def _info_jugador(match, parsed):
-        if not match or "jugador_id" not in match:
-            return "No encontré al jugador especificado.", None, False
-        jug_id = match["jugador_id"]
-        props  = loader.data_props.get(jug_id, {})
-        nom    = props.get("tieneNombre", jug_id)
-        nac    = props.get("tieneNacionalidad", "?")
-        pos    = props.get("tienePosicion", "?")
-        dor    = str(props.get("tieneDorsal", "?"))
-        cap    = " (Capitán)" if str(props.get("esCapitan", "false")).lower() == "true" else ""
+        print(f"{'='*60}\n")
 
-        eq_id  = indexer.get_obj(jug_id, "juegaEn")
-        eq_nom = _nombre(eq_id) if eq_id else "?"
-
-        # Contar goles
-        count = sum(
-            1 for ind_id, obj_list in loader.obj_props.items()
-            for prop, obj in obj_list if prop == "goleador" and obj == jug_id
+        # ⚠️ 'found' (no 'success') para coincidir con el modelo Pydantic
+        return SearchResponse(
+            query=query_str,
+            intent=intent,
+            answer=answer,
+            data=data,
+            found=found,
         )
 
+    # ── resultado_partido ──────────────────────────────────────────────────
+    @staticmethod
+    def _resultado_partido(matched: dict):
+        eq_a = matched.get("eq_a")
+        eq_b = matched.get("eq_b")
+        print(f"  [resultado_partido] eq_a={eq_a!r}  eq_b={eq_b!r}")
+
+        if not eq_a:
+            return "No pude identificar los equipos en tu consulta.", None, False
+
+        query = (SPARQLBuilder.query_partido_entre(eq_a, eq_b)
+                 if eq_b else SPARQLBuilder.query_partidos_de_equipo(eq_a))
+
+        resultados = executor.query(query)
+        print(f"  [resultado_partido] filas SPARQL={len(resultados)}")
+
+        if not resultados:
+            return "No encontré partidos para esos equipos.", None, False
+
+        data = []
+        for fila in resultados:
+            data.append({
+                "local":           fila.get("eq_local_nom", "?"),
+                "visitante":       fila.get("eq_visitante_nom", "?"),
+                "goles_local":     fila.get("golesLocal", fila.get("goles_local", "?")),
+                "goles_visitante": fila.get("golesVisitante", fila.get("goles_visitante", "?")),
+                "fecha":           _fmt_fecha(fila.get("fecha", "")),
+                "estadio":         fila.get("estadio_nombre", "?"),
+                "arbitro":         fila.get("arbitro_nombre", "?"),
+                "competicion":     fila.get("comp_nombre", "?"),
+            })
+
+        if len(data) == 1:
+            i = data[0]
+            answer = (f"El resultado fue {i['local']} {i['goles_local']} "
+                      f"- {i['goles_visitante']} {i['visitante']}.")
+        else:
+            answer = f"Se encontraron {len(data)} partidos."
+
+        return answer, data[0] if len(data) == 1 else data, True
+
+    # ── goles_partido ──────────────────────────────────────────────────────
+    @staticmethod
+    def _goles_partido(matched: dict, parsed):
+        print(f"  [goles_partido] matched={matched}")
+
+        # Caso 1: buscar goles de un jugador detectado en la query raw
+        # El matcher para goles_partido devuelve eq_a/eq_b, no jugador_id,
+        # así que buscamos el jugador directamente contra la ontología.
+        q_lower = parsed.raw.lower()
+        todos_jug = executor.query(f"""
+            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            PREFIX : <http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/>
+            SELECT ?id ?nombre WHERE {{
+                ?id rdf:type :Jugador ; :tieneNombre ?nombre .
+            }}
+        """)
+        for fila in todos_jug:
+            nom = fila.get("nombre", "")
+            if nom and nom.lower() in q_lower:
+                NS_BASE = "http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/"
+                raw_id = fila.get("id", "")
+                jug_id = raw_id[len(NS_BASE):] if raw_id.startswith(NS_BASE) else raw_id.split("#")[-1]
+                print(f"  [goles_partido] jugador detectado: {nom!r} → {jug_id!r}")
+                goles_r = executor.query(SPARQLBuilder.query_goles_jugador(jug_id))
+                total   = int(goles_r[0].get("total", 0)) if goles_r else 0
+                answer  = f"{nom} tiene {total} gol(es) registrado(s) en la ontología."
+                return answer, {"jugador": nom, "goles": total}, True
+
+        # Caso 2: goles detallados de un partido entre equipos
+        eq_a = matched.get("eq_a")
+        eq_b = matched.get("eq_b")
+        print(f"  [goles_partido] buscando partido eq_a={eq_a!r} eq_b={eq_b!r}")
+
+        if not eq_a:
+            return "No pude identificar el partido o jugador en tu consulta.", None, False
+
+        partidos_q = (SPARQLBuilder.query_partido_entre(eq_a, eq_b)
+                      if eq_b else SPARQLBuilder.query_partidos_de_equipo(eq_a))
+        partidos   = executor.query(partidos_q)
+        print(f"  [goles_partido] partidos encontrados={len(partidos)}")
+
+        if not partidos:
+            return "No se encontró el partido.", None, False
+
+        NS_BASE = "http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/"
+        partido_iris = list({f.get("partido", "") for f in partidos if f.get("partido")})
+        all_goles = []
+        for iri in partido_iris:
+            p_id = iri[len(NS_BASE):] if iri.startswith(NS_BASE) else (iri.split("#")[-1] if "#" in iri else iri)
+            print(f"  [goles_partido] goles de partido {p_id!r}")
+            goles_r = executor.query(SPARQLBuilder.query_goles_partido(p_id))
+            print(f"  [goles_partido] → {len(goles_r)} goles")
+            for g in goles_r:
+                all_goles.append({
+                    "anotador":  g.get("anotador_nom", "?"),
+                    "asistidor": g.get("asistidor_nom", ""),
+                    "minuto":    g.get("minuto", "?"),
+                    "tiempo":    g.get("tiempo", ""),
+                })
+
+        if not all_goles:
+            return "No hay detalle de goles registrado para ese partido.", None, False
+
+        local  = partidos[0].get("eq_local_nom", "?")
+        vis    = partidos[0].get("eq_visitante_nom", "?")
+        answer = f"En el partido {local} vs {vis} se registraron {len(all_goles)} gol(es)."
+        return answer, all_goles, True
+
+    # ── jugadores_equipo ───────────────────────────────────────────────────
+    @staticmethod
+    def _jugadores_equipo(matched: dict):
+        eq_id = matched.get("equipo_id") if matched else None
+        print(f"  [jugadores_equipo] eq_id={eq_id!r}")
+
+        if not eq_id:
+            return "No pude identificar el equipo en tu consulta.", None, False
+
+        resultados = executor.query(SPARQLBuilder.query_jugadores_equipo(eq_id))
+        print(f"  [jugadores_equipo] jugadores={len(resultados)}")
+
+        if not resultados:
+            return "No hay jugadores registrados para ese equipo.", None, False
+
+        eq_info = executor.query(SPARQLBuilder.query_info_equipo(eq_id))
+        eq_nom  = eq_info[0].get("nombre", eq_id) if eq_info else eq_id
+
+        data    = [{"nombre":   f.get("nombre", "?"),
+                    "dorsal":   f.get("dorsal", "?"),
+                    "posicion": f.get("posicion", "?"),
+                    "capitan":  f.get("esCapitan", "false")}
+                   for f in resultados]
+        nombres = [d["nombre"] for d in data]
+        answer  = (f"La plantilla del {eq_nom} tiene {len(data)} jugadores, "
+                   f"entre ellos: {_resumir_lista(nombres)}.")
+        return answer, data, True
+
+    # ── info_equipo ────────────────────────────────────────────────────────
+    @staticmethod
+    def _info_equipo(matched: dict, parsed):
+        eq_id = matched.get("equipo_id") if matched else None
+        print(f"  [info_equipo] eq_id={eq_id!r}")
+
+        if not eq_id:
+            return "No pude identificar el equipo en tu consulta.", None, False
+
+        resultados = executor.query(SPARQLBuilder.query_info_equipo(eq_id))
+        print(f"  [info_equipo] filas={len(resultados)}  raw={resultados}")
+
+        if not resultados:
+            return "No encontré información para ese equipo.", None, False
+
+        fila    = resultados[0]
+        nom     = fila.get("nombre", eq_id)
+        ciudad  = fila.get("ciudad", "?")
+        pais    = fila.get("pais", "?")
+        estadio = fila.get("estadio_nombre", "?")
+        dt      = fila.get("entrenador_nombre", "?")
+        liga    = fila.get("comp_nombre", "?")
+
         q = parsed.raw.lower()
-        if "posicion" in q or "posición" in q or "de que juega" in q or "de qué juega" in q:
+        if any(k in q for k in ["entrena", "entrenador"]):
+            answer = f"El entrenador del {nom} es {dt}."
+        elif "estadio" in q:
+            answer = f"El estadio del {nom} es el {estadio}."
+        elif any(k in q for k in ["liga", "competicion", "competición"]):
+            answer = f"El {nom} juega en la {liga}."
+        elif any(k in q for k in ["ciudad", "pais", "país", "de donde", "dónde"]):
+            answer = f"El {nom} es de {ciudad}, {pais}."
+        else:
+            answer = (f"El {nom} es un equipo de {ciudad}, {pais}, dirigido por {dt}. "
+                      f"Juega como local en el {estadio} y participa en la {liga}.")
+
+        data = {"nombre": nom, "ciudad": ciudad, "pais": pais,
+                "estadio": estadio, "entrenador": dt, "liga": liga}
+        return answer, data, True
+
+    # ── info_jugador ───────────────────────────────────────────────────────
+    @staticmethod
+    def _info_jugador(matched: dict, parsed):
+        jug_id = matched.get("jugador_id") if matched else None
+        print(f"  [info_jugador] jug_id={jug_id!r}")
+
+        if not jug_id:
+            return "No pude identificar el jugador en tu consulta.", None, False
+
+        resultados = executor.query(SPARQLBuilder.query_info_jugador(jug_id))
+        print(f"  [info_jugador] filas={len(resultados)}  raw={resultados}")
+
+        if not resultados:
+            return "No encontré información para ese jugador.", None, False
+
+        fila   = resultados[0]
+        nom    = fila.get("nombre", jug_id)
+        eq_nom = fila.get("equipo_nombre", "?")
+        nac    = fila.get("nacionalidad", "?")
+        pos    = fila.get("posicion", "?")
+        dor    = fila.get("dorsal", "?")
+        cap    = str(fila.get("esCapitan", "false")).lower() == "true"
+
+        goles_r = executor.query(SPARQLBuilder.query_goles_jugador(jug_id))
+        goles   = int(goles_r[0].get("total", 0)) if goles_r else 0
+        print(f"  [info_jugador] goles={goles}")
+
+        q = parsed.raw.lower()
+        if any(k in q for k in ["posicion", "posición", "de que juega", "de qué juega"]):
             answer = f"{nom} juega en la posición de {pos}."
-        elif "equipo" in q or "donde juega" in q or "dónde juega" in q:
-            answer = f"{nom} juega en el equipo {eq_nom}."
-        elif "nacionalidad" in q or "de donde es" in q or "de dónde es" in q or "pais" in q or "país" in q:
+        elif any(k in q for k in ["equipo", "donde juega", "dónde juega"]):
+            answer = f"{nom} juega en el {eq_nom}."
+        elif any(k in q for k in ["nacionalidad", "de donde es", "de dónde es", "pais", "país"]):
             answer = f"La nacionalidad de {nom} es {nac}."
-        elif "dorsal" in q or "numero" in q or "número" in q or "camiseta" in q:
+        elif any(k in q for k in ["dorsal", "numero", "número", "camiseta"]):
             answer = f"{nom} usa el dorsal #{dor}."
         elif "goles" in q:
-            answer = f"{nom} tiene {count} goles registrados."
+            answer = f"{nom} tiene {goles} goles registrados."
         else:
-            answer = (
-                f"Jugador: {nom}{cap} | #{dor}\n"
-                f"Posición: {pos}\n"
-                f"Nacionalidad: {nac}\n"
-                f"Equipo: {eq_nom}\n"
-                f"Goles registrados: {count}"
-            )
+            cap_str = " (capitán)" if cap else ""
+            answer  = (f"{nom} es un jugador de nacionalidad {nac} que juega de {pos} "
+                       f"en el {eq_nom}{cap_str}. Usa el dorsal #{dor} y tiene {goles} goles registrados.")
 
         data = {"nombre": nom, "dorsal": dor, "posicion": pos,
-                "nacionalidad": nac, "equipo": eq_nom, "goles": count}
+                "nacionalidad": nac, "equipo": eq_nom, "goles": goles, "capitan": cap}
         return answer, data, True
 
+    # ── jugador_por_dorsal ─────────────────────────────────────────────────
     @staticmethod
-    def _jugador_por_dorsal(match, parsed):
-        if not match or not match.get("dorsal"):
-            return "No entendí qué número de dorsal estás buscando.", None, False
-        
-        dorsal = match["dorsal"]
-        eq_id = match.get("equipo_id")
-        
-        # Buscar en todos los jugadores
-        for j_id in indexer.clase_idx.get("Jugador", []):
-            props = loader.data_props.get(j_id, {})
-            dor = str(props.get("tieneDorsal", ""))
-            
-            if dor == dorsal:
-                # Comprobar equipo si se especificó
-                jug_eq_id = indexer.get_obj(j_id, "juegaEn")
-                if eq_id and jug_eq_id != eq_id:
-                    continue
-                
-                # Jugador encontrado
-                nom = props.get("tieneNombre", j_id)
-                eq_nom = _nombre(jug_eq_id) if jug_eq_id else "?"
-                
-                answer = f"El jugador que lleva el dorsal #{dorsal} en el {eq_nom} es {nom}."
-                data = {"nombre": nom, "dorsal": dorsal, "equipo": eq_nom}
-                return answer, data, True
-                
-        # Si no lo encontró
-        eq_text = f" en el {_nombre(eq_id)}" if eq_id else ""
-        return f"No se encontró un jugador con el dorsal #{dorsal}{eq_text}.", None, False
+    def _jugador_por_dorsal(matched: dict):
+        dorsal = matched.get("dorsal")
+        eq_id  = matched.get("equipo_id")
+        print(f"  [jugador_por_dorsal] dorsal={dorsal!r}  eq_id={eq_id!r}")
 
+        if not dorsal:
+            return "No pude identificar el número de dorsal.", None, False
+
+        resultados = executor.query(SPARQLBuilder.query_jugador_por_dorsal(dorsal, eq_id))
+        print(f"  [jugador_por_dorsal] filas={len(resultados)}")
+
+        if not resultados:
+            return "No encontré un jugador con ese dorsal.", None, False
+
+        fila   = resultados[0]
+        nom    = fila.get("nombre", "?")
+        eq_nom = fila.get("equipo_nombre", "?")
+        answer = f"El jugador que lleva el dorsal #{dorsal} en el {eq_nom} es {nom}."
+        return answer, {"nombre": nom, "dorsal": dorsal, "equipo": eq_nom}, True
+
+    # ── jugadores_nacionalidad ─────────────────────────────────────────────
     @staticmethod
-    def _info_estadio(match, parsed):
-        if not match or "estadio_id" not in match:
-            # Listar todos los estadios
-            estadios = indexer.clase_idx.get("Estadio", [])
-            lines = ["Estadios registrados:"]
-            data  = []
-            for e_id in sorted(estadios):
-                p   = loader.data_props.get(e_id, {})
-                nom = p.get("tieneNombre", e_id)
-                cap = str(p.get("tieneCapacidad", "?"))
-                ciu = p.get("tieneCiudad", "?")
-                pai = p.get("tienePais", "?")
-                lines.append(f"  - {nom} | {ciu}, {pai} | Cap: {cap}")
-                data.append({"nombre": nom, "capacidad": cap, "ciudad": ciu, "pais": pai})
-            return "\n".join(lines), data, bool(estadios)
+    def _jugadores_nacionalidad(matched: dict):
+        nac = (matched.get("nacionalidad") or "").strip()
+        print(f"  [jugadores_nacionalidad] nac_raw={nac!r}")
 
-        est_id = match["estadio_id"]
-        props  = loader.data_props.get(est_id, {})
-        nom    = props.get("tieneNombre", est_id)
-        cap    = str(props.get("tieneCapacidad", "?"))
-        ciu    = props.get("tieneCiudad", "?")
-        pai    = props.get("tienePais", "?")
-        
+        if not nac:
+            return "No pude identificar la nacionalidad en tu consulta.", None, False
+
+        mapeo = {
+            "española": "españa", "español": "españa",
+            "inglesa":  "inglaterra", "ingles": "inglaterra", "inglés": "inglaterra",
+            "francesa": "francia",   "frances": "francia",   "francés": "francia",
+            "brasileña": "brasil",   "brasileño": "brasil",
+            "alemana":  "alemania",  "aleman": "alemania",   "alemán": "alemania",
+            "argentina": "argentina","argentino": "argentina",
+            "portuguesa": "portugal","portugues": "portugal","portugués": "portugal",
+            "italiana":  "italia",   "italiano": "italia",
+            "uruguaya":  "uruguay",  "uruguayo": "uruguay",
+            "colombiana": "colombia","colombiano": "colombia",
+            "croata":    "croacia",
+        }
+        nac_query = mapeo.get(nac.lower(), nac)
+        print(f"  [jugadores_nacionalidad] nac_query={nac_query!r}")
+
+        resultados = executor.query(SPARQLBuilder.query_jugadores_nacionalidad(nac_query))
+        print(f"  [jugadores_nacionalidad] jugadores={len(resultados)}")
+
+        if not resultados:
+            return "No encontré jugadores con esa nacionalidad.", None, False
+
+        data = [{"nombre":       f.get("nombre", "?"),
+                 "nacionalidad": f.get("nacionalidad", nac),
+                 "equipo":       f.get("equipo_nombre", "?"),
+                 "posicion":     f.get("posicion", "?")}
+                for f in resultados]
+
+        nombres     = [d["nombre"] for d in data]
+        nac_display = data[0]["nacionalidad"]
+        answer = (f"Se encontraron {len(data)} jugadores con nacionalidad {nac_display}, "
+                  f"entre ellos: {_resumir_lista(nombres)}.")
+        return answer, data, True
+
+    # ── info_estadio ───────────────────────────────────────────────────────
+    @staticmethod
+    def _info_estadio(matched: dict, parsed):
+        est_id = matched.get("estadio_id") if matched else None
+        print(f"  [info_estadio] est_id={est_id!r}")
+
+        if not est_id:
+            resultados = executor.query(SPARQLBuilder.query_todos_estadios())
+            print(f"  [info_estadio] todos: filas={len(resultados)}")
+            if not resultados:
+                return "No hay estadios registrados.", None, False
+            data    = [{"nombre":    f.get("nombre", "?"), "capacidad": f.get("capacidad", "?"),
+                        "ciudad":    f.get("ciudad", "?"), "pais":      f.get("pais", "?")}
+                       for f in resultados]
+            nombres = [d["nombre"] for d in data]
+            answer  = f"Hay {len(data)} estadios registrados: {_resumir_lista(nombres)}."
+            return answer, data, True
+
+        resultados = executor.query(SPARQLBuilder.query_info_estadio(est_id))
+        print(f"  [info_estadio] filas={len(resultados)}")
+
+        if not resultados:
+            return "No encontré información para ese estadio.", None, False
+
+        fila   = resultados[0]
+        nom    = fila.get("nombre", est_id)
+        cap    = fila.get("capacidad", "?")
+        ciu    = fila.get("ciudad", "?")
+        pai    = fila.get("pais", "?")
+
         q = parsed.raw.lower()
-        if "capacidad" in q or "aforo" in q or "cuantos entran" in q or "cuántos entran" in q:
+        if any(k in q for k in ["capacidad", "aforo", "cuantos entran", "cuántos entran"]):
             answer = f"La capacidad del estadio {nom} es de {cap} espectadores."
-        elif "donde esta" in q or "dónde está" in q or "ciudad" in q or "ubicacion" in q or "ubicación" in q:
+        elif any(k in q for k in ["donde esta", "dónde está", "ciudad", "ubicacion", "ubicación"]):
             answer = f"El estadio {nom} está ubicado en {ciu}, {pai}."
         else:
-            answer = (
-                f"Estadio: {nom}\n"
-                f"Capacidad: {cap}\n"
-                f"Ubicación: {ciu}, {pai}"
-            )
-            
-        data = {"nombre": nom, "capacidad": cap, "ciudad": ciu, "pais": pai}
-        return answer, data, True
+            answer = f"El estadio {nom} está en {ciu}, {pai}, con capacidad para {cap} espectadores."
 
+        return answer, {"nombre": nom, "capacidad": cap, "ciudad": ciu, "pais": pai}, True
+
+    # ── arbitros ───────────────────────────────────────────────────────────
     @staticmethod
     def _arbitros():
-        arbs = indexer.clase_idx.get("Arbitro", [])
-        if not arbs:
-            return "No se encontraron árbitros.", None, False
-        lines = ["Árbitros registrados:"]
-        data  = []
-        for a_id in sorted(arbs, key=lambda x: loader.data_props.get(x, {}).get("tieneNombre", x)):
-            p   = loader.data_props.get(a_id, {})
-            nom = p.get("tieneNombre", a_id)
-            nac = p.get("tieneNacionalidad", "?")
-            lines.append(f"  - {nom} ({nac})")
-            data.append({"nombre": nom, "nacionalidad": nac})
-        return "\n".join(lines), data, True
+        resultados = executor.query(SPARQLBuilder.query_arbitros())
+        print(f"  [arbitros] filas={len(resultados)}")
+        if not resultados:
+            return "No hay árbitros registrados.", None, False
+        data    = [{"nombre": f.get("nombre", "?"), "nacionalidad": f.get("nacionalidad", "?")}
+                   for f in resultados]
+        nombres = [d["nombre"] for d in data]
+        answer  = f"Hay {len(data)} árbitros registrados: {_resumir_lista(nombres)}."
+        return answer, data, True
 
+    # ── tarjetas ───────────────────────────────────────────────────────────
     @staticmethod
     def _tarjetas():
-        lines = ["Tarjetas registradas:"]
-        data  = []
-        clases_tarjeta = {"TarjetaAmarilla": "Amarilla", "TarjetaRoja": "Roja"}
-        for cls, emoji in clases_tarjeta.items():
-            for t_id in indexer.clase_idx.get(cls, []):
-                jug_id = indexer.get_obj(t_id, "recibeTarjeta")
-                nom    = _nombre(jug_id) if jug_id else "?"
-                props  = loader.data_props.get(t_id, {})
-                mins   = str(props.get("tieneMinuto", "?"))
-                tiem   = props.get("tieneTiempo", "")
-                motiv  = props.get("motivoTarjeta", "")
-                lines.append(f"  {emoji} → {nom} | Min {mins} {tiem} | {motiv}")
-                data.append({"tipo": cls, "jugador": nom, "minuto": mins,
-                             "tiempo": tiem, "motivo": motiv})
-        if len(lines) == 1:
-            return "No se encontraron tarjetas.", None, False
-        return "\n".join(lines), data, True
+        resultados = executor.query(SPARQLBuilder.query_todas_tarjetas())
+        print(f"  [tarjetas] filas={len(resultados)}")
+        if not resultados:
+            return "No hay tarjetas registradas.", None, False
+        data = [{"tipo":    f.get("tipo_clase", "?"), "jugador": f.get("nombre_jugador", "?"),
+                 "minuto":  f.get("minuto", "?"),     "tiempo":  f.get("tiempo", ""),
+                 "motivo":  f.get("motivo", "")}
+                for f in resultados]
+        answer = f"Se encontraron {len(data)} tarjetas registradas en total."
+        return answer, data, True
 
+    # ── sustituciones ──────────────────────────────────────────────────────
     @staticmethod
     def _sustituciones():
-        sust_ids = indexer.clase_idx.get("Sustitucion", [])
-        if not sust_ids:
-            return "No se encontraron sustituciones.", None, False
-        lines = ["Sustituciones registradas:"]
-        data  = []
-        for s_id in sorted(sust_ids):
-            entra_id = indexer.get_obj(s_id, "jugadorEntra")
-            sale_id  = indexer.get_obj(s_id, "jugadorSale")
-            props    = loader.data_props.get(s_id, {})
-            entra    = _nombre(entra_id) if entra_id else "?"
-            sale     = _nombre(sale_id)  if sale_id  else "?"
-            mins     = str(props.get("tieneMinuto", "?"))
-            tiem     = props.get("tieneTiempo", "")
-            lines.append(f"  - Entra: {entra} | Sale: {sale} | Min {mins} {tiem}")
-            data.append({"entra": entra, "sale": sale, "minuto": mins, "tiempo": tiem})
-        return "\n".join(lines), data, True
+        resultados = executor.query(SPARQLBuilder.query_sustituciones())
+        print(f"  [sustituciones] filas={len(resultados)}")
+        if not resultados:
+            return "No hay sustituciones registradas.", None, False
+        data = [{"entra":  f.get("entra_nom", "?"), "sale":   f.get("sale_nom",  "?"),
+                 "minuto": f.get("minuto", "?"),     "tiempo": f.get("tiempo", "")}
+                for f in resultados]
+        answer = f"Se encontraron {len(data)} sustituciones registradas."
+        return answer, data, True
 
+    # ── goleadores_ranking ─────────────────────────────────────────────────
     @staticmethod
     def _goleadores_ranking():
-        """Cuenta goles por jugador desde las object properties."""
-        conteo: dict[str, int] = {}
-        for ind_id, obj_list in loader.obj_props.items():
-            for prop, obj in obj_list:
-                if prop == "goleador":
-                    conteo[obj] = conteo.get(obj, 0) + 1
+        resultados = executor.query(SPARQLBuilder.query_maximo_goleador())
+        print(f"  [goleadores_ranking] filas={len(resultados)}")
+        if not resultados:
+            return "No hay registros de goles.", None, False
+        data   = [{"jugador": f.get("nombre", "?"), "goles": int(f.get("goles", 0))}
+                  for f in resultados]
+        top3   = ", ".join(f"{d['jugador']} ({d['goles']})" for d in data[:3])
+        answer = f"Top goleadores: {top3}."
+        return answer, data, True
 
-        if not conteo:
-            return "No se encontraron goleadores.", None, False
-
-        ranking = sorted(conteo.items(), key=lambda x: -x[1])
-        lines = ["Ranking de Goleadores:"]
-        data  = []
-        for i, (jug_id, goles) in enumerate(ranking, 1):
-            nom = _nombre(jug_id)
-            lines.append(f"  {i}. {nom} — {goles} gol(es)")
-            data.append({"jugador": nom, "goles": goles})
-        return "\n".join(lines), data, True
-
+    # ── todos_partidos ─────────────────────────────────────────────────────
     @staticmethod
     def _todos_partidos():
-        partidos = indexer.clase_idx.get("Partido", [])
-        if not partidos:
-            return "No se encontraron partidos.", None, False
-        lines = [f"Partidos registrados ({len(partidos)}):"]
-        data  = []
-        for p_id in sorted(partidos):
-            i = _info_partido(p_id)
-            loc, vis = i["equipo_local"], i["equipo_visitante"]
-            gl, gv   = i["goles_local"], i["goles_visitante"]
-            lines.append(f"  - {loc} {gl}-{gv} {vis} | {i['competicion']} | {i['fecha']}")
-            data.append(i)
-        return "\n".join(lines), data, True
+        resultados = executor.query(SPARQLBuilder.query_todos_partidos())
+        print(f"  [todos_partidos] filas={len(resultados)}")
+        if not resultados:
+            return "No se encontraron partidos registrados.", None, False
+        data = [{"fecha":           _fmt_fecha(f.get("fecha", "")),
+                 "local":           f.get("eq_local_nom", "?"),
+                 "visitante":       f.get("eq_visitante_nom", "?"),
+                 "goles_local":     f.get("goles_local", "-"),
+                 "goles_visitante": f.get("goles_visitante", "-"),
+                 "competicion":     f.get("comp_nombre", "?")}
+                for f in resultados]
+        answer = f"Se encontraron {len(data)} partidos registrados."
+        return answer, data, True
 
+    # ── todos_equipos ──────────────────────────────────────────────────────
     @staticmethod
     def _todos_equipos():
-        equipos = indexer.clase_idx.get("Equipo", [])
-        if not equipos:
-            return "No se encontraron equipos.", None, False
-        lines = [f"Equipos registrados ({len(equipos)}):"]
-        data  = []
-        for eq_id in sorted(equipos):
-            nom = _nombre(eq_id)
-            lines.append(f"  - {nom}")
-            data.append(nom)
-        return "\n".join(lines), data, True
+        resultados = executor.query(SPARQLBuilder.query_todos_los_equipos())
+        print(f"  [todos_equipos] filas={len(resultados)}")
+        if not resultados:
+            return "No hay equipos registrados.", None, False
+        data   = [f["nombre"] for f in resultados if "nombre" in f]
+        answer = f"Hay {len(data)} equipos registrados: {_resumir_lista(data)}."
+        return answer, data, True
 
+    # ── todos_jugadores ────────────────────────────────────────────────────
     @staticmethod
     def _todos_jugadores():
-        jugadores = indexer.clase_idx.get("Jugador", [])
-        if not jugadores:
-            return "No se encontraron jugadores.", None, False
-        lines = [f"Jugadores registrados ({len(jugadores)}):"]
-        data  = []
-        for j_id in sorted(jugadores, key=lambda x: loader.data_props.get(x, {}).get("tieneNombre", x)):
-            nom = _nombre(j_id)
-            lines.append(f"  - {nom}")
-            data.append(nom)
-        return "\n".join(lines), data, True
+        resultados = executor.query(SPARQLBuilder.query_todos_los_jugadores())
+        print(f"  [todos_jugadores] filas={len(resultados)}")
+        if not resultados:
+            return "No hay jugadores registrados.", None, False
+        data   = [f["nombre"] for f in resultados if "nombre" in f]
+        answer = f"Hay {len(data)} jugadores registrados: {_resumir_lista(data)}."
+        return answer, data, True
 
 
-# Singleton
+# Instancia global compartida por el Router
 search_service = SearchService()
