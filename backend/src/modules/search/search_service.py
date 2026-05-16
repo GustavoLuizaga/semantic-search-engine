@@ -72,6 +72,14 @@ class SearchService:
             "capitan_equipo":         lambda: self._capitan_equipo(matched),
             "estadios_ubicacion":     lambda: self._estadios_ubicacion(matched),
             "partidos_competicion":   lambda: self._partidos_competicion(matched),
+            "info_fecha_nacimiento":  lambda: self._info_fecha_nacimiento(matched),
+            "es_titular":             lambda: self._es_titular(matched),
+            "torneos_internacionales":lambda: self._torneos_internacionales(),
+            "asistencia_gol":         lambda: self._asistencia_gol(matched),
+            "tarjeta_por_motivo":     lambda: self._tarjeta_por_motivo(matched),
+            "gol_propia_puerta":      lambda: self._gol_propia_puerta(),
+            "gol_de_penal":           lambda: self._gol_de_penal(),
+            "equipos_por_pais":       lambda: self._equipos_por_pais(matched),
         }
 
         fn = dispatch.get(intent)
@@ -388,6 +396,40 @@ class SearchService:
                   f"entre ellos: {_resumir_lista(nombres)}.")
         return answer, data, True
 
+    # ── equipos_por_pais ──────────────────────────────────────────────────
+    @staticmethod
+    def _equipos_por_pais(matched: dict):
+        nac = (matched.get("nacionalidad") or "").strip()
+        print(f"  [equipos_por_pais] nac_raw={nac!r}")
+
+        if not nac:
+            return "No pude identificar el país en tu consulta.", None, False
+
+        mapeo = {
+            "española": "españa", "español": "españa", "españa": "españa",
+            "inglesa": "inglaterra", "ingles": "inglaterra", "inglaterra": "inglaterra",
+            "francesa": "francia", "frances": "francia", "francia": "francia",
+            "brasileña": "brasil", "brasileño": "brasil", "brasil": "brasil",
+            "alemana": "alemania", "aleman": "alemania", "alemania": "alemania",
+            "argentina": "argentina", "argentino": "argentina",
+            "portuguesa": "portugal", "portugues": "portugal", "portugal": "portugal",
+            "italiana": "italia", "italiano": "italia", "italia": "italia",
+            "uruguaya": "uruguay", "uruguayo": "uruguay", "uruguay": "uruguay",
+            "colombiana": "colombia", "colombiano": "colombia", "colombia": "colombia",
+            "croata": "croacia", "croacia": "croacia",
+            "polaca": "polonia", "polaco": "polonia", "polonia": "polonia"
+        }
+        nac_query = mapeo.get(nac.lower(), nac)
+
+        resultados = executor.query(SPARQLBuilder.query_equipos_por_pais(nac_query))
+        if not resultados:
+            return f"No encontré equipos del país '{nac}'.", None, False
+
+        data = [{"nombre": f.get("nombre", ""), "ciudad": f.get("ciudad", "?"), "estadio": f.get("estadio_nombre", "?")} for f in resultados]
+        nombres = [d["nombre"] for d in data if d["nombre"]]
+        ans = f"Encontré {len(nombres)} equipos de {nac.capitalize()}: {_resumir_lista(nombres)}."
+        return ans, data, True
+
     # ── info_estadio ───────────────────────────────────────────────────────
     @staticmethod
     def _info_estadio(matched: dict, parsed):
@@ -609,6 +651,123 @@ class SearchService:
 
         answer = f"El capitán del {eq_nom} es {nom} (Dorsal #{dor}, {pos})."
         return answer, {"nombre": nom, "dorsal": dor, "posicion": pos, "equipo": eq_nom}, True
+
+    # ── info_fecha_nacimiento ──────────────────────────────────────────────
+    @staticmethod
+    def _info_fecha_nacimiento(matched: dict):
+        per_id = matched.get("persona_id")
+        print(f"  [info_fecha_nacimiento] per_id={per_id!r}")
+        if not per_id:
+            return "No pude identificar a la persona en tu consulta.", None, False
+
+        resultados = executor.query(SPARQLBuilder.query_fecha_nacimiento(per_id))
+        if not resultados:
+            return "No encontré la fecha de nacimiento para esa persona.", None, False
+
+        fila = resultados[0]
+        nom = fila.get("nombre", per_id)
+        fecha_raw = fila.get("fecha_nacimiento", "")
+        fecha = _fmt_fecha(fecha_raw)
+        
+        answer = f"La fecha de nacimiento de {nom} es el {fecha}."
+        return answer, {"nombre": nom, "fecha_nacimiento": fecha}, True
+
+    # ── es_titular ─────────────────────────────────────────────────────────
+    @staticmethod
+    def _es_titular(matched: dict):
+        jug_id = matched.get("jugador_id")
+        if not jug_id:
+            return "No pude identificar al jugador en tu consulta.", None, False
+
+        resultados = executor.query(SPARQLBuilder.query_es_titular(jug_id))
+        if not resultados:
+            return "No encontré información de titularidad para ese jugador.", None, False
+
+        fila = resultados[0]
+        nom = fila.get("nombre", jug_id)
+        es_titular = str(fila.get("es_titular", "false")).lower() == "true"
+        eq_nom = fila.get("equipo_nombre", "su equipo")
+
+        if es_titular:
+            answer = f"Sí, {nom} es un jugador titular en el {eq_nom}."
+        else:
+            answer = f"No, {nom} no figura como titular o no hay datos confirmados."
+            
+        return answer, {"nombre": nom, "es_titular": es_titular, "equipo": eq_nom}, True
+
+    # ── torneos_internacionales ────────────────────────────────────────────
+    @staticmethod
+    def _torneos_internacionales():
+        resultados = executor.query(SPARQLBuilder.query_torneos_internacionales())
+        if not resultados:
+            return "No hay torneos internacionales registrados.", None, False
+            
+        data = [{"nombre": f.get("nombre", "?"), "tipo": f.get("comp_clase", "?")} for f in resultados]
+        nombres = [d["nombre"] for d in data]
+        answer = f"Hay {len(data)} torneos internacionales registrados: {_resumir_lista(nombres)}."
+        return answer, data, True
+
+    # ── asistencia_gol ─────────────────────────────────────────────────────
+    @staticmethod
+    def _asistencia_gol(matched: dict):
+        jug_id = matched.get("jugador_id")
+        if not jug_id:
+            return "No pude identificar al goleador en tu consulta.", None, False
+
+        resultados = executor.query(SPARQLBuilder.query_asistencia_gol(jug_id))
+        if not resultados:
+            return "No encontré registros de asistencias para los goles de este jugador.", None, False
+
+        data = [{"asistidor": f.get("asistidor_nom", "?"), "goleador": f.get("goleador_nom", "?"), "minuto": f.get("minuto", "?"), "tiempo": f.get("tiempo", "?")} for f in resultados]
+        
+        if len(data) == 1:
+            i = data[0]
+            answer = f"{i['asistidor']} le dio la asistencia a {i['goleador']} en el minuto {i['minuto']} ({i['tiempo']})."
+        else:
+            nombres = [d["asistidor"] for d in data]
+            answer = f"Se encontraron {len(data)} asistencias para los goles de {data[0]['goleador']}, dadas por: {_resumir_lista(nombres)}."
+            
+        return answer, data, True
+
+    # ── tarjeta_por_motivo ─────────────────────────────────────────────────
+    @staticmethod
+    def _tarjeta_por_motivo(matched: dict):
+        motivo = matched.get("motivo", "").strip()
+        if not motivo:
+            return "No pude identificar el motivo de la tarjeta en tu consulta.", None, False
+
+        resultados = executor.query(SPARQLBuilder.query_tarjeta_por_motivo(motivo))
+        if not resultados:
+            return f"No encontré jugadores con tarjetas por el motivo '{motivo}'.", None, False
+
+        data = [{"jugador": f.get("nombre_jugador", "?"), "motivo": f.get("motivo_exacto", "?"), "tipo": f.get("tipo_tarjeta", "?"), "minuto": f.get("minuto", "?"), "tiempo": f.get("tiempo", "?")} for f in resultados]
+        nombres = [d["jugador"] for d in data]
+        answer = f"Se encontraron {len(data)} tarjetas por motivos similares a '{motivo}'. Jugadores amonestados/expulsados: {_resumir_lista(nombres)}."
+        return answer, data, True
+
+    # ── gol_propia_puerta ──────────────────────────────────────────────────
+    @staticmethod
+    def _gol_propia_puerta():
+        resultados = executor.query(SPARQLBuilder.query_gol_propia_puerta())
+        if not resultados:
+            return "No hay goles en propia puerta registrados.", None, False
+
+        data = [{"jugador": f.get("nombre_jugador", "?"), "minuto": f.get("minuto", "?"), "tiempo": f.get("tiempo", "?")} for f in resultados]
+        nombres = [d["jugador"] for d in data]
+        answer = f"Se encontraron {len(data)} goles en propia puerta, anotados por: {_resumir_lista(nombres)}."
+        return answer, data, True
+
+    # ── gol_de_penal ───────────────────────────────────────────────────────
+    @staticmethod
+    def _gol_de_penal():
+        resultados = executor.query(SPARQLBuilder.query_gol_de_penal())
+        if not resultados:
+            return "No hay goles de penal registrados.", None, False
+
+        data = [{"jugador": f.get("nombre_jugador", "?"), "minuto": f.get("minuto", "?"), "tiempo": f.get("tiempo", "?")} for f in resultados]
+        nombres = [d["jugador"] for d in data]
+        answer = f"Se encontraron {len(data)} goles de penal, anotados por: {_resumir_lista(nombres)}."
+        return answer, data, True
 
 # Instancia global compartida por el Router
 search_service = SearchService()

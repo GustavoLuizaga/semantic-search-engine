@@ -81,12 +81,25 @@ class OntologyMatcher:
             eq_id = self._find_id_by_name(equipo, "Equipo") if equipo else None
             return {"dorsal": dorsal, "equipo_id": eq_id}
 
-        elif intent == "jugadores_nacionalidad":
+        elif intent in ("jugadores_nacionalidad", "equipos_por_pais"):
             return {"nacionalidad": entities[0] if entities else ""}
 
-        elif intent == "goleadores_ranking":
+        elif intent in ("info_fecha_nacimiento", "es_titular", "asistencia_gol"):
+            return self._match_persona(entities) if intent == "info_fecha_nacimiento" else self._match_jugador(entities)
+
+        elif intent == "tarjeta_por_motivo":
+            return {"motivo": entities[0] if entities else ""}
+
+        elif intent in ("torneos_internacionales", "gol_propia_puerta", "gol_de_penal", "goleadores_ranking"):
             return {}
 
+        return None
+
+    def _match_persona(self, entities: list):
+        for ent in entities:
+            per_id = self._find_id_by_name(ent, "Persona")
+            if per_id:
+                return {"persona_id": per_id}
         return None
 
     def _match_equipo(self, entities: list):

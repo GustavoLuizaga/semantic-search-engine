@@ -105,15 +105,6 @@ Buscador Semantico/
 - `npm run preview` - Vista previa del build
 - `npm run lint` - Ejecuta linter
 
-## 📝 Variables de Entorno
-
-Crea un archivo `.env` en la carpeta `backend/` con las siguientes variables (según necesites):
-
-```env
-DATABASE_URL=your_database_url
-DEBUG=True
-```
-
 ## 🧪 Pruebas
 
 ### Backend
@@ -134,21 +125,6 @@ Para probar los endpoints, puedes usar:
 - Vite - Build tool
 - Ver `frontend/package.json` para la lista completa
 
-## 🔗 Conexión Frontend-Backend
-
-Para conectar el frontend con el backend, asegúrate de:
-
-1. El backend esté ejecutándose en `http://localhost:8000`
-2. Configurar CORS en FastAPI si es necesario
-3. Usar la URL correcta en las peticiones fetch/axios desde React
-
-Ejemplo en React:
-```javascript
-fetch('http://localhost:8000/api/endpoint')
-  .then(response => response.json())
-  .then(data => console.log(data))
-```
-
 ## 🐛 Troubleshooting
 
 ### Backend
@@ -161,57 +137,57 @@ fetch('http://localhost:8000/api/endpoint')
 
 ## ❓ Preguntas que puede responder la API
 
-La API está diseñada para consultar la ontología y puede responder preguntas en lenguaje natural sobre jugadores, equipos, partidos, estadios, árbitros y eventos. Ejemplos de consultas soportadas:
+La API está diseñada para consultar la ontología y puede responder preguntas en lenguaje natural sobre jugadores, equipos, partidos, estadios, árbitros y eventos.
 
-- Jugador(es):
-   - Información general: "¿Quién es [Nombre del Jugador]?" / "Información de [Jugador]"
-   - Posición o rol: "¿De qué juega [Jugador]?" / "¿En qué posición juega [Jugador]?"
-   - Nacionalidad: "¿De dónde es [Jugador]?" / "Nacionalidad de [Jugador]"
-   - Jugadores por país: "¿Cuáles son los jugadores de nacionalidad [Nacionalidad]?" / "Jugadores de [País]"
-   - Jugador por dorsal: "¿Quién lleva el número [Dorsal] en el [Equipo]?" / "Dorsal [Dorsal] del [Equipo]"
-   - Listar a todos: "¿Cuáles son todos los jugadores?"
+### 👤 Jugador(es) y Personal
 
-- Equipos y Personal:
-   - Información general: "[Equipo]" / "Datos del [Equipo]"
-   - Entrenador: "¿Quién entrena al [Equipo]?" / "Entrenador del [Equipo]"
-   - Capitán: "¿Quién es el capitán del [Equipo]?" / "Capitán de [Equipo]"
-   - Estadio local: "Estadio del [Equipo]?"
-   - Listar a todos: "¿Qué equipos hay?" / "Todos los equipos registrados"
+| Categoría | Patrones de Pregunta | Ejemplo |
+|-----------|-------------------|---------|
+| **Información general de un jugador** | "¿Quién es [Nombre del Jugador]?" / "Información de [Jugador]" | "¿Quién es Vinícius Júnior?" / "Información de Kylian Mbappé" |
+| **Posición o rol** | "¿De qué juega [Jugador]?" / "¿En qué posición juega [Jugador]?" | "¿De qué juega Luka Modric?" / "¿En qué posición juega Robert Lewandowski?" |
+| **Nacionalidad de un jugador** | "¿De dónde es [Jugador]?" / "Nacionalidad de [Jugador]" | "¿De dónde es Harry Kane?" / "Nacionalidad de Gavi" |
+| **Jugadores por país** | "¿Cuáles son los jugadores de nacionalidad [Nacionalidad]?" / "Jugadores de [País]" | "¿Cuáles son los jugadores de nacionalidad Brasileña?" / "Jugadores de España" |
+| **Jugador por dorsal** | "¿Quién lleva el número [Dorsal] en el [Equipo]?" / "Dorsal [Dorsal] del [Equipo]" | "¿Quién lleva el número 7 en el Real Madrid?" / "Dorsal 10 del Barcelona" |
+| **Listar a todos (Jugadores)** | "¿Cuáles son todos los jugadores?" | "¿Cuáles son todos los jugadores?" |
+| **✨ NUEVO - Fecha de nacimiento** | "¿Cuándo nació el [Jugador/Entrenador/Árbitro]?" / "Fecha de nacimiento de [Nombre]" | "¿Cuándo nació Jude Bellingham?" / "Fecha de nacimiento de Carlo Ancelotti" |
+| **✨ NUEVO - Titularidad** | "¿Es titular [Jugador]?" / "¿Es [Jugador] un jugador titular?" | "¿Es titular Mbappé?" / "¿Es Pedri un jugador titular?" |
 
-- Partidos, Goles y Resultados:
-   - Resultado de un enfrentamiento: "Resultado del [Equipo A] vs [Equipo B]" / "¿Quién ganó el partido de [Equipo A] contra [Equipo B]?"
-   - Goles de un jugador en total: "¿Cuántos goles marcó [Nombre jugador]?"
-   - Ranking de goleadores: "¿Quién es el máximo goleador?" / "Top goleadores" / "¿Quién marcó más?"
-   - Partidos de una liga/competición: "Partidos de [Competición]" / "Partidos jugados en la [Liga]"
-   - Listar a todos: "Todos los partidos" / "Lista de partidos jugados"
+### 🛡 Equipos
 
-- Estadios:
-   - Información general/Capacidad: "¿Qué capacidad tiene el [Estadio]?" / "Aforo del [Estadio]"
-   - Búsqueda por país/ciudad: "Estadios en [País/Ciudad]" / "¿Qué estadios hay en [Lugar]?"
+| Categoría | Patrones de Pregunta | Ejemplo |
+|-----------|-------------------|---------|
+| **Información general** | "[Equipo]" / "Datos del [Equipo]" | "Real Madrid" / "Datos del Bayern Munich" |
+| **Entrenador** | "¿Quién entrena al [Equipo]?" / "Entrenador del [Equipo]" | "¿Quién entrena al Liverpool?" / "Entrenador del FC Barcelona" |
+| **Capitán** | "¿Quién es el capitán del [Equipo]?" / "Capitán de [Equipo]" | "¿Quién es el capitán del Real Madrid?" / "Capitán de Bayern Munich" |
+| **Estadio local** | "Estadio del [Equipo]?" | "Estadio del FC Barcelona?" |
+| **Listar a todos (Equipos)** | "¿Qué equipos hay?" / "Todos los equipos registrados" | "¿Qué equipos hay?" / "Todos los equipos registrados" |
+| **✨ NUEVO - Equipos por país** | "¿Cuáles son los equipos de [País]?" / "Equipos de [País]" | "¿Cuáles son los equipos de Alemania?" / "Equipos de Francia" |
 
-- Eventos (Tarjetas, Sustituciones) y Árbitros:
-   - Árbitros registrados: "¿Cuáles son los árbitros?" / "Lista de árbitros"
-   - Tarjetas mostradas: "Muestra las tarjetas" / "Amonestados" / "Expulsados"
-   - Sustituciones (Cambios): "Sustituciones realizadas" / "Cambios en los partidos"
+### ⚽ Partidos, Goles y Resultados
 
-Algunos ejemplos de preguntas que puedes hacer a la API:
+| Categoría | Patrones de Pregunta | Ejemplo |
+|-----------|-------------------|---------|
+| **Resultado de un enfrentamiento** | "Resultado del [Equipo A] vs [Equipo B]" / "¿Quién ganó el partido de [Equipo A] contra [Equipo B]?" | "¿Cuál es el resultado entre Real Madrid y FC Barcelona?" / "¿Quién ganó el partido de Bayern vs PSG?" |
+| **Goles de un jugador en total** | "¿Cuántos goles marcó [Nombre jugador]?" | "¿Cuántos goles marcó Vinícius Júnior?" |
+| **Ranking de goleadores** | "¿Quién es el máximo goleador?" / "Top goleadores" / "¿Quién marcó más?" | "¿Quién es el máximo goleador?" / "Top goleadores" / "¿Quién marcó más?" |
+| **Partidos de una liga/competición** | "Partidos de [Competición]" / "Partidos jugados en la [Liga]" | "Partidos jugados en la UEFA Champions LEAGUE" / "Partidos jugados en La Liga" |
+| **Listar a todos (Partidos)** | "Todos los partidos" / "Lista de partidos jugados" | "Todos los partidos" / "Lista de partidos jugados" |
+| **✨ NUEVO - Asistencias de gol** | "¿Quién le dio la asistencia de gol a [Jugador]?" / "Asistencias de [Jugador]" | "¿Quién le dio la asistencia de gol a Mbappé?" / "¿Quién le dio la asistencia de gol a Vinícius Júnior?" |
+| **✨ NUEVO - Tipos de competiciones** | "¿Cuáles son los torneos internacionales?" / "Competiciones internacionales" | "¿Cuáles son los torneos internacionales?" / "Competiciones internacionales" |
 
-- "¿Cuál es el resultado entre Real Madrid y FC Barcelona?"
-- "resultado Real Madrid vs Barça"
-- "¿Quién ganó el partido de Bayern vs PSG?"
-- "¿Quiénes son los jugadores del Real Madrid?"
-- "Dime la plantilla del FC Barcelona"
-- "¿Cuántos goles marcó Vinícius Júnior?"
-- "¿Quién es Kylian Mbappé?"
-- "Dame información del estadio Santiago Bernabéu"
-- "¿Qué árbitros hay en la ontología?"
-- "¿Quién recibió tarjeta roja?"
-- "¿Hubo sustituciones?"
-- "¿Quién es el máximo goleador?"
-- "¿En qué competición jugó Real Madrid vs Barcelona?"
-- "resultado PSG vs Real Madrid"
-- "¿Qué equipos hay en la ontología?"
-- "¿Cuánta capacidad tiene el Camp Nou?"
-- "¿Quién entrena al Liverpool?"
-- "Lista todos los partidos"
+### 🏟 Estadios
+
+| Categoría | Patrones de Pregunta | Ejemplo |
+|-----------|-------------------|---------|
+| **Información general/Capacidad** | "¿Qué capacidad tiene el [Estadio]?" / "Aforo del [Estadio]" | "¿Cuánta capacidad tiene el Santiago Bernabéu?" / "Aforo del Camp Nou" |
+| **Búsqueda por país/ciudad** | "Estadios en [País/Ciudad]" / "¿Qué estadios hay en [Lugar]?" | "Estadios en España" / "¿Qué estadios hay en Barcelona?" |
+
+### 🟨 Eventos (Tarjetas, Sustituciones) y Árbitros
+
+| Categoría | Patrones de Pregunta | Ejemplo |
+|-----------|-------------------|---------|
+| **Árbitros registrados** | "¿Cuáles son los árbitros?" / "Lista de árbitros" | "¿Cuáles son los árbitros?" / "Lista de árbitros" |
+| **Tarjetas mostradas** | "Muestra las tarjetas" / "Amonestados" / "Expulsados" | "Muestra las tarjetas" / "Amonestados" / "Expulsados" |
+| **Sustituciones (Cambios)** | "Sustituciones realizadas" / "Cambios en los partidos" | "Sustituciones realizadas" / "Cambios en los partidos" |
+| **✨ NUEVO - Tarjetas por motivo** | "¿Qué jugador fue amonestado por [Motivo]?" / "Expulsados por [Motivo]" | "¿Qué jugador fue amonestado por Juego brusco?" / "Expulsados por Doble amarilla" |
 

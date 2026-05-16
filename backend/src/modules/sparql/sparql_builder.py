@@ -174,6 +174,24 @@ class SPARQLBuilder:
         """
 
     @staticmethod
+    def query_equipos_por_pais(pais: str) -> str:
+        return PREFIX + f"""
+        SELECT ?nombre ?ciudad ?estadio_nombre ?pais_res
+        WHERE {{
+            ?eq a :Equipo ;
+                :tieneNombre ?nombre .
+            OPTIONAL {{ ?eq :tienePais ?pais_attr }}
+            OPTIONAL {{ ?eq :tieneNacionalidad ?nac }}
+            OPTIONAL {{ ?eq :tieneCiudad ?ciudad }}
+            OPTIONAL {{ ?eq :tieneEstadio ?est . ?est :tieneNombre ?estadio_nombre }}
+            BIND(COALESCE(?pais_attr, ?nac) AS ?pais_res)
+            FILTER(CONTAINS(LCASE(str(?pais_attr)), "{pais.lower()}") || CONTAINS(LCASE(str(?nac)), "{pais.lower()}"))
+        }}
+        ORDER BY ?nombre
+        """
+
+
+    @staticmethod
     def query_info_estadio(estadio_id: str) -> str:
         return PREFIX + f"""
         SELECT ?nombre ?capacidad ?ciudad ?pais
@@ -379,4 +397,95 @@ class SPARQLBuilder:
             OPTIONAL {{ ?ind :tieneNombre ?nombre }}
         }}
         ORDER BY ?nombre
+        """
+
+    @staticmethod
+    def query_fecha_nacimiento(persona_id: str) -> str:
+        return PREFIX + f"""
+        SELECT ?nombre ?fecha_nacimiento
+        WHERE {{
+            :{persona_id} :tieneNombre ?nombre .
+            :{persona_id} :tieneFechaNacimiento ?fecha_nacimiento .
+        }}
+        """
+
+    @staticmethod
+    def query_es_titular(jugador_id: str) -> str:
+        return PREFIX + f"""
+        SELECT ?nombre ?es_titular ?equipo_nombre
+        WHERE {{
+            :{jugador_id} :tieneNombre ?nombre .
+            OPTIONAL {{ :{jugador_id} :esTitular ?es_titular }}
+            OPTIONAL {{ :{jugador_id} :juegaEn ?eq . ?eq :tieneNombre ?equipo_nombre }}
+        }}
+        """
+
+    @staticmethod
+    def query_torneos_internacionales() -> str:
+        return PREFIX + """
+        SELECT ?nombre ?comp_clase
+        WHERE {
+            ?comp a :TorneoInternacional .
+            ?comp :tieneNombre ?nombre .
+            BIND("TorneoInternacional" AS ?comp_clase)
+        }
+        ORDER BY ?nombre
+        """
+
+    @staticmethod
+    def query_asistencia_gol(jugador_id: str) -> str:
+        return PREFIX + f"""
+        SELECT ?asistidor_nom ?minuto ?tiempo ?goleador_nom
+        WHERE {{
+            ?gol a :Gol ;
+                 :goleador :{jugador_id} ;
+                 :asistencia ?asistidor .
+            :{jugador_id} :tieneNombre ?goleador_nom .
+            ?asistidor :tieneNombre ?asistidor_nom .
+            OPTIONAL {{ ?gol :tieneMinuto ?minuto }}
+            OPTIONAL {{ ?gol :tieneTiempo ?tiempo }}
+        }}
+        ORDER BY ?tiempo ?minuto
+        """
+
+    @staticmethod
+    def query_tarjeta_por_motivo(motivo: str) -> str:
+        return PREFIX + f"""
+        SELECT ?nombre_jugador ?motivo_exacto ?minuto ?tiempo ?tipo_tarjeta
+        WHERE {{
+            ?tar a ?clase ;
+                 :motivoTarjeta ?motivo_exacto ;
+                 :recibeTarjeta ?jug .
+            ?jug :tieneNombre ?nombre_jugador .
+            OPTIONAL {{ ?tar :tieneMinuto ?minuto }}
+            OPTIONAL {{ ?tar :tieneTiempo ?tiempo }}
+            FILTER(CONTAINS(LCASE(str(?motivo_exacto)), LCASE(str("{motivo}"))))
+            BIND(IF(EXISTS {{ ?tar a :TarjetaRoja }}, "Roja", "Amarilla") AS ?tipo_tarjeta)
+        }}
+        """
+
+    @staticmethod
+    def query_gol_propia_puerta() -> str:
+        return PREFIX + """
+        SELECT ?nombre_jugador ?minuto ?tiempo
+        WHERE {
+            ?gol a :GolEnPropiaPorteria ;
+                 :goleador ?jug .
+            ?jug :tieneNombre ?nombre_jugador .
+            OPTIONAL { ?gol :tieneMinuto ?minuto }
+            OPTIONAL { ?gol :tieneTiempo ?tiempo }
+        }
+        """
+
+    @staticmethod
+    def query_gol_de_penal() -> str:
+        return PREFIX + """
+        SELECT ?nombre_jugador ?minuto ?tiempo
+        WHERE {
+            ?gol a :GolDePenal ;
+                 :goleador ?jug .
+            ?jug :tieneNombre ?nombre_jugador .
+            OPTIONAL { ?gol :tieneMinuto ?minuto }
+            OPTIONAL { ?gol :tieneTiempo ?tiempo }
+        }
         """
