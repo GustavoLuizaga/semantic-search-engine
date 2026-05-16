@@ -159,3 +159,59 @@ fetch('http://localhost:8000/api/endpoint')
 - **Puerto 5173 en uso:** Vite usará el siguiente puerto disponible automáticamente
 - **node_modules corrupto:** Elimina `node_modules` y `package-lock.json`, luego ejecuta `npm install` nuevamente
 
+## ❓ Preguntas que puede responder la API
+
+La API está diseñada para consultar la ontología y puede responder preguntas en lenguaje natural sobre jugadores, equipos, partidos, estadios, árbitros y eventos. Ejemplos de consultas soportadas:
+
+- Jugador(es):
+   - Información general: "¿Quién es [Nombre del Jugador]?" / "Información de [Jugador]"
+   - Posición o rol: "¿De qué juega [Jugador]?" / "¿En qué posición juega [Jugador]?"
+   - Nacionalidad: "¿De dónde es [Jugador]?" / "Nacionalidad de [Jugador]"
+   - Jugadores por país: "¿Cuáles son los jugadores de nacionalidad [Nacionalidad]?" / "Jugadores de [País]"
+   - Jugador por dorsal: "¿Quién lleva el número [Dorsal] en el [Equipo]?" / "Dorsal [Dorsal] del [Equipo]"
+   - Listar a todos: "¿Cuáles son todos los jugadores?"
+
+- Equipos y Personal:
+   - Información general: "[Equipo]" / "Datos del [Equipo]"
+   - Entrenador: "¿Quién entrena al [Equipo]?" / "Entrenador del [Equipo]"
+   - Capitán: "¿Quién es el capitán del [Equipo]?" / "Capitán de [Equipo]"
+   - Estadio local: "Estadio del [Equipo]?"
+   - Listar a todos: "¿Qué equipos hay?" / "Todos los equipos registrados"
+
+- Partidos, Goles y Resultados:
+   - Resultado de un enfrentamiento: "Resultado del [Equipo A] vs [Equipo B]" / "¿Quién ganó el partido de [Equipo A] contra [Equipo B]?"
+   - Goles de un jugador en total: "¿Cuántos goles marcó [Nombre jugador]?"
+   - Ranking de goleadores: "¿Quién es el máximo goleador?" / "Top goleadores" / "¿Quién marcó más?"
+   - Partidos de una liga/competición: "Partidos de [Competición]" / "Partidos jugados en la [Liga]"
+   - Listar a todos: "Todos los partidos" / "Lista de partidos jugados"
+
+- Estadios:
+   - Información general/Capacidad: "¿Qué capacidad tiene el [Estadio]?" / "Aforo del [Estadio]"
+   - Búsqueda por país/ciudad: "Estadios en [País/Ciudad]" / "¿Qué estadios hay en [Lugar]?"
+
+- Eventos (Tarjetas, Sustituciones) y Árbitros:
+   - Árbitros registrados: "¿Cuáles son los árbitros?" / "Lista de árbitros"
+   - Tarjetas mostradas: "Muestra las tarjetas" / "Amonestados" / "Expulsados"
+   - Sustituciones (Cambios): "Sustituciones realizadas" / "Cambios en los partidos"
+
+Algunos ejemplos de preguntas que puedes hacer a la API:
+
+- "¿Cuál es el resultado entre Real Madrid y FC Barcelona?"
+- "resultado Real Madrid vs Barça"
+- "¿Quién ganó el partido de Bayern vs PSG?"
+- "¿Quiénes son los jugadores del Real Madrid?"
+- "Dime la plantilla del FC Barcelona"
+- "¿Cuántos goles marcó Vinícius Júnior?"
+- "¿Quién es Kylian Mbappé?"
+- "Dame información del estadio Santiago Bernabéu"
+- "¿Qué árbitros hay en la ontología?"
+- "¿Quién recibió tarjeta roja?"
+- "¿Hubo sustituciones?"
+- "¿Quién es el máximo goleador?"
+- "¿En qué competición jugó Real Madrid vs Barcelona?"
+- "resultado PSG vs Real Madrid"
+- "¿Qué equipos hay en la ontología?"
+- "¿Cuánta capacidad tiene el Camp Nou?"
+- "¿Quién entrena al Liverpool?"
+- "Lista todos los partidos"
+
