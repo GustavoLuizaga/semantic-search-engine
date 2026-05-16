@@ -105,15 +105,6 @@ Buscador Semantico/
 - `npm run preview` - Vista previa del build
 - `npm run lint` - Ejecuta linter
 
-## 📝 Variables de Entorno
-
-Crea un archivo `.env` en la carpeta `backend/` con las siguientes variables (según necesites):
-
-```env
-DATABASE_URL=your_database_url
-DEBUG=True
-```
-
 ## 🧪 Pruebas
 
 ### Backend
@@ -133,21 +124,6 @@ Para probar los endpoints, puedes usar:
 - React - Librería UI
 - Vite - Build tool
 - Ver `frontend/package.json` para la lista completa
-
-## 🔗 Conexión Frontend-Backend
-
-Para conectar el frontend con el backend, asegúrate de:
-
-1. El backend esté ejecutándose en `http://localhost:8000`
-2. Configurar CORS en FastAPI si es necesario
-3. Usar la URL correcta en las peticiones fetch/axios desde React
-
-Ejemplo en React:
-```javascript
-fetch('http://localhost:8000/api/endpoint')
-  .then(response => response.json())
-  .then(data => console.log(data))
-```
 
 ## 🐛 Troubleshooting
 
@@ -191,7 +167,8 @@ La API está diseñada para consultar la ontología y puede responder preguntas 
 
 | Categoría | Patrones de Pregunta | Ejemplo |
 |-----------|-------------------|---------|
-| **Resultado de un enfrentamiento** | "Resultado del [Equipo A] vs [Equipo B]" / "¿Quién ganó el partido de [Equipo A] contra [Equipo B]?" | "Resultado del Real Madrid vs Barcelona" / "¿Quién ganó el partido de Bayern Munich contra Liverpool?" |
+| **Resultado de un enfrentamiento** | "Resultado del [Equipo A] vs [Equipo B]" / "¿Quién ganó el partido de [Equipo A] contra [Equipo B]?" | "¿Cuál es el resultado entre Real Madrid y FC Barcelona?
+" / "¿Quién ganó el partido de Bayern vs PSG?" |
 | **Goles de un jugador en total** | "¿Cuántos goles marcó [Nombre jugador]?" | "¿Cuántos goles marcó Vinícius Júnior?" |
 | **Ranking de goleadores** | "¿Quién es el máximo goleador?" / "Top goleadores" / "¿Quién marcó más?" | "¿Quién es el máximo goleador?" / "Top goleadores" / "¿Quién marcó más?" |
 | **Partidos de una liga/competición** | "Partidos de [Competición]" / "Partidos jugados en la [Liga]" | "Partidos de Champions League" / "Partidos jugados en La Liga" |
