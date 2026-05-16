@@ -167,20 +167,19 @@ La API está diseñada para consultar la ontología y puede responder preguntas 
 
 | Categoría | Patrones de Pregunta | Ejemplo |
 |-----------|-------------------|---------|
-| **Resultado de un enfrentamiento** | "Resultado del [Equipo A] vs [Equipo B]" / "¿Quién ganó el partido de [Equipo A] contra [Equipo B]?" | "¿Cuál es el resultado entre Real Madrid y FC Barcelona?
-" / "¿Quién ganó el partido de Bayern vs PSG?" |
+| **Resultado de un enfrentamiento** | "Resultado del [Equipo A] vs [Equipo B]" / "¿Quién ganó el partido de [Equipo A] contra [Equipo B]?" | "¿Cuál es el resultado entre Real Madrid y FC Barcelona?" / "¿Quién ganó el partido de Bayern vs PSG?" |
 | **Goles de un jugador en total** | "¿Cuántos goles marcó [Nombre jugador]?" | "¿Cuántos goles marcó Vinícius Júnior?" |
 | **Ranking de goleadores** | "¿Quién es el máximo goleador?" / "Top goleadores" / "¿Quién marcó más?" | "¿Quién es el máximo goleador?" / "Top goleadores" / "¿Quién marcó más?" |
-| **Partidos de una liga/competición** | "Partidos de [Competición]" / "Partidos jugados en la [Liga]" | "Partidos de Champions League" / "Partidos jugados en La Liga" |
+| **Partidos de una liga/competición** | "Partidos de [Competición]" / "Partidos jugados en la [Liga]" | "Partidos jugados en la UEFA Champions LEAGUE" / "Partidos jugados en La Liga" |
 | **Listar a todos (Partidos)** | "Todos los partidos" / "Lista de partidos jugados" | "Todos los partidos" / "Lista de partidos jugados" |
-| **✨ NUEVO - Asistencias de gol** | "¿Quién le dio la asistencia de gol a [Jugador]?" / "Asistencias de [Jugador]" | "¿Quién le dio la asistencia de gol a Mbappé?" / "Asistencias de Luka Modric" |
+| **✨ NUEVO - Asistencias de gol** | "¿Quién le dio la asistencia de gol a [Jugador]?" / "Asistencias de [Jugador]" | "¿Quién le dio la asistencia de gol a Mbappé?" / "¿Quién le dio la asistencia de gol a Vinícius Júnior?" |
 | **✨ NUEVO - Tipos de competiciones** | "¿Cuáles son los torneos internacionales?" / "Competiciones internacionales" | "¿Cuáles son los torneos internacionales?" / "Competiciones internacionales" |
 
 ### 🏟 Estadios
 
 | Categoría | Patrones de Pregunta | Ejemplo |
 |-----------|-------------------|---------|
-| **Información general/Capacidad** | "¿Qué capacidad tiene el [Estadio]?" / "Aforo del [Estadio]" | "¿Qué capacidad tiene el Santiago Bernabéu?" / "Aforo del Camp Nou" |
+| **Información general/Capacidad** | "¿Qué capacidad tiene el [Estadio]?" / "Aforo del [Estadio]" | "¿Cuánta capacidad tiene el Santiago Bernabéu?" / "Aforo del Camp Nou" |
 | **Búsqueda por país/ciudad** | "Estadios en [País/Ciudad]" / "¿Qué estadios hay en [Lugar]?" | "Estadios en España" / "¿Qué estadios hay en Barcelona?" |
 
 ### 🟨 Eventos (Tarjetas, Sustituciones) y Árbitros
