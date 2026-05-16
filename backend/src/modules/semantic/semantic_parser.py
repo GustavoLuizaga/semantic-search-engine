@@ -62,6 +62,8 @@ class SemanticParser:
         ("todos_jugadores",     ["todos los jugadores", "lista jugadores"]),
         ("resultado_partido",   ["resultado", "marcador", "ganó", "gano", "perdió", "perdio",
                                   "empató", "empato", "vs", "contra"]),
+        ("gol_propia_puerta",   ["gol en propia puerta", "gol en contra", "propia puerta"]),
+        ("gol_de_penal",        ["gol de penal", "anotó de penal", "anoto de penal", "gol de penalti"]),
         ("goles_partido",       ["quién anotó", "quien anoto", "quien metió", "quien metio",
                                   "goleadores del partido", "cuántos goles marcó",
                                   "cuantos goles marcó", "cuantos goles marco", "goles marcó"]),
@@ -84,6 +86,13 @@ class SemanticParser:
                                   "que estadios hay en", "qué estadios hay en", "estadios del"]),
         ("estadios",            ["estadio", "capacidad", "aforo"]),
         ("jugador_por_dorsal",  ["dorsal", "numero", "número", "camiseta", "lleva el"]),
+        ("info_fecha_nacimiento", ["cuándo nació", "cuando nacio", "fecha de nacimiento"]),
+        ("es_titular",          ["es titular", "jugadores titulares", "es un jugador titular", "titular"]),
+        ("torneos_internacionales", ["torneos internacionales", "competiciones internacionales", "tipo de torneo"]),
+        ("asistencia_gol",      ["asistencia de gol", "asistencia para el gol", "asistencia de", "dio la asistencia", "asistencia para"]),
+        ("asistencia_gol",      ["asistencia de gol", "asistencia para el gol", "asistencia de", "dio la asistencia", "asistencia para"]),
+        ("tarjeta_por_motivo",  ["tarjeta por", "amonestado por", "expulsado por"]),
+        ("equipos_por_pais",    ["equipos de un pais", "equipos de un país", "equipos del país", "equipos del pais", "equipos de españa", "equipos de alemania", "equipos de francia", "qué equipos son de", "que equipos son de", "equipos de nacionalidad", "equipos por pais", "equipos de inglaterra", "equipos de argentina", "equipos de brasil"]),
         # info_equipo e info_jugador se detectan por catálogo de nombres (ver abajo)
     ]
 
@@ -139,17 +148,21 @@ class SemanticParser:
         elif intent == "partidos_competicion":
             return SemanticParser._extract_competicion_entities(q_lower)
 
-        elif intent == "info_jugador":
+        elif intent == "info_jugador" or intent in ("info_fecha_nacimiento", "es_titular", "asistencia_gol"):
             return SemanticParser._extract_jugador_entities(q_lower)
 
         elif intent == "jugador_por_dorsal":
             return SemanticParser._extract_dorsal_entities(q_lower)
 
-        elif intent == "jugadores_nacionalidad":
+        elif intent in ("jugadores_nacionalidad", "equipos_por_pais"):
             return SemanticParser._extract_nacionalidad_entities(q_lower)
 
+        elif intent == "tarjeta_por_motivo":
+            return SemanticParser._extract_motivo_tarjeta(q_lower)
+
         elif intent in ("goleadores_ranking", "todos_partidos", "todos_equipos",
-                        "todos_jugadores", "arbitros", "tarjetas", "sustituciones"):
+                        "todos_jugadores", "arbitros", "tarjetas", "sustituciones",
+                        "torneos_internacionales", "gol_propia_puerta", "gol_de_penal"):
             return []
 
         return [AliasMapper.resolve(q_lower.strip(" ¿?!"))]
@@ -257,7 +270,18 @@ class SemanticParser:
             "en qué posición juega", "en que posicion juega",
             "en qué equipo juega", "en que equipo juega", "dónde juega", "donde juega",
             "de dónde es", "de donde es", "nacionalidad de",
-            "qué dorsal lleva", "que dorsal lleva", "dorsal de", "número de", "numero de"
+            "qué dorsal lleva", "que dorsal lleva", "dorsal de", "número de", "numero de",
+            "cuándo nació el entrenador", "cuando nacio el entrenador",
+            "cuándo nació el árbitro", "cuando nacio el arbitro",
+            "cuándo nació el", "cuando nacio el",
+            "cuándo nació", "cuando nacio",
+            "fecha de nacimiento del entrenador", "fecha de nacimiento del árbitro",
+            "fecha de nacimiento del", "fecha de nacimiento de",
+            "es titular el jugador", "es titular el", "es titular", "jugadores titulares", "es un jugador titular", "titular",
+            "quién le dio la asistencia de gol a", "quien le dio la asistencia de gol a",
+            "quién le dio la asistencia a", "quien le dio la asistencia a",
+            "asistencia de gol a", "asistencia para el gol de", "asistencia de", "dio la asistencia a", "asistencia para",
+            "el entrenador", "entrenador", "el árbitro", "árbitro", "el arbitro", "arbitro"
         ]
         for kw in sorted(kws, key=len, reverse=True):
             cleaned = cleaned.replace(kw, "")
@@ -293,6 +317,11 @@ class SemanticParser:
             "nacionalidad", "del pais", "del país",
             "jugadores son de", "jugador es de",
             "jugadores de", "jugador de",
+            "cuales son los equipos de un pais por ejemplo", "equipos de un pais por ejemplo",
+            "cuales son los equipos de un país por ejemplo", "equipos de un país por ejemplo",
+            "equipos de un pais", "equipos de un país", "equipos del país", "equipos del pais",
+            "qué equipos son de", "que equipos son de", "equipos de nacionalidad", "equipos por pais",
+            "cuales son los equipos de", "cuáles son los equipos de", "equipos de", "equipo de"
         ]
         for kw in sorted(kws, key=len, reverse=True):
             if kw in cleaned:
@@ -338,4 +367,16 @@ class SemanticParser:
         if "liga" in cleaned and "la liga" not in cleaned:
             cleaned = cleaned.replace("liga", "la liga")
             
+        return [cleaned] if cleaned else [q_lower]
+
+    @staticmethod
+    def _extract_motivo_tarjeta(q_lower: str) -> list:
+        cleaned = q_lower
+        kws = ["tarjeta por", "amonestado por", "expulsado por"]
+        for kw in kws:
+            if kw in cleaned:
+                parts = cleaned.split(kw)
+                if len(parts) > 1:
+                    cleaned = parts[-1].strip(" ¿?!,")
+                break
         return [cleaned] if cleaned else [q_lower]
