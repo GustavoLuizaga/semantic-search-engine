@@ -80,6 +80,8 @@ class SearchService:
             "gol_propia_puerta":      lambda: self._gol_propia_puerta(),
             "gol_de_penal":           lambda: self._gol_de_penal(),
             "equipos_por_pais":       lambda: self._equipos_por_pais(matched),
+            "jugadores_posicion":    lambda: self._jugadores_posicion(matched),
+            "info_entrenador":       lambda: self._info_entrenador(matched, parsed),
         }
 
         fn = dispatch.get(intent)
@@ -768,6 +770,78 @@ class SearchService:
         nombres = [d["jugador"] for d in data]
         answer = f"Se encontraron {len(data)} goles de penal, anotados por: {_resumir_lista(nombres)}."
         return answer, data, True
+# ── jugadores_posicion ─────────────────────────────────────────────────
+    @staticmethod
+    def _jugadores_posicion(matched: dict):
+        posicion = (matched.get("posicion") or "").strip()
+        print(f"  [jugadores_posicion] posicion={posicion!r}")
 
+        if not posicion:
+            return "No pude identificar la posición en tu consulta.", None, False
+
+        resultados = executor.query(SPARQLBuilder.query_jugadores_por_posicion(posicion))
+        print(f"  [jugadores_posicion] jugadores={len(resultados)}")
+
+        if not resultados:
+            return f"No encontré jugadores que jueguen de {posicion}.", None, False
+
+        data = [{"nombre":       f.get("nombre", "?"),
+                 "equipo":       f.get("equipo_nombre", "?"),
+                 "dorsal":       f.get("dorsal", "?"),
+                 "nacionalidad": f.get("nacionalidad", "?")}
+                for f in resultados]
+
+        nombres = [d["nombre"] for d in data]
+        answer  = (f"Hay {len(data)} jugadores de posición {posicion}: "
+                   f"{_resumir_lista(nombres)}.")
+        return answer, data, True
+
+    # ── info_entrenador ────────────────────────────────────────────────────
+    @staticmethod
+    def _info_entrenador(matched: dict, parsed):
+        dt_id = matched.get("entrenador_id") if matched else None
+        print(f"  [info_entrenador] dt_id={dt_id!r}")
+
+        # Sin ID concreto → listar todos
+        if not dt_id:
+            resultados = executor.query(SPARQLBuilder.query_todos_entrenadores())
+            print(f"  [info_entrenador] todos: filas={len(resultados)}")
+            if not resultados:
+                return "No hay entrenadores registrados.", None, False
+            data    = [{"nombre":      f.get("nombre", "?"),
+                        "nacionalidad": f.get("nacionalidad", "?"),
+                        "equipo":      f.get("equipo_nombre", "?")}
+                       for f in resultados]
+            nombres = [f"{d['nombre']} ({d['equipo']})" for d in data]
+            answer  = f"Hay {len(data)} entrenadores registrados: {_resumir_lista(nombres)}."
+            return answer, data, True
+
+        resultados = executor.query(SPARQLBuilder.query_info_entrenador(dt_id))
+        print(f"  [info_entrenador] filas={len(resultados)}")
+
+        if not resultados:
+            return "No encontré información para ese entrenador.", None, False
+
+        fila    = resultados[0]
+        nom     = fila.get("nombre", dt_id)
+        nac     = fila.get("nacionalidad", "?")
+        fecha   = _fmt_fecha(fila.get("fecha_nac", ""))
+        equipo  = fila.get("equipo_nombre", "?")
+
+        q = parsed.raw.lower()
+        if any(k in q for k in ["equipo", "dirige", "donde trabaja"]):
+            answer = f"{nom} dirige al {equipo}."
+        elif any(k in q for k in ["nacionalidad", "de donde", "país", "pais"]):
+            answer = f"{nom} es de nacionalidad {nac}."
+        elif any(k in q for k in ["nacimiento", "cumpleaños", "edad", "cuándo nació"]):
+            answer = f"{nom} nació el {fecha}."
+        else:
+            answer = (f"{nom} es un entrenador de nacionalidad {nac}, "
+                      f"nacido el {fecha}. Actualmente dirige al {equipo}.")
+
+        data = {"nombre": nom, "nacionalidad": nac,
+                "fecha_nacimiento": fecha, "equipo": equipo}
+        return answer, data, True
+    
 # Instancia global compartida por el Router
 search_service = SearchService()

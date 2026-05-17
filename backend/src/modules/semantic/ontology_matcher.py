@@ -92,7 +92,13 @@ class OntologyMatcher:
 
         elif intent in ("torneos_internacionales", "gol_propia_puerta", "gol_de_penal", "goleadores_ranking"):
             return {}
+        
+        elif intent == "jugadores_posicion":
+            return {"posicion": entities[0] if entities else ""}
 
+        elif intent == "info_entrenador":
+            return self._match_entrenador(entities)
+        
         return None
 
     def _match_persona(self, entities: list):
@@ -135,3 +141,13 @@ class OntologyMatcher:
             eq_a = self._find_id_by_name(entities[0], "Equipo")
             return {"eq_a": eq_a, "eq_b": None}
         return None
+    
+    def _match_entrenador(self, entities: list):
+        for ent in entities:
+            if not ent:
+                continue
+            dt_id = self._find_id_by_name(ent, "Entrenador")
+            if dt_id:
+                return {"entrenador_id": dt_id}
+        # Sin nombre concreto → listar todos
+        return {}

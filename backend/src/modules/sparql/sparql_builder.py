@@ -489,3 +489,49 @@ class SPARQLBuilder:
             OPTIONAL { ?gol :tieneTiempo ?tiempo }
         }
         """
+        
+    @staticmethod
+    def query_jugadores_por_posicion(posicion: str) -> str:
+        """Jugadores que juegan en una posición dada."""
+        return PREFIX + f"""
+        SELECT ?nombre ?equipo_nombre ?dorsal ?nacionalidad
+        WHERE {{
+            ?jug a :Jugador ;
+                 :tieneNombre ?nombre ;
+                 :tienePosicion ?pos .
+            FILTER(LCASE(str(?pos)) = "{posicion.lower()}")
+            OPTIONAL {{ ?jug :juegaEn ?eq . ?eq :tieneNombre ?equipo_nombre }}
+            OPTIONAL {{ ?jug :tieneDorsal ?dorsal }}
+            OPTIONAL {{ ?jug :tieneNacionalidad ?nacionalidad }}
+        }}
+        ORDER BY ?nombre
+        """
+
+    @staticmethod
+    def query_todos_entrenadores() -> str:
+        """Lista todos los entrenadores con su equipo actual."""
+        return PREFIX + """
+        SELECT ?nombre ?nacionalidad ?fecha_nac ?equipo_nombre
+        WHERE {
+            ?dt a :Entrenador ;
+                :tieneNombre ?nombre .
+            OPTIONAL { ?dt :tieneNacionalidad ?nacionalidad }
+            OPTIONAL { ?dt :tieneFechaNacimiento ?fecha_nac }
+            OPTIONAL { ?eq :esDirigidoPor ?dt . ?eq :tieneNombre ?equipo_nombre }
+        }
+        ORDER BY ?nombre
+        """
+
+    @staticmethod
+    def query_info_entrenador(dt_id: str) -> str:
+        """Info de un entrenador específico y el equipo que dirige."""
+        return PREFIX + f"""
+        SELECT ?nombre ?nacionalidad ?fecha_nac ?equipo_nombre
+        WHERE {{
+            :{dt_id} a :Entrenador ;
+                     :tieneNombre ?nombre .
+            OPTIONAL {{ :{dt_id} :tieneNacionalidad ?nacionalidad }}
+            OPTIONAL {{ :{dt_id} :tieneFechaNacimiento ?fecha_nac }}
+            OPTIONAL {{ ?eq :esDirigidoPor :{dt_id} . ?eq :tieneNombre ?equipo_nombre }}
+        }}
+        """
