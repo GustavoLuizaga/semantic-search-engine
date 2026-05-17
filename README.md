@@ -29,6 +29,8 @@ Buscador Semantico/
 │
 └── README.md             # Este archivo
 ```
+## 🔍 Flujo Metabuscador
+<img width="1440" height="1920" alt="image" src="https://github.com/user-attachments/assets/69d2943d-45dd-4ce9-ab09-649cebef889c" />
 
 ## 🚀 Instalación y Ejecución
 
