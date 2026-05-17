@@ -93,7 +93,11 @@ class SemanticParser:
         ("asistencia_gol",      ["asistencia de gol", "asistencia para el gol", "asistencia de", "dio la asistencia", "asistencia para"]),
         ("tarjeta_por_motivo",  ["tarjeta por", "amonestado por", "expulsado por"]),
         ("equipos_por_pais",    ["equipos de un pais", "equipos de un país", "equipos del país", "equipos del pais", "equipos de españa", "equipos de alemania", "equipos de francia", "qué equipos son de", "que equipos son de", "equipos de nacionalidad", "equipos por pais", "equipos de inglaterra", "equipos de argentina", "equipos de brasil"]),
-        # info_equipo e info_jugador se detectan por catálogo de nombres (ver abajo)
+        ("jugadores_posicion",  ["delanteros", "mediocampistas", "porteros", "defensas",
+                                  "jugadores de posición", "jugadores que juegan de",
+                                  "qué delanteros", "que delanteros"]),
+        ("info_entrenador",     ["entrenador", "entrenadores", "técnico", "tecnico",
+                                  "DT", "quien dirige", "quién dirige"]),# info_equipo e info_jugador se detectan por catálogo de nombres (ver abajo)
     ]
 
     @staticmethod
@@ -163,8 +167,15 @@ class SemanticParser:
         elif intent in ("goleadores_ranking", "todos_partidos", "todos_equipos",
                         "todos_jugadores", "arbitros", "tarjetas", "sustituciones",
                         "torneos_internacionales", "gol_propia_puerta", "gol_de_penal"):
+            
+        
             return []
+        elif intent == "jugadores_posicion":
+            return SemanticParser._extract_posicion_entities(q_lower)
 
+        elif intent == "info_entrenador":
+            return SemanticParser._extract_entrenador_entities(q_lower)
+        
         return [AliasMapper.resolve(q_lower.strip(" ¿?!"))]
 
     # ── Extractores ───────────────────────────────────────────────────────
@@ -380,3 +391,36 @@ class SemanticParser:
                     cleaned = parts[-1].strip(" ¿?!,")
                 break
         return [cleaned] if cleaned else [q_lower]
+    
+    @staticmethod
+    def _extract_posicion_entities(q_lower: str) -> list:
+        """Detecta la posición pedida y la normaliza al valor de la ontología."""
+        mapeo = {
+            "delantero": "Delantero", "delanteros": "Delantero",
+            "mediocampista": "Mediocampista", "mediocampistas": "Mediocampista",
+            "medio": "Mediocampista", "medios": "Mediocampista",
+            "portero": "Portero", "porteros": "Portero",
+            "arquero": "Portero", "arqueros": "Portero",
+            # si la ontología crece con Defensa:
+            "defensa": "Defensa", "defensas": "Defensa",
+        }
+        for kw, valor in mapeo.items():
+            if kw in q_lower:
+                return [valor]
+        return []
+
+    @staticmethod
+    def _extract_entrenador_entities(q_lower: str) -> list:
+        """Extrae nombre de entrenador si se menciona uno concreto."""
+        cleaned = q_lower
+        kws = [
+            "información del entrenador", "informacion del entrenador",
+            "información de", "informacion de",
+            "quien es el entrenador", "quién es el entrenador",
+            "el entrenador", "entrenadores", "entrenador",
+            "técnico", "tecnico", "quien dirige", "quién dirige",
+        ]
+        for kw in sorted(kws, key=len, reverse=True):
+            cleaned = cleaned.replace(kw, "")
+        cleaned = cleaned.strip(" ¿?!,")
+        return [cleaned] if cleaned else []
