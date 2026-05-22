@@ -5,16 +5,31 @@ from src.models import SearchResponse
 
 class DBpediaService:
     def execute(self, query_str: str) -> SearchResponse:
-        print(f"\n{'='*60}")
-        print(f"[DBPEDIA SERVICE] Recibiendo consulta: {query_str!r}")
+        
+        
+        INTENTS_SIN_SOPORTE = {
+        "resultado_partido", "goles_partido", "todos_partidos",
+        "goleadores_ranking", "todos_jugadores", "todos_equipos",
+        "tarjetas", "sustituciones", "arbitros", "jugador_por_dorsal"
+        }
+       # print(f"\n{'='*60}")
+       # print(f"[DBPEDIA SERVICE] Recibiendo consulta: {query_str!r}")
         
         # 1. Parseo semántico para detectar intent y entidades
         parsed = SemanticParser.parse(query_str)
         intent = parsed.intent
+        if intent in INTENTS_SIN_SOPORTE:
+           return SearchResponse(
+               query=query_str,
+               intent=intent,
+               answer="Esta consulta requiere datos específicos de partidos que DBpedia no tiene. Prueba con la ontología local.",
+               data=None,
+               found=False
+           )
         entities = parsed.entities
         
         # Mostramos los resultados del parseo, puedes borrarme no es importante, solo para debug
-        print(f"[DBPEDIA SERVICE] Parser detectó intent={intent!r} y entidades={entities}")
+        # print(f"[DBPEDIA SERVICE] Parser detectó intent={intent!r} y entidades={entities}")
         
         # Identificamos el nombre principal de la entidad a buscar
         entity = entities[0] if entities else query_str.strip(" ¿?!")
@@ -34,8 +49,9 @@ class DBpediaService:
             
             if intent in ("info_jugador", "info_fecha_nacimiento"):
                 nombre = row.get("label", entity)
-                nac = row.get("nationalityLabel", "Desconocida")
-                pos = row.get("positionLabel", "Desconocida")
+                birth_place = row.get("birthPlace", "")
+                nac = birth_place.split(",")[-1].strip() if birth_place else "Desconocida"
+                pos = row.get("posicionES") or row.get("positionLabel", "Desconocida")
                 equipo = row.get("teamLabel", "Ninguno")
                 dorsal = row.get("number", "Sin dorsal")
                 birth = row.get("birthDate", "No registrada")
@@ -56,22 +72,27 @@ class DBpediaService:
                 }
                 
             elif intent in ("info_equipo", "capitan_equipo"):
-                nombre = row.get("label", entity)
+    # Función auxiliar para sacar el texto limpio del JSON de SPARQL
+                
+
+    
+                nombre  = row.get("label",        entity)
                 estadio = row.get("stadiumLabel", "Desconocido")
-                director = row.get("managerLabel", "Desconocido")
-                ciudad = row.get("cityLabel", "Desconocida")
-                liga = row.get("leagueLabel", "Desconocida")
-                
+                director = row.get("managerLabel","Desconocido")
+                ciudad  = row.get("cityLabel",    "Desconocida")
+                liga    = row.get("leagueLabel",  "Desconocida")
+                pais    = row.get("countryLabel", "Desconocido")
+    
                 answer = (f"Según DBpedia, el equipo {nombre} juega local en el estadio {estadio}, "
-                          f"es dirigido por {director}, tiene sede en la ciudad de {ciudad} y participa en {liga}.")
-                
+                f"es dirigido por {director}, tiene sede en {ciudad} y participa en {liga}.")
+    
                 data = {
-                    "nombre": nombre,
-                    "estadio": estadio,
-                    "entrenador": director,
-                    "ciudad": ciudad,
-                    "liga": liga
-                }
+                "nombre": nombre,
+                "estadio": estadio,
+                "entrenador": director,
+                "ciudad": ciudad,
+                "liga": liga
+                 }
                 
             elif intent == "jugadores_equipo":
                 jugadores = []
