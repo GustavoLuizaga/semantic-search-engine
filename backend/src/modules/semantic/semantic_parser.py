@@ -1,16 +1,12 @@
 import re
 from .alias_mapper import AliasMapper
 
+        
 # ── Catálogos de nombres reales de la ontología ───────────────────────────
 # Usados para detectar el intent correcto antes de caer al fallback.
 # Actualizar aquí si se agregan individuos a la ontología.
 
-EQUIPOS_CONOCIDOS = [
-    "real madrid", "fc barcelona", "barcelona", "bayern munchen", "bayern",
-    "paris saint-germain", "psg", "liverpool fc", "liverpool",
-    # aliases (deben coincidir con alias_mapper)
-    "barça", "barca", "madrid", "merengues", "bayer",
-]
+EQUIPOS_CONOCIDOS = AliasMapper.get_all_club_names()
 
 JUGADORES_CONOCIDOS = [
     # apellidos

@@ -1,3 +1,57 @@
+import json
+import os
+import urllib.parse
+
+# Carga el JSON una sola vez (al nivel del módulo, no dentro del método)
+_CLUB_URI_MAP = {}
+_MAP_PATH = os.path.join(os.path.dirname(__file__), "club_uris.json")
+if os.path.exists(_MAP_PATH):
+    with open(_MAP_PATH, encoding="utf-8") as f:
+        _CLUB_URI_MAP = json.load(f)
+        
+def _resolve_club_uri(entity_lower: str) -> str | None:
+    """
+    Intenta resolver la URI del club en este orden:
+    1. Mapa manual (club_uris.json)
+    2. Construcción automática tipo DBpedia: 'manchester city' → Manchester_City_F.C.
+    3. None → fallback a búsqueda por label (lento)
+    """
+    # 1. Mapa manual
+    if entity_lower in _CLUB_URI_MAP:
+        uri = _CLUB_URI_MAP[entity_lower]
+        return f"<{uri}>"
+
+    # 2. Heurística automática: capitaliza palabras y reemplaza espacios por _
+    #    Prueba variantes comunes de sufijo en DBpedia
+    def _build_candidate(name: str, suffix: str) -> str:
+        slug = "_".join(w.capitalize() for w in name.split())
+        return f"<http://dbpedia.org/resource/{slug}{suffix}>"
+
+    suffixes = ["_F.C.", "_FC", "_CF", "_S.C.", ""]
+    # Los devolvemos todos; la query SPARQL usará VALUES para probarlos
+    candidates = [_build_candidate(entity_lower, s) for s in suffixes]
+    return candidates  # lista → señal de que hay que usar VALUES
+
+
+def _build_club_pattern(entity_lower: str):
+    result = _resolve_club_uri(entity_lower)
+
+    if isinstance(result, str):
+        # Hit exacto del mapa
+        return f"BIND({result} AS ?club)", ""
+
+    if isinstance(result, list):
+        # Heurística: probamos candidatos con VALUES
+        values = " ".join(result)
+        return f"VALUES ?club {{ {values} }}", ""
+
+    # Fallback: búsqueda por label (lento pero universal)
+    label_filter = DBpediaQueryBuilder.build_label_filter(entity_lower, "?clubLabel")
+    return (
+        "?club a dbo:SoccerClub .",
+        f"?club rdfs:label ?clubLabel . {label_filter}"
+    )
+
 class DBpediaQueryBuilder:
     @staticmethod
     def build_label_filter(entity: str, label_var: str = "?label") -> str:
@@ -100,26 +154,8 @@ LIMIT 1
 """
 
         elif intent in ("info_equipo", "capitan_equipo"):
-    
-            CLUB_URI_MAP = {
-                "real madrid":         "<http://dbpedia.org/resource/Real_Madrid_CF>",
-                "fc barcelona":        "<http://dbpedia.org/resource/FC_Barcelona>",
-                "barcelona":           "<http://dbpedia.org/resource/FC_Barcelona>",
-                "bayern munchen":      "<http://dbpedia.org/resource/FC_Bayern_Munich>",
-                "bayern":              "<http://dbpedia.org/resource/FC_Bayern_Munich>",
-                "paris saint-germain": "<http://dbpedia.org/resource/Paris_Saint-Germain_F.C.>",
-                "psg":                 "<http://dbpedia.org/resource/Paris_Saint-Germain_F.C.>",
-                "liverpool fc":        "<http://dbpedia.org/resource/Liverpool_F.C.>",
-                "liverpool":           "<http://dbpedia.org/resource/Liverpool_F.C.>",
-            }
-            uri = CLUB_URI_MAP.get(entity_lower)
        
-            if uri:
-                club_pattern = f"BIND({uri} AS ?club)"
-                label_pattern = ""
-            else:
-                club_pattern = "?club a dbo:SoccerClub ."
-                label_pattern = f"?club rdfs:label ?clubLabel . {DBpediaQueryBuilder.build_label_filter(entity_lower, '?clubLabel')}"
+            club_pattern, label_pattern = _build_club_pattern(entity_lower)
             return f"""
 PREFIX dbo: <http://dbpedia.org/ontology/>
 PREFIX dbp: <http://dbpedia.org/property/>
