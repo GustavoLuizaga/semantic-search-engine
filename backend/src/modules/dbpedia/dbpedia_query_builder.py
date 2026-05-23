@@ -1,8 +1,46 @@
 class DBpediaQueryBuilder:
     @staticmethod
     def build_label_filter(entity: str, label_var: str = "?label") -> str:
-        clean = entity.strip().lower().replace('"', '\\"')
-        return f'FILTER(CONTAINS(LCASE(str({label_var})), "{clean}"))'
+        """
+        Genera un filtro SPARQL IN ultra optimizado con variaciones de capitalización.
+        Esto permite realizar un index lookup instantáneo en lugar de escaneos completos lentos.
+        """
+        entity_clean = entity.strip()
+        variations = [
+            entity_clean, 
+            entity_clean.title(), 
+            entity_clean.upper(), 
+            entity_clean.capitalize()
+        ]
+        
+        # Variación inteligente para acrónimos deportivos
+        words = entity_clean.split()
+        smart_words = []
+        for w in words:
+            if w.lower() in ("fc", "psg", "dt", "vs", "rcd", "real", "as", "ac"):
+                smart_words.append(w.upper())
+            else:
+                smart_words.append(w.capitalize())
+        variations.append(" ".join(smart_words))
+        
+        # Añadir variaciones específicas para clubes de fútbol populares si aplica
+        if "barcelona" in entity_clean.lower() and "fc barcelona" not in variations:
+            variations.append("FC Barcelona")
+        if "real madrid" in entity_clean.lower() and "real madrid cf" not in variations:
+            variations.append("Real Madrid CF")
+            
+        # Limpieza y eliminación de duplicados
+        variations = sorted(list(set(v.replace('"', '\\"') for v in variations if v)))
+        
+        # Construimos la lista de literales para el filtro IN de SPARQL
+        literals = []
+        for v in variations:
+            literals.append(f'"{v}"@es')
+            literals.append(f'"{v}"@en')
+            literals.append(f'"{v}"')
+            
+        literals_str = ", ".join(literals)
+        return f"FILTER({label_var} IN ({literals_str}))"
 
     @staticmethod
     def build(intent: str, entity: str) -> str:
@@ -20,7 +58,7 @@ PREFIX dbo: <http://dbpedia.org/ontology/>
 PREFIX dbp: <http://dbpedia.org/property/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-SELECT DISTINCT ?player ?label ?birthDate ?positionLabel ?number ?teamLabel ?birthPlace WHERE {{
+SELECT ?player ?label ?birthDate ?positionLabel ?number ?teamLabel ?birthPlace ?height ?thumbnail ?currentClubLabel (GROUP_CONCAT(DISTINCT ?allTeamLabel; separator=", ") AS ?allTeams) WHERE {{
   ?player a dbo:SoccerPlayer .
   ?player rdfs:label ?label .
   {label_filter}
@@ -30,15 +68,7 @@ SELECT DISTINCT ?player ?label ?birthDate ?positionLabel ?number ?teamLabel ?bir
     ?player dbo:position ?position . 
     ?position rdfs:label ?positionLabel .
     FILTER(lang(?positionLabel) = "es" || lang(?positionLabel) = "en")
-    BIND(
-        IF(CONTAINS(LCASE(str(?positionLabel)), "forward"), "Delantero",
-        IF(CONTAINS(LCASE(str(?positionLabel)), "midfielder"), "Mediocampista",
-        IF(CONTAINS(LCASE(str(?positionLabel)), "goalkeeper"), "Portero",
-        IF(CONTAINS(LCASE(str(?positionLabel)), "defender"), "Defensa",
-        ?positionLabel)))) AS ?posicionES
-    )
   }}
-  
   OPTIONAL {{ ?player dbo:number ?number . }}
 
   OPTIONAL {{ 
@@ -49,9 +79,22 @@ SELECT DISTINCT ?player ?label ?birthDate ?positionLabel ?number ?teamLabel ?bir
   OPTIONAL {{ 
     ?player dbp:birthPlace ?birthPlace . FILTER(lang(?birthPlace) = "en")
   }}
+  OPTIONAL {{ ?player dbo:height ?height . }}
+  OPTIONAL {{ ?player dbo:thumbnail ?thumbnail . }}
+  OPTIONAL {{
+    ?player dbp:currentclub ?currentClub .
+    ?currentClub rdfs:label ?currentClubLabel .
+    FILTER(lang(?currentClubLabel) = "es" || lang(?currentClubLabel) = "en")
+  }}
+  OPTIONAL {{
+    ?player dbo:team ?allTeam .
+    ?allTeam rdfs:label ?allTeamLabel .
+    FILTER(lang(?allTeamLabel) = "es" || lang(?allTeamLabel) = "en")
+  }}
   
   FILTER(lang(?label) = "es" || lang(?label) = "en")
 }}
+GROUP BY ?player ?label ?birthDate ?positionLabel ?number ?teamLabel ?birthPlace ?height ?thumbnail ?currentClubLabel
 ORDER BY strlen(str(?label))
 LIMIT 1
 """
@@ -64,7 +107,7 @@ LIMIT 1
                 "barcelona":           "dbr:FC_Barcelona",
                 "bayern munchen":      "dbr:FC_Bayern_Munich",
                 "bayern":              "dbr:FC_Bayern_Munich",
-                "paris saint-germain": "dbr:Paris_Saint-Germain_F.C.",
+                "paris saint-germain": "dbr:Paris_Germain_F.C.",
                 "psg":                 "dbr:Paris_Saint-Germain_F.C.",
                 "liverpool fc":        "dbr:Liverpool_F.C.",
                 "liverpool":           "dbr:Liverpool_F.C.",

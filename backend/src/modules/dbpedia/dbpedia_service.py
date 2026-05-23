@@ -52,23 +52,34 @@ class DBpediaService:
                 birth_place = row.get("birthPlace", "")
                 nac = birth_place.split(",")[-1].strip() if birth_place else "Desconocida"
                 pos = row.get("posicionES") or row.get("positionLabel", "Desconocida")
-                equipo = row.get("teamLabel", "Ninguno")
                 dorsal = row.get("number", "Sin dorsal")
                 birth = row.get("birthDate", "No registrada")
+                
+                # Nuevos campos del jugador
+                estatura = f"{row.get('height')} m" if row.get('height') else "Desconocida"
+                foto = row.get("thumbnail", "")
+                equipo_actual = row.get("currentClubLabel") or row.get("teamLabel", "Ninguno")
+                
+                all_teams_raw = row.get("allTeams", "")
+                equipos_lista = sorted(list(set([t.strip() for t in all_teams_raw.split(",") if t.strip()]))) if all_teams_raw else []
                 
                 if intent == "info_fecha_nacimiento":
                     answer = f"Según DBpedia, la fecha de nacimiento de {nombre} es el {birth}."
                 else:
+                    alt_str = f" y mide {estatura}" if estatura != "Desconocida" else ""
                     answer = (f"Según DBpedia, {nombre} es un jugador de nacionalidad {nac} que juega de {pos} "
-                              f"en el {equipo}. Usa el dorsal #{dorsal} y su fecha de nacimiento es {birth}.")
+                              f"en el {equipo_actual}. Usa el dorsal #{dorsal}, nació el {birth}{alt_str}.")
                 
                 data = {
                     "nombre": nombre,
                     "nacionalidad": nac,
                     "posicion": pos,
-                    "equipo": equipo,
+                    "equipo": equipo_actual,
                     "dorsal": dorsal,
-                    "fecha_nacimiento": birth
+                    "fecha_nacimiento": birth,
+                    "estatura": estatura,
+                    "foto": foto,
+                    "equipos_trayectoria": equipos_lista
                 }
                 
             elif intent in ("info_equipo", "capitan_equipo"):
