@@ -4,17 +4,31 @@ import Typewriter from "./components/Typewriter";
 import Thinking from "./components/Thinking";
 import { FaRegSun } from "react-icons/fa6";
 import { FaMoon } from "react-icons/fa";
+import SourceBadge from "./components/SourceBadge";
+import SourceSelector from "./components/SourceSelector";
+import BackgroundPlayer from "./components/BackgroundPlayer";
 
 function App() {
-  const { inputRef, results, isLoading, error, handleSearch } =
-    useSemanticSearch();
+  // 1. Desestructuras source y setSource del hook
+  const {
+    inputRef,
+    results,
+    isLoading,
+    error,
+    handleSearch,
+    source,
+    setSource,
+  } = useSemanticSearch();
+
   const [isDarkMode, setIsDarkMode] = useState(() => {
     return localStorage.getItem("theme") === "dark";
   });
+
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
     localStorage.setItem("theme", isDarkMode ? "dark" : "light");
   }, [isDarkMode]);
+
   const isDataArray = Array.isArray(results?.data);
   const isDataObject =
     results?.data &&
@@ -31,12 +45,12 @@ function App() {
         }
       });
     }
-
     return columns;
   }, []);
 
   return (
     <div className="min-h-screen transition-colors duration-300 bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 antialiased">
+      <BackgroundPlayer />
       <button
         onClick={() => setIsDarkMode(!isDarkMode)}
         className="absolute top-6 right-6 p-2 rounded-full bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 transition"
@@ -54,11 +68,9 @@ function App() {
           <h1 className="text-3xl font-semibold tracking-tight">
             Buscador Metasemantico de futbol
           </h1>
+          <SourceBadge source={source} />
         </header>
-
-        {/* Resultados */}
         <section className="w-full space-y-6 mb-10 min-h-30">
-          {/* Error */}
           {error && (
             <div className="p-4 rounded-xl border border-red-500/20 bg-red-500/10 text-red-400 text-sm">
               {error}
@@ -70,25 +82,23 @@ function App() {
               <Thinking />
             </div>
           )}
+
           {results?.answer && !isLoading && (
             <article className="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 shadow-sm">
               <h2 className="text-xs font-semibold tracking-wider uppercase text-zinc-400 dark:text-zinc-500 mb-3 flex items-center gap-2">
                 RESPUESTA
               </h2>
-
               <p className="text-sm leading-relaxed text-zinc-700 dark:text-zinc-200 whitespace-pre-wrap">
                 <Typewriter text={results.answer} speed={20} />
               </p>
             </article>
           )}
 
-          {/* Tabla */}
           {dataRows.length > 0 && !isLoading && (
             <article className="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 shadow-sm">
               <h2 className="text-xs font-semibold tracking-wider uppercase text-zinc-400 dark:text-zinc-500 mb-4">
                 Datos
               </h2>
-
               <div className="overflow-x-auto">
                 <table className="w-full text-sm text-left border-collapse">
                   <thead>
@@ -103,7 +113,6 @@ function App() {
                       ))}
                     </tr>
                   </thead>
-
                   <tbody>
                     {dataRows.map((row, index) => (
                       <tr
@@ -125,12 +134,12 @@ function App() {
               </div>
             </article>
           )}
+
           {isDataObject && !isLoading && (
             <article className="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 shadow-sm">
               <h2 className="text-xs font-semibold tracking-wider uppercase text-zinc-400 dark:text-zinc-500 mb-4">
                 Datos
               </h2>
-
               <div className="space-y-3">
                 {Object.entries(results.data).map(([key, value]) => (
                   <div
@@ -140,7 +149,6 @@ function App() {
                     <span className="font-medium capitalize text-zinc-500 min-w-fit">
                       {key}:
                     </span>
-
                     <span className="text-right text-zinc-700 dark:text-zinc-200">
                       {String(value)}
                     </span>
@@ -157,18 +165,22 @@ function App() {
             onSubmit={handleSearch}
             className="flex gap-3 w-full bg-white dark:bg-zinc-800 p-2 rounded-2xl shadow-lg border border-zinc-200 dark:border-zinc-700"
           >
-            <div className="relative flex-1">
-              <input
-                type="text"
-                ref={inputRef}
-                disabled={isLoading}
-                placeholder="Escribe tu pregunta..."
-                className="w-full bg-transparent py-3 px-4 text-sm
-                           text-zinc-800 dark:text-zinc-100
-                           placeholder-zinc-400 dark:placeholder-zinc-500
-                           focus:outline-none
-                           disabled:opacity-50"
-              />
+            <div className="flex items-center gap-2 flex-1">
+              <SourceSelector source={source} setSource={setSource} />
+
+              <div className="relative flex-1">
+                <input
+                  type="text"
+                  ref={inputRef}
+                  disabled={isLoading}
+                  placeholder="Escribe tu pregunta..."
+                  className="w-full bg-transparent py-3 px-4 text-sm
+                             text-zinc-800 dark:text-zinc-100
+                             placeholder-zinc-400 dark:placeholder-zinc-500
+                             focus:outline-none
+                             disabled:opacity-50"
+                />
+              </div>
             </div>
 
             <button
