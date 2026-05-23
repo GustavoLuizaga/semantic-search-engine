@@ -1,7 +1,90 @@
 from src.modules.semantic.semantic_parser import SemanticParser
 from src.modules.dbpedia.dbpedia_executor import DBpediaExecutor
 from src.modules.dbpedia.dbpedia_query_builder import DBpediaQueryBuilder
+from src.modules.dbpedia.dbpedia_stadium_resolver import resolve_stadium_intent
 from src.models import SearchResponse
+
+
+def _fetch_stadium_capacity(stadium_uri: str) -> str | None:
+    """Obtiene la capacidad máxima desde dbp:capacity / dbp:seatingCapacity."""
+    if not stadium_uri:
+        return None
+    q = f"""
+PREFIX dbp: <http://dbpedia.org/property/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT (MAX(?capNum) AS ?capacity) WHERE {{
+  <{stadium_uri}> dbp:capacity ?capVal .
+  FILTER(REGEX(STR(?capVal), "^[0-9]+$"))
+  BIND(xsd:integer(?capVal) AS ?capNum)
+}}
+"""
+    rows = DBpediaExecutor.query(q)
+    cap = rows[0].get("capacity") if rows else None
+    if cap:
+        return cap
+    q2 = f"""
+PREFIX dbp: <http://dbpedia.org/property/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT (MAX(?capNum) AS ?capacity) WHERE {{
+  <{stadium_uri}> dbp:seatingCapacity ?capVal .
+  FILTER(REGEX(STR(?capVal), "^[0-9]+$"))
+  BIND(xsd:integer(?capVal) AS ?capNum)
+}}
+"""
+    rows2 = DBpediaExecutor.query(q2)
+    return rows2[0].get("capacity") if rows2 else None
+
+
+def _capacity_from_row(row: dict) -> str | None:
+    """Capacidad ya traída por SPARQL (dbp:capacity o dbp:seatingCapacity)."""
+    return row.get("capacity") or row.get("seatingCapacity")
+
+
+def _format_capacity(cap) -> str | None:
+    if cap is None or cap == "":
+        return None
+    try:
+        n = int(float(str(cap).replace(",", "")))
+        return f"{n:,}".replace(",", ".")
+    except (ValueError, TypeError):
+        return str(cap)
+
+
+def _format_opening_date(raw) -> str | None:
+    if not raw:
+        return None
+    s = str(raw)
+    if "T" in s:
+        return s.split("T")[0]
+    return s[:10] if len(s) >= 10 else s
+
+
+def _stadium_data_from_row(row: dict, fallback_name: str = "") -> dict:
+    cap_raw = row.get("capacity") or _fetch_stadium_capacity(row.get("stadium", ""))
+    cap_fmt = _format_capacity(cap_raw)
+    return {
+        "nombre": row.get("label", fallback_name),
+        "capacidad": cap_fmt or cap_raw,
+        "ubicacion": row.get("locationLabel") or "Desconocida",
+        "equipo_local": row.get("clubLabel") or row.get("clubs"),
+        "fecha_inauguracion": _format_opening_date(row.get("openingDate")),
+        "imagen": row.get("thumbnail"),
+    }
+
+
+def _stadium_answer_text(data: dict, intro: str) -> str:
+    parts = [intro]
+    if data.get("ubicacion") and data["ubicacion"] != "Desconocida":
+        parts.append(f"Ubicación: {data['ubicacion']}.")
+    if data.get("capacidad"):
+        parts.append(f"Capacidad: {data['capacidad']} espectadores.")
+    if data.get("equipo_local"):
+        parts.append(f"Equipo local: {data['equipo_local']}.")
+    if data.get("fecha_inauguracion"):
+        parts.append(f"Inauguración: {data['fecha_inauguracion']}.")
+    return " ".join(parts)
+
 
 class DBpediaService:
     def execute(self, query_str: str) -> SearchResponse:
@@ -27,13 +110,25 @@ class DBpediaService:
                found=False
            )
         entities = parsed.entities
-        
-        # Mostramos los resultados del parseo, puedes borrarme no es importante, solo para debug
-        # print(f"[DBPEDIA SERVICE] Parser detectó intent={intent!r} y entidades={entities}")
-        
-        # Identificamos el nombre principal de la entidad a buscar
+        intent, entities = resolve_stadium_intent(query_str, intent, entities)
+
         entity = entities[0] if entities else query_str.strip(" ¿?!")
-        
+
+        if intent == "estadio_equipo" and (
+            not entities
+            or entity.lower().strip() in {"", "un equipo", "el equipo", "un club", "el club"}
+        ):
+            return SearchResponse(
+                query=query_str,
+                intent=intent,
+                answer=(
+                    "Indica el nombre del equipo, por ejemplo: "
+                    "«¿Dónde juega el Manchester United?» o «Estadio del Real Madrid»."
+                ),
+                data=None,
+                found=False,
+            )
+
         # 2. Construcción y ejecución
         query_sparql = DBpediaQueryBuilder.build(intent, entity)
         resultados = DBpediaExecutor.query(query_sparql)
@@ -152,17 +247,76 @@ class DBpediaService:
                 answer = f"Según DBpedia, algunos jugadores registrados en la plantilla de este equipo son: {nombres_res}."
                 data = jugadores
                 
-            elif intent in ("estadios", "estadios_ubicacion"):
-                nombre = row.get("label", entity)
-                cap = row.get("capacity", "Desconocida")
-                loc = row.get("locationLabel", "Desconocida")
-                
-                answer = f"Según DBpedia, el estadio {nombre} está ubicado en {loc} y tiene capacidad para {cap} espectadores."
-                data = {
-                    "nombre": nombre,
-                    "capacidad": cap,
-                    "ubicacion": loc
-                }
+            elif intent == "todos_estadios":
+                estadios = []
+                seen = set()
+                for r in resultados:
+                    nom = r.get("label")
+                    club = r.get("clubLabel")
+                    key = r.get("club") or r.get("stadium") or (club, nom)
+                    if not nom or key in seen:
+                        continue
+                    seen.add(key)
+                    estadios.append({
+                        "nombre": nom,
+                        "capacidad": _format_capacity(_capacity_from_row(r)),
+                        "ubicacion": r.get("locationLabel"),
+                        "equipo_local": r.get("clubLabel"),
+                    })
+                nombres = [e["nombre"] for e in estadios]
+                resumen = ", ".join(nombres[:8])
+                if len(nombres) > 8:
+                    resumen += f" y {len(nombres) - 8} más"
+                answer = (
+                    f"Según DBpedia, hay {len(estadios)} estadios de fútbol de clubes "
+                    f"profesionales en el catálogo, por ejemplo: {resumen}."
+                )
+                data = estadios
+
+            elif intent == "estadio_equipo":
+                data = _stadium_data_from_row(row, entity)
+                equipo = data.get("equipo_local") or entity
+                intro = (
+                    f"Según DBpedia, el estadio local del {equipo} es el {data['nombre']}."
+                )
+                answer = _stadium_answer_text(data, intro)
+
+            elif intent == "estadios":
+                data = _stadium_data_from_row(row, entity)
+                intro = f"Según DBpedia, información del estadio {data['nombre']}:"
+                answer = _stadium_answer_text(data, intro)
+
+            elif intent == "estadios_ubicacion":
+                estadios = []
+                seen = set()
+                for r in resultados:
+                    nom = r.get("label")
+                    key = r.get("stadium") or nom
+                    if not nom or key in seen:
+                        continue
+                    seen.add(key)
+                    estadios.append({
+                        "nombre": nom,
+                        "capacidad": _format_capacity(_capacity_from_row(r)),
+                        "ubicacion": r.get("locationLabel") or entity,
+                        "equipo_local": r.get("clubLabel"),
+                    })
+                nombres = [e["nombre"] for e in estadios]
+                resumen = ", ".join(nombres[:8])
+                if len(nombres) > 8:
+                    resumen += f" y {len(nombres) - 8} más"
+                with_cap = [e for e in estadios if e.get("capacidad")]
+                cap_hint = ""
+                if with_cap:
+                    ej = with_cap[0]
+                    cap_hint = (
+                        f" Ej.: {ej['nombre']} ({ej['capacidad']} espectadores)."
+                    )
+                answer = (
+                    f"En DBpedia encontré {len(estadios)} estadio(s) de fútbol en {entity}: "
+                    f"{resumen}.{cap_hint}"
+                )
+                data = estadios
                 
             elif intent == "info_entrenador":
                 nombre = row.get("label", entity)
