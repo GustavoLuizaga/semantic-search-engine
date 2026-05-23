@@ -83,27 +83,57 @@ class DBpediaService:
                 }
                 
             elif intent in ("info_equipo", "capitan_equipo"):
-    # Función auxiliar para sacar el texto limpio del JSON de SPARQL
-                
-
-    
-                nombre  = row.get("label",        entity)
+                nombre = row.get("label", entity)
                 estadio = row.get("stadiumLabel", "Desconocido")
-                director = row.get("managerLabel","Desconocido")
-                ciudad  = row.get("cityLabel",    "Desconocida")
-                liga    = row.get("leagueLabel",  "Desconocida")
-                pais    = row.get("countryLabel", "Desconocido")
-    
-                answer = (f"Según DBpedia, el equipo {nombre} juega local en el estadio {estadio}, "
-                f"es dirigido por {director}, tiene sede en {ciudad} y participa en {liga}.")
-    
+                director = row.get("managerLabel", "Desconocido")
+                presidente = row.get("chairmanLabel", "Desconocido")
+                capacidad = row.get("capacity")
+                fundacion = row.get("founded", "Desconocida")
+                logo = row.get("thumbnail", "")
+
+                # Limpieza de apodos
+                apodos_raw = row.get("allNicks", "")
+                apodos_list = []
+                if apodos_raw:
+                    nicks = [n.strip() for n in apodos_raw.split(",") if n.strip()]
+                    seen = set()
+                    for n in nicks:
+                        if n.lower() not in seen:
+                            seen.add(n.lower())
+                            apodos_list.append(n)
+
+                apodos_str = f" (conocido como {', '.join(apodos_list)})" if apodos_list else ""
+                capacidad_str = f" (capacidad: {int(capacidad):,} espectadores)" if capacidad and capacidad.isdigit() else ""
+
+                answer_parts = [f"Según DBpedia, el equipo {nombre}{apodos_str}"]
+                if fundacion != "Desconocida":
+                    answer_parts.append(f"fue fundado el {fundacion}.")
+                else:
+                    answer_parts.append("es un club histórico.")
+
+                answer_parts.append(f"Juega local en el estadio {estadio}{capacidad_str}.")
+
+                dir_pres = []
+                if director != "Desconocido":
+                    dir_pres.append(f"es dirigido por {director}")
+                if presidente != "Desconocido":
+                    dir_pres.append(f"presidido por {presidente}")
+
+                if dir_pres:
+                    answer_parts.append("Actualmente, " + " y ".join(dir_pres) + ".")
+
+                answer = " ".join(answer_parts)
+
                 data = {
-                "nombre": nombre,
-                "estadio": estadio,
-                "entrenador": director,
-                "ciudad": ciudad,
-                "liga": liga
-                 }
+                    "nombre": nombre,
+                    "estadio": estadio,
+                    "capacidad_estadio": capacidad,
+                    "entrenador": director,
+                    "presidente": presidente,
+                    "fecha_fundacion": fundacion,
+                    "apodos": apodos_list,
+                    "logo": logo
+                }
                 
             elif intent == "jugadores_equipo":
                 jugadores = []

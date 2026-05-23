@@ -102,53 +102,75 @@ LIMIT 1
         elif intent in ("info_equipo", "capitan_equipo"):
     
             CLUB_URI_MAP = {
-                "real madrid":         "dbr:Real_Madrid_CF",
-                "fc barcelona":        "dbr:FC_Barcelona",
-                "barcelona":           "dbr:FC_Barcelona",
-                "bayern munchen":      "dbr:FC_Bayern_Munich",
-                "bayern":              "dbr:FC_Bayern_Munich",
-                "paris saint-germain": "dbr:Paris_Germain_F.C.",
-                "psg":                 "dbr:Paris_Saint-Germain_F.C.",
-                "liverpool fc":        "dbr:Liverpool_F.C.",
-                "liverpool":           "dbr:Liverpool_F.C.",
+                "real madrid":         "<http://dbpedia.org/resource/Real_Madrid_CF>",
+                "fc barcelona":        "<http://dbpedia.org/resource/FC_Barcelona>",
+                "barcelona":           "<http://dbpedia.org/resource/FC_Barcelona>",
+                "bayern munchen":      "<http://dbpedia.org/resource/FC_Bayern_Munich>",
+                "bayern":              "<http://dbpedia.org/resource/FC_Bayern_Munich>",
+                "paris saint-germain": "<http://dbpedia.org/resource/Paris_Saint-Germain_F.C.>",
+                "psg":                 "<http://dbpedia.org/resource/Paris_Saint-Germain_F.C.>",
+                "liverpool fc":        "<http://dbpedia.org/resource/Liverpool_F.C.>",
+                "liverpool":           "<http://dbpedia.org/resource/Liverpool_F.C.>",
             }
             uri = CLUB_URI_MAP.get(entity_lower)
        
             if uri:
                 club_pattern = f"BIND({uri} AS ?club)"
-                label_pattern = "?club rdfs:label ?label . FILTER(lang(?label) = 'es' || lang(?label) = 'en')"
+                label_pattern = ""
             else:
                 club_pattern = "?club a dbo:SoccerClub ."
-                label_pattern = f"?club rdfs:label ?label . {label_filter}"
+                label_pattern = f"?club rdfs:label ?clubLabel . {DBpediaQueryBuilder.build_label_filter(entity_lower, '?clubLabel')}"
             return f"""
 PREFIX dbo: <http://dbpedia.org/ontology/>
-PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX dbp: <http://dbpedia.org/property/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 
-SELECT DISTINCT ?label ?stadiumLabel ?managerLabel ?leagueLabel ?countryLabel WHERE {{
+SELECT DISTINCT ?label ?stadiumLabel ?managerLabel ?chairmanLabel ?capacity ?founded ?thumbnail ?allNicks WHERE {{
   {club_pattern}
   {label_pattern}
+  
+  OPTIONAL {{ ?club rdfs:label ?labelES . FILTER(lang(?labelES) = "es") }}
+  OPTIONAL {{ ?club rdfs:label ?labelEN . FILTER(lang(?labelEN) = "en") }}
+  OPTIONAL {{ ?club rdfs:label ?labelAny . }}
+  BIND(COALESCE(?labelES, ?labelEN, ?labelAny) AS ?label)
 
   OPTIONAL {{
     ?club dbo:ground ?stadium .
-    ?stadium rdfs:label ?stadiumLabel .
-    FILTER(lang(?stadiumLabel) = "es")
+    OPTIONAL {{ ?stadium rdfs:label ?stadiumES . FILTER(lang(?stadiumES) = "es") }}
+    OPTIONAL {{ ?stadium rdfs:label ?stadiumEN . FILTER(lang(?stadiumEN) = "en") }}
+    OPTIONAL {{ ?stadium rdfs:label ?stadiumAny . }}
+    BIND(COALESCE(?stadiumES, ?stadiumEN, ?stadiumAny) AS ?stadiumLabel)
   }}
   OPTIONAL {{
     ?club dbo:manager ?manager .
-    ?manager rdfs:label ?managerLabel .
-    FILTER(lang(?managerLabel) = "es" || lang(?managerLabel) = "en")
+    OPTIONAL {{ ?manager rdfs:label ?managerES . FILTER(lang(?managerES) = "es") }}
+    OPTIONAL {{ ?manager rdfs:label ?managerEN . FILTER(lang(?managerEN) = "en") }}
+    OPTIONAL {{ ?manager rdfs:label ?managerAny . }}
+    BIND(COALESCE(?managerES, ?managerEN, ?managerAny) AS ?managerLabel)
   }}
   OPTIONAL {{
-    ?liga a dbo:SoccerLeague ;
-          dbo:team ?club ;
-          rdfs:label ?leagueLabel .
-    FILTER(lang(?leagueLabel) = "es" || lang(?leagueLabel) = "en")
+    ?club dbo:chairman ?chairman .
+    OPTIONAL {{ ?chairman rdfs:label ?chairmanES . FILTER(lang(?chairmanES) = "es") }}
+    OPTIONAL {{ ?chairman rdfs:label ?chairmanEN . FILTER(lang(?chairmanEN) = "en") }}
+    OPTIONAL {{ ?chairman rdfs:label ?chairmanAny . }}
+    BIND(COALESCE(?chairmanES, ?chairmanEN, ?chairmanAny) AS ?chairmanLabel)
   }}
   OPTIONAL {{
-    ?club dbo:country ?country .
-    ?country rdfs:label ?countryLabel .
-    FILTER(lang(?countryLabel) = "es" || lang(?countryLabel) = "en")
+    ?club dbo:capacity ?capacity .
+  }}
+  OPTIONAL {{
+    ?club dbo:formationDate ?founded .
+  }}
+  OPTIONAL {{
+    ?club dbo:thumbnail ?thumbnail .
+  }}
+  OPTIONAL {{
+    SELECT ?club (GROUP_CONCAT(DISTINCT ?nick; SEPARATOR=", ") AS ?allNicks) WHERE {{
+      {{ ?club foaf:nick ?nick . }}
+      UNION
+      {{ ?club dbp:nickname ?nick . }}
+    }} GROUP BY ?club
   }}
 }}
 LIMIT 1
