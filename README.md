@@ -200,7 +200,7 @@ La API está diseñada para consultar la ontología y puede responder preguntas 
 | **Jugadores** | "¿Quién es [Jugador]?" / "Información de [Jugador]" <br> "¿Cuándo nació [Jugador]?" / "Fecha de nacimiento de [Jugador]" <br> "¿En qué posición juega [Jugador]?" / "¿Qué dorsal usa [Jugador]?" | "¿Quién es Kylian Mbappé?" / "¿Cuándo nació Jude Bellingham?" |
 | **Equipos** | "[Equipo]" / "Datos del [Equipo]" <br> "¿Quién entrena al [Equipo]?" / "¿Cuándo se fundó [Equipo]?" <br> "¿Cuál es el estadio del [Equipo]?" | "Real Madrid" / "¿Quién entrena al Liverpool?" |
 | **Estadios** | "Información del [Estadio]" / "¿Qué capacidad tiene el [Estadio]?" <br> "Estadio del [Equipo]" / "¿Dónde juega el [Equipo]?" / "Estadios en [Ciudad/País]" | "Información del Camp Nou" / "Estadios en Barcelona" / "Estadio del Real Madrid" |
-| **Equipos por ubicación** | "¿Qué equipos hay en [País]?" / "Equipos de [País]" | "¿Cuáles son los equipos de Alemania?" |
+| **Equipos por ubicación** | "¿Qué equipos hay en [País]?" / "Equipos de [País]" | "¿Cuáles son los equipos de Brasil?" |
 | **Consulta general (fallback)** | Búsqueda por etiqueta/abstract cuando no encaja en intents específicos — devuelve descripción/abstract de DBpedia | También soporta búsquedas de listados como  "Lista de estadios" |
 
 Nota: DBpedia no es una fuente de resultados de partidos (goles, marcadores, listados exhaustivos de partidos ni estadísticas temporales). Para consultas sobre resultados de partidos, sustituciones, tarjetas o rankings por competencia, el sistema recomienda usar la ontología local incluida en el proyecto.
