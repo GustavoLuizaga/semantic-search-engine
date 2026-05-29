@@ -702,6 +702,9 @@ owl:topObjectProperty rdfs:domain :Resultado ;
 ###  http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol#equipo_01
 :equipo_01 rdf:type owl:NamedIndividual ,
                     :Equipo ;
+           rdfs:label "Real Madrid"@es ,
+                      "Real Madrid"@en ,
+                      "Real Madrid"@fr ;
            :esDirigidoPor :entrenador_01 ;
            :perteneceA :liga_01 ;
            :tieneEstadio :estadio_01 ;
@@ -714,6 +717,9 @@ owl:topObjectProperty rdfs:domain :Resultado ;
 ###  http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol#equipo_02
 :equipo_02 rdf:type owl:NamedIndividual ,
                     :Equipo ;
+           rdfs:label "FC Barcelona"@es ,
+                      "FC Barcelona"@en ,
+                      "FC Barcelone"@fr ;
            :esDirigidoPor :entrenador_02 ;
            :perteneceA :liga_01 ;
            :tieneEstadio :estadio_02 ;
@@ -726,6 +732,9 @@ owl:topObjectProperty rdfs:domain :Resultado ;
 ###  http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol#equipo_03
 :equipo_03 rdf:type owl:NamedIndividual ,
                     :Equipo ;
+           rdfs:label "Bayern Munchen"@es ,
+                      "Bayern Munich"@en ,
+                      "Bayern Munich"@fr ;
            :esDirigidoPor :entrenador_04 ;
            :perteneceA :liga_04 ;
            :tieneEstadio :estadio_05 ;
@@ -738,6 +747,9 @@ owl:topObjectProperty rdfs:domain :Resultado ;
 ###  http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol#equipo_04
 :equipo_04 rdf:type owl:NamedIndividual ,
                     :Equipo ;
+           rdfs:label "Paris Saint-Germain"@es ,
+                      "Paris Saint-Germain"@en ,
+                      "Paris Saint-Germain"@fr ;
            :esDirigidoPor :entrenador_04 ;
            :perteneceA :liga_04 ;
            :tieneEstadio :estadio_05 ;
@@ -750,6 +762,9 @@ owl:topObjectProperty rdfs:domain :Resultado ;
 ###  http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol#equipo_05
 :equipo_05 rdf:type owl:NamedIndividual ,
                     :Equipo ;
+           rdfs:label "Liverpool FC"@es ,
+                      "Liverpool FC"@en ,
+                      "Liverpool FC"@fr ;
            :esDirigidoPor :entrenador_05 ;
            :perteneceA :liga_03 ;
            :tieneEstadio :estadio_08 ;
@@ -762,6 +777,9 @@ owl:topObjectProperty rdfs:domain :Resultado ;
 ###  http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol#estadio_01
 :estadio_01 rdf:type owl:NamedIndividual ,
                      :Estadio ;
+            rdfs:label "Santiago Bernabéu"@es ,
+                       "Santiago Bernabeu Stadium"@en ,
+                       "Stade Santiago Bernabéu"@fr ;
             :tieneCapacidad 83186 ;
             :tieneCiudad "Madrid" ;
             :tieneNombre "Santiago Bernabéu" ;
@@ -771,6 +789,9 @@ owl:topObjectProperty rdfs:domain :Resultado ;
 ###  http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol#estadio_02
 :estadio_02 rdf:type owl:NamedIndividual ,
                      :Estadio ;
+            rdfs:label "Camp Nou"@es ,
+                       "Camp Nou"@en ,
+                       "Camp Nou"@fr ;
             :tieneCapacidad 99354 ;
             :tieneCiudad "Barcelona" ;
             :tieneNombre "Camp Nou" ;
@@ -780,6 +801,9 @@ owl:topObjectProperty rdfs:domain :Resultado ;
 ###  http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol#estadio_03
 :estadio_03 rdf:type owl:NamedIndividual ,
                      :Estadio ;
+            rdfs:label "Allianz Arena"@es ,
+                       "Allianz Arena"@en ,
+                       "Allianz Arena"@fr ;
             :tieneCapacidad 75024 ;
             :tieneCiudad "Múnich" ;
             :tieneNombre "Allianz Arena" ;
@@ -789,6 +813,9 @@ owl:topObjectProperty rdfs:domain :Resultado ;
 ###  http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol#estadio_04
 :estadio_04 rdf:type owl:NamedIndividual ,
                      :Estadio ;
+            rdfs:label "Metropolitano"@es ,
+                       "Metropolitano"@en ,
+                       "Metropolitano"@fr ;
             :tieneCapacidad 75024 ;
             :tieneCiudad "Madrid" ;
             :tieneNombre "Metropolitano" ;
@@ -798,6 +825,9 @@ owl:topObjectProperty rdfs:domain :Resultado ;
 ###  http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol#estadio_05
 :estadio_05 rdf:type owl:NamedIndividual ,
                      :Estadio ;
+            rdfs:label "Parc des Princes"@es ,
+                       "Parc des Princes"@en ,
+                       "Parc des Princes"@fr ;
             :tieneCapacidad 47929 ;
             :tieneCiudad "París" ;
             :tieneNombre "Parc des Princes" ;

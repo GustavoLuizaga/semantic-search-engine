@@ -8,14 +8,23 @@ if os.path.exists(_MAP_PATH):
     with open(_MAP_PATH, encoding="utf-8") as f:
         _CLUB_URI_MAP = json.load(f)
 
-# Aliases que NO están en club_uris.json (apodos, abreviaciones, etc.)
 ALIASES = {
     "barça":     "fc barcelona",
     "barca":     "fc barcelona",
+    "fc barcelone": "fc barcelona",
+    "barcelone": "fc barcelona",
     "merengues": "real madrid",
+    "real":      "real madrid",
     "bayer":     "bayern munchen",
+    "bayern de munich": "bayern munchen",
+    "bayern de múnich": "bayern munchen",
+    "bayern munich": "bayern munchen",
     "champions": "uefa champions league",
+    "champions league": "uefa champions league",
+    "uefa champions league": "uefa champions league",
     "clasico":   "__real_madrid_vs_barcelona__",
+    "coupe du roi": "copa del rey",
+    "king's cup": "copa del rey",
 }
 
 class AliasMapper:
