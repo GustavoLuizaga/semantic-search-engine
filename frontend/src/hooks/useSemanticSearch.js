@@ -8,6 +8,7 @@ export function useSemanticSearch() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [source, setSource] = useState("local");
+  const [language, setLanguage] = useState("es");
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -22,7 +23,7 @@ export function useSemanticSearch() {
     setError(null);
 
     try {
-      const searchResults = await searchQuery(query, source);
+      const searchResults = await searchQuery(query, source, language);
 
       setResults(searchResults);
     } catch (err) {
@@ -54,5 +55,7 @@ export function useSemanticSearch() {
     handleSearch,
     source,
     setSource,
+    language,
+    setLanguage,
   };
 }

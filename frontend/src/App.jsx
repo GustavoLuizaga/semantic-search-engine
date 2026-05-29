@@ -17,6 +17,8 @@ function App() {
     handleSearch,
     source,
     setSource,
+    language,
+    setLanguage,
   } = useSemanticSearch();
   const { isDarkMode, toggleTheme } = useTheme();
 
@@ -45,6 +47,8 @@ function App() {
           isLoading={isLoading}
           source={source}
           setSource={setSource}
+          language={language}
+          setLanguage={setLanguage}
           inputRef={inputRef}
         />
       </main>

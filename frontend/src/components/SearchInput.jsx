@@ -1,10 +1,13 @@
 import SourceSelector from "./SourceSelector";
+import LanguageSelector from "./LanguageSelector";
 
 export default function SearchInput({
   onSubmit,
   isLoading,
   source,
   setSource,
+  language,
+  setLanguage,
   inputRef,
 }) {
   return (
@@ -15,6 +18,7 @@ export default function SearchInput({
       >
         <div className="flex items-center gap-2 flex-1">
           <SourceSelector source={source} setSource={setSource} />
+          <LanguageSelector language={language} setLanguage={setLanguage} />
           <div className="relative flex-1">
             <input
               type="text"
