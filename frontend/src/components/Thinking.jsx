@@ -1,4 +1,7 @@
-export default function Thinking() {
+import { translations } from "../utils/translations";
+
+export default function Thinking({ language }) {
+  const t = translations[language] || translations.es;
   return (
     <div
       className="flex items-center gap-3 px-4 py-3 rounded-2xl 
@@ -13,7 +16,7 @@ export default function Thinking() {
       </div>
 
       <span className="text-sm text-zinc-500 dark:text-zinc-400">
-        Analizando ontología...
+        {t.thinking}
       </span>
     </div>
   );

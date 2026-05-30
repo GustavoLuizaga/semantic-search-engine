@@ -28,16 +28,15 @@ class OntologyMatcher:
             PREFIX : <{NS}>
             SELECT ?id WHERE {{
                 ?id rdf:type/rdfs:subClassOf* :{class_filter} .
-                {{ ?id :tieneNombre ?nombre }} UNION {{ ?id rdfs:label ?nombre }}
+                ?id :tieneNombre ?nombre .
                 FILTER({regex_filters})
             }} LIMIT 1
             """
         else:
             query = f"""
-            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
             PREFIX : <{NS}>
             SELECT ?id WHERE {{
-                {{ ?id :tieneNombre ?nombre }} UNION {{ ?id rdfs:label ?nombre }}
+                ?id :tieneNombre ?nombre .
                 FILTER({regex_filters})
             }} LIMIT 1
             """

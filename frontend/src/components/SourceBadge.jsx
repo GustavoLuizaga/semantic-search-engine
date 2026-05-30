@@ -1,4 +1,7 @@
-function SourceBadge({ source }) {
+import { translations } from "../utils/translations";
+
+function SourceBadge({ source, language }) {
+  const t = translations[language] || translations.es;
   return (
     <div
       className={`
@@ -10,7 +13,7 @@ function SourceBadge({ source }) {
         }
       `}
     >
-      {source === "dbpedia" ? "Usando DBpedia" : "Usando Ontología Propia"}
+      {source === "dbpedia" ? t.dbpedia : t.ownOntology}
     </div>
   );
 }

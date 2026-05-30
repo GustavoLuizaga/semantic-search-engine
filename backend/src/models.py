@@ -3,7 +3,6 @@ from typing import Any, Optional
 
 class SearchRequest(BaseModel):
     query: str
-    language: str = "es"
 
 class SearchResponse(BaseModel):
     query: str

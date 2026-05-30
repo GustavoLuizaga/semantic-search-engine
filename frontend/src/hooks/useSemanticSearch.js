@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { searchQuery } from "../services/search-service";
+import {translations} from "../utils/translations";
 
 export function useSemanticSearch() {
   const inputRef = useRef(null);
@@ -9,7 +10,7 @@ export function useSemanticSearch() {
   const [error, setError] = useState(null);
   const [source, setSource] = useState("local");
   const [language, setLanguage] = useState("es");
-
+  const t = translations[language] || translations.es;
   const handleSearch = async (e) => {
     e.preventDefault();
 
@@ -23,7 +24,7 @@ export function useSemanticSearch() {
     setError(null);
 
     try {
-      const searchResults = await searchQuery(query, source, language);
+      const searchResults = await searchQuery(query);
 
       setResults(searchResults);
     } catch (err) {
@@ -32,14 +33,14 @@ export function useSemanticSearch() {
       // limpiar resultados anteriores
       setResults(null);
 
-      // backend muerto / sin conexión
+
       if (err.name === "TypeError") {
         setError(
-          "No se pudo conectar con el backend semántico."
+          t.backendError
         );
       } else {
         setError(
-          "Ocurrió un error durante la búsqueda."
+          t.searchError
         );
       }
     } finally {
@@ -53,9 +54,5 @@ export function useSemanticSearch() {
     isLoading,
     error,
     handleSearch,
-    source,
-    setSource,
-    language,
-    setLanguage,
   };
 }

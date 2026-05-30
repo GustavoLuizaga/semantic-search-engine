@@ -12,11 +12,10 @@ export default function BackgroundPlayer({ isDarkMode }) {
         className="absolute inset-0 transition-opacity duration-700"
         style={{
           opacity: isDarkMode ? 1 : 0,
-          backgroundImage: "url('/ronaldo.jpg')",
+          backgroundImage: "url('/harry.webp')",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "top center",
-          // Mantenemos el 100% de visibilidad hasta el 50% del gradiente, y difuminamos hasta el 95%
           WebkitMaskImage:
             "radial-gradient(ellipse 90% 85% at 10% 8%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.6) 75%, rgba(0,0,0,0) 95%)",
           maskImage:
@@ -30,7 +29,7 @@ export default function BackgroundPlayer({ isDarkMode }) {
         className="absolute inset-0 transition-opacity duration-700"
         style={{
           opacity: isDarkMode ? 0 : 1,
-          backgroundImage: "url('/boca.jpg')",
+          backgroundImage: "url('/psg.jpg')",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "top center",
