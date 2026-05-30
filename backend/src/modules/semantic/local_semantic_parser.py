@@ -123,6 +123,10 @@ class LocalSemanticParser:
             ("partidos_competicion", ["partidos de la", "partidos del", "partidos en la", "partidos jugados en"]),
             ("todos_partidos",      ["todos los partidos", "lista partidos", "partidos jugados",
                                       "lista todos los partidos"]),
+            ("jugadores_nacionalidad", ["jugadores de nacionalidad", "jugador de nacionalidad",
+                                         "jugadores con nacionalidad", "jugadores son de",
+                                         "jugador es de"]),
+            ("equipos_por_pais",    ["equipos de un pais", "equipos de un país", "equipos del país", "equipos del pais", "equipos de españa", "equipos de alemania", "equipos de francia", "qué equipos son de", "que equipos son de", "equipos de nacionalidad", "equipos por pais", "equipos de inglaterra", "equipos de argentina", "equipos de brasil"]),
             ("todos_equipos",       ["todos los equipos", "qué equipos hay", "que equipos hay",
                                       "equipos hay", "lista equipos"]),
             ("todos_jugadores",     ["todos los jugadores", "lista jugadores"]),
@@ -133,9 +137,6 @@ class LocalSemanticParser:
             ("goles_partido",       ["quién anotó", "quien anoto", "quien metió", "quien metio",
                                       "goleadores del partido", "cuántos goles marcó",
                                       "cuantos goles marcó", "cuantos goles marco", "goles marcó"]),
-            ("jugadores_nacionalidad", ["jugadores de nacionalidad", "jugador de nacionalidad",
-                                         "jugadores con nacionalidad", "jugadores son de",
-                                         "jugador es de"]),
             ("capitan_equipo",      ["capitán del", "capitan del", "capitán de", "capitan de",
                                       "quien es el capitan", "quién es el capitán"]),
             ("jugadores_equipo",    ["jugadores del", "jugadores de", "plantilla del", "plantilla de",
@@ -144,7 +145,7 @@ class LocalSemanticParser:
                                       "entrena al", "entrena a", "quien entrena", "quién entrena",
                                       "estadio del", "estadio de", "ciudad del", "ciudad de",
                                       "información del equipo", "informacion del equipo"]),
-            ("tarjetas",            ["tarjeta", "amonestado", "expulsado", "amarilla", "roja"]),
+            ("tarjetas",            ["tarjeta", "tarjetas", "amonestado", "expulsado", "amarilla", "roja"]),
             ("sustituciones",       ["sustitución", "sustitucion", "sustituciones", "cambio",
                                       "entró", "entro", "salió", "salio", "cambios"]),
             ("arbitros",            ["árbitro", "arbitro", "árbitros", "arbitros"]),
@@ -157,7 +158,6 @@ class LocalSemanticParser:
             ("torneos_internacionales", ["torneos internacionales", "competiciones internacionales", "tipo de torneo"]),
             ("asistencia_gol",      ["asistencia de gol", "asistencia para el gol", "asistencia de", "dio la asistencia", "asistencia para"]),
             ("tarjeta_por_motivo",  ["tarjeta por", "amonestado por", "expulsado por"]),
-            ("equipos_por_pais",    ["equipos de un pais", "equipos de un país", "equipos del país", "equipos del pais", "equipos de españa", "equipos de alemania", "equipos de francia", "qué equipos son de", "que equipos son de", "equipos de nacionalidad", "equipos por pais", "equipos de inglaterra", "equipos de argentina", "equipos de brasil"]),
             ("jugadores_posicion",  ["delanteros", "mediocampistas", "porteros", "defensas",
                                       "jugadores de posición", "jugadores que juegan de",
                                       "qué delanteros", "que delanteros"]),
@@ -168,54 +168,61 @@ class LocalSemanticParser:
             ("goleadores_ranking",  ["top scorer", "best scorer", "ranking goals", "most goals", "who scored most", "who scored the most", "goal ranking"]),
             ("partidos_competicion",["matches of the", "matches of", "matches in the", "games in the", "played in"]),
             ("todos_partidos",      ["all matches", "list of matches", "played matches", "all games"]),
-            ("todos_equipos",       ["all teams", "what teams", "list of teams", "teams list"]),
-            ("todos_jugadores",     ["all players", "list of players", "all the players", "who are all the players"]),
-            ("resultado_partido",   ["result", "score", "won", "lost", "drew", "vs", "against"]),
-            ("gol_propia_puerta",   ["own goal", "own goals", "self goal"]),
-            ("gol_de_penal",        ["penalty goal", "scored a penalty", "from penalty", "penalty kick", "penalties"]),
-            ("goles_partido",       ["who scored", "scorers of the match", "how many goals did", "goals scored", "goals in the match"]),
             ("jugadores_nacionalidad", ["players of nationality", "player of nationality", "players with nationality",
                                         "players are from", "player is from", "players from",
                                         "which players are", "players who are", "players are"]),
+            ("equipos_por_pais",    ["teams of a country", "teams from", "teams of spain", "teams of germany", "teams of france", "which teams are from", "teams by country", "teams of england", "teams of argentina", "teams of brazil"]),
+            ("todos_equipos",       ["all teams", "what teams", "which teams", "list of teams", "teams list"]),
+            ("todos_jugadores",     ["all players", "list of players", "all the players", "who are all the players", "which players"]),
+            # goles_partido BEFORE resultado_partido so "how many goals did" wins over "score"/"result"
+            ("gol_propia_puerta",   ["own goal", "own goals", "self goal"]),
+            ("gol_de_penal",        ["penalty goal", "scored a penalty", "from penalty", "penalty kick", "penalties"]),
+            ("goles_partido",       ["who scored", "scorers of the match", "how many goals did", "goals scored by", "goals in the match"]),
+            ("resultado_partido",   ["result", "score", "won", "lost", "drew", "vs", "against"]),
             ("capitan_equipo",      ["captain of", "who is the captain"]),
             ("jugadores_equipo",    ["players of", "squad of", "roster of", "who plays in", "team of"]),
-            ("info_equipo",         ["coach of", "trainer of", "who coaches", "stadium of", "city of", "information of the team", "info of the team", "information of", "info of"]),
-            ("tarjetas",            ["card", "booked", "sent off", "yellow", "red"]),
-            ("sustituciones",       ["substitution", "substitutions", "change", "came on", "went off", "substituted"]),
-            ("arbitros",            ["referee", "referees"]),
+            # estadios_ubicacion and estadios BEFORE info_equipo so "capacity"/"stadium" wins
             ("estadios_ubicacion",  ["stadiums in", "stadium in", "what stadiums are in", "stadiums of"]),
             ("estadios",            ["stadium", "capacity", "attendance", "spectators"]),
-            ("jugador_por_dorsal",  ["number", "shirt number", "dorsal", "wears number", "wears the shirt"]),
+            ("info_equipo",         ["coach of", "trainer of", "who coaches", "city of", "information of the team", "info of the team", "information of", "info of"]),
+            ("tarjetas",            ["card", "cards", "booked", "sent off", "yellow", "red", "show the cards", "show cards"]),
+            ("sustituciones",       ["substitution", "substitutions", "change", "changes", "came on", "went off", "substituted"]),
+            ("arbitros",            ["referee", "referees"]),
+            ("jugador_por_dorsal",  ["shirt number", "dorsal", "wears number", "wears the shirt"]),
             ("info_fecha_nacimiento", ["when was he born", "when was born", "date of birth",
                                        "birth date", "birthday", "born on", "born"]),
             ("es_titular",          ["is starter", "starting players", "is a starter", "starter", "starting"]),
             ("torneos_internacionales", ["international tournaments", "international competitions", "tournament type"]),
             ("asistencia_gol",      ["assist", "assists", "gave the assist", "assist for"]),
             ("tarjeta_por_motivo",  ["card for", "booked for", "sent off for"]),
-            ("equipos_por_pais",    ["teams of a country", "teams from", "teams of spain", "teams of germany", "teams of france", "which teams are from", "teams by country", "teams of england", "teams of argentina", "teams of brazil"]),
             ("jugadores_posicion",  ["forwards", "midfielders", "goalkeepers", "defenders", "players of position", "players who play as", "what forwards"]),
             ("info_entrenador",     ["coach", "manager", "trainer", "who manages", "who directs"]),
         ],
         "fr": [
             ("goleadores_ranking",  ["meilleur buteur", "classement des buteurs", "top buteur", "qui a marqué le plus", "classement buts"]),
-            ("partidos_competicion",["matchs de la", "matchs du", "matchs en", "joués en"]),
+            # partidos_competicion: include "matchs de l'" so 'Matchs de l'UEFA' is captured
+            ("partidos_competicion",["matchs de l'", "matchs de la", "matchs du", "matchs en", "joués en"]),
             ("todos_partidos",      ["tous les matchs", "liste des matchs", "matchs joués"]),
-            ("todos_equipos",       ["toutes les équipes", "quelles équipes", "liste des équipes", "tous les clubs"]),
-            ("todos_jugadores",     ["tous les joueurs", "liste des joueurs", "quels sont tous les joueurs"]),
-            ("resultado_partido",   ["résultat", "score", "a gagné", "a perdu", "match nul", "vs", "contre"]),
-            ("gol_propia_puerta",   ["but contre son camp", "csc", "propre but"]),
-            ("gol_de_penal",        ["but sur penalty", "but sur pénalty", "pénalty", "penalty"]),
-            ("goles_partido",       ["qui a marqué", "buteurs du match", "combien de buts", "buts marqués"]),
             ("jugadores_nacionalidad", ["joueurs de nationalité", "joueur de nationalité", "joueurs sont de", "joueur est de",
                                         "quels joueurs sont", "joueurs d'", "joueurs sont"]),
+            ("equipos_por_pais",    ["équipes d'un pays", "equipes d'un pays", "équipes de", "equipes de", "quelles équipes sont de", "quelles équipes viennent de", "quelles équipes viennent d'", "équipes viennent de", "équipes viennent d'"]),
+            ("todos_equipos",       ["toutes les équipes", "quelles équipes", "liste des équipes", "tous les clubs"]),
+            ("todos_jugadores",     ["tous les joueurs", "liste des joueurs", "quels sont tous les joueurs"]),
+            # goles_partido BEFORE resultado_partido
+            ("gol_propia_puerta",   ["but contre son camp", "csc", "propre but"]),
+            ("gol_de_penal",        ["but sur penalty", "but sur pénalty", "pénalty", "penalty"]),
+            ("goles_partido",       ["qui a marqué", "buteurs du match", "combien de buts a marqué", "combien de buts", "buts marqués"]),
+            ("resultado_partido",   ["résultat", "score", "a gagné", "a perdu", "match nul", "vs", "contre"]),
             ("capitan_equipo",      ["capitaine de", "qui est le capitaine"]),
             ("jugadores_equipo",    ["joueurs de", "effectif de", "qui joue à", "qui joue au"]),
-            ("info_equipo",         ["entraîneur de", "entraineur de", "stade de", "ville de", "informations sur l'équipe", "info sur l'équipe"]),
-            ("tarjetas",            ["carton", "averti", "expulsé", "jaune", "rouge"]),
-            ("sustituciones",       ["substitution", "substitutions", "changement", "est entré", "est sorti", "remplacement"]),
-            ("arbitros",            ["arbitre", "arbitres"]),
+            # estadios BEFORE info_equipo so 'capacité'/'stade' wins
             ("estadios_ubicacion",  ["stades en", "stade en", "quels stades sont en", "stades de"]),
-            ("estadios",            ["stade", "capacité", "affluence", "spectateurs"]),
+            ("estadios",            ["capacité", "affluence", "spectateurs"]),
+            ("info_equipo",         ["qui entraîne", "qui entraine", "entraîneur de", "entraineur de",
+                                      "stade du", "stade de l'", "stade de", "ville de", "informations sur l'équipe", "info sur l'équipe"]),
+            ("tarjetas",            ["carton", "cartons", "averti", "expulsé", "jaune", "rouge", "montre les cartons"]),
+            ("sustituciones",       ["substitution", "substitutions", "changement", "changements", "est entré", "est sorti", "remplacement", "remplacements", "remplacements effectués", "remplacements effectues"]),
+            ("arbitros",            ["arbitre", "arbitres"]),
             ("jugador_por_dorsal",  ["numéro", "numero", "maillot", "porte le", "dorsal"]),
             ("info_fecha_nacimiento", ["quand est-il né", "quand est né", "date de naissance",
                                        "naissance de", "est né"]),
@@ -223,7 +230,6 @@ class LocalSemanticParser:
             ("torneos_internacionales", ["tournois internationaux", "compétitions internationales", "type de tournoi"]),
             ("asistencia_gol",      ["passe décisive", "passe decisive", "a fait la passe", "passe décisive pour"]),
             ("tarjeta_por_motivo",  ["carton pour", "averti pour", "expulsé pour"]),
-            ("equipos_por_pais",    ["équipes d'un pays", "equipes d'un pays", "équipes de", "equipes de", "quelles équipes sont de"]),
             ("jugadores_posicion",  ["attaquants", "milieux", "gardiens", "défenseurs", "joueurs de position", "joueurs qui jouent comme", "quels attaquants"]),
             ("info_entrenador",     ["entraîneur", "entraineur", "technicien", "qui dirige", "coach"]),
         ]
@@ -232,17 +238,51 @@ class LocalSemanticParser:
     @staticmethod
     def parse(query: str, language: str = "es") -> "ParsedQuery":
         lang = (language or "es").lower().strip()
-        if lang not in LocalSemanticParser.INTENTS_BY_LANG:
-            lang = "es"
+        if len(lang) > 2:
+            lang = lang[:2]
 
         q_lower = query.lower().strip()
+        # Normalizar apóstrofes tipográficos/curvos a rectos
+        q_lower = q_lower.replace("’", "'").replace("‘", "'").replace("`", "'")
+
+        # Auto-detección inteligente de idioma por marcadores característicos
+        fr_markers = [
+            "matchs de", "quel est", "qui entraîne", "qui entraine", "joueurs de", "stade de", 
+            "est-il", "quand est", "combien de", "meilleur buteur", "classement des", 
+            "but contre son camp", "but sur", "passe décisive", "passe decisive", "remplacement"
+        ]
+        en_markers = [
+            "what is", "how many", "who is", "who scored", "stadiums in", "stadium in", 
+            "captain of", "squad of", "players of", "coach of", "is starter", "starting players",
+            "which teams", "which players"
+        ]
+        if any(m in q_lower for m in fr_markers):
+            lang = "fr"
+        elif any(m in q_lower for m in en_markers):
+            lang = "en"
+
+        if lang not in LocalSemanticParser.INTENTS_BY_LANG:
+            lang = "es"
 
         # ── 1. Detectar intent por keywords ──────────────────────────────
         intent = None
         for intnt, keywords in LocalSemanticParser.INTENTS_BY_LANG[lang]:
-            if keywords and any(kw in q_lower for kw in keywords):
-                intent = intnt
-                break
+            if keywords:
+                # Comprobar palabra completa usando límites de palabra si es alfanumérico
+                matched = False
+                for kw in keywords:
+                    pattern = ""
+                    if kw[0].isalnum() or kw[0] == '_':
+                        pattern += r'\b'
+                    pattern += re.escape(kw)
+                    if kw[-1].isalnum() or kw[-1] == '_':
+                        pattern += r'\b'
+                    if re.search(pattern, q_lower):
+                        matched = True
+                        break
+                if matched:
+                    intent = intnt
+                    break
 
         # ── 2. Si no hay keyword, detectar por catálogo de nombres ───────
         if intent is None:
@@ -287,6 +327,13 @@ class LocalSemanticParser:
                 quick = quick.replace(kw_clean, "").strip(" ¿?!,")
             if quick.strip() in PAISES_Y_NACIONALIDADES:
                 intent = "jugadores_nacionalidad"
+
+        # ── 2d. Re-clasificar: estadios/estadios_ubicacion con equipo → info_equipo ─
+        if intent in ("estadios", "estadios_ubicacion"):
+            tiene_equipo = any(e in q_lower for e in EQUIPOS_CONOCIDOS)
+            tiene_estadio = any(s in q_lower for s in ESTADIOS_CONOCIDOS)
+            if tiene_equipo and not tiene_estadio:
+                intent = "info_equipo"
 
         # ── 3. Extraer entidades ──────────────────────────────────────────
         entities = LocalSemanticParser._extract_entities(q_lower, intent, lang)
@@ -384,6 +431,13 @@ class LocalSemanticParser:
     @staticmethod
     def _extract_equipo_entities(q_lower: str, intent: str, lang: str) -> list:
         """Extrae nombre de equipo."""
+        # PRIORIDAD 1: buscar equipo conocido directamente (más específico primero)
+        for name in sorted(EQUIPOS_CONOCIDOS, key=len, reverse=True):
+            if name in q_lower:
+                resolved = AliasMapper.resolve(name)
+                if resolved:
+                    return [resolved]
+
         cleaned = q_lower
         keywords_to_remove = {
             "jugadores_equipo": {
@@ -443,9 +497,11 @@ class LocalSemanticParser:
                 ],
                 "fr": [
                     "informations sur l'équipe", "informations de l'équipe", "infos sur l'équipe",
-                    "entraîneur du", "entraineur du", "entraîneur de", "entraineur de",
+                    "qui entraîne le", "qui entraine le", "qui entraîne l'", "qui entraine l'",
+                    "qui entraîne", "qui entraine",
+                    "entraîneur du", "entraineur du", "entraîneur de l'", "entraîneur de", "entraineur de",
                     "stade du", "stade de l'", "stade de", "où joue", "ou joue",
-                    "qui entraîne le", "qui entraine le", "entraîne le", "entraine le",
+                    "entraîne le", "entraine le",
                     "ville de l'", "ville de", "informations sur", "infos sur"
                 ]
             },
@@ -466,6 +522,11 @@ class LocalSemanticParser:
     @staticmethod
     def _extract_estadio_entities(q_lower: str, lang: str) -> list:
         """Extrae nombre de estadio."""
+        # PRIORIDAD 1: buscar estadio conocido directamente (más específico primero)
+        for name in sorted(ESTADIOS_CONOCIDOS, key=len, reverse=True):
+            if name in q_lower:
+                return [name]
+
         cleaned = q_lower
         kws = [
             "cuánta capacidad tiene el", "cuanta capacidad tiene el",
@@ -594,7 +655,9 @@ class LocalSemanticParser:
             "quels joueurs sont", "joueurs sont de", "joueur est de",
             "joueurs d'", "joueurs de", "joueur de",
             "nationalité", "du pays",
-            "équipes d'un pays", "equipes d'un pays", "quelles équipes sont de", "équipes de", "equipes de"
+            "équipes d'un pays", "equipes d'un pays", "quelles équipes sont de", "équipes de", "equipes de",
+            "quelles équipes viennent de", "quelles équipes viennent d'", "equipes viennent de", "equipes viennent d'",
+            "équipes viennent de", "équipes viennent d'", "viennent de", "viennent d'"
         ]
         for kw in sorted(kws, key=len, reverse=True):
             if kw in cleaned:
@@ -612,7 +675,25 @@ class LocalSemanticParser:
 
     @staticmethod
     def _extract_ubicacion_entities(q_lower: str, lang: str) -> list:
-        """Extrae la ubicación (ciudad o país) para buscar estadios."""
+        """Extrae la ubicación (ciudad o país) para buscar estadios.
+        Normaliza nombres de país en EN/FR a su valor canónico en español
+        para que coincida con los datos de la ontología.
+        """
+        # Mapa: nombre de país/ciudad en EN o FR → nombre canónico usado en la ontología
+        _UBICACION_NORM = {
+            # EN
+            "spain": "España", "england": "Inglaterra", "germany": "Alemania",
+            "france": "Francia", "italy": "Italia", "brazil": "Brasil",
+            "argentina": "Argentina", "portugal": "Portugal", "colombia": "Colombia",
+            "madrid": "Madrid", "barcelona": "Barcelona", "munich": "Munich",
+            "london": "Londres", "paris": "París",
+            # FR
+            "espagne": "España", "angleterre": "Inglaterra", "allemagne": "Alemania",
+            "france": "Francia", "italie": "Italia", "brésil": "Brasil",
+            "argentine": "Argentina", "colombie": "Colombia",
+            "londres": "Londres", "paris": "París", "munich": "Munich",
+        }
+
         cleaned = q_lower
         kws = [
             "que estadios hay en", "qué estadios hay en",
@@ -628,7 +709,10 @@ class LocalSemanticParser:
                 if len(parts) > 1:
                     cleaned = parts[-1].strip(" ¿?!,")
                 break
-        return [cleaned] if cleaned else [q_lower]
+        cleaned = cleaned.strip(" ¿?!,")
+        # Normalize country names from EN/FR to canonical ontology name
+        normalized = _UBICACION_NORM.get(cleaned.lower(), cleaned)
+        return [normalized] if normalized else [q_lower]
 
     @staticmethod
     def _extract_competicion_entities(q_lower: str, lang: str) -> list:
@@ -640,8 +724,8 @@ class LocalSemanticParser:
             "partidos en la", "partidos en el", "partidos en",
             # EN
             "matches played in the", "matches played in", "matches of the", "matches of", "matches in the", "matches in",
-            # FR
-            "matchs joués en", "matchs joués dans la", "matchs de la", "matchs du", "matchs en"
+            # FR — include "matchs de l'" for e.g. "Matchs de l'UEFA Champions League"
+            "matchs joués dans la", "matchs joués en", "matchs de l'", "matchs de la", "matchs du", "matchs en"
         ]
         for kw in sorted(kws, key=len, reverse=True):
             if kw in cleaned:
@@ -649,14 +733,17 @@ class LocalSemanticParser:
                 if len(parts) > 1:
                     cleaned = parts[-1].strip(" ¿?!,")
                 break
-        
+
         # Mapeo básico de competiciones
         if "liga" in cleaned and "la liga" not in cleaned:
             cleaned = cleaned.replace("liga", "la liga")
-        elif "league" in cleaned and "the league" not in cleaned:
-            if "champions" in cleaned and "uefa champions league" not in cleaned:
-                cleaned = cleaned.replace("champions league", "uefa champions league")
-            
+        if "champions" in cleaned and "uefa champions league" not in cleaned:
+            cleaned = cleaned.replace("champions league", "uefa champions league")
+            cleaned = cleaned.replace("champions", "uefa champions league")
+        # Normalize UEFA Champions League references in French
+        if "ligue des champions" in cleaned:
+            cleaned = "uefa champions league"
+
         return [cleaned] if cleaned else [q_lower]
 
     @staticmethod
