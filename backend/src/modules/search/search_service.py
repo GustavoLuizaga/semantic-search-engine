@@ -155,6 +155,74 @@ def _fmt_fecha(f_str: str) -> str:
     return f_str.split("T")[0]
 
 
+# ── Data Key Translations ──────────────────────────────────────────────────
+# Maps Spanish key names → translated key names per language
+_KEY_MAP = {
+    # partido / resultado
+    "local":           {"en": "home",         "fr": "domicile"},
+    "visitante":       {"en": "away",          "fr": "visiteur"},
+    "goles_local":     {"en": "home_goals",    "fr": "buts_domicile"},
+    "goles_visitante": {"en": "away_goals",    "fr": "buts_visiteur"},
+    "fecha":           {"en": "date",          "fr": "date"},
+    "estadio":         {"en": "stadium",       "fr": "stade"},
+    "arbitro":         {"en": "referee",       "fr": "arbitre"},
+    "competicion":     {"en": "competition",   "fr": "compétition"},
+    # jugador
+    "nombre":          {"en": "name",          "fr": "nom"},
+    "dorsal":          {"en": "number",        "fr": "numéro"},
+    "posicion":        {"en": "position",      "fr": "poste"},
+    "nacionalidad":    {"en": "nationality",   "fr": "nationalité"},
+    "equipo":          {"en": "team",          "fr": "équipe"},
+    "goles":           {"en": "goals",         "fr": "buts"},
+    "capitan":         {"en": "captain",       "fr": "capitaine"},
+    # equipo
+    "ciudad":          {"en": "city",          "fr": "ville"},
+    "pais":            {"en": "country",       "fr": "pays"},
+    "entrenador":      {"en": "coach",         "fr": "entraîneur"},
+    "liga":            {"en": "league",        "fr": "ligue"},
+    # estadio
+    "capacidad":       {"en": "capacity",      "fr": "capacité"},
+    # tarjeta
+    "tipo":            {"en": "type",          "fr": "type"},
+    "jugador":         {"en": "player",        "fr": "joueur"},
+    "minuto":          {"en": "minute",        "fr": "minute"},
+    "tiempo":          {"en": "period",        "fr": "période"},
+    "motivo":          {"en": "reason",        "fr": "motif"},
+    # sustituciones
+    "entra":           {"en": "enters",        "fr": "entre"},
+    "sale":            {"en": "exits",         "fr": "sort"},
+    # goles detalle
+    "anotador":        {"en": "scorer",        "fr": "buteur"},
+    "asistidor":       {"en": "assister",      "fr": "passeur"},
+    "asistencias":     {"en": "assists",       "fr": "passes_décisives"},
+    # goleadores ranking
+    "total":           {"en": "total",         "fr": "total"},
+    # fecha nacimiento
+    "fecha_nacimiento": {"en": "birth_date",   "fr": "date_naissance"},
+    # titular
+    "es_titular":      {"en": "is_starter",    "fr": "est_titulaire"},
+    # torneos
+    "torneos":         {"en": "tournaments",   "fr": "tournois"},
+    # entrenador
+    "goleador":        {"en": "goalscorer",    "fr": "buteur"},
+}
+
+
+def translate_data_keys(data, lang: str):
+    """Recursively rename Spanish keys in data dicts/lists to the target language."""
+    if lang == "es" or not data:
+        return data
+    if isinstance(data, list):
+        return [translate_data_keys(item, lang) for item in data]
+    if isinstance(data, dict):
+        new = {}
+        for k, v in data.items():
+            translated_key = _KEY_MAP.get(k, {}).get(lang, k)
+            new[translated_key] = translate_data_keys(v, lang)
+        return new
+    return data
+
+
 def _resumir_lista(nombres: list, lang: str = "es") -> str:
     if not nombres:
         return ""
@@ -676,7 +744,8 @@ class SearchService:
         else:
             answer = T[lang]["cant_partidos"].format(cant=len(data))
 
-        return answer, data[0] if len(data) == 1 else data, True
+        result = data[0] if len(data) == 1 else data
+        return answer, translate_data_keys(result, lang), True
 
     # ── goles_partido ──────────────────────────────────────────────────────
     @staticmethod
@@ -701,7 +770,7 @@ class SearchService:
                 goles_r = executor.query(SPARQLBuilder.query_goles_jugador(jug_id))
                 total   = int(goles_r[0].get("total", 0)) if goles_r else 0
                 answer  = T[lang]["jugador_goles"].format(nom=nom, total=total)
-                return answer, {"jugador": nom, "goles": total}, True
+                return answer, translate_data_keys({"jugador": nom, "goles": total}, lang), True
 
         eq_a = matched.get("eq_a")
         eq_b = matched.get("eq_b")
@@ -740,7 +809,7 @@ class SearchService:
         local  = translate_entity(partidos[0].get("eq_local_nom", "?"), lang)
         vis    = translate_entity(partidos[0].get("eq_visitante_nom", "?"), lang)
         answer = T[lang]["cant_goles_partido"].format(local=local, vis=vis, cant=len(all_goles))
-        return answer, all_goles, True
+        return answer, translate_data_keys(all_goles, lang), True
 
     # ── jugadores_equipo ───────────────────────────────────────────────────
     @staticmethod
@@ -773,7 +842,7 @@ class SearchService:
             
         nombres = [d["nombre"] for d in data]
         answer  = T[lang]["plantilla_fmt"].format(eq_nom=eq_nom, cant=len(data), lista=_resumir_lista(nombres, lang))
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── info_equipo ────────────────────────────────────────────────────────
     @staticmethod
@@ -812,7 +881,7 @@ class SearchService:
 
         data = {"nombre": nom, "ciudad": ciudad, "pais": pais,
                 "estadio": estadio, "entrenador": dt, "liga": liga}
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── info_jugador ───────────────────────────────────────────────────────
     @staticmethod
@@ -858,7 +927,7 @@ class SearchService:
 
         data = {"nombre": nom, "dorsal": dor, "posicion": pos,
                 "nacionalidad": nac, "equipo": eq_nom, "goles": goles, "capitan": cap}
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── jugador_por_dorsal ─────────────────────────────────────────────────
     @staticmethod
@@ -880,7 +949,7 @@ class SearchService:
         nom    = fila.get("nombre", "?")
         eq_nom = translate_entity(fila.get("equipo_nombre", "?"), lang)
         answer = T[lang]["jugador_dorsal_fmt"].format(dorsal=dorsal, eq_nom=eq_nom, nom=nom)
-        return answer, {"nombre": nom, "dorsal": dorsal, "equipo": eq_nom}, True
+        return answer, translate_data_keys({"nombre": nom, "dorsal": dorsal, "equipo": eq_nom}, lang), True
 
     # ── jugadores_nacionalidad ─────────────────────────────────────────────
     @staticmethod
@@ -927,7 +996,7 @@ class SearchService:
         nombres     = [d["nombre"] for d in data]
         nac_display = data[0]["nacionalidad"]
         answer = T[lang]["jugadores_nacionalidad_fmt"].format(cant=len(data), nac_display=nac_display, lista=_resumir_lista(nombres, lang))
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── equipos_por_pais ──────────────────────────────────────────────────
     @staticmethod
@@ -970,7 +1039,7 @@ class SearchService:
         pais_display = translate_pais(nac_query, lang)
         
         answer = T[lang]["equipos_pais_fmt"].format(cant=len(nombres), nac=pais_display, lista=_resumir_lista(nombres, lang))
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── info_estadio ───────────────────────────────────────────────────────
     @staticmethod
@@ -994,7 +1063,7 @@ class SearchService:
                 })
             nombres = [d["nombre"] for d in data]
             answer  = T[lang]["estadios_registrados"].format(cant=len(data), lista=_resumir_lista(nombres, lang))
-            return answer, data, True
+            return answer, translate_data_keys(data, lang), True
 
         resultados = executor.query(SPARQLBuilder.query_info_estadio(est_id))
         print(f"  [info_estadio] filas={len(resultados)}")
@@ -1016,7 +1085,7 @@ class SearchService:
         else:
             answer = T[lang]["info_estadio_completa"].format(nom=nom, ciu=ciu, pai=pai, cap=cap)
 
-        return answer, {"nombre": nom, "capacidad": cap, "ciudad": ciu, "pais": pai}, True
+        return answer, translate_data_keys({"nombre": nom, "capacidad": cap, "ciudad": ciu, "pais": pai}, lang), True
 
     # ── estadios_ubicacion ─────────────────────────────────────────────────
     @staticmethod
@@ -1044,7 +1113,7 @@ class SearchService:
         
         nombres = [d["nombre"] for d in data]
         answer  = T[lang]["estadios_ubicacion_fmt"].format(cant=len(data), ubicacion=translate_entity(ubicacion, lang), lista=_resumir_lista(nombres, lang))
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── arbitros ───────────────────────────────────────────────────────────
     @staticmethod
@@ -1062,7 +1131,7 @@ class SearchService:
             })
         nombres = [d["nombre"] for d in data]
         answer  = T[lang]["arbitros_registrados"].format(cant=len(data), lista=_resumir_lista(nombres, lang))
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── tarjetas ───────────────────────────────────────────────────────────
     @staticmethod
@@ -1081,7 +1150,7 @@ class SearchService:
                 "motivo":  f.get("motivo", "")
             })
         answer = T[lang]["tarjetas_registradas"].format(cant=len(data))
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── sustituciones ──────────────────────────────────────────────────────
     @staticmethod
@@ -1094,7 +1163,7 @@ class SearchService:
                  "minuto": f.get("minuto", "?"),     "tiempo": f.get("tiempo", "")}
                 for f in resultados]
         answer = T[lang]["sustituciones_registradas"].format(cant=len(data))
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── goleadores_ranking ─────────────────────────────────────────────────
     @staticmethod
@@ -1107,7 +1176,7 @@ class SearchService:
                   for f in resultados]
         top3   = ", ".join(f"{d['jugador']} ({d['goles']})" for d in data[:3])
         answer = T[lang]["goleadores_ranking_fmt"].format(lista=top3)
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── partidos_competicion ───────────────────────────────────────────────
     @staticmethod
@@ -1137,7 +1206,7 @@ class SearchService:
 
         comp_name = data[0]["competicion"]
         answer = T[lang]["partidos_competicion_fmt"].format(cant=len(data), comp_name=comp_name)
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── todos_partidos ─────────────────────────────────────────────────────
     @staticmethod
@@ -1157,7 +1226,7 @@ class SearchService:
                 "competicion":     translate_entity(f.get("comp_nombre", "?"), lang)
             })
         answer = T[lang]["todos_partidos_fmt"].format(cant=len(data))
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── todos_equipos ──────────────────────────────────────────────────────
     @staticmethod
@@ -1178,7 +1247,7 @@ class SearchService:
 
         nombres = [d["nombre"] for d in data]
         answer  = T[lang]["todos_equipos_fmt"].format(cant=len(data), lista=_resumir_lista(nombres, lang))
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── todos_jugadores ────────────────────────────────────────────────────
     @staticmethod
@@ -1199,7 +1268,7 @@ class SearchService:
 
         nombres = [d["nombre"] for d in data]
         answer  = T[lang]["todos_jugadores_fmt"].format(cant=len(data), lista=_resumir_lista(nombres, lang))
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── capitan_equipo ─────────────────────────────────────────────────────
     @staticmethod
@@ -1226,7 +1295,7 @@ class SearchService:
         eq_nom = translate_entity(eq_nom, lang)
 
         answer = T[lang]["capitan_fmt"].format(eq_nom=eq_nom, nom=nom, dor=dor, pos=pos)
-        return answer, {"nombre": nom, "dorsal": dor, "posicion": pos, "equipo": eq_nom}, True
+        return answer, translate_data_keys({"nombre": nom, "dorsal": dor, "posicion": pos, "equipo": eq_nom}, lang), True
 
     # ── info_fecha_nacimiento ──────────────────────────────────────────────
     @staticmethod
@@ -1246,7 +1315,7 @@ class SearchService:
         fecha = _fmt_fecha(fecha_raw)
         
         answer = T[lang]["fecha_nacimiento_fmt"].format(nom=nom, fecha=fecha)
-        return answer, {"nombre": nom, "fecha_nacimiento": fecha}, True
+        return answer, translate_data_keys({"nombre": nom, "fecha_nacimiento": fecha}, lang), True
 
     # ── es_titular ─────────────────────────────────────────────────────────
     @staticmethod
@@ -1269,7 +1338,7 @@ class SearchService:
         else:
             answer = T[lang]["no_es_titular_fmt"].format(nom=nom, eq_nom=eq_nom)
             
-        return answer, {"nombre": nom, "es_titular": es_titular, "equipo": eq_nom}, True
+        return answer, translate_data_keys({"nombre": nom, "es_titular": es_titular, "equipo": eq_nom}, lang), True
 
     # ── torneos_internacionales ────────────────────────────────────────────
     @staticmethod
@@ -1286,7 +1355,7 @@ class SearchService:
             })
         nombres = [d["nombre"] for d in data]
         answer = T[lang]["torneos_internacionales_fmt"].format(cant=len(data), lista=_resumir_lista(nombres, lang))
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── asistencia_gol ─────────────────────────────────────────────────────
     @staticmethod
@@ -1308,7 +1377,7 @@ class SearchService:
             nombres = [d["asistidor"] for d in data]
             answer = T[lang]["asistencias_multiples_fmt"].format(cant=len(data), goleador=data[0]['goleador'], lista=_resumir_lista(nombres, lang))
             
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── tarjeta_por_motivo ─────────────────────────────────────────────────
     @staticmethod
@@ -1332,7 +1401,7 @@ class SearchService:
             })
         nombres = [d["jugador"] for d in data]
         answer = T[lang]["tarjetas_motivo_fmt"].format(cant=len(data), motivo=motivo, lista=_resumir_lista(nombres, lang))
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── gol_propia_puerta ──────────────────────────────────────────────────
     @staticmethod
@@ -1344,7 +1413,7 @@ class SearchService:
         data = [{"jugador": f.get("nombre_jugador", "?"), "minuto": f.get("minuto", "?"), "tiempo": f.get("tiempo", "?")} for f in resultados]
         nombres = [d["jugador"] for d in data]
         answer = T[lang]["goles_propia_puerta_fmt"].format(cant=len(data), lista=_resumir_lista(nombres, lang))
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── gol_de_penal ───────────────────────────────────────────────────────
     @staticmethod
@@ -1356,7 +1425,7 @@ class SearchService:
         data = [{"jugador": f.get("nombre_jugador", "?"), "minuto": f.get("minuto", "?"), "tiempo": f.get("tiempo", "?")} for f in resultados]
         nombres = [d["jugador"] for d in data]
         answer = T[lang]["goles_penal_fmt"].format(cant=len(data), lista=_resumir_lista(nombres, lang))
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── jugadores_posicion ─────────────────────────────────────────────────
     @staticmethod
@@ -1385,7 +1454,7 @@ class SearchService:
         nombres = [d["nombre"] for d in data]
         pos_display = translate_pos(posicion, lang)
         answer  = T[lang]["jugadores_posicion_fmt"].format(cant=len(data), posicion=pos_display, lista=_resumir_lista(nombres, lang))
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
 
     # ── info_entrenador ────────────────────────────────────────────────────
     @staticmethod
@@ -1407,7 +1476,7 @@ class SearchService:
                 })
             nombres = [f"{d['nombre']} ({d['equipo']})" for d in data]
             answer  = T[lang]["entrenadores_registrados"].format(cant=len(data), lista=_resumir_lista(nombres, lang))
-            return answer, data, True
+            return answer, translate_data_keys(data, lang), True
 
         resultados = executor.query(SPARQLBuilder.query_info_entrenador(dt_id))
         print(f"  [info_entrenador] filas={len(resultados)}")
@@ -1433,7 +1502,7 @@ class SearchService:
 
         data = {"nombre": nom, "nacionalidad": nac,
                 "fecha_nacimiento": fecha, "equipo": equipo}
-        return answer, data, True
+        return answer, translate_data_keys(data, lang), True
     
 # Instancia global compartida por el Router
 search_service = SearchService()
