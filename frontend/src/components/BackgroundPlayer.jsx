@@ -12,7 +12,7 @@ export default function BackgroundPlayer({ isDarkMode }) {
         className="absolute inset-0 transition-opacity duration-700"
         style={{
           opacity: isDarkMode ? 1 : 0,
-          backgroundImage: "url('/ronaldo.jpg')",
+          backgroundImage: "url('/psg.jpg')",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "top center",
@@ -30,7 +30,7 @@ export default function BackgroundPlayer({ isDarkMode }) {
         className="absolute inset-0 transition-opacity duration-700"
         style={{
           opacity: isDarkMode ? 0 : 1,
-          backgroundImage: "url('/boca.jpg')",
+          backgroundImage: "url('/harry.jpg')",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "top center",

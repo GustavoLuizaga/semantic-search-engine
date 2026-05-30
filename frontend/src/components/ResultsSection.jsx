@@ -1,8 +1,16 @@
 import Typewriter from "./Typewriter";
 import Thinking from "./Thinking";
 import PlayerCard from "./PlayerCard";
+import { translations } from "../utils/translations";
 
-export default function ResultsSection({ results, isLoading, error, source }) {
+export default function ResultsSection({
+  results,
+  isLoading,
+  error,
+  source,
+  language,
+}) {
+  const t = translations[language] || translations.es;
   const isDataArray = Array.isArray(results?.data);
   const isDataObject =
     results?.data &&
@@ -29,14 +37,14 @@ export default function ResultsSection({ results, isLoading, error, source }) {
 
       {isLoading && (
         <div className="flex justify-start">
-          <Thinking />
+          <Thinking language={language} />
         </div>
       )}
 
       {results?.answer && !isLoading && (
         <article className="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 shadow-sm">
           <h2 className="text-xs font-semibold tracking-wider uppercase text-zinc-400 dark:text-zinc-500 mb-3">
-            RESPUESTA
+            {t.answer}
           </h2>
           <p className="text-sm leading-relaxed text-zinc-700 dark:text-zinc-200 whitespace-pre-wrap">
             <Typewriter text={results.answer} speed={20} />
@@ -47,7 +55,7 @@ export default function ResultsSection({ results, isLoading, error, source }) {
       {dataRows.length > 0 && !isLoading && (
         <article className="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 shadow-sm">
           <h2 className="text-xs font-semibold tracking-wider uppercase text-zinc-400 dark:text-zinc-500 mb-4">
-            Datos
+            {t.answerData}
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left border-collapse">

@@ -1,5 +1,5 @@
-import { FaRegSun } from "react-icons/fa6";
-import { FaMoon } from "react-icons/fa";
+// App.jsx MODIFICADO
+
 import { useSemanticSearch } from "./hooks/useSemanticSearch";
 import { useTheme } from "./hooks/useTheme";
 import SourceBadge from "./components/SourceBadge";
@@ -7,6 +7,7 @@ import BackgroundPlayer from "./components/BackgroundPlayer";
 import SearchInput from "./components/SearchInput";
 import ResultsSection from "./components/ResultsSection";
 import ThemeToggle from "./components/ThemeToggle";
+import { translations } from "./utils/translations";
 
 function App() {
   const {
@@ -21,6 +22,7 @@ function App() {
     setLanguage,
   } = useSemanticSearch();
   const { isDarkMode, toggleTheme } = useTheme();
+  const t = translations[language] || translations.es;
 
   return (
     <div className="min-h-screen transition-colors duration-300 bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 antialiased">
@@ -28,12 +30,11 @@ function App() {
 
       <ThemeToggle isDarkMode={isDarkMode} onToggle={toggleTheme} />
 
-      <main className="max-w-3xl mx-auto px-6 py-20 flex flex-col items-center">
+      {/* pb-36 mantiene el colchón para que los resultados no se tapen */}
+      <main className="max-w-3xl mx-auto px-6 pt-20 pb-36 flex flex-col items-center relative z-10">
         <header className="w-full text-center mb-12">
-          <h1 className="text-3xl font-semibold tracking-tight">
-            Buscador Metasemantico de futbol
-          </h1>
-          <SourceBadge source={source} />
+          <h1 className="text-3xl font-semibold tracking-tight">{t.title}</h1>
+          <SourceBadge source={source} language={language} />
         </header>
 
         <ResultsSection
@@ -41,7 +42,10 @@ function App() {
           isLoading={isLoading}
           error={error}
           source={source}
+          language={language}
         />
+
+        {/* Le pasamos setLanguage a SearchInput para que adentro maneje el selector */}
         <SearchInput
           onSubmit={handleSearch}
           isLoading={isLoading}
@@ -52,6 +56,8 @@ function App() {
           inputRef={inputRef}
         />
       </main>
+
+      {/* ¡Borrados los elementos flotantes conflictivos de aquí! */}
     </div>
   );
 }
