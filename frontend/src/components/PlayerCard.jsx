@@ -1,5 +1,15 @@
-export default function PlayerCard({ data, source }) {
+import { translations } from "../utils/translations";
+import { dataMapping } from "../utils/dataMapping";
+
+export default function PlayerCard({ data, source, language = "es" }) {
   if (!data || typeof data !== "object" || Array.isArray(data)) return null;
+  const t = translations[language] || translations.es;
+
+  const mapData = (textRaw) => {
+    if (!textRaw) return textRaw;
+    // Busca si existe en el diccionario, y si tiene traducción para el idioma actual
+    return dataMapping[textRaw]?.[language] || textRaw;
+  };
 
   const {
     foto,
@@ -46,11 +56,14 @@ export default function PlayerCard({ data, source }) {
     : [];
 
   const fechaFormateada = fecha_nacimiento
-    ? new Date(fecha_nacimiento).toLocaleDateString("es-ES", {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-      })
+    ? new Date(fecha_nacimiento).toLocaleDateString(
+        language === "en" ? "en-US" : language === "fr" ? "fr-FR" : "es-ES",
+        {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        },
+      )
     : null;
 
   // Sin foto: layout lista simple (modo no-DBpedia)
@@ -58,7 +71,7 @@ export default function PlayerCard({ data, source }) {
     return (
       <article className="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 shadow-sm">
         <h2 className="text-xs font-semibold tracking-wider uppercase text-zinc-400 dark:text-zinc-500 mb-4">
-          Datos
+          {t.answerDataResult}
         </h2>
         <div className="space-y-3">
           {Object.entries(data).map(([key, value]) => (
@@ -70,7 +83,9 @@ export default function PlayerCard({ data, source }) {
                 {key}:
               </span>
               <span className="text-right text-zinc-700 dark:text-zinc-200">
-                {Array.isArray(value) ? value.join(", ") : String(value)}
+                {Array.isArray(value)
+                  ? value.map((v) => mapData(String(v))).join(", ")
+                  : mapData(String(value))}
               </span>
             </div>
           ))}
@@ -120,24 +135,26 @@ export default function PlayerCard({ data, source }) {
           </div>
 
           <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-4">
-            {[posicion, equipo].filter(Boolean).join(" · ")}
+            {/* AQUÍ APLICAMOS mapData */}
+            {[mapData(posicion), mapData(equipo)].filter(Boolean).join(" · ")}
           </p>
 
           <div className="grid grid-cols-2 gap-x-4 gap-y-3">
             {nacionalidad && (
               <div>
                 <p className="text-[11px] text-zinc-400 dark:text-zinc-500">
-                  Nacionalidad
+                  {t.nationality || "Nacionalidad"}
                 </p>
                 <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200">
-                  {nacionalidad}
+                  {/* AQUÍ APLICAMOS mapData */}
+                  {mapData(nacionalidad)}
                 </p>
               </div>
             )}
             {fechaFormateada && (
               <div>
                 <p className="text-[11px] text-zinc-400 dark:text-zinc-500">
-                  Nacimiento
+                  {t.birth || "Nacimiento"}
                 </p>
                 <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200">
                   {fechaFormateada}
@@ -147,7 +164,7 @@ export default function PlayerCard({ data, source }) {
             {estatura && (
               <div>
                 <p className="text-[11px] text-zinc-400 dark:text-zinc-500">
-                  Estatura
+                  {t.height || "Estatura"}
                 </p>
                 <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200">
                   {estatura}
@@ -157,10 +174,10 @@ export default function PlayerCard({ data, source }) {
             {equiposUnicos.length > 0 && (
               <div>
                 <p className="text-[11px] text-zinc-400 dark:text-zinc-500">
-                  Trayectoria
+                  {t.trajectory || "Trayectoria"}
                 </p>
                 <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200">
-                  {equiposUnicos.length} clubes
+                  {equiposUnicos.length} {t.clubs || "clubes"}
                 </p>
               </div>
             )}
@@ -171,7 +188,8 @@ export default function PlayerCard({ data, source }) {
                   {key}
                 </p>
                 <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200">
-                  {String(value)}
+                  {/* AQUÍ APLICAMOS mapData por si acaso */}
+                  {mapData(String(value))}
                 </p>
               </div>
             ))}
@@ -183,7 +201,7 @@ export default function PlayerCard({ data, source }) {
       {equiposUnicos.length > 0 && (
         <div className="mt-4 pt-4 border-t border-zinc-100 dark:border-zinc-700">
           <p className="text-[11px] text-zinc-400 dark:text-zinc-500 mb-2 uppercase tracking-wider">
-            Trayectoria
+            {t.trajectory || "Trayectoria"}
           </p>
           <div className="flex flex-wrap gap-1.5">
             {equiposUnicos.map((e) => (
@@ -191,7 +209,8 @@ export default function PlayerCard({ data, source }) {
                 key={e}
                 className="text-xs px-2 py-1 rounded-lg bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300"
               >
-                {e}
+                {/* AQUÍ APLICAMOS mapData */}
+                {mapData(e)}
               </span>
             ))}
           </div>

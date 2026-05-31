@@ -11,6 +11,6 @@ async def search(request: SearchRequest):
 
 @router.post("/search/dbpedia", response_model=SearchResponse)
 async def search_dbpedia(request: SearchRequest):
-    #print(f"Received DBpedia search request: query='{request.query}', language='{request.language}'")
+    print(f"Consulta desd el front='{request.query}', lenguaje usadado :V ='{request.language}'")
     return dbpedia_service.execute(request.query, request.language)
 

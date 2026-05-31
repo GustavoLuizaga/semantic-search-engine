@@ -1,7 +1,8 @@
 import re
 from .alias_mapper import AliasMapper
+#from dbpedia.country_names import COUNTRY_NAMES, normalize_country
 
-# ── Catálogos de nombres reales de la ontología ───────────────────────────
+
 EQUIPOS_CONOCIDOS = AliasMapper.get_all_club_names()
 
 JUGADORES_CONOCIDOS = [
@@ -96,6 +97,72 @@ PAISES_Y_NACIONALIDADES = {
     "argentin": "Argentina", "argentine": "Argentina",
     "uruguayenne": "Uruguaya", "uruguayen": "Uruguaya",
     "portugaise": "Portuguesa", "portugais": "Portuguesa",
+    
+     "germany":       "alemania",
+    "german":        "alemania",
+    "spain":         "españa",
+    "spanish":       "españa",
+    "france":        "francia",
+    "french":        "francia",
+    "england":       "inglaterra",
+    "english":       "inglaterra",
+    "uk":            "inglaterra",
+    "britain":       "inglaterra",
+    "italy":         "italia",
+    "italian":       "italia",
+    "portugal":      "portugal",
+    "portuguese":    "portugal",
+    "netherlands":   "países bajos",
+    "dutch":         "países bajos",
+    "holland":       "países bajos",
+    "brazil":        "brasil",
+    "brazilian":     "brasil",
+    "argentina":     "argentina",
+    "argentine":     "argentina",
+    "argentinian":   "argentina",
+    "mexico":        "méxico",
+    "mexican":       "méxico",
+    "usa":           "estados unidos",
+    "united states": "estados unidos",
+    "american":      "estados unidos",
+    # Francés → español
+    "allemagne":     "alemania",
+    "allemand":      "alemania",
+    "allemands":     "alemania",
+    "allemandes":    "alemania",
+    "espagne":       "españa",
+    "espagnol":      "españa",
+    "espagnols":     "españa",
+    "espagnoles":    "españa",
+    "angleterre":    "inglaterra",
+    "anglais":       "inglaterra",
+    "anglaises":     "inglaterra",
+    "italie":        "italia",
+    "italien":       "italia",
+    "italiens":      "italia",
+    "italiennes":    "italia",
+    "pays-bas":      "países bajos",
+    "néerlandais":   "países bajos",
+    "brésil":        "brasil",
+    "brésilien":     "brasil",
+    "brésiliens":    "brasil",
+    "brésiliennes":  "brasil",
+    "mexique":       "méxico",
+    "mexicain":      "méxico",
+    "mexicains":     "méxico",
+    "mexicaines":    "méxico",
+    "états-unis":    "estados unidos",
+    "américain":     "estados unidos",
+    "américains":    "estados unidos",
+    # Alemán → español (bonus)
+    "deutschland":   "alemania",
+    "spanien":       "españa",
+    "frankreich":    "francia",
+    "italien":       "italia",
+    "brasilien":     "brasil",
+    "niederlande":   "países bajos",
+    
+    
 }
 
 
@@ -440,72 +507,66 @@ class LocalSemanticParser:
 
         cleaned = q_lower
         keywords_to_remove = {
-            "jugadores_equipo": {
-                "es": [
-                    "jugadores del", "jugadores de los", "jugadores de",
-                    "plantilla del", "plantilla de los", "plantilla de",
-                    "quiénes juegan en", "quienes juegan en",
-                    "jugadores", "plantilla", "dime la",
-                ],
-                "en": [
-                    "players of the", "players of", "squad of the", "squad of",
-                    "roster of the", "roster of", "who plays in", "players", "squad", "team of"
-                ],
-                "fr": [
-                    "joueurs du", "joueurs des", "joueurs de la", "joueurs de l'", "joueurs de",
-                    "effectif du", "effectif de", "qui joue à", "qui joue au", "joueurs", "effectif"
-                ]
-            },
-            "capitan_equipo": {
-                "es": [
-                    "quien es el capitan del", "quién es el capitán del",
-                    "quien es el capitan de", "quién es el capitán de",
-                    "capitán del", "capitan del", "capitán de", "capitan de",
-                    "quien es el capitan", "quién es el capitán", "del equipo", "equipo",
-                ],
-                "en": [
-                    "who is the captain of the", "who is the captain of", "who is the captain",
-                    "captain of the", "captain of", "captain"
-                ],
-                "fr": [
-                    "qui est le capitaine du", "qui est le capitaine de la", "qui est le capitaine de",
-                    "qui est le capitaine", "capitaine du", "capitaine de la", "capitaine de", "capitaine"
-                ]
-            },
-            "info_equipo": {
-                "es": [
-                    "información del equipo", "informacion del equipo",
-                    "datos del equipo", "datos de",
-                    "entrenador del", "entrenador de",
-                    "estadio del", "estadio de",
-                    "cual es el estadio del", "cuál es el estadio del",
-                    "cual es el estadio de", "cuál es el estadio de",
-                    "donde juega el", "dónde juega el",
-                    "donde juega", "dónde juega",
-                    "entrena al", "entrena a",
-                    "quien entrena al", "quién entrena al",
-                    "quien entrena", "quién entrena",
-                    "información del", "informacion del",
-                    "ciudad del", "ciudad de",
-                ],
-                "en": [
-                    "information of the team", "info of the team", "team info",
-                    "coach of the", "coach of", "trainer of the", "trainer of",
-                    "stadium of the", "stadium of", "where plays", "where does play",
-                    "who coaches the", "who coaches", "coaches the", "coaches",
-                    "city of the", "city of", "information of", "info of"
-                ],
-                "fr": [
-                    "informations sur l'équipe", "informations de l'équipe", "infos sur l'équipe",
-                    "qui entraîne le", "qui entraine le", "qui entraîne l'", "qui entraine l'",
-                    "qui entraîne", "qui entraine",
-                    "entraîneur du", "entraineur du", "entraîneur de l'", "entraîneur de", "entraineur de",
-                    "stade du", "stade de l'", "stade de", "où joue", "ou joue",
-                    "entraîne le", "entraine le",
-                    "ville de l'", "ville de", "informations sur", "infos sur"
-                ]
-            },
-        }
+    "jugadores_equipo": [
+        "jugadores del", "jugadores de los", "jugadores de",
+        "plantilla del", "plantilla de los", "plantilla de",
+        "quiénes juegan en", "quienes juegan en",
+        "jugadores", "plantilla", "dime la",
+        # EN
+        "players of", "players in", "players for", "squad of", "squad for",
+        # FR
+        "joueurs du", "joueurs de", "effectif du", "effectif de",
+    ],
+    "capitan_equipo": [
+        "quien es el capitan del", "quién es el capitán del",
+        "quien es el capitan de", "quién es el capitán de",
+        "capitán del", "capitan del", "capitán de", "capitan de",
+        "quien es el capitan", "quién es el capitán", "del equipo", "equipo",
+        # EN
+        "who is the captain of", "who is the captain",
+        "captain of the", "captain of",
+        # FR
+        "qui est le capitaine du", "qui est le capitaine de",
+        "capitaine du", "capitaine de",
+    ],
+    "info_equipo": [
+        "información del equipo", "informacion del equipo",
+        "datos del equipo", "datos de",
+        "entrenador del", "entrenador de",
+        "estadio del", "estadio de",
+        "cual es el estadio del", "cuál es el estadio del",
+        "cual es el estadio de", "cuál es el estadio de",
+        "donde juega el", "dónde juega el",
+        "donde juega", "dónde juega",
+        "entrena al", "entrena a",
+        "quien entrena al", "quién entrena al",
+        "quien entrena", "quién entrena",
+        "información del", "informacion del",
+        "ciudad del", "ciudad de",
+        # EN
+        "where does the", "where does",
+        "where do the", "where do",
+        "what stadium does the", "what stadium does",
+        "what is the stadium of the", "what is the stadium of",
+        "what is the home stadium of the", "what is the home stadium of",
+        "home stadium of the", "home stadium of",
+        "home ground of the", "home ground of",
+        "manager of the", "manager of",
+        "coach of the", "coach of",
+        "who manages the", "who manages",
+        "who coaches the", "who coaches",
+        "information about the", "information about",
+        "tell me about the", "tell me about",
+        "city of the", "city of",
+        "play?", "play", "plays?", "plays",
+        # FR
+        "où joue le", "où joue la", "où jouent les",
+        "stade du", "stade de",
+        "entraîneur du", "entraîneur de",
+        "qui entraîne le", "qui entraîne",
+        "informations sur le", "informations sur",
+    ],
+}
 
         kws = keywords_to_remove.get(intent, {}).get(lang, [])
         # También agregamos las de los otros idiomas para robustez

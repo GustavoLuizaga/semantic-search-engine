@@ -4,15 +4,16 @@ export const searchQuery = async (query, source = "local", language = "es") => {
       ? "http://localhost:8000/search/dbpedia"
       : "http://localhost:8000/search";
 
-  const payload = source === "dbpedia" ? { query } : { query, language };
-
   try {
     const response = await fetch(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({ 
+        query: query, 
+        language: language
+       }),
     });
 
     const result = await response.json();

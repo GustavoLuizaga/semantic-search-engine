@@ -214,7 +214,9 @@ class DBpediaService:
         
         # 1. Parseo semántico para detectar intent y entidades
         parsed = SemanticParser.parse(query_str)
+       
         intent = parsed.intent
+        
         if intent in INTENTS_SIN_SOPORTE:
            return SearchResponse(
                query=query_str,
@@ -224,9 +226,11 @@ class DBpediaService:
                found=False
            )
         entities = parsed.entities
-        intent, entities = resolve_stadium_intent(query_str, intent, entities)
+        
+        intent, entities = resolve_stadium_intent(query_str, intent, entities, lang=language)
 
         entity = entities[0] if entities else query_str.strip(" ¿?!")
+        print(f"[DEBUG] intent={intent} entities={entities}")
 
         if intent == "estadio_equipo" and (
             not entities
@@ -474,7 +478,7 @@ class DBpediaService:
                     "uri": row.get("subject")
                 }
         
-        # Pudes borrarme, solo para debug, muestra un resumen del resultado final antes de devolverlo
+
         print(f"[DBPEDIA SERVICE] Finalizado: found={found}  answer_len={len(answer)}")
         print(f"{'='*60}\n")
         

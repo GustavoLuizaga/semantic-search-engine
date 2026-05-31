@@ -55,7 +55,7 @@ export default function ResultsSection({
       {dataRows.length > 0 && !isLoading && (
         <article className="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 shadow-sm">
           <h2 className="text-xs font-semibold tracking-wider uppercase text-zinc-400 dark:text-zinc-500 mb-4">
-            {t.answerData}
+            {t.data}
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left border-collapse">
@@ -94,7 +94,7 @@ export default function ResultsSection({
       )}
 
       {isDataObject && !isLoading && (
-        <PlayerCard data={results.data} source={source} />
+        <PlayerCard data={results.data} source={source} language={language} />
       )}
     </section>
   );

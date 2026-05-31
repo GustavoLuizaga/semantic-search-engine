@@ -24,7 +24,23 @@ export const translations = {
     thinking: "Analizando la pregunta...",
 
     answer: "RESPUESTA",
-    answerData: "DATOS",
+    answerDataResult: "DATOS",
+
+    nacionalidad: "Nacionalidad",
+    estatura: "Estatura",
+    equipo: "Equipo",
+    posicion: "Posición",
+    dorsal: "Dorsal",
+    nombre: "Nombre",
+    fecha_nacimiento: "Fecha de Nacimiento",
+    equipos_trayectoria: "Trayectoria",
+   
+    nationality: "Nacionalidad",
+    birth: "Nacimiento",
+    height: "Estatura",
+    trajectory: "Trayectoria",
+    clubs: "clubes",
+
   },
   en: {
     title: "Football Meta-Semantic Search",
@@ -50,7 +66,24 @@ export const translations = {
     thinking: "Analyzing your question...",
 
     answer: "ANSWER",
-    answerData: "DATA",
+    answerDataResult: "DATA",
+   
+
+    nacionalidad: "Nationality",
+    estatura: "Height",
+    equipo: "Team",
+    posicion: "Position",
+    dorsal: "Number",
+    nombre: "Name",
+    fecha_nacimiento: "Date of Birth",
+    equipos_trayectoria: "Career",
+    // ...
+    nationality: "Nationality",
+    birth: "Birth",
+    height: "Height",
+    trajectory: "Career",
+    clubs: "clubs",
+
   },
   fr: {
     title: "Moteur de Recherche Méta-Sémantique de Football",
@@ -74,6 +107,21 @@ export const translations = {
     thinking: "en cours d'analyse de votre question...",
 
     answer: "RÉPONSE",
-    answerData: "DONNÉES",
+    answerDataResult: "DONNÉES",
+
+
+    nacionalidad: "Nationalité",
+    estatura: "Taille",
+    equipo: "Équipe",
+    posicion: "Position",
+    dorsal: "Numéro",
+    nombre: "Nom",
+    fecha_nacimiento: "Date de Naissance",
+    equipos_trayectoria: "Carrière",
+    nationality: "Nationalité",
+    birth: "Naissance",
+    height: "Taille",
+    trajectory: "Carrière",
+    clubs: "clubs",
   },
 };

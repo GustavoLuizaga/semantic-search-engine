@@ -56,8 +56,6 @@ function App() {
           inputRef={inputRef}
         />
       </main>
-
-      {/* ¡Borrados los elementos flotantes conflictivos de aquí! */}
     </div>
   );
 }

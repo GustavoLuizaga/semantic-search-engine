@@ -37,7 +37,7 @@ def _resolve_stadium_uri(entity_lower: str) -> str | None:
     if entity_lower in _STADIUM_URI_MAP:
         return f"<{_STADIUM_URI_MAP[entity_lower]}>"
     return None
-        
+
 def _resolve_club_uri(entity_lower: str) -> str | None:
     """
     Intenta resolver la URI del club en este orden:
@@ -50,14 +50,12 @@ def _resolve_club_uri(entity_lower: str) -> str | None:
         uri = _CLUB_URI_MAP[entity_lower]
         return f"<{uri}>"
 
-    # 2. Heurística automática: capitaliza palabras y reemplaza espacios por _
-    #    Prueba variantes comunes de sufijo en DBpedia
+    # 2. Heurística automática
     def _build_candidate(name: str, suffix: str) -> str:
         slug = "_".join(w.capitalize() for w in name.split())
         return f"<http://dbpedia.org/resource/{slug}{suffix}>"
 
     suffixes = ["_F.C.", "_FC", "_CF", "_S.C.", ""]
-    # Los devolvemos todos; la query SPARQL usará VALUES para probarlos
     candidates = [_build_candidate(entity_lower, s) for s in suffixes]
     return candidates  # lista → señal de que hay que usar VALUES
 
@@ -66,15 +64,12 @@ def _build_club_pattern(entity_lower: str):
     result = _resolve_club_uri(entity_lower)
 
     if isinstance(result, str):
-        # Hit exacto del mapa
         return f"BIND({result} AS ?club)", ""
 
     if isinstance(result, list):
-        # Heurística: probamos candidatos con VALUES
         values = " ".join(result)
         return f"VALUES ?club {{ {values} }}", ""
 
-    # Fallback: búsqueda por label (lento pero universal)
     label_filter = DBpediaQueryBuilder.build_label_filter(entity_lower, "?clubLabel")
     return (
         "?club a dbo:SoccerClub .",
@@ -84,19 +79,14 @@ def _build_club_pattern(entity_lower: str):
 class DBpediaQueryBuilder:
     @staticmethod
     def build_label_filter(entity: str, label_var: str = "?label") -> str:
-        """
-        Genera un filtro SPARQL IN ultra optimizado con variaciones de capitalización.
-        Esto permite realizar un index lookup instantáneo en lugar de escaneos completos lentos.
-        """
         entity_clean = entity.strip()
         variations = [
-            entity_clean, 
-            entity_clean.title(), 
-            entity_clean.upper(), 
+            entity_clean,
+            entity_clean.title(),
+            entity_clean.upper(),
             entity_clean.capitalize()
         ]
-        
-        # Variación inteligente para acrónimos deportivos
+
         words = entity_clean.split()
         smart_words = []
         for w in words:
@@ -105,29 +95,25 @@ class DBpediaQueryBuilder:
             else:
                 smart_words.append(w.capitalize())
         variations.append(" ".join(smart_words))
-        
-        # Añadir variaciones específicas para clubes de fútbol populares si aplica
+
         if "barcelona" in entity_clean.lower() and "fc barcelona" not in variations:
             variations.append("FC Barcelona")
         if "real madrid" in entity_clean.lower() and "real madrid cf" not in variations:
             variations.append("Real Madrid CF")
-            
-        # Limpieza y eliminación de duplicados
+
         variations = sorted(list(set(v.replace('"', '\\"') for v in variations if v)))
-        
-        # Construimos la lista de literales para el filtro IN de SPARQL
+
         literals = []
         for v in variations:
             literals.append(f'"{v}"@es')
             literals.append(f'"{v}"@en')
             literals.append(f'"{v}"')
-            
+
         literals_str = ", ".join(literals)
         return f"FILTER({label_var} IN ({literals_str}))"
 
     @staticmethod
     def _search_terms(entity: str) -> list[str]:
-        """Términos de búsqueda parcial, incluyendo raíces sin acentos."""
         import unicodedata
 
         def _strip_accents(s: str) -> str:
@@ -151,7 +137,6 @@ class DBpediaQueryBuilder:
 
     @staticmethod
     def build_contains_filter(entity: str, label_var: str = "?label") -> str:
-        """Búsqueda parcial por nombre (estadios con etiquetas largas o variantes)."""
         terms = DBpediaQueryBuilder._search_terms(entity)
         if not terms:
             return ""
@@ -173,18 +158,17 @@ class DBpediaQueryBuilder:
 """
 
     @staticmethod
-    def _stadium_detail_optionals(lang: str = 'es') -> str:
-        return """
-  OPTIONAL {
+    def _stadium_detail_optionals(lang: str = "es") -> str:
+        return f"""
+  OPTIONAL {{
     ?stadium dbo:location ?location .
-    OPTIONAL { ?location rdfs:label ?locationPref . FILTER(lang(?locationPref) = "{lang}") }
-    OPTIONAL { ?location rdfs:label ?locationFR . FILTER(lang(?locationFR) = "fr") }
-    OPTIONAL { ?location rdfs:label ?locationEN . FILTER(lang(?locationEN) = "en") }
-    OPTIONAL { ?location rdfs:label ?locationAny . }
-    BIND(COALESCE(?locationPref, ?locationFR, ?locationEN, ?locationAny) AS ?locationLabel)
-  }
-  OPTIONAL { ?stadium dbo:openingDate ?openingDate . }
-  OPTIONAL { ?stadium dbo:thumbnail ?thumbnail . }
+    OPTIONAL {{ ?location rdfs:label ?locationPref . FILTER(lang(?locationPref) = "{lang}") }}
+    OPTIONAL {{ ?location rdfs:label ?locationEN . FILTER(lang(?locationEN) = "en") }}
+    OPTIONAL {{ ?location rdfs:label ?locationAny . }}
+    BIND(COALESCE(?locationPref, ?locationEN, ?locationAny) AS ?locationLabel)
+  }}
+  OPTIONAL {{ ?stadium dbo:openingDate ?openingDate . }}
+  OPTIONAL {{ ?stadium dbo:thumbnail ?thumbnail . }}
 """
 
     @staticmethod
@@ -204,7 +188,6 @@ class DBpediaQueryBuilder:
         entity_lower = entity.lower().strip()
         lang = language.lower().strip() if language else "es"
         label_filter = DBpediaQueryBuilder.build_label_filter(entity_lower, "?label")
-        
 
         if intent in ("info_jugador", "info_fecha_nacimiento"):
             return f"""
@@ -216,21 +199,20 @@ SELECT ?player ?label ?birthDate ?positionLabel ?number ?teamLabel ?birthPlace ?
   ?player a dbo:SoccerPlayer .
   ?player rdfs:label ?label .
   {label_filter}
-  
+
   OPTIONAL {{ ?player dbo:birthDate ?birthDate . }}
-  OPTIONAL {{ 
-    ?player dbo:position ?position . 
+  OPTIONAL {{
+    ?player dbo:position ?position .
     ?position rdfs:label ?positionLabel .
     FILTER(lang(?positionLabel) = "{lang}" || lang(?positionLabel) = "en")
   }}
   OPTIONAL {{ ?player dbo:number ?number . }}
-
-  OPTIONAL {{ 
-    ?player dbo:team ?team . 
+  OPTIONAL {{
+    ?player dbo:team ?team .
     ?team rdfs:label ?teamLabel .
     FILTER(lang(?teamLabel) = "{lang}" || lang(?teamLabel) = "en")
   }}
-  OPTIONAL {{ 
+  OPTIONAL {{
     ?player dbp:birthPlace ?birthPlace . FILTER(lang(?birthPlace) = "en")
   }}
   OPTIONAL {{ ?player dbo:height ?height . }}
@@ -245,7 +227,7 @@ SELECT ?player ?label ?birthDate ?positionLabel ?number ?teamLabel ?birthPlace ?
     ?allTeam rdfs:label ?allTeamLabel .
     FILTER(lang(?allTeamLabel) = "{lang}" || lang(?allTeamLabel) = "en")
   }}
-  
+
   FILTER(lang(?label) = "{lang}" || lang(?label) = "en")
 }}
 GROUP BY ?player ?label ?birthDate ?positionLabel ?number ?teamLabel ?birthPlace ?height ?thumbnail ?currentClubLabel
@@ -254,7 +236,6 @@ LIMIT 1
 """
 
         elif intent in ("info_equipo", "capitan_equipo"):
-       
             club_pattern, label_pattern = _build_club_pattern(entity_lower)
             return f"""
 PREFIX dbo: <http://dbpedia.org/ontology/>
@@ -265,46 +246,36 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 SELECT DISTINCT ?label ?stadiumLabel ?managerLabel ?chairmanLabel ?capacity ?founded ?thumbnail ?allNicks WHERE {{
   {club_pattern}
   {label_pattern}
-  
-  OPTIONAL {{ ?club rdfs:label ?labelES . FILTER(lang(?labelES) = "{lang}") }}
-  OPTIONAL {{ ?club rdfs:label ?labelFR . FILTER(lang(?labelFR) = "fr") }}
-    OPTIONAL {{ ?club rdfs:label ?labelEN . FILTER(lang(?labelEN) = "en") }}
+
+  OPTIONAL {{ ?club rdfs:label ?labelPref . FILTER(lang(?labelPref) = "{lang}") }}
+  OPTIONAL {{ ?club rdfs:label ?labelEN . FILTER(lang(?labelEN) = "en") }}
   OPTIONAL {{ ?club rdfs:label ?labelAny . }}
-  BIND(COALESCE(?labelES, ?labelFR, ?labelEN, ?labelAny) AS ?label)
+  BIND(COALESCE(?labelPref, ?labelEN, ?labelAny) AS ?label)
 
   OPTIONAL {{
     ?club dbo:ground ?stadium .
-    OPTIONAL {{ ?stadium rdfs:label ?stadiumES . FILTER(lang(?stadiumES) = "{lang}") }}
-    OPTIONAL {{ ?stadium rdfs:label ?stadiumFR . FILTER(lang(?stadiumFR) = "fr") }}
+    OPTIONAL {{ ?stadium rdfs:label ?stadiumPref . FILTER(lang(?stadiumPref) = "{lang}") }}
     OPTIONAL {{ ?stadium rdfs:label ?stadiumEN . FILTER(lang(?stadiumEN) = "en") }}
     OPTIONAL {{ ?stadium rdfs:label ?stadiumAny . }}
-    BIND(COALESCE(?stadiumES, ?stadiumFR, ?stadiumEN, ?stadiumAny) AS ?stadiumLabel)
+    BIND(COALESCE(?stadiumPref, ?stadiumEN, ?stadiumAny) AS ?stadiumLabel)
   }}
   OPTIONAL {{
     ?club dbo:manager ?manager .
-    OPTIONAL {{ ?manager rdfs:label ?managerES . FILTER(lang(?managerES) = "{lang}") }}
-    OPTIONAL {{ ?manager rdfs:label ?managerFR . FILTER(lang(?managerFR) = "fr") }}
+    OPTIONAL {{ ?manager rdfs:label ?managerPref . FILTER(lang(?managerPref) = "{lang}") }}
     OPTIONAL {{ ?manager rdfs:label ?managerEN . FILTER(lang(?managerEN) = "en") }}
     OPTIONAL {{ ?manager rdfs:label ?managerAny . }}
-    BIND(COALESCE(?managerES, ?managerFR, ?managerEN, ?managerAny) AS ?managerLabel)
+    BIND(COALESCE(?managerPref, ?managerEN, ?managerAny) AS ?managerLabel)
   }}
   OPTIONAL {{
     ?club dbo:chairman ?chairman .
-    OPTIONAL {{ ?chairman rdfs:label ?chairmanES . FILTER(lang(?chairmanES) = "{lang}") }}
-    OPTIONAL {{ ?chairman rdfs:label ?chairmanFR . FILTER(lang(?chairmanFR) = "fr") }}
+    OPTIONAL {{ ?chairman rdfs:label ?chairmanPref . FILTER(lang(?chairmanPref) = "{lang}") }}
     OPTIONAL {{ ?chairman rdfs:label ?chairmanEN . FILTER(lang(?chairmanEN) = "en") }}
     OPTIONAL {{ ?chairman rdfs:label ?chairmanAny . }}
-    BIND(COALESCE(?chairmanES, ?chairmanFR, ?chairmanEN, ?chairmanAny) AS ?chairmanLabel)
+    BIND(COALESCE(?chairmanPref, ?chairmanEN, ?chairmanAny) AS ?chairmanLabel)
   }}
-  OPTIONAL {{
-    ?club dbo:capacity ?capacity .
-  }}
-  OPTIONAL {{
-    ?club dbo:formationDate ?founded .
-  }}
-  OPTIONAL {{
-    ?club dbo:thumbnail ?thumbnail .
-  }}
+  OPTIONAL {{ ?club dbo:capacity ?capacity . }}
+  OPTIONAL {{ ?club dbo:formationDate ?founded . }}
+  OPTIONAL {{ ?club dbo:thumbnail ?thumbnail . }}
   OPTIONAL {{
     SELECT ?club (GROUP_CONCAT(DISTINCT ?nick; SEPARATOR=", ") AS ?allNicks) WHERE {{
       {{ ?club foaf:nick ?nick . }}
@@ -326,15 +297,15 @@ SELECT DISTINCT ?playerLabel ?number ?positionLabel WHERE {{
   ?club a dbo:SoccerClub .
   ?club rdfs:label ?clubLabel .
   {club_filter}
-  
+
   ?player a dbo:SoccerPlayer ;
           dbo:team ?club ;
           rdfs:label ?playerLabel .
   FILTER(lang(?playerLabel) = "{lang}" || lang(?playerLabel) = "en")
-  
+
   OPTIONAL {{ ?player dbo:number ?number . }}
-  OPTIONAL {{ 
-    ?player dbo:position ?position . 
+  OPTIONAL {{
+    ?player dbo:position ?position .
     ?position rdfs:label ?positionLabel .
     FILTER(lang(?positionLabel) = "{lang}" || lang(?positionLabel) = "en")
   }}
@@ -343,7 +314,6 @@ LIMIT 30
 """
 
         elif intent == "todos_estadios":
-            # Clubes del mapa manual → estadios relevantes sin escanear todo DBpedia
             club_uris = " ".join(f"<{u}>" for u in dict.fromkeys(_CLUB_URI_MAP.values()))
             return f"""
 PREFIX dbo: <http://dbpedia.org/ontology/>
@@ -375,7 +345,6 @@ ORDER BY ?clubLabel
 
         elif intent == "estadio_equipo":
             club_pattern, label_pattern = _build_club_pattern(entity_lower)
-            # Si el club está en el mapa, preferir estadio principal conocido
             club_uri = _CLUB_URI_MAP.get(entity_lower)
             primary_stadium = _CLUB_PRIMARY_STADIUM.get(club_uri) if club_uri else None
             if primary_stadium:
@@ -495,14 +464,14 @@ SELECT DISTINCT ?manager ?label ?birthDate ?teamLabel WHERE {{
   FILTER(?type = dbo:SoccerManager || ?type = dbo:SportsManager)
   ?manager rdfs:label ?label .
   {label_filter}
-  
+
   OPTIONAL {{ ?manager dbo:birthDate ?birthDate . }}
-  OPTIONAL {{ 
-    ?manager dbo:team ?team . 
+  OPTIONAL {{
+    ?manager dbo:team ?team .
     ?team rdfs:label ?teamLabel .
     FILTER(lang(?teamLabel) = "{lang}" || lang(?teamLabel) = "en")
   }}
-  
+
   FILTER(lang(?label) = "{lang}" || lang(?label) = "en")
 }}
 ORDER BY strlen(str(?label))
@@ -520,12 +489,12 @@ SELECT DISTINCT ?playerLabel ?teamLabel WHERE {{
           rdfs:label ?playerLabel ;
           dbo:nationality ?nationality .
   FILTER(lang(?playerLabel) = "{lang}" || lang(?playerLabel) = "en")
-  
+
   ?nationality rdfs:label ?natLabel .
   {nat_filter}
-  
-  OPTIONAL {{ 
-    ?player dbo:team ?team . 
+
+  OPTIONAL {{
+    ?player dbo:team ?team .
     ?team rdfs:label ?teamLabel .
     FILTER(lang(?teamLabel) = "{lang}" || lang(?teamLabel) = "en")
   }}
@@ -544,12 +513,12 @@ SELECT DISTINCT ?clubLabel ?stadiumLabel WHERE {{
         rdfs:label ?clubLabel ;
         dbo:ground ?stadium .
   FILTER(lang(?clubLabel) = "{lang}" || lang(?clubLabel) = "en")
-  
+
   ?stadium dbo:location ?location .
   ?location rdfs:label ?locLabel .
   {loc_filter}
-  
-  OPTIONAL {{ 
+
+  OPTIONAL {{
     ?stadium rdfs:label ?stadiumLabel .
     FILTER(lang(?stadiumLabel) = "{lang}" || lang(?stadiumLabel) = "en")
   }}
@@ -558,7 +527,6 @@ LIMIT 20
 """
 
         else:
-            # Fallback general si no encaja en deportes específicos o es una entidad general
             return f"""
 PREFIX dbo: <http://dbpedia.org/ontology/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -566,12 +534,12 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 SELECT DISTINCT ?subject ?label ?comment ?abstract WHERE {{
   ?subject rdfs:label ?label .
   {label_filter}
-  
-  OPTIONAL {{ 
+
+  OPTIONAL {{
     ?subject rdfs:comment ?comment .
     FILTER(lang(?comment) = "{lang}")
   }}
-  OPTIONAL {{ 
+  OPTIONAL {{
     ?subject dbo:abstract ?abstract .
     FILTER(lang(?abstract) = "{lang}")
   }}
@@ -579,11 +547,11 @@ SELECT DISTINCT ?subject ?label ?comment ?abstract WHERE {{
     ?subject rdfs:comment ?comment_en .
     FILTER(lang(?comment_en) = "en")
   }}
-  OPTIONAL {{ 
+  OPTIONAL {{
     ?subject dbo:abstract ?abstract_en .
     FILTER(lang(?abstract_en) = "en")
   }}
-  
+
   FILTER(lang(?label) = "{lang}" || lang(?label) = "en")
 }}
 ORDER BY strlen(str(?label))
