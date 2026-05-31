@@ -173,14 +173,15 @@ class DBpediaQueryBuilder:
 """
 
     @staticmethod
-    def _stadium_detail_optionals() -> str:
+    def _stadium_detail_optionals(lang: str = 'es') -> str:
         return """
   OPTIONAL {
     ?stadium dbo:location ?location .
-    OPTIONAL { ?location rdfs:label ?locationES . FILTER(lang(?locationES) = "es") }
+    OPTIONAL { ?location rdfs:label ?locationPref . FILTER(lang(?locationPref) = "{lang}") }
+    OPTIONAL { ?location rdfs:label ?locationFR . FILTER(lang(?locationFR) = "fr") }
     OPTIONAL { ?location rdfs:label ?locationEN . FILTER(lang(?locationEN) = "en") }
     OPTIONAL { ?location rdfs:label ?locationAny . }
-    BIND(COALESCE(?locationES, ?locationEN, ?locationAny) AS ?locationLabel)
+    BIND(COALESCE(?locationPref, ?locationFR, ?locationEN, ?locationAny) AS ?locationLabel)
   }
   OPTIONAL { ?stadium dbo:openingDate ?openingDate . }
   OPTIONAL { ?stadium dbo:thumbnail ?thumbnail . }
@@ -195,12 +196,13 @@ class DBpediaQueryBuilder:
         return exact
 
     @staticmethod
-    def build(intent: str, entity: str) -> str:
+    def build(intent: str, entity: str, language: str = "es") -> str:
         """
         Retorna la consulta SPARQL correspondiente para DBpedia según el intent y la entidad dada.
-        Usa index lookups de alto rendimiento para evitar timeouts en el endpoint de DBpedia.
+        language: "es" | "en" | "fr"  — idioma preferido para labels y textos.
         """
         entity_lower = entity.lower().strip()
+        lang = language.lower().strip() if language else "es"
         label_filter = DBpediaQueryBuilder.build_label_filter(entity_lower, "?label")
         
 
@@ -219,14 +221,14 @@ SELECT ?player ?label ?birthDate ?positionLabel ?number ?teamLabel ?birthPlace ?
   OPTIONAL {{ 
     ?player dbo:position ?position . 
     ?position rdfs:label ?positionLabel .
-    FILTER(lang(?positionLabel) = "es" || lang(?positionLabel) = "en")
+    FILTER(lang(?positionLabel) = "{lang}" || lang(?positionLabel) = "en")
   }}
   OPTIONAL {{ ?player dbo:number ?number . }}
 
   OPTIONAL {{ 
     ?player dbo:team ?team . 
     ?team rdfs:label ?teamLabel .
-    FILTER(lang(?teamLabel) = "es" || lang(?teamLabel) = "en")
+    FILTER(lang(?teamLabel) = "{lang}" || lang(?teamLabel) = "en")
   }}
   OPTIONAL {{ 
     ?player dbp:birthPlace ?birthPlace . FILTER(lang(?birthPlace) = "en")
@@ -236,15 +238,15 @@ SELECT ?player ?label ?birthDate ?positionLabel ?number ?teamLabel ?birthPlace ?
   OPTIONAL {{
     ?player dbp:currentclub ?currentClub .
     ?currentClub rdfs:label ?currentClubLabel .
-    FILTER(lang(?currentClubLabel) = "es" || lang(?currentClubLabel) = "en")
+    FILTER(lang(?currentClubLabel) = "{lang}" || lang(?currentClubLabel) = "en")
   }}
   OPTIONAL {{
     ?player dbo:team ?allTeam .
     ?allTeam rdfs:label ?allTeamLabel .
-    FILTER(lang(?allTeamLabel) = "es" || lang(?allTeamLabel) = "en")
+    FILTER(lang(?allTeamLabel) = "{lang}" || lang(?allTeamLabel) = "en")
   }}
   
-  FILTER(lang(?label) = "es" || lang(?label) = "en")
+  FILTER(lang(?label) = "{lang}" || lang(?label) = "en")
 }}
 GROUP BY ?player ?label ?birthDate ?positionLabel ?number ?teamLabel ?birthPlace ?height ?thumbnail ?currentClubLabel
 ORDER BY strlen(str(?label))
@@ -264,31 +266,35 @@ SELECT DISTINCT ?label ?stadiumLabel ?managerLabel ?chairmanLabel ?capacity ?fou
   {club_pattern}
   {label_pattern}
   
-  OPTIONAL {{ ?club rdfs:label ?labelES . FILTER(lang(?labelES) = "es") }}
-  OPTIONAL {{ ?club rdfs:label ?labelEN . FILTER(lang(?labelEN) = "en") }}
+  OPTIONAL {{ ?club rdfs:label ?labelES . FILTER(lang(?labelES) = "{lang}") }}
+  OPTIONAL {{ ?club rdfs:label ?labelFR . FILTER(lang(?labelFR) = "fr") }}
+    OPTIONAL {{ ?club rdfs:label ?labelEN . FILTER(lang(?labelEN) = "en") }}
   OPTIONAL {{ ?club rdfs:label ?labelAny . }}
-  BIND(COALESCE(?labelES, ?labelEN, ?labelAny) AS ?label)
+  BIND(COALESCE(?labelES, ?labelFR, ?labelEN, ?labelAny) AS ?label)
 
   OPTIONAL {{
     ?club dbo:ground ?stadium .
-    OPTIONAL {{ ?stadium rdfs:label ?stadiumES . FILTER(lang(?stadiumES) = "es") }}
+    OPTIONAL {{ ?stadium rdfs:label ?stadiumES . FILTER(lang(?stadiumES) = "{lang}") }}
+    OPTIONAL {{ ?stadium rdfs:label ?stadiumFR . FILTER(lang(?stadiumFR) = "fr") }}
     OPTIONAL {{ ?stadium rdfs:label ?stadiumEN . FILTER(lang(?stadiumEN) = "en") }}
     OPTIONAL {{ ?stadium rdfs:label ?stadiumAny . }}
-    BIND(COALESCE(?stadiumES, ?stadiumEN, ?stadiumAny) AS ?stadiumLabel)
+    BIND(COALESCE(?stadiumES, ?stadiumFR, ?stadiumEN, ?stadiumAny) AS ?stadiumLabel)
   }}
   OPTIONAL {{
     ?club dbo:manager ?manager .
-    OPTIONAL {{ ?manager rdfs:label ?managerES . FILTER(lang(?managerES) = "es") }}
+    OPTIONAL {{ ?manager rdfs:label ?managerES . FILTER(lang(?managerES) = "{lang}") }}
+    OPTIONAL {{ ?manager rdfs:label ?managerFR . FILTER(lang(?managerFR) = "fr") }}
     OPTIONAL {{ ?manager rdfs:label ?managerEN . FILTER(lang(?managerEN) = "en") }}
     OPTIONAL {{ ?manager rdfs:label ?managerAny . }}
-    BIND(COALESCE(?managerES, ?managerEN, ?managerAny) AS ?managerLabel)
+    BIND(COALESCE(?managerES, ?managerFR, ?managerEN, ?managerAny) AS ?managerLabel)
   }}
   OPTIONAL {{
     ?club dbo:chairman ?chairman .
-    OPTIONAL {{ ?chairman rdfs:label ?chairmanES . FILTER(lang(?chairmanES) = "es") }}
+    OPTIONAL {{ ?chairman rdfs:label ?chairmanES . FILTER(lang(?chairmanES) = "{lang}") }}
+    OPTIONAL {{ ?chairman rdfs:label ?chairmanFR . FILTER(lang(?chairmanFR) = "fr") }}
     OPTIONAL {{ ?chairman rdfs:label ?chairmanEN . FILTER(lang(?chairmanEN) = "en") }}
     OPTIONAL {{ ?chairman rdfs:label ?chairmanAny . }}
-    BIND(COALESCE(?chairmanES, ?chairmanEN, ?chairmanAny) AS ?chairmanLabel)
+    BIND(COALESCE(?chairmanES, ?chairmanFR, ?chairmanEN, ?chairmanAny) AS ?chairmanLabel)
   }}
   OPTIONAL {{
     ?club dbo:capacity ?capacity .
@@ -324,13 +330,13 @@ SELECT DISTINCT ?playerLabel ?number ?positionLabel WHERE {{
   ?player a dbo:SoccerPlayer ;
           dbo:team ?club ;
           rdfs:label ?playerLabel .
-  FILTER(lang(?playerLabel) = "es" || lang(?playerLabel) = "en")
+  FILTER(lang(?playerLabel) = "{lang}" || lang(?playerLabel) = "en")
   
   OPTIONAL {{ ?player dbo:number ?number . }}
   OPTIONAL {{ 
     ?player dbo:position ?position . 
     ?position rdfs:label ?positionLabel .
-    FILTER(lang(?positionLabel) = "es" || lang(?positionLabel) = "en")
+    FILTER(lang(?positionLabel) = "{lang}" || lang(?positionLabel) = "en")
   }}
 }}
 LIMIT 30
@@ -354,13 +360,13 @@ SELECT ?club ?stadium ?label ?locationLabel ?clubLabel ?capacity ?seatingCapacit
     }} GROUP BY ?club
   }}
   ?stadium rdfs:label ?label .
-  FILTER(lang(?label) = "es" || lang(?label) = "en")
+  FILTER(lang(?label) = "{lang}" || lang(?label) = "en")
   ?club rdfs:label ?clubLabel .
-  FILTER(lang(?clubLabel) = "es" || lang(?clubLabel) = "en")
+  FILTER(lang(?clubLabel) = "{lang}" || lang(?clubLabel) = "en")
   OPTIONAL {{
     ?stadium dbo:location ?location .
     ?location rdfs:label ?locationLabel .
-    FILTER(lang(?locationLabel) = "es" || lang(?locationLabel) = "en")
+    FILTER(lang(?locationLabel) = "{lang}" || lang(?locationLabel) = "en")
   }}
   {DBpediaQueryBuilder._stadium_capacity_optionals()}
 }}
@@ -387,11 +393,11 @@ SELECT DISTINCT ?stadium ?label ?locationLabel ?clubLabel ?openingDate ?thumbnai
   {label_pattern}
   {ground_clause}
   ?club rdfs:label ?clubLabel .
-  FILTER(lang(?clubLabel) = "es" || lang(?clubLabel) = "en")
+  FILTER(lang(?clubLabel) = "{lang}" || lang(?clubLabel) = "en")
 
   ?stadium rdfs:label ?label .
-  FILTER(lang(?label) = "es" || lang(?label) = "en")
-  {DBpediaQueryBuilder._stadium_detail_optionals()}
+  FILTER(lang(?label) = "{lang}" || lang(?label) = "en")
+  {DBpediaQueryBuilder._stadium_detail_optionals(lang)}
 }}
 ORDER BY strlen(str(?label))
 LIMIT 1
@@ -414,14 +420,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 SELECT DISTINCT ?stadium ?label ?locationLabel ?openingDate ?thumbnail ?clubLabel WHERE {{
   {stadium_pattern}
   ?stadium rdfs:label ?label .
-  FILTER(lang(?label) = "es" || lang(?label) = "en")
+  FILTER(lang(?label) = "{lang}" || lang(?label) = "en")
   {name_filter}
-  {DBpediaQueryBuilder._stadium_detail_optionals()}
+  {DBpediaQueryBuilder._stadium_detail_optionals(lang)}
   OPTIONAL {{
     ?clubTenant a dbo:SoccerClub ;
                 dbo:ground ?stadium ;
                 rdfs:label ?clubLabel .
-    FILTER(lang(?clubLabel) = "es" || lang(?clubLabel) = "en")
+    FILTER(lang(?clubLabel) = "{lang}" || lang(?clubLabel) = "en")
   }}
 }}
 ORDER BY strlen(str(?label))
@@ -451,7 +457,7 @@ LIMIT 1
   OPTIONAL {{
     ?stadium dbo:location ?location .
     ?location rdfs:label ?locLabel .
-    FILTER(lang(?locLabel) = "es" || lang(?locLabel) = "en")
+    FILTER(lang(?locLabel) = "{lang}" || lang(?locLabel) = "en")
   }}
   FILTER(({label_part}) || (BOUND(?locLabel) && ({label_part.replace("?label", "?locLabel")})))
 """
@@ -465,14 +471,14 @@ SELECT DISTINCT ?stadium ?label ?locationLabel ?clubLabel ?capacity ?seatingCapa
   {club_constraint}
   ?club dbo:ground ?stadium .
   ?stadium rdfs:label ?label .
-  FILTER(lang(?label) = "es" || lang(?label) = "en")
+  FILTER(lang(?label) = "{lang}" || lang(?label) = "en")
   OPTIONAL {{
     ?stadium dbo:location ?location .
     ?location rdfs:label ?locationLabel .
-    FILTER(lang(?locationLabel) = "es" || lang(?locationLabel) = "en")
+    FILTER(lang(?locationLabel) = "{lang}" || lang(?locationLabel) = "en")
   }}
   ?club rdfs:label ?clubLabel .
-  FILTER(lang(?clubLabel) = "es" || lang(?clubLabel) = "en")
+  FILTER(lang(?clubLabel) = "{lang}" || lang(?clubLabel) = "en")
   {DBpediaQueryBuilder._stadium_capacity_optionals()}
 }}
 ORDER BY ?label
@@ -494,10 +500,10 @@ SELECT DISTINCT ?manager ?label ?birthDate ?teamLabel WHERE {{
   OPTIONAL {{ 
     ?manager dbo:team ?team . 
     ?team rdfs:label ?teamLabel .
-    FILTER(lang(?teamLabel) = "es" || lang(?teamLabel) = "en")
+    FILTER(lang(?teamLabel) = "{lang}" || lang(?teamLabel) = "en")
   }}
   
-  FILTER(lang(?label) = "es" || lang(?label) = "en")
+  FILTER(lang(?label) = "{lang}" || lang(?label) = "en")
 }}
 ORDER BY strlen(str(?label))
 LIMIT 1
@@ -513,7 +519,7 @@ SELECT DISTINCT ?playerLabel ?teamLabel WHERE {{
   ?player a dbo:SoccerPlayer ;
           rdfs:label ?playerLabel ;
           dbo:nationality ?nationality .
-  FILTER(lang(?playerLabel) = "es" || lang(?playerLabel) = "en")
+  FILTER(lang(?playerLabel) = "{lang}" || lang(?playerLabel) = "en")
   
   ?nationality rdfs:label ?natLabel .
   {nat_filter}
@@ -521,7 +527,7 @@ SELECT DISTINCT ?playerLabel ?teamLabel WHERE {{
   OPTIONAL {{ 
     ?player dbo:team ?team . 
     ?team rdfs:label ?teamLabel .
-    FILTER(lang(?teamLabel) = "es" || lang(?teamLabel) = "en")
+    FILTER(lang(?teamLabel) = "{lang}" || lang(?teamLabel) = "en")
   }}
 }}
 LIMIT 20
@@ -537,7 +543,7 @@ SELECT DISTINCT ?clubLabel ?stadiumLabel WHERE {{
   ?club a dbo:SoccerClub ;
         rdfs:label ?clubLabel ;
         dbo:ground ?stadium .
-  FILTER(lang(?clubLabel) = "es" || lang(?clubLabel) = "en")
+  FILTER(lang(?clubLabel) = "{lang}" || lang(?clubLabel) = "en")
   
   ?stadium dbo:location ?location .
   ?location rdfs:label ?locLabel .
@@ -545,7 +551,7 @@ SELECT DISTINCT ?clubLabel ?stadiumLabel WHERE {{
   
   OPTIONAL {{ 
     ?stadium rdfs:label ?stadiumLabel .
-    FILTER(lang(?stadiumLabel) = "es" || lang(?stadiumLabel) = "en")
+    FILTER(lang(?stadiumLabel) = "{lang}" || lang(?stadiumLabel) = "en")
   }}
 }}
 LIMIT 20
@@ -563,11 +569,11 @@ SELECT DISTINCT ?subject ?label ?comment ?abstract WHERE {{
   
   OPTIONAL {{ 
     ?subject rdfs:comment ?comment .
-    FILTER(lang(?comment) = "es")
+    FILTER(lang(?comment) = "{lang}")
   }}
   OPTIONAL {{ 
     ?subject dbo:abstract ?abstract .
-    FILTER(lang(?abstract) = "es")
+    FILTER(lang(?abstract) = "{lang}")
   }}
   OPTIONAL {{
     ?subject rdfs:comment ?comment_en .
@@ -578,7 +584,7 @@ SELECT DISTINCT ?subject ?label ?comment ?abstract WHERE {{
     FILTER(lang(?abstract_en) = "en")
   }}
   
-  FILTER(lang(?label) = "es" || lang(?label) = "en")
+  FILTER(lang(?label) = "{lang}" || lang(?label) = "en")
 }}
 ORDER BY strlen(str(?label))
 LIMIT 1
