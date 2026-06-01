@@ -120,6 +120,14 @@ TEMPLATES = {
         "sin_dorsal":        "Sin dorsal",
         "y_mas":             "y {n} más",
         "abstract":          "{nombre} (según DBpedia): {abstract}",
+        "mundial_ganador":   "El ganador del Mundial {year} fue {winner}.",
+        "mundial_subcampeon": " Subcampeón: {runner}.",
+        "mundial_tercero":   " Tercer lugar: {third}.",
+        "mundial_sede":      " Sede: {host}.",
+        "mundial_goleador":  " Goleador del torneo: {scorer}.",
+        "mundial_mvp":       " Mejor jugador: {mvp}.",
+        "mundial_sin_datos": "No encontré datos en DBpedia para el Mundial {year}.",
+        "mundial_no_valido": "{year} no es un año de Copa del Mundo FIFA. Los mundiales se juegan cada 4 años (2018, 2022, 2026...).",
     },
     "en": {
         "no_results":        "No results found in DBpedia for your query.",
@@ -154,6 +162,14 @@ TEMPLATES = {
         "sin_dorsal":        "No number",
         "y_mas":             "and {n} more",
         "abstract":          "{nombre} (from DBpedia): {abstract}",
+        "mundial_ganador":   "The {year} World Cup winner was {winner}.",
+        "mundial_subcampeon": " Runner-up: {runner}.",
+        "mundial_tercero":   " Third place: {third}.",
+        "mundial_sede":      " Host: {host}.",
+        "mundial_goleador":  " Top scorer: {scorer}.",
+        "mundial_mvp":       " Best player: {mvp}.",
+        "mundial_sin_datos": "No data found in DBpedia for the {year} World Cup.",
+        "mundial_no_valido": "{year} is not a FIFA World Cup year. The World Cup is held every 4 years (2018, 2022, 2026...).",
     },
     "fr": {
         "no_results":        "Aucun résultat trouvé dans DBpedia pour votre requête.",
@@ -188,6 +204,14 @@ TEMPLATES = {
         "sin_dorsal":        "Sans numéro",
         "y_mas":             "et {n} de plus",
         "abstract":          "{nombre} (selon DBpedia) : {abstract}",
+        "mundial_ganador":   "Le vainqueur de la Coupe du Monde {year} était {winner}.",
+        "mundial_subcampeon": " Finaliste : {runner}.",
+        "mundial_tercero":   " Troisième place : {third}.",
+        "mundial_sede":      " Pays hôte : {host}.",
+        "mundial_goleador":  " Meilleur buteur : {scorer}.",
+        "mundial_mvp":       " Meilleur joueur : {mvp}.",
+        "mundial_sin_datos": "Aucune donnée trouvée dans DBpedia pour la Coupe du Monde {year}.",
+        "mundial_no_valido": "{year} n'est pas une année de Coupe du Monde FIFA. La Coupe du Monde a lieu tous les 4 ans (2018, 2022, 2026...).",
     },
 }
 
@@ -216,7 +240,7 @@ class DBpediaService:
         parsed = SemanticParser.parse(query_str)
        
         intent = parsed.intent
-        
+        print(f"[DEBUG] Intent detectado: {intent} | Entidades detectadas: {parsed.entities}")
         if intent in INTENTS_SIN_SOPORTE:
            return SearchResponse(
                query=query_str,
@@ -228,7 +252,7 @@ class DBpediaService:
         entities = parsed.entities
         
         intent, entities = resolve_stadium_intent(query_str, intent, entities, lang=language)
-
+        
         entity = entities[0] if entities else query_str.strip(" ¿?!")
         print(f"[DEBUG] intent={intent} entities={entities}")
 
@@ -466,6 +490,59 @@ class DBpediaService:
                     
                 answer = _t(language, "equipos_pais", nombres=nombres_res)
                 data = equipos
+            
+            
+            elif intent == "ganador_mundial":
+                from .football_dicts import resolve_fifa_code
+                import re as _re
+
+                def _clean_wc_literal(raw: str) -> str:
+                    """Quita markup de Wikipedia: flagg|...|FRA Kylian Mbappé → Kylian Mbappé"""
+                    if not raw:
+                        return ""
+                    raw = _re.sub(r"\*?flagg\|[^|]+\|[^|]+\|[^|]+\|[A-Z]{2,3}\s+", "", raw)
+                    return raw.strip()
+
+                r = resultados[0] if resultados else {}
+                import re as _re2
+                year_match = _re2.search(r"\b(19[3-9]\d|20[012]\d)\b", entity)
+                year = year_match.group(1) if year_match else entity
+
+                champion_code = r.get("champion", "")
+                second_code   = r.get("second", "")
+                third_code    = r.get("third", "")
+                fourth_code   = r.get("fourth", "")
+                host_raw      = r.get("host", "")
+                top_raw       = r.get("topScorer", "")
+                mvp_raw       = r.get("mvp", "")
+                attendance    = r.get("attendance", "")
+
+                winner  = resolve_fifa_code(champion_code, language) if champion_code else ""
+                runner  = resolve_fifa_code(second_code, language)   if second_code   else ""
+                third   = resolve_fifa_code(third_code, language)    if third_code    else ""
+                fourth  = resolve_fifa_code(fourth_code, language)   if fourth_code   else ""
+                host    = host_raw  # ya es string limpio tipo "Qatar"
+                top_scorer = _clean_wc_literal(top_raw)
+                mvp        = _clean_wc_literal(mvp_raw)
+
+                if not winner:
+                    answer = _t(language, "mundial_sin_datos", year=year)
+                    found = False
+                else:
+                    answer = _t(language, "mundial_ganador",    year=year, winner=winner)
+                    if runner:     answer += _t(language, "mundial_subcampeon", runner=runner)
+                    if third:      answer += _t(language, "mundial_tercero",    third=third)
+                    if host:       answer += _t(language, "mundial_sede",       host=host)
+                    if top_scorer: answer += _t(language, "mundial_goleador",   scorer=top_scorer)
+                    if mvp:        answer += _t(language, "mundial_mvp",        mvp=mvp)
+                    found = True
+
+                data = {
+                    "año": year, "campeon": winner, "subcampeon": runner,
+                    "tercero": third, "cuarto": fourth, "sede": host,
+                    "goleador": top_scorer, "mejor_jugador": mvp,
+                    "asistencia": attendance,
+                }
                 
             else:
                 nombre = row.get("label", entity)

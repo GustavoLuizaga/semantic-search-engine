@@ -79,10 +79,11 @@ export default function PlayerCard({ data, source, language = "es" }) {
               key={key}
               className="flex justify-between gap-4 pb-2 border-b border-zinc-100 dark:border-zinc-700 last:border-0"
             >
-              <span className="font-medium capitalize text-zinc-500 min-w-fit">
-                {key}:
+              {/* CAMBIO AQUÍ: t[key] traduce el label usando tu diccionario */}
+              <span className="font-medium text-zinc-500 min-w-fit">
+                {t[key] || key.replace("_", " ")}:
               </span>
-              <span className="text-right text-zinc-700 dark:text-zinc-200">
+              <span className="text-right text-zinc-700 dark:text-zinc-200 font-medium">
                 {Array.isArray(value)
                   ? value.map((v) => mapData(String(v))).join(", ")
                   : mapData(String(value))}

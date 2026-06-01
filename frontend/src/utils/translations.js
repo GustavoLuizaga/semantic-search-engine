@@ -41,6 +41,17 @@ export const translations = {
     trajectory: "Trayectoria",
     clubs: "clubes",
 
+
+
+    año: "Año",
+    campeon: "Campeón",
+    subcampeon: "Subcampeón",
+    tercero: "Tercer Puesto",
+    cuarto: "Cuarto Puesto",
+    sede: "Sede",
+    goleador: "Máximo Goleador",
+    mejor_jugador: "Mejor Jugador",
+    asistencia: "Asistencia Total",
   },
   en: {
     title: "Football Meta-Semantic Search",
@@ -84,6 +95,17 @@ export const translations = {
     trajectory: "Career",
     clubs: "clubs",
 
+
+    año: "Year",
+    campeon: "Champion",
+    subcampeon: "Runner-up",
+    tercero: "Third Place",
+    cuarto: "Fourth Place",
+    sede: "Host Country",
+    goleador: "Top Scorer",
+    mejor_jugador: "Best Player",
+    asistencia: "Total Attendance",
+
   },
   fr: {
     title: "Moteur de Recherche Méta-Sémantique de Football",
@@ -123,5 +145,16 @@ export const translations = {
     height: "Taille",
     trajectory: "Carrière",
     clubs: "clubs",
+
+
+    año: "Année",
+    campeon: "Champion",
+    subcampeon: "Deuxième",
+    tercero: "Troisième",
+    cuarto: "Quatrième",
+    sede: "Pays Hôte",
+    goleador: "Meilleur Buteur",
+    mejor_jugador: "Meilleur Joueur",
+    asistencia: "Affluence Totale",
   },
 };

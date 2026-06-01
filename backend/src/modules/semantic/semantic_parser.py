@@ -165,6 +165,16 @@ class SemanticParser:
         ("todos_equipos",       ["todos los equipos", "qué equipos hay", "que equipos hay",
                                   "equipos hay", "lista equipos"]),
         ("todos_jugadores",     ["todos los jugadores", "lista jugadores"]),
+        ("ganador_mundial", [
+        "quien gano el mundial", "quién ganó el mundial",
+        "que equipo gano el mundial", "qué equipo ganó el mundial",
+        "campeón del mundial", "campeon del mundial",
+        "ganador del mundial", "quien fue el campeon del mundial",
+        "quien ganó el mundial", "gano el mundial",
+        "who won the world cup", "world cup winner",
+        "world cup champion", "who won the fifa world cup",
+        "qui a gagné la coupe du monde", "vainqueur de la coupe du monde",
+    ]),
         ("resultado_partido",   ["resultado", "marcador", "ganó", "gano", "perdió", "perdio",
                                   "empató", "empato", "vs", "contra"]),
         ("gol_propia_puerta",   ["gol en propia puerta", "gol en contra", "propia puerta"]),
@@ -207,7 +217,11 @@ class SemanticParser:
                                   "jugadores de posición", "jugadores que juegan de",
                                   "qué delanteros", "que delanteros"]),
         ("info_entrenador",     ["entrenador", "entrenadores", "técnico", "tecnico",
-                                  "DT", "quien dirige", "quién dirige"]),# info_equipo e info_jugador se detectan por catálogo de nombres (ver abajo)
+                                  "DT", "quien dirige", "quién dirige"]),
+        
+        ("ganador_mundial", ["que equipo gano el mundial", "qué equipo ganó el mundial", "campeón del mundial", "campeon del mundial","ganador del mundial", "quien fue el campeon",
+    "quién fue el campeón","who won the world cup", "world cup winner", "who won the fifa world cup", "which team won the world cup", "qui a gagné la coupe du monde", "vainqueur de la coupe du monde","qui a remporté la coupe du monde",
+]),
     ]
 
     @staticmethod
@@ -285,6 +299,11 @@ class SemanticParser:
 
         elif intent == "info_entrenador":
             return SemanticParser._extract_entrenador_entities(q_lower)
+        
+        elif intent == "ganador_mundial":
+             return SemanticParser._extract_mundial_year(q_lower)
+         
+         
         
         return [AliasMapper.resolve(q_lower.strip(" ¿?!"))]
 
@@ -553,3 +572,9 @@ class SemanticParser:
             cleaned = cleaned.replace(kw, "")
         cleaned = cleaned.strip(" ¿?!,")
         return [cleaned] if cleaned else []
+    
+    @staticmethod
+    def _extract_mundial_year(q_lower: str) -> list:
+        """Extrae el año del mundial si se menciona uno concreto."""
+        m = re.search(r'\b(19[3-9]\d|20[0-2]\d)\b', q_lower)
+        return [m.group(1)] if m else []

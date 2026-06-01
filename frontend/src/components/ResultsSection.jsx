@@ -93,9 +93,13 @@ export default function ResultsSection({
         </article>
       )}
 
-      {isDataObject && !isLoading && (
-        <PlayerCard data={results.data} source={source} language={language} />
-      )}
+      {isDataObject &&
+        !isLoading &&
+        (results.intent === "ganador_mundial" ? (
+          <WorldCupCard data={results.data} language={language} />
+        ) : (
+          <PlayerCard data={results.data} source={source} language={language} />
+        ))}
     </section>
   );
 }
