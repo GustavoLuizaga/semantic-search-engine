@@ -1,4 +1,9 @@
-function SourceBadge({ source }) {
+import { translations } from "../utils/translations"; // Asegúrate de que la ruta sea correcta
+
+function SourceBadge({ source, language }) {
+  // Obtenemos las traducciones según el idioma actual
+  const t = translations[language] || translations.es;
+
   return (
     <div
       className={`
@@ -10,7 +15,8 @@ function SourceBadge({ source }) {
         }
       `}
     >
-      {source === "dbpedia" ? "Usando DBpedia" : "Usando Ontología Propia"}
+      {/* TRADUCCIÓN DINÁMICA AQUÍ */}
+      {source === "dbpedia" ? t.usingDbpedia : t.usingLocal}
     </div>
   );
 }

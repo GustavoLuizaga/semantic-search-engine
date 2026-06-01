@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
+import { translations } from "../utils/translations";
 
-// Iconos SVG simples para la interfaz
 const CheckIcon = () => (
   <svg
     width="18"
@@ -31,22 +31,25 @@ const ChevronDownIcon = () => (
   </svg>
 );
 
-export default function SourceSelector({ source, setSource }) {
+export default function SourceSelector({ source, setSource, language }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Opciones estructuradas con título, descripción y la etiqueta "Nuevo"
+  // Obtenemos el diccionario actual
+  const t = translations[language] || translations.es;
+
+  // Definimos las opciones dentro para que lean dinámicamente de 't'
   const options = [
     {
       value: "local",
-      title: "Ontología",
-      description: "Búsqueda en la base de datos local",
+      title: t.localTitle,
+      description: t.localDescription,
       isNew: false,
     },
     {
       value: "dbpedia",
-      title: "DBpedia",
-      description: "Acceso a conocimiento externo de la web",
+      title: t.dbpediaTitle,
+      description: t.dbpediaDescription,
       isNew: true,
     },
   ];
@@ -54,7 +57,6 @@ export default function SourceSelector({ source, setSource }) {
   const selectedOption =
     options.find((opt) => opt.value === source) || options[0];
 
-  // Lógica para cerrar el menú si el usuario hace clic afuera de él
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -116,19 +118,17 @@ export default function SourceSelector({ source, setSource }) {
                   ${isSelected ? "bg-zinc-50 dark:bg-[#2a2a2c]" : ""}
                 `}
               >
-                {/* Espacio para el Checkmark */}
                 <div className="mt-0.5 w-5 shrink-0 text-zinc-800 dark:text-zinc-200">
                   {isSelected && <CheckIcon />}
                 </div>
 
-                {/* Contenedor de Textos */}
                 <div className="flex-1 flex flex-col">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
                       {opt.title}
                     </span>
 
-                    {/* Etiqueta "Nuevo" */}
+                    {/* ETIQUETA NUEVO TRADUCIDA */}
                     {opt.isNew && (
                       <span
                         className="
@@ -138,12 +138,11 @@ export default function SourceSelector({ source, setSource }) {
                         rounded-full
                       "
                       >
-                        Nuevo
+                        {t.newBadge}
                       </span>
                     )}
                   </div>
 
-                  {/* Descripción de la opción */}
                   <span className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
                     {opt.description}
                   </span>

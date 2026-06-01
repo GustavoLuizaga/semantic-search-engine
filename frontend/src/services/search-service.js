@@ -1,4 +1,4 @@
-export const searchQuery = async (query, source = "local") => {
+export const searchQuery = async (query, source = "local", language = "es") => {
   const endpoint =
     source === "dbpedia"
       ? "http://localhost:8000/search/dbpedia"
@@ -10,7 +10,10 @@ export const searchQuery = async (query, source = "local") => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({ 
+        query: query, 
+        language: language
+       }),
     });
 
     const result = await response.json();

@@ -8,6 +8,115 @@ from .alias_mapper import AliasMapper
 
 EQUIPOS_CONOCIDOS = AliasMapper.get_all_club_names()
 
+PAISES_Y_NACIONALIDADES = {
+    # Español
+    "española": "Española", "español": "Española", "españa": "Española",
+    "alemana": "Alemana", "alemán": "Alemana", "alemania": "Alemana",
+    "francesa": "Francesa", "francés": "Francesa", "francia": "Francesa",
+    "brasileña": "Brasileña", "brasileño": "Brasileña", "brasil": "Brasileña",
+    "inglesa": "Inglesa", "inglés": "Inglesa", "inglaterra": "Inglesa",
+    "italiana": "Italiana", "italiano": "Italiana", "italia": "Italiana",
+    "polaca": "Polaca", "polaco": "Polaca", "polonia": "Polaca",
+    "croata": "Croata", "croacia": "Croata",
+    "colombiana": "Colombiana", "colombiano": "Colombiana", "colombia": "Colombiana",
+    "argentina": "Argentina", "argentino": "Argentina",
+    "uruguaya": "Uruguaya", "uruguayo": "Uruguaya", "uruguay": "Uruguaya",
+    "portuguesa": "Portuguesa", "portugués": "Portuguesa", "portugal": "Portuguesa",
+    # Inglés
+    "spanish": "Española", "spain": "Española",
+    "german": "Alemana", "germany": "Alemana",
+    "french": "Francesa", "france": "Francesa",
+    "brazilian": "Brasileña", "brazil": "Brasileña",
+    "english": "Inglesa", "england": "Inglesa",
+    "italian": "Italiana", "italy": "Italiana",
+    "polish": "Polaca", "poland": "Polaca",
+    "croatian": "Croata", "croatia": "Croata",
+    "colombian": "Colombiana",
+    "argentinian": "Argentina",
+    "uruguayan": "Uruguaya",
+    "portuguese": "Portuguesa",
+    # Francés
+    "espagnole": "Española", "espagnol": "Española", "espagne": "Española",
+    "allemande": "Alemana", "allemand": "Alemana", "allemagne": "Alemana",
+    "française": "Francesa", "français": "Francesa",
+    "brésilienne": "Brasileña", "brésilien": "Brasileña", "brésiliens": "Brasileña",
+    "brésil": "Brasileña",
+    "anglaise": "Inglesa", "anglais": "Inglesa", "angleterre": "Inglesa",
+    "italienne": "Italiana", "italien": "Italiana", "italie": "Italiana",
+    "polonaise": "Polaca", "polonais": "Polaca", "pologne": "Polaca",
+    "croate": "Croata", "croatie": "Croata",
+    "colombienne": "Colombiana", "colombien": "Colombiana",
+    "argentin": "Argentina", "argentine": "Argentina",
+    "uruguayenne": "Uruguaya", "uruguayen": "Uruguaya",
+    "portugaise": "Portuguesa", "portugais": "Portuguesa",
+    
+     "germany":       "alemania",
+    "german":        "alemania",
+    "spain":         "españa",
+    "spanish":       "españa",
+    "france":        "francia",
+    "french":        "francia",
+    "england":       "inglaterra",
+    "english":       "inglaterra",
+    "uk":            "inglaterra",
+    "britain":       "inglaterra",
+    "italy":         "italia",
+    "italian":       "italia",
+    "portugal":      "portugal",
+    "portuguese":    "portugal",
+    "netherlands":   "países bajos",
+    "dutch":         "países bajos",
+    "holland":       "países bajos",
+    "brazil":        "brasil",
+    "brazilian":     "brasil",
+    "argentina":     "argentina",
+    "argentine":     "argentina",
+    "argentinian":   "argentina",
+    "mexico":        "méxico",
+    "mexican":       "méxico",
+    "usa":           "estados unidos",
+    "united states": "estados unidos",
+    "american":      "estados unidos",
+    # Francés → español
+    "allemagne":     "alemania",
+    "allemand":      "alemania",
+    "allemands":     "alemania",
+    "allemandes":    "alemania",
+    "espagne":       "españa",
+    "espagnol":      "españa",
+    "espagnols":     "españa",
+    "espagnoles":    "españa",
+    "angleterre":    "inglaterra",
+    "anglais":       "inglaterra",
+    "anglaises":     "inglaterra",
+    "italie":        "italia",
+    "italien":       "italia",
+    "italiens":      "italia",
+    "italiennes":    "italia",
+    "pays-bas":      "países bajos",
+    "néerlandais":   "países bajos",
+    "brésil":        "brasil",
+    "brésilien":     "brasil",
+    "brésiliens":    "brasil",
+    "brésiliennes":  "brasil",
+    "mexique":       "méxico",
+    "mexicain":      "méxico",
+    "mexicains":     "méxico",
+    "mexicaines":    "méxico",
+    "états-unis":    "estados unidos",
+    "américain":     "estados unidos",
+    "américains":    "estados unidos",
+    # Alemán → español (bonus)
+    "deutschland":   "alemania",
+    "spanien":       "españa",
+    "frankreich":    "francia",
+    "italien":       "italia",
+    "brasilien":     "brasil",
+    "niederlande":   "países bajos",
+    
+    
+}
+
 JUGADORES_CONOCIDOS = [
     # apellidos
     "bellingham", "vinícius", "vinicius", "lewandowski", "kane",
@@ -56,6 +165,16 @@ class SemanticParser:
         ("todos_equipos",       ["todos los equipos", "qué equipos hay", "que equipos hay",
                                   "equipos hay", "lista equipos"]),
         ("todos_jugadores",     ["todos los jugadores", "lista jugadores"]),
+        ("ganador_mundial", [
+        "quien gano el mundial", "quién ganó el mundial",
+        "que equipo gano el mundial", "qué equipo ganó el mundial",
+        "campeón del mundial", "campeon del mundial",
+        "ganador del mundial", "quien fue el campeon del mundial",
+        "quien ganó el mundial", "gano el mundial",
+        "who won the world cup", "world cup winner",
+        "world cup champion", "who won the fifa world cup",
+        "qui a gagné la coupe du monde", "vainqueur de la coupe du monde",
+    ]),
         ("resultado_partido",   ["resultado", "marcador", "ganó", "gano", "perdió", "perdio",
                                   "empató", "empato", "vs", "contra"]),
         ("gol_propia_puerta",   ["gol en propia puerta", "gol en contra", "propia puerta"]),
@@ -88,12 +207,21 @@ class SemanticParser:
         ("asistencia_gol",      ["asistencia de gol", "asistencia para el gol", "asistencia de", "dio la asistencia", "asistencia para"]),
         ("asistencia_gol",      ["asistencia de gol", "asistencia para el gol", "asistencia de", "dio la asistencia", "asistencia para"]),
         ("tarjeta_por_motivo",  ["tarjeta por", "amonestado por", "expulsado por"]),
-        ("equipos_por_pais",    ["equipos de un pais", "equipos de un país", "equipos del país", "equipos del pais", "equipos de españa", "equipos de alemania", "equipos de francia", "qué equipos son de", "que equipos son de", "equipos de nacionalidad", "equipos por pais", "equipos de inglaterra", "equipos de argentina", "equipos de brasil"]),
+        ("equipos_por_pais",    ["equipos de un pais", "equipos de un país", "equipos del país", "equipos del pais", "equipos de españa", "equipos de alemania", "equipos de francia", "qué equipos son de", "que equipos son de", "equipos de nacionalidad", "equipos por pais", "equipos de inglaterra", "equipos de argentina", "equipos de brasil", "teams from", "clubs from", "football clubs from", "soccer clubs from",
+    "teams in", "clubs in", "football clubs in",
+    # FR — agregar
+    "équipes de", "équipes du", "clubs de", "clubs du",
+    "équipes en", "clubs en", "équipes allemandes", "équipes françaises",
+    "équipes espagnoles", "équipes anglaises", "équipes argentines", "équipes brésiliennes",]),
         ("jugadores_posicion",  ["delanteros", "mediocampistas", "porteros", "defensas",
                                   "jugadores de posición", "jugadores que juegan de",
                                   "qué delanteros", "que delanteros"]),
         ("info_entrenador",     ["entrenador", "entrenadores", "técnico", "tecnico",
-                                  "DT", "quien dirige", "quién dirige"]),# info_equipo e info_jugador se detectan por catálogo de nombres (ver abajo)
+                                  "DT", "quien dirige", "quién dirige"]),
+        
+        ("ganador_mundial", ["que equipo gano el mundial", "qué equipo ganó el mundial", "campeón del mundial", "campeon del mundial","ganador del mundial", "quien fue el campeon",
+    "quién fue el campeón","who won the world cup", "world cup winner", "who won the fifa world cup", "which team won the world cup", "qui a gagné la coupe du monde", "vainqueur de la coupe du monde","qui a remporté la coupe du monde",
+]),
     ]
 
     @staticmethod
@@ -171,6 +299,11 @@ class SemanticParser:
 
         elif intent == "info_entrenador":
             return SemanticParser._extract_entrenador_entities(q_lower)
+        
+        elif intent == "ganador_mundial":
+             return SemanticParser._extract_mundial_year(q_lower)
+         
+         
         
         return [AliasMapper.resolve(q_lower.strip(" ¿?!"))]
 
@@ -332,15 +465,30 @@ class SemanticParser:
             "cuales son los equipos de un país por ejemplo", "equipos de un país por ejemplo",
             "equipos de un pais", "equipos de un país", "equipos del país", "equipos del pais",
             "qué equipos son de", "que equipos son de", "equipos de nacionalidad", "equipos por pais",
-            "cuales son los equipos de", "cuáles son los equipos de", "equipos de", "equipo de"
+            "cuales son los equipos de", "cuáles son los equipos de", "equipos de", "equipo de",
+               "football clubs from", "soccer clubs from", "clubs from",
+            "teams from", "clubs in", "teams in",
+    # FR — agregar
+            "équipes allemandes", "équipes françaises", "équipes espagnoles",
+            "équipes anglaises", "clubs du", "clubs de", "équipes du", "équipes de",
+            "équipes en", "clubs en",
         ]
         for kw in sorted(kws, key=len, reverse=True):
-            if kw in cleaned:
+             if kw in cleaned:
                 parts = cleaned.split(kw)
-                if len(parts) > 1:
-                    cleaned = parts[-1].strip(" ¿?!,")
+                cleaned = parts[-1].strip(" ¿?!,")
                 break
-        return [cleaned] if cleaned else [q_lower]
+
+    # Si quedó vacío (ej: "équipes allemandes" → ""), buscar palabra a palabra
+        if not cleaned:
+            for word in q_lower.split():
+                w = word.strip(" ¿?!,")
+                if w in PAISES_Y_NACIONALIDADES:
+                   cleaned = w
+                   break
+
+        canonical = PAISES_Y_NACIONALIDADES.get(cleaned.lower(), cleaned)
+        return [canonical] if canonical else [q_lower]
 
     @staticmethod
     def _extract_ubicacion_entities(q_lower: str) -> list:
@@ -424,3 +572,9 @@ class SemanticParser:
             cleaned = cleaned.replace(kw, "")
         cleaned = cleaned.strip(" ¿?!,")
         return [cleaned] if cleaned else []
+    
+    @staticmethod
+    def _extract_mundial_year(q_lower: str) -> list:
+        """Extrae el año del mundial si se menciona uno concreto."""
+        m = re.search(r'\b(19[3-9]\d|20[0-2]\d)\b', q_lower)
+        return [m.group(1)] if m else []
