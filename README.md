@@ -233,7 +233,7 @@ Puedes probar escribiendo directamente términos clave o preguntas naturales en 
 - `Barcelona` _(Información general del club)_
 - `¿Dónde juega Boca Juniors?` _(Estadio e información)_
 - `¿Quién ganó el mundial del 2022?` _(Historial de la Copa del Mundo)_
-- `¿Qué equipos tiene España?` _(Equipos por país)_ (se rompio este feature)
+- `Equipos de Alemania` _(Equipos por país)_ (se rompio este feature)
 
 ### 🇬🇧 English
 
@@ -241,7 +241,7 @@ Puedes probar escribiendo directamente términos clave o preguntas naturales en 
 - `Barcelona` _(General club information)_
 - `Where does Boca Juniors play?` _(Stadium and information)_
 - `Who won the 2022 World Cup?` _(World Cup history)_
-- `Which teams does Spain have?` _(Teams by country)_
+- `teams from Germany` _(Teams by country)_
 
 ### 🇫🇷 Français
 
@@ -249,4 +249,4 @@ Puedes probar escribiendo directamente términos clave o preguntas naturales en 
 - `Barcelona` _(Informations générales du club)_
 - `Où joue Boca Juniors ?` _(Stade et informations)_
 - `Qui a gagné la coupe du monde en 2022 ?` _(Historique de la Coupe du Monde)_
-- `Quelles équipes possède l'Espagne ?` _(Équipes par pays)_
+- `équipes allemandes` _(Équipes par pays)_
