@@ -1,0 +1,1255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/sustitucion_04">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Sustitucion"/>
+    <jugadorEntra rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_06"/>
+    <jugadorSale rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_05"/>
+    <tieneMinuto rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">15</tieneMinuto>
+    <tieneTiempo>Segundo tiempo</tieneTiempo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/arbitra">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Arbitro"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+    <rdfs:label xml:lang="es">Real Madrid</rdfs:label>
+    <rdfs:label xml:lang="en">Real Madrid</rdfs:label>
+    <rdfs:label xml:lang="fr">Real Madrid</rdfs:label>
+    <esDirigidoPor rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/entrenador_01"/>
+    <perteneceA rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/liga_01"/>
+    <tieneEstadio rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/estadio_01"/>
+    <tieneCiudad>Madrid</tieneCiudad>
+    <tieneNacionalidad>Española</tieneNacionalidad>
+    <tieneNombre>Real Madrid</tieneNombre>
+    <tienePais>España</tienePais>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_05">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+    <rdfs:label xml:lang="es">Liverpool FC</rdfs:label>
+    <rdfs:label xml:lang="en">Liverpool FC</rdfs:label>
+    <rdfs:label xml:lang="fr">Liverpool FC</rdfs:label>
+    <esDirigidoPor rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/entrenador_05"/>
+    <perteneceA rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/liga_03"/>
+    <tieneEstadio rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/estadio_08"/>
+    <tieneCiudad>Liverpool</tieneCiudad>
+    <tieneNacionalidad>Inglesa</tieneNacionalidad>
+    <tieneNombre>Liverpool FC</tieneNombre>
+    <tienePais>Inglaterra</tienePais>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/partido_02">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+    <correspondeA rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_09"/>
+    <esArbitradoPor rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/arbitro_02"/>
+    <perteneceA rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/torneointernacional_02"/>
+    <seJuegaEn rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/estadio_03"/>
+    <tieneEquipoLocal rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_03"/>
+    <tieneEquipoVisitante rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_04"/>
+    <tieneFecha rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-11-02T00:00:00</tieneFecha>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Entrenador">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Persona"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nadc37b1db6b94f1f9aadc96249b20edab2">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/goleador"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+    <owl:onClass rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/arbitro_07">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Arbitro"/>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1980-07-14T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Brasileña</tieneNacionalidad>
+    <tieneNombre>Raphael Claus</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/EventoPartido">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:nodeID="nadc37b1db6b94f1f9aadc96249b20edab1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/arbitro_09">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Arbitro"/>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1977-03-05T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Española</tieneNacionalidad>
+    <tieneNombre>Jesús Gil Manzano</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tienePartido">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Temporada"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/copa_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Copa"/>
+    <tieneTemporada rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_01"/>
+    <tieneNombre>Copa del Rey</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/gol_juego_abierto_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <asistencia rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_12"/>
+    <goleador rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_11"/>
+    <tieneMinuto rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">15</tieneMinuto>
+    <tieneTiempo>Segundo tiempo</tieneTiempo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_03">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <juegaEn rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_02"/>
+    <esCapitan rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esCapitan>
+    <esTitular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esTitular>
+    <tieneDorsal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9</tieneDorsal>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1988-08-21T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Polaca</tieneNacionalidad>
+    <tieneNombre>Robert Lewandowski</tieneNombre>
+    <tienePosicion>Delantero</tienePosicion>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_03">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Temporada"/>
+    <tieneAñoFin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2018</tieneAñoFin>
+    <tieneAñoInicio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2017</tieneAñoInicio>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_09">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <juegaEn rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_03"/>
+    <esCapitan rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esCapitan>
+    <esTitular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esTitular>
+    <tieneDorsal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</tieneDorsal>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1995-02-08T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Alemana</tieneNacionalidad>
+    <tieneNombre>Joshua Kimmich</tieneNombre>
+    <tienePosicion>Mediocampista</tienePosicion>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/torneointernacional_02">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TorneoInternacional"/>
+    <tieneTemporada rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_09"/>
+    <tieneNombre>UEFA Champions LEAGUE</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TorneoInternacional">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Competicion"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/sustitucion_05">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Sustitucion"/>
+    <jugadorEntra rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_09"/>
+    <jugadorSale rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_02"/>
+    <tieneMinuto rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19</tieneMinuto>
+    <tieneTiempo>Segundo tiempo</tieneTiempo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/golEnPropiaPorteria_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <goleador rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_04"/>
+    <tieneMinuto rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">33</tieneMinuto>
+    <tieneTiempo>Segundo tiempo</tieneTiempo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/resultado_02">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Resultado"/>
+    <resultadoDe rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/partido_02"/>
+    <tieneGolesLocal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</tieneGolesLocal>
+    <tieneGolesVisitante rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</tieneGolesVisitante>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/estadio_04">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Estadio"/>
+    <rdfs:label xml:lang="es">Metropolitano</rdfs:label>
+    <rdfs:label xml:lang="en">Metropolitano</rdfs:label>
+    <rdfs:label xml:lang="fr">Metropolitano</rdfs:label>
+    <tieneCapacidad rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">75024</tieneCapacidad>
+    <tieneCiudad>Madrid</tieneCiudad>
+    <tieneNombre>Metropolitano</tieneNombre>
+    <tienePais>España</tienePais>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/esArbitradoPor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Arbitro"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tienePosicion">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/arbitro_02">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Arbitro"/>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1981-06-05T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Alemana</tieneNacionalidad>
+    <tieneNombre>Felix Zwayer</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_04">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+    <rdfs:label xml:lang="es">Paris Saint-Germain</rdfs:label>
+    <rdfs:label xml:lang="en">Paris Saint-Germain</rdfs:label>
+    <rdfs:label xml:lang="fr">Paris Saint-Germain</rdfs:label>
+    <esDirigidoPor rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/entrenador_04"/>
+    <perteneceA rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/liga_04"/>
+    <tieneEstadio rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/estadio_05"/>
+    <tieneCiudad>Paris</tieneCiudad>
+    <tieneNacionalidad>Francia</tieneNacionalidad>
+    <tieneNombre>Paris Saint-Germain</tieneNombre>
+    <tienePais>Francia</tienePais>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/estadio_07">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Estadio"/>
+    <tieneCapacidad rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">74879</tieneCapacidad>
+    <tieneCiudad>Manchester</tieneCiudad>
+    <tieneNombre>Old Trafford</tieneNombre>
+    <tienePais>Inglaterra</tienePais>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_05">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Temporada"/>
+    <tieneAñoFin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2020</tieneAñoFin>
+    <tieneAñoInicio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2019</tieneAñoInicio>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_03">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+    <rdfs:label xml:lang="es">Bayern Munchen</rdfs:label>
+    <rdfs:label xml:lang="en">Bayern Munich</rdfs:label>
+    <rdfs:label xml:lang="fr">Bayern Munich</rdfs:label>
+    <esDirigidoPor rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/entrenador_04"/>
+    <perteneceA rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/liga_04"/>
+    <tieneEstadio rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/estadio_05"/>
+    <tieneCiudad>Munich</tieneCiudad>
+    <tieneNacionalidad>Alemana</tieneNacionalidad>
+    <tieneNombre>Bayern Munchen</tieneNombre>
+    <tienePais>Alemania</tienePais>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/estadio_05">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Estadio"/>
+    <rdfs:label xml:lang="es">Parc des Princes</rdfs:label>
+    <rdfs:label xml:lang="en">Parc des Princes</rdfs:label>
+    <rdfs:label xml:lang="fr">Parc des Princes</rdfs:label>
+    <tieneCapacidad rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">47929</tieneCapacidad>
+    <tieneCiudad>París</tieneCiudad>
+    <tieneNombre>Parc des Princes</tieneNombre>
+    <tienePais>Francia</tienePais>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_12">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <juegaEn rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_01"/>
+    <esCapitan rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esCapitan>
+    <esTitular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esTitular>
+    <tieneDorsal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10</tieneDorsal>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1985-09-09T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Croata</tieneNacionalidad>
+    <tieneNombre>Luka Modric</tieneNombre>
+    <tienePosicion>Mediocampista</tienePosicion>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/gol_04">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Gol"/>
+    <asistencia rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_01"/>
+    <goleador rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_11"/>
+    <tieneMinuto rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">32</tieneMinuto>
+    <tieneTiempo>Primer tiempo</tieneTiempo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/dirige">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Entrenador"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/albergaPartido">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <owl:inverseOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/seJuegaEn"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Estadio"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tarjeta_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TarjetaAmarilla"/>
+    <recibeTarjeta rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_10"/>
+    <motivoTarjeta>Juego brusco</motivoTarjeta>
+    <tieneMinuto rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11</tieneMinuto>
+    <tieneTiempo>Segundo tiempo</tieneTiempo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Estadio">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nadc37b1db6b94f1f9aadc96249b20edab5">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugadorEntra"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+    <owl:onClass rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_05">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <juegaEn rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_01"/>
+    <esCapitan rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esCapitan>
+    <esTitular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esTitular>
+    <tieneDorsal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10</tieneDorsal>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1998-12-20T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Francesa</tieneNacionalidad>
+    <tieneNombre>Kylian Mbappé</tieneNombre>
+    <tienePosicion>Delantero</tienePosicion>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tarjeta_03">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TarjetaAmarilla"/>
+    <esParteDe rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/partido_01"/>
+    <recibeTarjeta rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_01"/>
+    <motivoTarjeta>Falta fuerte</motivoTarjeta>
+    <tieneMinuto rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11</tieneMinuto>
+    <tieneTiempo>Primer tiempo</tieneTiempo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:nodeID="nadc37b1db6b94f1f9aadc96249b20edab4"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/partido_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+    <correspondeA rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_10"/>
+    <esArbitradoPor rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/arbitro_01"/>
+    <perteneceA rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/liga_01"/>
+    <seJuegaEn rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/estadio_01"/>
+    <tieneEquipoLocal rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_01"/>
+    <tieneEquipoVisitante rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_02"/>
+    <tieneFecha rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-10-26T00:00:00</tieneFecha>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/arbitro_04">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Arbitro"/>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1975-12-10T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Italiana</tieneNacionalidad>
+    <tieneNombre>Daniele Orsato</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneAñoFin">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Temporada"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Clasificatoria">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Competicion"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Copa"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Liga"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Supercopa"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TorneoAmistoso"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TorneoInternacional"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/esCapitan">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/liga_04">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Liga"/>
+    <tieneTemporada rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_10"/>
+    <tieneNombre>Ligue One</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneGolesVisitante">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Resultado"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/motivoTarjeta">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Tarjeta"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_07">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <juegaEn rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_03"/>
+    <esCapitan rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esCapitan>
+    <esTitular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esTitular>
+    <tieneDorsal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10</tieneDorsal>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1996-01-11T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Alemana</tieneNacionalidad>
+    <tieneNombre>Leroy Sané</tieneNombre>
+    <tienePosicion>Delantero</tienePosicion>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/anotaGol">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <owl:inverseOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/goleador"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Gol"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tarjeta_roja_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TarjetaRoja"/>
+    <recibeTarjeta rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_07"/>
+    <motivoTarjeta>Doble amarilla</motivoTarjeta>
+    <tieneMinuto rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">44</tieneMinuto>
+    <tieneTiempo>Primer tiempo</tieneTiempo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_02">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <juegaEn rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_01"/>
+    <esCapitan rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esCapitan>
+    <tieneDorsal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7</tieneDorsal>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2000-07-12T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Brasileña</tieneNacionalidad>
+    <tieneNombre>Vinícius Júnior</tieneNombre>
+    <tienePosicion>Delantero</tienePosicion>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/sustitucion_02">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Sustitucion"/>
+    <jugadorEntra rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_10"/>
+    <jugadorSale rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_08"/>
+    <tieneMinuto rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</tieneMinuto>
+    <tieneTiempo>Segundo tiempo</tieneTiempo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/estadio_03">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Estadio"/>
+    <rdfs:label xml:lang="es">Allianz Arena</rdfs:label>
+    <rdfs:label xml:lang="en">Allianz Arena</rdfs:label>
+    <rdfs:label xml:lang="fr">Allianz Arena</rdfs:label>
+    <tieneCapacidad rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">75024</tieneCapacidad>
+    <tieneCiudad>Múnich</tieneCiudad>
+    <tieneNombre>Allianz Arena</tieneNombre>
+    <tienePais>Alemania</tienePais>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_08">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <juegaEn rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_02"/>
+    <esCapitan rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esCapitan>
+    <esTitular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esTitular>
+    <tieneDorsal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</tieneDorsal>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2004-08-05T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Española</tieneNacionalidad>
+    <tieneNombre>Gavi</tieneNombre>
+    <tienePosicion>Mediocampista</tienePosicion>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/recibeTarjeta">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Tarjeta"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Sustitucion">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/EventoPartido"/>
+    <rdfs:subClassOf rdf:nodeID="nadc37b1db6b94f1f9aadc96249b20edab5"/>
+    <rdfs:subClassOf rdf:nodeID="nadc37b1db6b94f1f9aadc96249b20edab6"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Tarjeta"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_04">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <juegaEn rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_03"/>
+    <esCapitan rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esCapitan>
+    <esTitular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esTitular>
+    <tieneDorsal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9</tieneDorsal>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1993-07-28T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Inglesa</tieneNacionalidad>
+    <tieneNombre>Harry Kane</tieneNombre>
+    <tienePosicion>Delantero</tienePosicion>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#topObjectProperty">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Resultado"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TarjetaAmarilla">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Tarjeta"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TarjetaRoja"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/gol_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Gol"/>
+    <asistencia rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_05"/>
+    <goleador rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_02"/>
+    <tieneMinuto rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tieneMinuto>
+    <tieneTiempo>Segundo tiempo</tieneTiempo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/estadio_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Estadio"/>
+    <rdfs:label xml:lang="es">Santiago Bernabéu</rdfs:label>
+    <rdfs:label xml:lang="en">Santiago Bernabeu Stadium</rdfs:label>
+    <rdfs:label xml:lang="fr">Stade Santiago Bernabéu</rdfs:label>
+    <tieneCapacidad rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">83186</tieneCapacidad>
+    <tieneCiudad>Madrid</tieneCiudad>
+    <tieneNombre>Santiago Bernabéu</tieneNombre>
+    <tienePais>España</tienePais>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_09">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Temporada"/>
+    <tieneAñoFin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2024</tieneAñoFin>
+    <tieneAñoInicio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2023</tieneAñoInicio>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneEquipo">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Competicion"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneNombre">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Competicion"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Estadio"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Persona"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/partido_03">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneDorsal">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nadc37b1db6b94f1f9aadc96249b20edab4">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneEquipoLocal"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+    <owl:onClass rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/entrenador_03">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Entrenador"/>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1973-08-29T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Alemana</tieneNacionalidad>
+    <tieneNombre>Thomas Tuchel</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Temporada"/>
+    <tieneAñoFin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2016</tieneAñoFin>
+    <tieneAñoInicio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2015</tieneAñoInicio>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_10">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <juegaEn rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_02"/>
+    <esCapitan rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esCapitan>
+    <esTitular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esTitular>
+    <tieneDorsal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8</tieneDorsal>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2002-11-25T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Española</tieneNacionalidad>
+    <tieneNombre>Pedri</tieneNombre>
+    <tienePosicion>Mediocampista</tienePosicion>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_07">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Temporada"/>
+    <tieneAñoFin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2022</tieneAñoFin>
+    <tieneAñoInicio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2021</tieneAñoInicio>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/entrenador_04">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Entrenador"/>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1970-05-08T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Española</tieneNacionalidad>
+    <tieneNombre>Luis Enrique</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/goleador">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Gol"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nadc37b1db6b94f1f9aadc96249b20edab6">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugadorSale"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+    <owl:onClass rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/liga_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Liga"/>
+    <tieneTemporada rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_10"/>
+    <tieneNombre>La Liga</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/entrenador_05">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Entrenador"/>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1967-06-16T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Alemana</tieneNacionalidad>
+    <tieneNombre>Jürgen Klopp</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/sustitucion_03">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Sustitucion"/>
+    <jugadorEntra rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_07"/>
+    <jugadorSale rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_04"/>
+    <tieneMinuto rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10</tieneMinuto>
+    <tieneTiempo>Segundo tiempo</tieneTiempo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/resultado_04">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Resultado"/>
+    <resultadoDe rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/partido_04"/>
+    <tieneGolesLocal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</tieneGolesLocal>
+    <tieneGolesVisitante rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tieneGolesVisitante>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/estadio_10">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Estadio"/>
+    <tieneCapacidad rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">78838</tieneCapacidad>
+    <tieneCiudad>Río de Janeiro</tieneCiudad>
+    <tieneNombre>Maracaná</tieneNombre>
+    <tienePais>Brasil</tienePais>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_06">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <juegaEn rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_04"/>
+    <esCapitan rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esCapitan>
+    <esTitular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esTitular>
+    <tieneDorsal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10</tieneDorsal>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1997-05-15T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Francesa</tieneNacionalidad>
+    <tieneNombre>Ousmane Dembélé</tieneNombre>
+    <tienePosicion>Delantero</tienePosicion>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_13">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <juegaEn rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_05"/>
+    <esCapitan rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esCapitan>
+    <esTitular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esTitular>
+    <tieneDorsal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</tieneDorsal>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1992-10-02T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Brasileña</tieneNacionalidad>
+    <tieneNombre>Alisson Becker</tieneNombre>
+    <tienePosicion>Portero</tienePosicion>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/gol_02">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Gol"/>
+    <asistencia rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_08"/>
+    <goleador rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_06"/>
+    <tieneMinuto rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">15</tieneMinuto>
+    <tieneTiempo>Segundo tiempo</tieneTiempo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugadorSale">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <owl:inverseOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/saleDe"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Sustitucion"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/entraEn">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <owl:inverseOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugadorEntra"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Sustitucion"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/esTitular">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/partido_04">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+    <correspondeA rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_10"/>
+    <esArbitradoPor rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/arbitro_03"/>
+    <perteneceA rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/liga_02"/>
+    <seJuegaEn rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/estadio_03"/>
+    <tieneEquipoLocal rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_03"/>
+    <tieneEquipoVisitante rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_05"/>
+    <tieneFecha rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-11-15T00:00:00</tieneFecha>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_11">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <juegaEn rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_01"/>
+    <esCapitan rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esCapitan>
+    <esTitular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esTitular>
+    <tieneDorsal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11</tieneDorsal>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-01-09T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Brasileña</tieneNacionalidad>
+    <tieneNombre>Rodrygo Goes</tieneNombre>
+    <tienePosicion>Delantero</tienePosicion>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/esParteDe">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Temporada"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/arbitro_08">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Arbitro"/>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1980-07-14T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Uruguaya</tieneNacionalidad>
+    <tieneNombre>Andrés Cunha</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Gol">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/EventoPartido"/>
+    <rdfs:subClassOf rdf:nodeID="nadc37b1db6b94f1f9aadc96249b20edab2"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Sustitucion"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Tarjeta"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tarjeta_02">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TarjetaAmarilla"/>
+    <recibeTarjeta rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_12"/>
+    <motivoTarjeta>Demorar juego</motivoTarjeta>
+    <tieneMinuto rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">34</tieneMinuto>
+    <tieneTiempo>Segundo tiempo</tieneTiempo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/partido_05">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+    <correspondeA rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_09"/>
+    <esArbitradoPor rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/arbitro_08"/>
+    <perteneceA rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/torneointernacional_02"/>
+    <seJuegaEn rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/estadio_05"/>
+    <tieneEquipoLocal rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_04"/>
+    <tieneEquipoVisitante rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_01"/>
+    <tieneFecha rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-11-25T00:00:00</tieneFecha>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/estadio_02">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Estadio"/>
+    <rdfs:label xml:lang="es">Camp Nou</rdfs:label>
+    <rdfs:label xml:lang="en">Camp Nou</rdfs:label>
+    <rdfs:label xml:lang="fr">Camp Nou</rdfs:label>
+    <tieneCapacidad rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">99354</tieneCapacidad>
+    <tieneCiudad>Barcelona</tieneCiudad>
+    <tieneNombre>Camp Nou</tieneNombre>
+    <tienePais>España</tienePais>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/copa_02">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Copa"/>
+    <tieneTemporada rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_02"/>
+    <tieneNombre>DFB Pokal</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/sustitucion_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Sustitucion"/>
+    <jugadorEntra rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_12"/>
+    <jugadorSale rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_01"/>
+    <tieneMinuto rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">42</tieneMinuto>
+    <tieneTiempo>Segundo tiempo</tieneTiempo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneJornada">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneAñoInicio">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Temporada"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Copa">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Competicion"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Liga"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Supercopa"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TorneoAmistoso"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TorneoInternacional"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/esSedeDe">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <owl:inverseOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneEstadio"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Estadio"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Arbitro">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Persona"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Entrenador"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugadorEntra">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Sustitucion"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneTemporada">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Competicion"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Temporada"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/arbitro_03">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Arbitro"/>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1982-03-12T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Francesa</tieneNacionalidad>
+    <tieneNombre>Clément Turpin</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/arbitro_06">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Arbitro"/>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1975-09-18T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Argentina</tieneNacionalidad>
+    <tieneNombre>Néstor Pitana</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/esLocalEn">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <owl:inverseOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneEquipoLocal"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/asisteGol">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <owl:inverseOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/asistencia"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Gol"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/estadio_06">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Estadio"/>
+    <tieneCapacidad rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59186</tieneCapacidad>
+    <tieneCiudad>Lyon</tieneCiudad>
+    <tieneNombre>Groupama Stadium</tieneNombre>
+    <tienePais>Francia</tienePais>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/liga_02">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Liga"/>
+    <tieneTemporada rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_10"/>
+    <tieneNombre>Bundesliga</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/gol_03">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Gol"/>
+    <asistencia rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_10"/>
+    <goleador rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_05"/>
+    <tieneMinuto rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">13</tieneMinuto>
+    <tieneTiempo>Primer tiempo</tieneTiempo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tienePais">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Estadio"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/arbitro_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Arbitro"/>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1977-01-01T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Española</tieneNacionalidad>
+    <tieneNombre>Antonio Mateu Lahoz</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/entrenador_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Entrenador"/>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1980-01-25T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Española</tieneNacionalidad>
+    <tieneNombre>Xavi Hernandez</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/estadio_09">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Estadio"/>
+    <tieneCapacidad rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">78838</tieneCapacidad>
+    <tieneCiudad>Buenos Aires</tieneCiudad>
+    <tieneNombre>Estadio Monumental</tieneNombre>
+    <tienePais>Argentina</tienePais>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/gol_05">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Gol"/>
+    <asistencia rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_05"/>
+    <goleador rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_06"/>
+    <tieneMinuto rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">29</tieneMinuto>
+    <tieneTiempo>Primer tiempo</tieneTiempo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_06">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Temporada"/>
+    <tieneAñoFin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2021</tieneAñoFin>
+    <tieneAñoInicio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2020</tieneAñoInicio>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_04">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Temporada"/>
+    <tieneAñoFin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2019</tieneAñoFin>
+    <tieneAñoInicio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2018</tieneAñoInicio>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/resultado_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Resultado"/>
+    <resultadoDe rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/partido_01"/>
+    <tieneGolesLocal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tieneGolesLocal>
+    <tieneGolesVisitante rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</tieneGolesVisitante>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TarjetaRoja">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Tarjeta"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneEquipoLocal">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneCapacidad">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Estadio"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/esDirigidoPor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Entrenador"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Liga">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Competicion"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Supercopa"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TorneoAmistoso"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TorneoInternacional"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/esRecibidaPor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <owl:inverseOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/recibeTarjeta"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Tarjeta"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <juegaEn rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_01"/>
+    <esCapitan rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esCapitan>
+    <esTitular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esTitular>
+    <tieneDorsal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</tieneDorsal>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2003-06-29T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Inglesa</tieneNacionalidad>
+    <tieneNombre>Jude Bellingham</tieneNombre>
+    <tienePosicion>Mediocampista</tienePosicion>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneTiempo">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/EventoPartido"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneEstadio">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Estadio"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneNacionalidad">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Persona"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneEquipoVisitante">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneGolesLocal">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Resultado"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_10">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Temporada"/>
+    <tieneAñoFin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2026</tieneAñoFin>
+    <tieneAñoInicio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2025</tieneAñoInicio>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nadc37b1db6b94f1f9aadc96249b20edab3">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/juegaEn"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+    <owl:onClass rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/resultado_03">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Resultado"/>
+    <resultadoDe rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/partido_03"/>
+    <tieneGolesLocal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</tieneGolesLocal>
+    <tieneGolesVisitante rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</tieneGolesVisitante>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nadc37b1db6b94f1f9aadc96249b20edab1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/esParteDe"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+    <owl:onClass rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Supercopa">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Competicion"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TorneoAmistoso"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TorneoInternacional"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/perteneceA">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Competicion"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Tarjeta">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/EventoPartido"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneFecha">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/GolDeJuegoAbierto">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Gol"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/GolDePenal"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/GolEnPropiaPorteria"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/juegaEn">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <owl:inverseOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneJugador"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneEvento">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/EventoPartido"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/torneoamistoso_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TorneoAmistoso"/>
+    <tieneTemporada rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_05"/>
+    <tieneNombre>International Champions Cup</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/golDePenal_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <goleador rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_02"/>
+    <tieneMinuto rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tieneMinuto>
+    <tieneTiempo>Segundo tiempo</tieneTiempo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/equipo_02">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+    <rdfs:label xml:lang="es">FC Barcelona</rdfs:label>
+    <rdfs:label xml:lang="en">FC Barcelona</rdfs:label>
+    <rdfs:label xml:lang="fr">FC Barcelone</rdfs:label>
+    <esDirigidoPor rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/entrenador_02"/>
+    <perteneceA rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/liga_01"/>
+    <tieneEstadio rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/estadio_02"/>
+    <tieneCiudad>Barcelona</tieneCiudad>
+    <tieneNacionalidad>Española</tieneNacionalidad>
+    <tieneNombre>FC Barcelona</tieneNombre>
+    <tienePais>España</tienePais>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneFechaNacimiento">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Persona"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneJugador">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/arbitro_05">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Arbitro"/>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1980-04-22T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Colombiana</tieneNacionalidad>
+    <tieneNombre>Wilmar Roldán</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/GolDePenal">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Gol"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/GolEnPropiaPorteria"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/resultadoDe">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <owl:inverseOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneResultado"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Resultado"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/asistencia">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Gol"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/resultado_05">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Resultado"/>
+    <resultadoDe rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/partido_05"/>
+    <tieneGolesLocal rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</tieneGolesLocal>
+    <tieneGolesVisitante rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</tieneGolesVisitante>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TorneoAmistoso">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Competicion"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TorneoInternacional"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tarjeta_04">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TarjetaAmarilla"/>
+    <recibeTarjeta rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_08"/>
+    <motivoTarjeta>Sujetar al rival</motivoTarjeta>
+    <tieneTiempo>Primer tiempo</tieneTiempo>
+    <tieneTiempo rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">44</tieneTiempo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/entrenador_02">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Entrenador"/>
+    <tieneFechaNacimiento rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1959-06-10T00:00:00</tieneFechaNacimiento>
+    <tieneNacionalidad>Italiana</tieneNacionalidad>
+    <tieneNombre>Carlo Ancelotti</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/correspondeA">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <owl:inverseOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tienePartido"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Temporada"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_08">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Temporada"/>
+    <tieneAñoFin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2023</tieneAñoFin>
+    <tieneAñoInicio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2022</tieneAñoInicio>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneResultado">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Resultado"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_02">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Temporada"/>
+    <tieneAñoFin rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2017</tieneAñoFin>
+    <tieneAñoInicio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2016</tieneAñoInicio>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/liga_03">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Liga"/>
+    <tieneTemporada rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_10"/>
+    <tieneNombre>Premier League</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/esVisitanteEn">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <owl:inverseOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneEquipoVisitante"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/saleDe">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Sustitucion"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/estadio_08">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Estadio"/>
+    <tieneCapacidad rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">61276</tieneCapacidad>
+    <tieneCiudad>Liverpool</tieneCiudad>
+    <tieneNombre>Anfield</tieneNombre>
+    <tienePais>Inglaterra</tienePais>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneCiudad">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Estadio"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/tieneMinuto">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/EventoPartido"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/seJuegaEn">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Partido"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Estadio"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Competicion">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Persona">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Jugador">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Persona"/>
+    <rdfs:subClassOf rdf:nodeID="nadc37b1db6b94f1f9aadc96249b20edab3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/torneointernacional_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/TorneoInternacional"/>
+    <tieneTemporada rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_08"/>
+    <tieneNombre>Copa América</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Resultado">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/GolEnPropiaPorteria">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Gol"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/supercopa_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Supercopa"/>
+    <tieneTemporada rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/temporada_03"/>
+    <tieneNombre>Supercopa de España</tieneNombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Equipo">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/Temporada">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+</rdf:RDF>
