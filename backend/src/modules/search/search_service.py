@@ -7,9 +7,9 @@ from src.models import SearchResponse
 
 _HERE    = os.path.dirname(os.path.abspath(__file__))
 _BACKEND = os.path.dirname(os.path.dirname(os.path.dirname(_HERE)))
-OWX_PATH = os.path.join(_BACKEND, "ontologia-futbol.ttl")
+OWX_PATH = os.path.join(_BACKEND, "ontologia-futbol.owl")
 if not os.path.exists(OWX_PATH):
-    OWX_PATH = os.path.join(os.getcwd(), "ontologia-futbol.ttl")
+    OWX_PATH = os.path.join(os.getcwd(), "ontologia-futbol.owl")
 
 print(f"[search_service] OWX: {OWX_PATH} | exists={os.path.exists(OWX_PATH)}")
 
