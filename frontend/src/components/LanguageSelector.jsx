@@ -93,7 +93,7 @@ export default function LanguageSelector({ language, setLanguage }) {
 
   // Simplificamos los labels a formato corto para que encaje perfecto
   const options = [
-    { value: "es", label: "ES", fullTitle: "Español" },
+    { value: "es", label: "ES", fullTitle: "Españoppl" },
     { value: "en", label: "EN", fullTitle: "English" },
     { value: "fr", label: "FR", fullTitle: "Français" },
   ];
