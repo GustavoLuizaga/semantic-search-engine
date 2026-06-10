@@ -1,0 +1,1079 @@
+@prefix dbo:  <http://dbpedia.org/ontology/> .
+@prefix dbp:  <http://dbpedia.org/property/> .
+@prefix dbr:  <http://dbpedia.org/resource/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+# Datos de fútbol descargados de DBpedia para modo offline
+# Generado por descargar_dbpedia_futbol.py
+
+
+# ── EQUIPO: http://dbpedia.org/resource/FC_Barcelona ──
+<http://dbpedia.org/resource/FC_Barcelona>
+    a dbo:SoccerClub ;
+    rdfs:label "Fútbol Club Barcelona"@es ;
+    rdfs:label "FC Barcelona"@en ;
+    dbo:ground <http://dbpedia.org/resource/Johan_Cruyff_Stadium> ;
+    dbo:manager <http://dbpedia.org/resource/Hansi_Flick> ;
+    dbo:chairman <http://dbpedia.org/resource/Joan_Laporta> ;
+    dbo:capacity "6000"^^xsd:integer ;
+    dbo:formationDate "1899-11-29"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/FC_Barcelona_(crest).svg?width=300> ;
+    foaf:nick "Barça or Blaugrana (team)" .
+
+# ── ESTADIO: http://dbpedia.org/resource/Johan_Cruyff_Stadium ──
+<http://dbpedia.org/resource/Johan_Cruyff_Stadium>
+    a dbo:Stadium ;
+    rdfs:label "Estadio Johan Cruyff"@es ;
+    rdfs:label "Johan Cruyff Stadium"@en ;
+    dbp:capacity 6000 ;
+    dbo:openingDate "2019-08-27"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Estadi_Johan_Cruyff.jpg?width=300> ;
+    dbo:location <http://dbpedia.org/resource/Barcelona> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Francisco_Trincão ──
+<http://dbpedia.org/resource/Francisco_Trincão>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Francisco Trincão"@es ;
+    rdfs:label "Francisco Trincão"@en ;
+    dbo:team <http://dbpedia.org/resource/FC_Barcelona> ;
+    dbo:birthDate "1999-12-29"^^xsd:date ;
+    dbp:birthPlace "Viana do Castelo, Portugal"@en ;
+    dbo:position <http://dbpedia.org/resource/Midfielder> ;
+    dbo:number "17" ;
+    dbo:height "1.83"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Francisco_Trincão_2019_(cropped)_2.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Sporting_CP> .
+<http://dbpedia.org/resource/Midfielder>
+    rdfs:label "Centrocampista"@es ;
+    rdfs:label "Midfielder"@en .
+
+# ── JUGADOR: http://dbpedia.org/resource/Malcom_(footballer) ──
+<http://dbpedia.org/resource/Malcom_(footballer)>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Malcom"@es ;
+    rdfs:label "Malcom (footballer)"@en ;
+    dbo:team <http://dbpedia.org/resource/FC_Barcelona> ;
+    dbo:birthDate "1997-02-26"^^xsd:date ;
+    dbp:birthPlace "São Paulo, Brazil"@en ;
+    dbo:position <http://dbpedia.org/resource/Forward_(association_football)> ;
+    dbo:number "77" ;
+    dbo:height "1.71"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Malcom_in_2021.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Al_Hilal_SFC> .
+<http://dbpedia.org/resource/Forward_(association_football)>
+    rdfs:label "Delantero"@es ;
+    rdfs:label "Forward (association football)"@en .
+
+# ── JUGADOR: http://dbpedia.org/resource/Neymar ──
+<http://dbpedia.org/resource/Neymar>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Neymar"@es ;
+    rdfs:label "Neymar"@en ;
+    dbo:team <http://dbpedia.org/resource/FC_Barcelona> ;
+    dbo:birthDate "1992-02-05"^^xsd:date ;
+    dbp:birthPlace "Mogi das Cruzes, Brazil"@en ;
+    dbo:position <http://dbpedia.org/resource/Midfielder> ;
+    dbo:number "10" ;
+    dbo:height "1.75"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Neymar_Jr._with_Al_Hilal,_3_October_2023_-_01_(cropped).jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Santos_FC> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Vitor_Roque ──
+<http://dbpedia.org/resource/Vitor_Roque>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Vitor Roque"@es ;
+    rdfs:label "Vitor Roque"@en ;
+    dbo:team <http://dbpedia.org/resource/FC_Barcelona> ;
+    dbo:birthDate "2005-02-28"^^xsd:date ;
+    dbp:birthPlace "Timóteo, Brazil"@en ;
+    dbo:position <http://dbpedia.org/resource/Forward_(association_football)> ;
+    dbo:number "9" ;
+    dbo:height "1.72"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/SÉRIE_A_-_PALMEIRAS_0_X_2_ATHLETICO_PARANAENSE_-_Vitor_Roque.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/SE_Palmeiras> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Josimar_Quintero ──
+<http://dbpedia.org/resource/Josimar_Quintero>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Josimar Quintero"@en ;
+    dbo:team <http://dbpedia.org/resource/FC_Barcelona> ;
+    dbo:birthDate "1997-02-03"^^xsd:date ;
+    dbp:birthPlace "Guayaquil, Ecuador"@en ;
+    dbo:position <http://dbpedia.org/resource/Midfielder> ;
+    dbo:number "17" ;
+    dbo:height "1.63"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/2012_2013_-_Josimar_Quintero_-_Flickr_-_Castroquini-FCB.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Gudja_United_F.C.> .
+
+# ── EQUIPO: http://dbpedia.org/resource/Real_Madrid_CF ──
+<http://dbpedia.org/resource/Real_Madrid_CF>
+    a dbo:SoccerClub ;
+    rdfs:label "Real Madrid Club de Fútbol"@es ;
+    rdfs:label "Real Madrid CF"@en ;
+    dbo:ground <http://dbpedia.org/resource/Santiago_Bernabéu_Stadium> ;
+    dbo:manager <http://dbpedia.org/resource/Xabi_Alonso> ;
+    dbo:chairman <http://dbpedia.org/resource/Florentino_Pérez> ;
+    dbo:capacity "83186"^^xsd:integer ;
+    dbo:formationDate "1902-03-06"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Real_Madrid_CF.svg?width=300> .
+
+# ── ESTADIO: http://dbpedia.org/resource/Santiago_Bernabéu_Stadium ──
+<http://dbpedia.org/resource/Santiago_Bernabéu_Stadium>
+    a dbo:Stadium ;
+    rdfs:label "Estadio Santiago Bernabéu"@es ;
+    rdfs:label "Santiago Bernabéu Stadium"@en ;
+    dbp:capacity 81044 ;
+    dbo:openingDate "1947-12-14"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Estadio_Santiago_Bernabéu_Madrid.jpg?width=300> ;
+    dbo:location <http://dbpedia.org/resource/Chamartín_(Madrid)> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Iván_Fresneda ──
+<http://dbpedia.org/resource/Iván_Fresneda>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Iván Fresneda"@es ;
+    rdfs:label "Iván Fresneda"@en ;
+    dbo:team <http://dbpedia.org/resource/Real_Madrid_CF> ;
+    dbo:birthDate "2004-09-28"^^xsd:date ;
+    dbp:birthPlace "Madrid, Spain"@en ;
+    dbo:position <http://dbpedia.org/resource/Defender_(association_football)> ;
+    dbo:number "22" ;
+    dbo:height "1.82"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Iván_Fresneda_Corraliza.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Sporting_CP> .
+<http://dbpedia.org/resource/Defender_(association_football)>
+    rdfs:label "Defensa (fútbol)"@es ;
+    rdfs:label "Defender (association football)"@en .
+
+# ── JUGADOR: http://dbpedia.org/resource/Fabinho_(footballer,_born_1993) ──
+<http://dbpedia.org/resource/Fabinho_(footballer,_born_1993)>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Fabinho Tavares"@es ;
+    rdfs:label "Fabinho (footballer, born 1993)"@en ;
+    dbo:team <http://dbpedia.org/resource/Real_Madrid_CF> ;
+    dbo:birthDate "1993-10-23"^^xsd:date ;
+    dbp:birthPlace "Campinas, Brazil"@en ;
+    dbo:position <http://dbpedia.org/resource/Defender_(association_football)> ;
+    dbo:number "8" ;
+    dbo:height "1.88"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Fabinho_(43934382122)_(cropped).jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Ittihad_Club> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Fabinho_(footballer,_born_1993) ──
+<http://dbpedia.org/resource/Fabinho_(footballer,_born_1993)>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Fabinho Tavares"@es ;
+    rdfs:label "Fabinho (footballer, born 1993)"@en ;
+    dbo:team <http://dbpedia.org/resource/Real_Madrid_CF> ;
+    dbo:birthDate "1993-10-23"^^xsd:date ;
+    dbp:birthPlace "Campinas, Brazil"@en ;
+    dbo:position <http://dbpedia.org/resource/Midfielder> ;
+    dbo:number "8" ;
+    dbo:height "1.88"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Fabinho_(43934382122)_(cropped).jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Ittihad_Club> .
+
+# ── JUGADOR: http://dbpedia.org/resource/James_Rodríguez ──
+<http://dbpedia.org/resource/James_Rodríguez>
+    a dbo:SoccerPlayer ;
+    rdfs:label "James Rodríguez"@es ;
+    rdfs:label "James Rodríguez"@en ;
+    dbo:team <http://dbpedia.org/resource/Real_Madrid_CF> ;
+    dbo:birthDate "1991-07-12"^^xsd:date ;
+    dbp:birthPlace "Cúcuta, Colombia"@en ;
+    dbo:position <http://dbpedia.org/resource/Midfielder> ;
+    dbo:number "10" ;
+    dbo:height "1.81"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/James_Rodriguez_2018.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Club_León> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Marco_Asensio ──
+<http://dbpedia.org/resource/Marco_Asensio>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Marco Asensio"@es ;
+    rdfs:label "Marco Asensio"@en ;
+    dbo:team <http://dbpedia.org/resource/Real_Madrid_CF> ;
+    dbo:birthDate "1996-01-21"^^xsd:date ;
+    dbp:birthPlace "Palma, Spain"@en ;
+    dbo:position <http://dbpedia.org/resource/Midfielder> ;
+    dbo:number "21" ;
+    dbo:height "1.82"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Marco_Asensio_2018.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Fenerbahçe_S.K._(football)> .
+
+# ── EQUIPO: http://dbpedia.org/resource/Manchester_United_F.C. ──
+<http://dbpedia.org/resource/Manchester_United_F.C.>
+    a dbo:SoccerClub ;
+    rdfs:label "Manchester United Football Club"@es ;
+    rdfs:label "Manchester United F.C."@en ;
+    dbo:ground <http://dbpedia.org/resource/Old_Trafford> ;
+    dbo:manager <http://dbpedia.org/resource/Ruben_Amorim> ;
+    dbo:capacity "74310"^^xsd:integer ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Manchester_United_FC_crest.svg?width=300> ;
+    foaf:nick "United" .
+
+# ── ESTADIO: http://dbpedia.org/resource/Old_Trafford ──
+<http://dbpedia.org/resource/Old_Trafford>
+    a dbo:Stadium ;
+    rdfs:label "Old Trafford"@es ;
+    rdfs:label "Old Trafford"@en ;
+    dbp:capacity 74197 ;
+    dbo:openingDate "1910-02-19"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/2023_07_31_arne_mueseler_00060-Verbessert-RR_(53106651455).jpg?width=300> ;
+    dbo:location <http://dbpedia.org/resource/England> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Johan_Guadagno ──
+<http://dbpedia.org/resource/Johan_Guadagno>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Johan Guadagno"@en ;
+    dbo:team <http://dbpedia.org/resource/Manchester_United_F.C.> ;
+    dbo:birthDate "2003-02-21"^^xsd:date ;
+    dbp:birthPlace "Milan, Italy"@en ;
+    dbo:position <http://dbpedia.org/resource/Goalkeeper_(association_football)> ;
+    dbo:height "1.88"^^xsd:double .
+<http://dbpedia.org/resource/Goalkeeper_(association_football)>
+    rdfs:label "Guardameta (fútbol)"@es ;
+    rdfs:label "Goalkeeper (association football)"@en .
+
+# ── JUGADOR: http://dbpedia.org/resource/Joe_Norton_(footballer) ──
+<http://dbpedia.org/resource/Joe_Norton_(footballer)>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Joe Norton (footballer)"@en ;
+    dbo:team <http://dbpedia.org/resource/Manchester_United_F.C.> ;
+    dbo:birthDate "1888-01-26"^^xsd:date ;
+    dbp:birthPlace "Stoney Stanton, England"@en ;
+    dbo:position <http://dbpedia.org/resource/Forward_(association_football)> ;
+    dbo:height "1.6764"^^xsd:double .
+
+# ── JUGADOR: http://dbpedia.org/resource/Andreas_Pereira ──
+<http://dbpedia.org/resource/Andreas_Pereira>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Andreas Pereira"@es ;
+    rdfs:label "Andreas Pereira"@en ;
+    dbo:team <http://dbpedia.org/resource/Manchester_United_F.C.> ;
+    dbo:birthDate "1996-01-01"^^xsd:date ;
+    dbp:birthPlace "Duffel, Belgium"@en ;
+    dbo:position <http://dbpedia.org/resource/Midfielder> ;
+    dbo:number "8" ;
+    dbo:height "1.78"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Andreas-Pereira-Palmeiras-Internacional-sep2025_(cropped).jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/SE_Palmeiras> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Wout_Weghorst ──
+<http://dbpedia.org/resource/Wout_Weghorst>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Wout Weghorst"@es ;
+    rdfs:label "Wout Weghorst"@en ;
+    dbo:team <http://dbpedia.org/resource/Manchester_United_F.C.> ;
+    dbo:birthDate "1992-08-07"^^xsd:date ;
+    dbp:birthPlace "Borne, Netherlands"@en ;
+    dbo:position <http://dbpedia.org/resource/Forward_(association_football)> ;
+    dbo:number "25" ;
+    dbo:height "1.97"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Qarabağ_vs_Ajax_(24.10.2024)_(4)_(Wout_Weghorst).jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/AFC_Ajax> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Kenny_Cooper ──
+<http://dbpedia.org/resource/Kenny_Cooper>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Kenny Cooper"@es ;
+    rdfs:label "Kenny Cooper"@en ;
+    dbo:team <http://dbpedia.org/resource/Manchester_United_F.C.> ;
+    dbo:birthDate "1984-10-21"^^xsd:date ;
+    dbp:birthPlace "Baltimore, Maryland, United States"@en ;
+    dbo:position <http://dbpedia.org/resource/Forward_(association_football)> ;
+    dbo:height "1.8288"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Kenny_Cooper.jpg?width=300> .
+
+# ── EQUIPO: http://dbpedia.org/resource/Manchester_City_F.C. ──
+<http://dbpedia.org/resource/Manchester_City_F.C.>
+    a dbo:SoccerClub ;
+    rdfs:label "Manchester City Football Club"@es ;
+    rdfs:label "Manchester City F.C."@en ;
+    dbo:ground <http://dbpedia.org/resource/City_of_Manchester_Stadium> ;
+    dbo:manager <http://dbpedia.org/resource/Pep_Guardiola> ;
+    dbo:chairman <http://dbpedia.org/resource/Khaldoon_Al_Mubarak> ;
+    dbo:capacity "53400"^^xsd:integer ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Manchester_City_FC_badge.svg?width=300> ;
+    foaf:nick "The Blues" .
+
+# ── ESTADIO: http://dbpedia.org/resource/City_of_Manchester_Stadium ──
+<http://dbpedia.org/resource/City_of_Manchester_Stadium>
+    a dbo:Stadium ;
+    rdfs:label "Estadio Ciudad de Mánchester"@es ;
+    rdfs:label "City of Manchester Stadium"@en ;
+    dbp:seatingCapacity 52900 ;
+    dbo:openingDate "2003-08-10"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Etihad_Stadium_logo.svg?width=300> ;
+    dbo:location <http://dbpedia.org/resource/England> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Lewis_Thomas_(footballer,_born_2002) ──
+<http://dbpedia.org/resource/Lewis_Thomas_(footballer,_born_2002)>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Lewis Thomas (footballer, born 2002)"@en ;
+    dbo:team <http://dbpedia.org/resource/Manchester_City_F.C.> ;
+    dbo:birthDate "2002-02-08"^^xsd:date ;
+    dbp:birthPlace "Leicester, England"@en ;
+    dbo:position <http://dbpedia.org/resource/Goalkeeper_(association_football)> ;
+    dbo:number "13" ;
+    dbp:currentclub <http://dbpedia.org/resource/Harrogate_Town_A.F.C.> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Lakyle_Samuel ──
+<http://dbpedia.org/resource/Lakyle_Samuel>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Lakyle Samuel"@en ;
+    dbo:team <http://dbpedia.org/resource/Manchester_City_F.C.> ;
+    dbo:birthDate "2006-05-06"^^xsd:date ;
+    dbo:position <http://dbpedia.org/resource/Defender_(association_football)> ;
+    dbo:number "22" ;
+    dbo:height "1.75"^^xsd:double ;
+    dbp:currentclub <http://dbpedia.org/resource/Bromley_F.C.> .
+
+# ── JUGADOR: http://dbpedia.org/resource/João_Cancelo ──
+<http://dbpedia.org/resource/João_Cancelo>
+    a dbo:SoccerPlayer ;
+    rdfs:label "João Cancelo"@es ;
+    rdfs:label "João Cancelo"@en ;
+    dbo:team <http://dbpedia.org/resource/Manchester_City_F.C.> ;
+    dbo:birthDate "1994-05-27"^^xsd:date ;
+    dbo:position <http://dbpedia.org/resource/Defender_(association_football)> ;
+    dbo:number "20" ;
+    dbo:height "1.82"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/CanceloCity23.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Al_Hilal_SFC> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Darío_Sarmiento ──
+<http://dbpedia.org/resource/Darío_Sarmiento>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Darío Sarmiento"@es ;
+    rdfs:label "Darío Sarmiento"@en ;
+    dbo:team <http://dbpedia.org/resource/Manchester_City_F.C.> ;
+    dbo:birthDate "2003-03-29"^^xsd:date ;
+    dbp:birthPlace "Florencio Varela, Argentina"@en ;
+    dbo:position <http://dbpedia.org/resource/Forward_(association_football)> ;
+    dbo:number "17" ;
+    dbo:height "1.67"^^xsd:double ;
+    dbp:currentclub <http://dbpedia.org/resource/Club_Atlético_Tigre> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Ko_Itakura ──
+<http://dbpedia.org/resource/Ko_Itakura>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Ko Itakura"@es ;
+    rdfs:label "Ko Itakura"@en ;
+    dbo:team <http://dbpedia.org/resource/Manchester_City_F.C.> ;
+    dbo:birthDate "1997-01-27"^^xsd:date ;
+    dbp:birthPlace "Yokohama, Japan"@en ;
+    dbo:position <http://dbpedia.org/resource/Midfielder> ;
+    dbo:number "4" ;
+    dbo:height "1.88"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Kō_Itakura_-_板倉堰.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/AFC_Ajax> .
+
+# ── EQUIPO: http://dbpedia.org/resource/Liverpool_F.C. ──
+<http://dbpedia.org/resource/Liverpool_F.C.>
+    a dbo:SoccerClub ;
+    rdfs:label "Liverpool Football Club"@es ;
+    rdfs:label "Liverpool F.C."@en ;
+    dbo:ground <http://dbpedia.org/resource/Anfield> ;
+    dbo:manager <http://dbpedia.org/resource/Arne_Slot> ;
+    dbo:chairman <http://dbpedia.org/resource/Tom_Werner> ;
+    dbo:capacity "61276"^^xsd:integer ;
+    dbo:formationDate "1892-06-03"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Liverpool_FC.svg?width=300> ;
+    foaf:nick "The Reds" .
+
+# ── ESTADIO: http://dbpedia.org/resource/Anfield ──
+<http://dbpedia.org/resource/Anfield>
+    a dbo:Stadium ;
+    rdfs:label "Anfield"@es ;
+    rdfs:label "Anfield"@en ;
+    dbp:seatingCapacity 61276 ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Panorama_of_Anfield_with_new_main_stand_(29676137824).jpg?width=300> ;
+    dbo:location <http://dbpedia.org/resource/England_national_football_team> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Darwin_Núñez ──
+<http://dbpedia.org/resource/Darwin_Núñez>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Darwin Núñez"@es ;
+    rdfs:label "Darwin Núñez"@en ;
+    dbo:team <http://dbpedia.org/resource/Liverpool_F.C.> ;
+    dbo:birthDate "1999-06-24"^^xsd:date ;
+    dbp:birthPlace "Artigas, Uruguay"@en ;
+    dbo:position <http://dbpedia.org/resource/Forward_(association_football)> ;
+    dbo:number "7" ;
+    dbo:height "1.87"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Darwin_Núñez_(cropped).jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Al_Hilal_SFC> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Fabinho_(footballer,_born_1993) ──
+<http://dbpedia.org/resource/Fabinho_(footballer,_born_1993)>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Fabinho Tavares"@es ;
+    rdfs:label "Fabinho (footballer, born 1993)"@en ;
+    dbo:team <http://dbpedia.org/resource/Liverpool_F.C.> ;
+    dbo:birthDate "1993-10-23"^^xsd:date ;
+    dbp:birthPlace "Campinas, Brazil"@en ;
+    dbo:position <http://dbpedia.org/resource/Defender_(association_football)> ;
+    dbo:number "8" ;
+    dbo:height "1.88"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Fabinho_(43934382122)_(cropped).jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Ittihad_Club> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Fabinho_(footballer,_born_1993) ──
+<http://dbpedia.org/resource/Fabinho_(footballer,_born_1993)>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Fabinho Tavares"@es ;
+    rdfs:label "Fabinho (footballer, born 1993)"@en ;
+    dbo:team <http://dbpedia.org/resource/Liverpool_F.C.> ;
+    dbo:birthDate "1993-10-23"^^xsd:date ;
+    dbp:birthPlace "Campinas, Brazil"@en ;
+    dbo:position <http://dbpedia.org/resource/Midfielder> ;
+    dbo:number "8" ;
+    dbo:height "1.88"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Fabinho_(43934382122)_(cropped).jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Ittihad_Club> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Danny_Wilson_(footballer,_born_1991) ──
+<http://dbpedia.org/resource/Danny_Wilson_(footballer,_born_1991)>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Danny Wilson"@es ;
+    rdfs:label "Danny Wilson (footballer, born 1991)"@en ;
+    dbo:team <http://dbpedia.org/resource/Liverpool_F.C.> ;
+    dbo:birthDate "1991-12-27"^^xsd:date ;
+    dbp:birthPlace "Livingston, Scotland"@en ;
+    dbo:position <http://dbpedia.org/resource/Defender_(association_football)> ;
+    dbo:number "27" ;
+    dbo:height "1.87"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Danny_Wilson_warming_up_(cropped).jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Livingston_F.C.> .
+
+# ── JUGADOR: http://dbpedia.org/resource/James_Norris_(footballer) ──
+<http://dbpedia.org/resource/James_Norris_(footballer)>
+    a dbo:SoccerPlayer ;
+    rdfs:label "James Norris"@es ;
+    rdfs:label "James Norris (footballer)"@en ;
+    dbo:team <http://dbpedia.org/resource/Liverpool_F.C.> ;
+    dbo:birthDate "2003-04-04"^^xsd:date ;
+    dbp:birthPlace "Liverpool, England"@en ;
+    dbo:position <http://dbpedia.org/resource/Defender_(association_football)> ;
+    dbo:number "18" ;
+    dbo:height "1.7"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/FC_Salzburg_U19_gegen_Liverpool_FC_U19(UEFA_Youth_League_10.Dezember_2019)_31_(cropped).jpg?width=300> ;
+    dbp:currentclub <Shelbourne> .
+
+# ── EQUIPO: http://dbpedia.org/resource/Chelsea_F.C. ──
+<http://dbpedia.org/resource/Chelsea_F.C.>
+    a dbo:SoccerClub ;
+    rdfs:label "Chelsea Football Club"@es ;
+    rdfs:label "Chelsea F.C."@en ;
+    dbo:ground <http://dbpedia.org/resource/Stamford_Bridge_(stadium)> ;
+    dbo:manager <http://dbpedia.org/resource/Enzo_Maresca> ;
+    dbo:chairman <http://dbpedia.org/resource/Todd_Boehly> ;
+    dbo:capacity "40044"^^xsd:integer ;
+    dbo:formationDate "1905-03-10"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Chelsea_FC.svg?width=300> ;
+    foaf:nick "The Blues" .
+
+# ── ESTADIO: http://dbpedia.org/resource/Stamford_Bridge_(stadium) ──
+<http://dbpedia.org/resource/Stamford_Bridge_(stadium)>
+    a dbo:Stadium ;
+    rdfs:label "Stamford Bridge (estadio)"@es ;
+    rdfs:label "Stamford Bridge (stadium)"@en ;
+    dbp:seatingCapacity 40044 ;
+    dbo:openingDate "1877-04-28"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/London_Stamford_Bridge.jpg?width=300> ;
+    dbo:location <http://dbpedia.org/resource/England> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Zain_Silcott-Duberry ──
+<http://dbpedia.org/resource/Zain_Silcott-Duberry>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Zain Silcott-Duberry"@en ;
+    dbo:team <http://dbpedia.org/resource/Chelsea_F.C.> ;
+    dbo:birthDate "2005-07-09"^^xsd:date ;
+    dbp:birthPlace "Hackney, England"@en ;
+    dbo:position <http://dbpedia.org/resource/Forward_(association_football)> ;
+    dbo:height "1.86"^^xsd:double ;
+    dbp:currentclub <http://dbpedia.org/resource/Olympiacos_F.C._B> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Kalidou_Koulibaly ──
+<http://dbpedia.org/resource/Kalidou_Koulibaly>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Kalidou Koulibaly"@es ;
+    rdfs:label "Kalidou Koulibaly"@en ;
+    dbo:team <http://dbpedia.org/resource/Chelsea_F.C.> ;
+    dbo:birthDate "1991-06-20"^^xsd:date ;
+    dbp:birthPlace "Saint-Dié-des-Vosges, France"@en ;
+    dbo:position <http://dbpedia.org/resource/Defender_(association_football)> ;
+    dbo:number "3" ;
+    dbo:height "1.86"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Joueur_de_foot.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Al_Hilal_SFC> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Thiago_Silva ──
+<http://dbpedia.org/resource/Thiago_Silva>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Thiago Silva"@es ;
+    rdfs:label "Thiago Silva"@en ;
+    dbo:team <http://dbpedia.org/resource/Chelsea_F.C.> ;
+    dbo:birthDate "1984-09-22"^^xsd:date ;
+    dbp:birthPlace "Rio de Janeiro, Brazil"@en ;
+    dbo:position <http://dbpedia.org/resource/Defender_(association_football)> ;
+    dbo:number "3" ;
+    dbo:height "1.81"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/20180610_FIFA_Friendly_Match_Austria_vs._Brazil_Thiago_Silva_850_1582.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Fluminense_FC> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Willian_(footballer,_born_1988) ──
+<http://dbpedia.org/resource/Willian_(footballer,_born_1988)>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Willian"@es ;
+    rdfs:label "Willian (footballer, born 1988)"@en ;
+    dbo:team <http://dbpedia.org/resource/Chelsea_F.C.> ;
+    dbo:birthDate "1988-08-09"^^xsd:date ;
+    dbp:birthPlace "Ribeirão Pires, Brazil"@en ;
+    dbo:position <http://dbpedia.org/resource/Midfielder> ;
+    dbo:number "88" ;
+    dbo:height "1.75"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Bra-Cos_(21)_(cropped_2).jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Grêmio_FBPA> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Matej_Delač ──
+<http://dbpedia.org/resource/Matej_Delač>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Matej Delač"@es ;
+    rdfs:label "Matej Delač"@en ;
+    dbo:team <http://dbpedia.org/resource/Chelsea_F.C.> ;
+    dbo:birthDate "1992-08-20"^^xsd:date ;
+    dbp:birthPlace "Gornji Vakuf, Bosnia and Herzegovina"@en ;
+    dbo:position <http://dbpedia.org/resource/Goalkeeper_(association_football)> ;
+    dbo:number "1" ;
+    dbo:height "1.9"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Matej_Delač_04-2009.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/AC_Horsens> .
+
+# ── EQUIPO: http://dbpedia.org/resource/Arsenal_F.C. ──
+<http://dbpedia.org/resource/Arsenal_F.C.>
+    a dbo:SoccerClub ;
+    rdfs:label "Arsenal Football Club"@es ;
+    rdfs:label "Arsenal F.C."@en ;
+    dbo:ground <http://dbpedia.org/resource/Emirates_Stadium> ;
+    dbo:manager <http://dbpedia.org/resource/Mikel_Arteta> ;
+    dbo:capacity "60704"^^xsd:integer ;
+    dbo:formationDate "1886-12-11"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Arsenal_FC.svg?width=300> ;
+    foaf:nick "The Gunners" .
+
+# ── ESTADIO: http://dbpedia.org/resource/Emirates_Stadium ──
+<http://dbpedia.org/resource/Emirates_Stadium>
+    a dbo:Stadium ;
+    rdfs:label "Emirates Stadium"@es ;
+    rdfs:label "Emirates Stadium"@en ;
+    dbp:capacity 60704 ;
+    dbo:openingDate "2006-07-22"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Emirates_Stadium_logo.svg?width=300> ;
+    dbo:location <http://dbpedia.org/resource/Postcodes_in_the_United_Kingdom> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Peter_Cruse ──
+<http://dbpedia.org/resource/Peter_Cruse>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Peter Cruse"@en ;
+    dbo:team <http://dbpedia.org/resource/Arsenal_F.C.> ;
+    dbo:birthDate "1951-01-10"^^xsd:date ;
+    dbp:birthPlace "Camden, England"@en ;
+    dbo:position <http://dbpedia.org/resource/Midfielder> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Brad_House ──
+<http://dbpedia.org/resource/Brad_House>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Brad House"@en ;
+    dbo:team <http://dbpedia.org/resource/Arsenal_F.C.> ;
+    dbo:birthDate "1998-10-19"^^xsd:date ;
+    dbp:birthPlace "Worthing, England"@en ;
+    dbo:position <http://dbpedia.org/resource/Goalkeeper_(association_football)> ;
+    dbo:number "1" ;
+    dbo:height "1.88"^^xsd:double ;
+    dbp:currentclub <http://dbpedia.org/resource/Chatham_Town_F.C.> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Stanley_Briggs ──
+<http://dbpedia.org/resource/Stanley_Briggs>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Stanley Briggs"@en ;
+    dbo:team <http://dbpedia.org/resource/Arsenal_F.C.> ;
+    dbo:birthDate "1872-02-07"^^xsd:date ;
+    dbo:position <http://dbpedia.org/resource/Defender_(association_football)> .
+
+# ── JUGADOR: http://dbpedia.org/resource/João_Virgínia ──
+<http://dbpedia.org/resource/João_Virgínia>
+    a dbo:SoccerPlayer ;
+    rdfs:label "João Virgínia"@es ;
+    rdfs:label "João Virgínia"@en ;
+    dbo:team <http://dbpedia.org/resource/Arsenal_F.C.> ;
+    dbo:birthDate "1999-10-10"^^xsd:date ;
+    dbp:birthPlace "Faro, Portugal"@en ;
+    dbo:position <http://dbpedia.org/resource/Goalkeeper_(association_football)> ;
+    dbo:number "12" ;
+    dbo:height "1.91"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/João_Virgínia_10052025_(4)_(cropped).jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Sporting_CP> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Nicolas_Jover ──
+<http://dbpedia.org/resource/Nicolas_Jover>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Nicolas Jover"@en ;
+    dbo:team <http://dbpedia.org/resource/Arsenal_F.C.> ;
+    dbo:birthDate "1981-10-28"^^xsd:date ;
+    dbp:birthPlace "Berlin, Germany"@en ;
+    dbp:currentclub <http://dbpedia.org/resource/Arsenal_F.C.> .
+
+# ── EQUIPO: http://dbpedia.org/resource/Tottenham_Hotspur_F.C. ──
+<http://dbpedia.org/resource/Tottenham_Hotspur_F.C.>
+    a dbo:SoccerClub ;
+    rdfs:label "Tottenham Hotspur Football Club"@es ;
+    rdfs:label "Tottenham Hotspur F.C."@en ;
+    dbo:ground <http://dbpedia.org/resource/Tottenham_Hotspur_Stadium> ;
+    dbo:manager <http://dbpedia.org/resource/Thomas_Frank_(football_manager)> ;
+    dbo:capacity "62850"^^xsd:integer ;
+    dbo:formationDate "1882-09-05"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Tottenham_Hotspur.svg?width=300> ;
+    foaf:nick "The Lilywhites" .
+
+# ── ESTADIO: http://dbpedia.org/resource/Tottenham_Hotspur_Stadium ──
+<http://dbpedia.org/resource/Tottenham_Hotspur_Stadium>
+    a dbo:Stadium ;
+    rdfs:label "Tottenham Hotspur Stadium"@es ;
+    rdfs:label "Tottenham Hotspur Stadium"@en ;
+    dbp:seatingCapacity 62850 ;
+    dbo:openingDate "2019-04-03"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Tottenham_Hotspur_Stadium_logo.svg?width=300> ;
+    dbo:location <http://dbpedia.org/resource/England> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Jimmy_Freeborough ──
+<http://dbpedia.org/resource/Jimmy_Freeborough>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Jimmy Freeborough"@en ;
+    dbo:team <http://dbpedia.org/resource/Tottenham_Hotspur_F.C.> ;
+    dbo:birthDate "1879-02-13"^^xsd:date ;
+    dbp:birthPlace "Stockport, England"@en ;
+    dbo:position <http://dbpedia.org/resource/Defender_(association_football)> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Harold_Stansfield ──
+<http://dbpedia.org/resource/Harold_Stansfield>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Harold Stansfield"@en ;
+    dbo:team <http://dbpedia.org/resource/Tottenham_Hotspur_F.C.> ;
+    dbo:birthDate "1878-07-21"^^xsd:date ;
+    dbo:position <http://dbpedia.org/resource/Forward_(association_football)> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Alfie_Williams_(footballer) ──
+<http://dbpedia.org/resource/Alfie_Williams_(footballer)>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Alfie Williams (footballer)"@en ;
+    dbo:team <http://dbpedia.org/resource/Tottenham_Hotspur_F.C.> ;
+    dbo:birthDate "2003-04-20"^^xsd:date ;
+    dbp:birthPlace "Watford, England"@en ;
+    dbo:position <http://dbpedia.org/resource/Midfielder> ;
+    dbp:currentclub <http://dbpedia.org/resource/Hampton_&_Richmond_Borough_F.C.> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Jez_Davies ──
+<http://dbpedia.org/resource/Jez_Davies>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Jez Davies"@en ;
+    dbo:team <http://dbpedia.org/resource/Tottenham_Hotspur_F.C.> ;
+    dbo:birthDate "2004-07-10"^^xsd:date ;
+    dbp:birthPlace "London, England"@en ;
+    dbo:position <http://dbpedia.org/resource/Midfielder> ;
+    dbo:height "1.8"^^xsd:double .
+
+# ── JUGADOR: http://dbpedia.org/resource/Hector_Mackie ──
+<http://dbpedia.org/resource/Hector_Mackie>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Hector Mackie"@en ;
+    dbo:team <http://dbpedia.org/resource/Tottenham_Hotspur_F.C.> ;
+    dbo:birthDate "1988-05-10"^^xsd:date ;
+    dbp:birthPlace "Inverness, Scotland"@en ;
+    dbo:position <http://dbpedia.org/resource/Midfielder> .
+
+# ── EQUIPO: http://dbpedia.org/resource/Bayern_Munich ──
+<http://dbpedia.org/resource/Bayern_Munich>
+    a dbo:SoccerClub .
+
+# ── EQUIPO: http://dbpedia.org/resource/Borussia_Dortmund ──
+<http://dbpedia.org/resource/Borussia_Dortmund>
+    a dbo:SoccerClub ;
+    rdfs:label "Borussia Dortmund"@es ;
+    rdfs:label "Borussia Dortmund"@en ;
+    dbo:ground <http://dbpedia.org/resource/Westfalenstadion> ;
+    dbo:manager <http://dbpedia.org/resource/Niko_Kovač> ;
+    dbo:chairman <http://dbpedia.org/resource/Lars_Ricken> ;
+    dbo:capacity "81365"^^xsd:integer ;
+    dbo:formationDate "1909-12-19"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Borussia_Dortmund_logo.svg?width=300> ;
+    foaf:nick "Die Borussen (The Prussians)" .
+
+# ── ESTADIO: http://dbpedia.org/resource/Westfalenstadion ──
+<http://dbpedia.org/resource/Westfalenstadion>
+    a dbo:Stadium ;
+    rdfs:label "Signal Iduna Park"@es ;
+    rdfs:label "Westfalenstadion"@en ;
+    dbp:seatingCapacity 42800 ;
+    dbo:openingDate "1974-04-02"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/SIGNAL_IDUNA_PARK_Logo.svg?width=300> ;
+    dbo:location <http://dbpedia.org/resource/Dortmund> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Lion_Semić ──
+<http://dbpedia.org/resource/Lion_Semić>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Lion Semić"@es ;
+    rdfs:label "Lion Semić"@en ;
+    dbo:team <http://dbpedia.org/resource/Borussia_Dortmund> ;
+    dbo:birthDate "2003-09-13"^^xsd:date ;
+    dbp:birthPlace "Fritzlar, Germany"@en ;
+    dbo:position <http://dbpedia.org/resource/Defender_(association_football)> ;
+    dbo:number "17" ;
+    dbo:height "1.8"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/2022-11-11_Borussia_Dortund_II_gegen_FC_Erzgebirge_Aue_(3._Liga_2022-23)_by_Sandro_Halank–059.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Helmond_Sport> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Lion_Semić ──
+<http://dbpedia.org/resource/Lion_Semić>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Lion Semić"@es ;
+    rdfs:label "Lion Semić"@en ;
+    dbo:team <http://dbpedia.org/resource/Borussia_Dortmund> ;
+    dbo:birthDate "2003-09-13"^^xsd:date ;
+    dbp:birthPlace "Fritzlar, Germany"@en ;
+    dbo:position <http://dbpedia.org/resource/Defender_(association_football)> ;
+    dbo:number "17" ;
+    dbo:height "1.8"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/2022-11-11_Borussia_Dortund_II_gegen_FC_Erzgebirge_Aue_(3._Liga_2022-23)_by_Sandro_Halank–059.jpg?width=300> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Tolgay_Arslan ──
+<http://dbpedia.org/resource/Tolgay_Arslan>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Tolgay Arslan"@es ;
+    rdfs:label "Tolgay Arslan"@en ;
+    dbo:team <http://dbpedia.org/resource/Borussia_Dortmund> ;
+    dbo:birthDate "1990-08-16"^^xsd:date ;
+    dbp:birthPlace "Paderborn, West Germany"@en ;
+    dbo:position <http://dbpedia.org/resource/Midfielder> ;
+    dbo:number "30" ;
+    dbo:height "1.8"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Tolgay_Arslan_2014.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Sanfrecce_Hiroshima> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Christian_Pulisic ──
+<http://dbpedia.org/resource/Christian_Pulisic>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Christian Pulisic"@es ;
+    rdfs:label "Christian Pulisic"@en ;
+    dbo:team <http://dbpedia.org/resource/Borussia_Dortmund> ;
+    dbo:birthDate "1998-09-18"^^xsd:date ;
+    dbp:birthPlace "Hershey, Pennsylvania, U.S."@en ;
+    dbo:position <http://dbpedia.org/resource/Midfielder> ;
+    dbo:number "11" ;
+    dbo:height "1.78"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/2022_FIFA_World_Cup_United_States_1–1_Wales_-_(19)_(Crop).png?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/AC_Milan> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Ciro_Immobile ──
+<http://dbpedia.org/resource/Ciro_Immobile>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Ciro Immobile"@es ;
+    rdfs:label "Ciro Immobile"@en ;
+    dbo:team <http://dbpedia.org/resource/Borussia_Dortmund> ;
+    dbo:birthDate "1990-02-20"^^xsd:date ;
+    dbp:birthPlace "Torre Annunziata, Italy"@en ;
+    dbo:position <http://dbpedia.org/resource/Forward_(association_football)> ;
+    dbo:number "17" ;
+    dbo:height "1.83"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Ciro_Immobile_20240803_(cropped).jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Bologna_FC_1909> .
+
+# ── EQUIPO: http://dbpedia.org/resource/Juventus_F.C. ──
+<http://dbpedia.org/resource/Juventus_F.C.>
+    a dbo:SoccerClub ;
+    rdfs:label "Juventus de Turín"@es .
+
+# ── EQUIPO: http://dbpedia.org/resource/A.C._Milan ──
+<http://dbpedia.org/resource/A.C._Milan>
+    a dbo:SoccerClub ;
+    rdfs:label "Associazione Calcio Milan"@es .
+
+# ── EQUIPO: http://dbpedia.org/resource/Inter_Milan ──
+<http://dbpedia.org/resource/Inter_Milan>
+    a dbo:SoccerClub ;
+    rdfs:label "Inter de Milán"@es ;
+    rdfs:label "Inter Milan"@en ;
+    dbo:ground <http://dbpedia.org/resource/San_Siro> ;
+    dbo:manager <http://dbpedia.org/resource/Cristian_Chivu> ;
+    dbo:chairman <http://dbpedia.org/resource/Giuseppe_Marotta> ;
+    dbo:capacity "80018"^^xsd:integer ;
+    dbo:formationDate "1908-03-09"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/FC_Internazionale_Milano_2021.svg?width=300> ;
+    foaf:nick "I Nerazzurri (The Black and Blues)" .
+
+# ── ESTADIO: http://dbpedia.org/resource/San_Siro ──
+<http://dbpedia.org/resource/San_Siro>
+    a dbo:Stadium ;
+    rdfs:label "Estadio Giuseppe Meazza"@es ;
+    rdfs:label "San Siro"@en ;
+    dbp:seatingCapacity 75817 ;
+    dbo:openingDate "1926-09-19"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Stadio_Meazza_2021_3.jpg?width=300> ;
+    dbo:location <http://dbpedia.org/resource/Milan> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Davy_Klaassen ──
+<http://dbpedia.org/resource/Davy_Klaassen>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Davy Klaassen"@es ;
+    rdfs:label "Davy Klaassen"@en ;
+    dbo:team <http://dbpedia.org/resource/Inter_Milan> ;
+    dbo:birthDate "1993-02-21"^^xsd:date ;
+    dbp:birthPlace "Hilversum, Netherlands"@en ;
+    dbo:position <http://dbpedia.org/resource/Midfielder> ;
+    dbo:number "18" ;
+    dbo:height "1.79"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/GAE_-_Ajax_-_52788472780_(Davy_Klaassen).jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/AFC_Ajax> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Gabriel_Brazão ──
+<http://dbpedia.org/resource/Gabriel_Brazão>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Gabriel Brazão"@es ;
+    rdfs:label "Gabriel Brazão"@en ;
+    dbo:team <http://dbpedia.org/resource/Inter_Milan> ;
+    dbo:birthDate "2000-10-05"^^xsd:date ;
+    dbp:birthPlace "Uberlândia, Brazil"@en ;
+    dbo:position <http://dbpedia.org/resource/Goalkeeper_(association_football)> ;
+    dbo:number "77" ;
+    dbo:height "1.92"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Gabriel_Brazão01.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Santos_FC> .
+
+# ── JUGADOR: http://dbpedia.org/resource/João_Cancelo ──
+<http://dbpedia.org/resource/João_Cancelo>
+    a dbo:SoccerPlayer ;
+    rdfs:label "João Cancelo"@es ;
+    rdfs:label "João Cancelo"@en ;
+    dbo:team <http://dbpedia.org/resource/Inter_Milan> ;
+    dbo:birthDate "1994-05-27"^^xsd:date ;
+    dbo:position <http://dbpedia.org/resource/Defender_(association_football)> ;
+    dbo:number "20" ;
+    dbo:height "1.82"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/CanceloCity23.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Al_Hilal_SFC> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Mattia_Zanotti ──
+<http://dbpedia.org/resource/Mattia_Zanotti>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Mattia Zanotti"@es ;
+    rdfs:label "Mattia Zanotti"@en ;
+    dbo:team <http://dbpedia.org/resource/Inter_Milan> ;
+    dbo:birthDate "2003-01-11"^^xsd:date ;
+    dbp:birthPlace "Brescia, Italy"@en ;
+    dbo:position <http://dbpedia.org/resource/Defender_(association_football)> ;
+    dbo:number "46" ;
+    dbo:height "1.75"^^xsd:double ;
+    dbp:currentclub <http://dbpedia.org/resource/FC_Lugano> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Oliver_Jürgens ──
+<http://dbpedia.org/resource/Oliver_Jürgens>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Oliver Jürgens"@en ;
+    dbo:team <http://dbpedia.org/resource/Inter_Milan> ;
+    dbo:birthDate "2003-05-10"^^xsd:date ;
+    dbp:birthPlace "Tallinn, Estonia"@en ;
+    dbo:position <http://dbpedia.org/resource/Forward_(association_football)> ;
+    dbo:number "7" ;
+    dbo:height "1.8"^^xsd:double ;
+    dbp:currentclub <http://dbpedia.org/resource/Elche_CF_Ilicitano> .
+
+# ── EQUIPO: http://dbpedia.org/resource/Paris_Saint-Germain_F.C. ──
+<http://dbpedia.org/resource/Paris_Saint-Germain_F.C.>
+    a dbo:SoccerClub ;
+    rdfs:label "Paris Saint-Germain Football Club"@es .
+
+# ── EQUIPO: http://dbpedia.org/resource/Atlético_Madrid ──
+<http://dbpedia.org/resource/Atlético_Madrid>
+    a dbo:SoccerClub ;
+    rdfs:label "Club Atlético de Madrid"@es ;
+    rdfs:label "Atlético Madrid"@en ;
+    dbo:ground <http://dbpedia.org/resource/Metropolitano_Stadium> ;
+    dbo:manager <http://dbpedia.org/resource/Diego_Simeone> ;
+    dbo:chairman <http://dbpedia.org/resource/Enrique_Cerezo> ;
+    dbo:capacity "70692"^^xsd:integer ;
+    dbo:formationDate "1903-04-26"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Atletico_Madrid_Logo_2024.svg?width=300> ;
+    foaf:nick "Colchoneros (Mattress Makers)" .
+
+# ── ESTADIO: http://dbpedia.org/resource/Metropolitano_Stadium ──
+<http://dbpedia.org/resource/Metropolitano_Stadium>
+    a dbo:Stadium ;
+    rdfs:label "Estadio Metropolitano (Madrid)"@es ;
+    rdfs:label "Metropolitano Stadium"@en ;
+    dbp:seatingCapacity 60000 ;
+    dbo:openingDate "1994-09-06"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Atleti_vs_Villarreal_-_September_2025.jpg?width=300> ;
+    dbo:location <http://dbpedia.org/resource/Madrid> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Rafael_Santos_Borré ──
+<http://dbpedia.org/resource/Rafael_Santos_Borré>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Rafael Santos Borré"@es ;
+    rdfs:label "Rafael Santos Borré"@en ;
+    dbo:team <http://dbpedia.org/resource/Atlético_Madrid> ;
+    dbo:birthDate "1995-09-15"^^xsd:date ;
+    dbp:birthPlace "Barranquilla, Colombia"@en ;
+    dbo:position <http://dbpedia.org/resource/Forward_(association_football)> ;
+    dbo:number "19" ;
+    dbo:height "1.74"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/RAFAEL_BORRE_(cropped2).jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/SC_Internacional> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Yassine_Bounou ──
+<http://dbpedia.org/resource/Yassine_Bounou>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Bono (futbolista)"@es ;
+    rdfs:label "Yassine Bounou"@en ;
+    dbo:team <http://dbpedia.org/resource/Atlético_Madrid> ;
+    dbo:birthDate "1991-04-05"^^xsd:date ;
+    dbp:birthPlace "Montreal, Quebec, Canada"@en ;
+    dbo:position <http://dbpedia.org/resource/Goalkeeper_(association_football)> ;
+    dbo:number "37" ;
+    dbo:height "1.95"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Yassine_bounou_Interview_2023.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Al_Hilal_SFC> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Çağlar_Söyüncü ──
+<http://dbpedia.org/resource/Çağlar_Söyüncü>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Çağlar Söyüncü"@es ;
+    rdfs:label "Çağlar Söyüncü"@en ;
+    dbo:team <http://dbpedia.org/resource/Atlético_Madrid> ;
+    dbo:birthDate "1996-05-23"^^xsd:date ;
+    dbp:birthPlace "İzmir, Turkey"@en ;
+    dbo:position <http://dbpedia.org/resource/Defender_(association_football)> ;
+    dbo:number "4" ;
+    dbo:height "1.85"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/AUT_vs._TUR_2016-03-29_(381)_(cropped).jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Fenerbahçe_S.K._(football)> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Memphis_Depay ──
+<http://dbpedia.org/resource/Memphis_Depay>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Memphis Depay"@es ;
+    rdfs:label "Memphis Depay"@en ;
+    dbo:team <http://dbpedia.org/resource/Atlético_Madrid> ;
+    dbo:birthDate "1994-02-13"^^xsd:date ;
+    dbp:birthPlace "Moordrecht, Netherlands"@en ;
+    dbo:position <http://dbpedia.org/resource/Forward_(association_football)> ;
+    dbo:number "10" ;
+    dbo:height "1.78"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Memphis_Depay_2019.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Sport_Club_Corinthians_Paulista> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Richard_Sánchez_(footballer,_born_1994) ──
+<http://dbpedia.org/resource/Richard_Sánchez_(footballer,_born_1994)>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Richard Sánchez"@es ;
+    rdfs:label "Richard Sánchez (footballer, born 1994)"@en ;
+    dbo:team <http://dbpedia.org/resource/Atlético_Madrid> ;
+    dbo:birthDate "1994-04-05"^^xsd:date ;
+    dbp:birthPlace "Mission Hills, California, United States"@en ;
+    dbo:position <http://dbpedia.org/resource/Goalkeeper_(association_football)> ;
+    dbo:number "1" ;
+    dbo:height "1.91"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Sanchez_Richard_Columbus_Crew_SC_vs_Chicago_Fire_May_12_2018.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/San_Antonio_FC> .
+
+# ── EQUIPO: http://dbpedia.org/resource/Sevilla_FC ──
+<http://dbpedia.org/resource/Sevilla_FC>
+    a dbo:SoccerClub ;
+    rdfs:label "Sevilla Fútbol Club"@es ;
+    rdfs:label "Sevilla FC"@en ;
+    dbo:ground <http://dbpedia.org/resource/Ramón_Sánchez_Pizjuán_Stadium> ;
+    dbo:manager <http://dbpedia.org/resource/Matías_Almeyda> ;
+    dbo:capacity "42714"^^xsd:integer ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Sevilla_FC_logo.svg?width=300> ;
+    foaf:nick "Rojiblancos" .
+
+# ── ESTADIO: http://dbpedia.org/resource/Ramón_Sánchez_Pizjuán_Stadium ──
+<http://dbpedia.org/resource/Ramón_Sánchez_Pizjuán_Stadium>
+    a dbo:Stadium ;
+    rdfs:label "Estadio Ramón Sánchez-Pizjuán"@es ;
+    rdfs:label "Ramón Sánchez Pizjuán Stadium"@en ;
+    dbp:capacity 42714 ;
+    dbo:openingDate "1958-09-07"^^xsd:date ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/2022-10-25_1_Estadio_Ramón_Sánchez_Pizjuán_(Sevilla_FC).jpg?width=300> ;
+    dbo:location <http://dbpedia.org/resource/Andalusia> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Carlos_Bacca ──
+<http://dbpedia.org/resource/Carlos_Bacca>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Carlos Bacca"@es ;
+    rdfs:label "Carlos Bacca"@en ;
+    dbo:team <http://dbpedia.org/resource/Sevilla_FC> ;
+    dbo:birthDate "1986-09-08"^^xsd:date ;
+    dbp:birthPlace "Puerto Colombia, Colombia"@en ;
+    dbo:position <http://dbpedia.org/resource/Forward_(association_football)> ;
+    dbo:number "70" ;
+    dbo:height "1.81"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/FWC_2018_-_Round_of_16_-_COL_v_ENG_-_Photo_125.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Atlético_Junior> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Gabriel_Mercado ──
+<http://dbpedia.org/resource/Gabriel_Mercado>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Gabriel Mercado"@es ;
+    rdfs:label "Gabriel Mercado"@en ;
+    dbo:team <http://dbpedia.org/resource/Sevilla_FC> ;
+    dbo:birthDate "1987-03-18"^^xsd:date ;
+    dbp:birthPlace "Puerto Madryn, Argentina"@en ;
+    dbo:position <http://dbpedia.org/resource/Defender_(association_football)> ;
+    dbo:number "25" ;
+    dbo:height "1.81"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/FRA-ARG_(16)_(cropped).jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/SC_Internacional> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Kasper_Dolberg ──
+<http://dbpedia.org/resource/Kasper_Dolberg>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Kasper Dolberg"@es ;
+    rdfs:label "Kasper Dolberg"@en ;
+    dbo:team <http://dbpedia.org/resource/Sevilla_FC> ;
+    dbo:birthDate "1997-10-06"^^xsd:date ;
+    dbp:birthPlace "Silkeborg, Denmark"@en ;
+    dbo:position <http://dbpedia.org/resource/Forward_(association_football)> ;
+    dbo:number "9" ;
+    dbo:height "1.87"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Kasper_Dolberg_-_RSCA_(2024)_(cropped).jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/AFC_Ajax> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Paulo_Henrique_Ganso ──
+<http://dbpedia.org/resource/Paulo_Henrique_Ganso>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Paulo Henrique Ganso"@es ;
+    rdfs:label "Paulo Henrique Ganso"@en ;
+    dbo:team <http://dbpedia.org/resource/Sevilla_FC> ;
+    dbo:birthDate "1989-10-12"^^xsd:date ;
+    dbp:birthPlace "Ananindeua, Brazil"@en ;
+    dbo:position <http://dbpedia.org/resource/Midfielder> ;
+    dbo:number "10" ;
+    dbo:height "1.84"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Ganso_jogador.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Fluminense_FC> .
+
+# ── JUGADOR: http://dbpedia.org/resource/Yassine_Bounou ──
+<http://dbpedia.org/resource/Yassine_Bounou>
+    a dbo:SoccerPlayer ;
+    rdfs:label "Bono (futbolista)"@es ;
+    rdfs:label "Yassine Bounou"@en ;
+    dbo:team <http://dbpedia.org/resource/Sevilla_FC> ;
+    dbo:birthDate "1991-04-05"^^xsd:date ;
+    dbp:birthPlace "Montreal, Quebec, Canada"@en ;
+    dbo:position <http://dbpedia.org/resource/Goalkeeper_(association_football)> ;
+    dbo:number "37" ;
+    dbo:height "1.95"^^xsd:double ;
+    dbo:thumbnail <http://commons.wikimedia.org/wiki/Special:FilePath/Yassine_bounou_Interview_2023.jpg?width=300> ;
+    dbp:currentclub <http://dbpedia.org/resource/Al_Hilal_SFC> .

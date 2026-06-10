@@ -1,11 +1,11 @@
 from src.modules.semantic.semantic_parser import SemanticParser
-from src.modules.dbpedia.dbpedia_executor import DBpediaExecutor
+from src.modules.dbpedia.dbpedia_executor import DBpediaExecutor, FusekiNoAvailableError
 from src.modules.dbpedia.dbpedia_query_builder import DBpediaQueryBuilder
 from src.modules.dbpedia.dbpedia_stadium_resolver import resolve_stadium_intent
 from src.models import SearchResponse
 
 
-def _fetch_stadium_capacity(stadium_uri: str) -> str | None:
+def _fetch_stadium_capacity(stadium_uri: str, mode: str = "online") -> str | None:
     """Obtiene la capacidad máxima desde dbp:capacity / dbp:seatingCapacity."""
     if not stadium_uri:
         return None
@@ -19,7 +19,7 @@ SELECT (MAX(?capNum) AS ?capacity) WHERE {{
   BIND(xsd:integer(?capVal) AS ?capNum)
 }}
 """
-    rows = DBpediaExecutor.query(q)
+    rows = DBpediaExecutor.query(q, mode=mode)
     cap = rows[0].get("capacity") if rows else None
     if cap:
         return cap
@@ -32,7 +32,7 @@ SELECT (MAX(?capNum) AS ?capacity) WHERE {{
   BIND(xsd:integer(?capVal) AS ?capNum)
 }}
 """
-    rows2 = DBpediaExecutor.query(q2)
+    rows2 = DBpediaExecutor.query(q2, mode=mode)
     return rows2[0].get("capacity") if rows2 else None
 
 
@@ -224,7 +224,7 @@ def _t(language: str, key: str, **kwargs) -> str:
 
 
 class DBpediaService:
-    def execute(self, query_str: str, language: str = "es") -> SearchResponse:
+    def execute(self, query_str: str, language: str = "es", mode: str = "online") -> SearchResponse:
         
         
         
@@ -270,7 +270,18 @@ class DBpediaService:
 
         # 2. Construcción y ejecución
         query_sparql = DBpediaQueryBuilder.build(intent, entity, language)
-        resultados = DBpediaExecutor.query(query_sparql)
+        try:
+            resultados = DBpediaExecutor.query(query_sparql, mode=mode)
+        except FusekiNoAvailableError as e:
+            return SearchResponse(
+         query=query_str,
+         intent=intent,
+         answer=str(e),
+         data=None,
+         found=False
+       )
+        
+            
         
         answer = _t(language, "no_results")
         data = None

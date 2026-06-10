@@ -4,9 +4,9 @@ export default function ThemeToggle({ isDarkMode, onToggle }) {
   return (
     <button
       onClick={onToggle}
-      className="absolute top-6 right-6 rounded-full overflow-hidden
+      className="absolute top-6 right-6 z-50 rounded-full overflow-hidden
                  hover:ring-2 hover:ring-zinc-400 dark:hover:ring-zinc-500
-                 transition-all duration-200"
+                 transition-all duration-200 cursor-pointer"
       style={{ width: "32px", height: "32px" }}
       aria-label="Cambiar tema"
     >
@@ -33,7 +33,7 @@ export default function ThemeToggle({ isDarkMode, onToggle }) {
             style={{
               width: "100%",
               height: "100%",
-              objectFit: "contain", // ← contain para no cortar el sol
+              objectFit: "contain",
               objectPosition: "center",
             }}
           />
