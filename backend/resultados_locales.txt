@@ -1,0 +1,2844 @@
+RESULTADOS DE PRUEBAS LOCALES
+====================================================================================================
+
+================================================================================
+TEST #1
+================================================================================
+Idioma: es
+Pregunta: ¿Quién es Vinícius Júnior?
+
+Respuesta:
+{
+    "query": "¿Quién es Vinícius Júnior?",
+    "intent": "info_jugador",
+    "answer": "Vinícius Júnior es un jugador de nacionalidad Brasileña que juega de Delantero en el Real Madrid. Usa el dorsal #7 y tiene 2 goles registrados.",
+    "data": {
+        "nombre": "Vinícius Júnior",
+        "dorsal": "7",
+        "posicion": "Delantero",
+        "nacionalidad": "Brasileña",
+        "equipo": "Real Madrid",
+        "goles": 2,
+        "capitan": false
+    },
+    "found": true
+}
+
+================================================================================
+TEST #2
+================================================================================
+Idioma: es
+Pregunta: ¿De qué juega Luka Modric?
+
+Respuesta:
+{
+    "query": "¿De qué juega Luka Modric?",
+    "intent": "info_jugador",
+    "answer": "Luka Modric juega en la posición de Mediocampista.",
+    "data": {
+        "nombre": "Luka Modric",
+        "dorsal": "10",
+        "posicion": "Mediocampista",
+        "nacionalidad": "Croata",
+        "equipo": "Real Madrid",
+        "goles": 0,
+        "capitan": true
+    },
+    "found": true
+}
+
+================================================================================
+TEST #3
+================================================================================
+Idioma: es
+Pregunta: ¿De dónde es Harry Kane?
+
+Respuesta:
+{
+    "query": "¿De dónde es Harry Kane?",
+    "intent": "info_jugador",
+    "answer": "La nacionalidad de Harry Kane es Inglesa.",
+    "data": {
+        "nombre": "Harry Kane",
+        "dorsal": "9",
+        "posicion": "Delantero",
+        "nacionalidad": "Inglesa",
+        "equipo": "Bayern Munchen",
+        "goles": 1,
+        "capitan": true
+    },
+    "found": true
+}
+
+================================================================================
+TEST #4
+================================================================================
+Idioma: es
+Pregunta: ¿Cuáles son los jugadores de nacionalidad Brasileña?
+
+Respuesta:
+{
+    "query": "¿Cuáles son los jugadores de nacionalidad Brasileña?",
+    "intent": "jugadores_nacionalidad",
+    "answer": "Se encontraron 3 jugadores con nacionalidad Brasileña, entre ellos: Alisson Becker, Rodrygo Goes y Vinícius Júnior.",
+    "data": [
+        {
+            "nombre": "Alisson Becker",
+            "nacionalidad": "Brasileña",
+            "equipo": "Liverpool FC",
+            "posicion": "Portero"
+        },
+        {
+            "nombre": "Rodrygo Goes",
+            "nacionalidad": "Brasileña",
+            "equipo": "Real Madrid",
+            "posicion": "Delantero"
+        },
+        {
+            "nombre": "Vinícius Júnior",
+            "nacionalidad": "Brasileña",
+            "equipo": "Real Madrid",
+            "posicion": "Delantero"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #5
+================================================================================
+Idioma: es
+Pregunta: ¿Quién lleva el número 7 en el Real Madrid?
+
+Respuesta:
+{
+    "query": "¿Quién lleva el número 7 en el Real Madrid?",
+    "intent": "jugador_por_dorsal",
+    "answer": "El jugador que lleva el dorsal #7 en el Real Madrid es Vinícius Júnior.",
+    "data": {
+        "nombre": "Vinícius Júnior",
+        "dorsal": "7",
+        "equipo": "Real Madrid"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #6
+================================================================================
+Idioma: es
+Pregunta: ¿Cuáles son todos los jugadores?
+
+Respuesta:
+{
+    "query": "¿Cuáles son todos los jugadores?",
+    "intent": "todos_jugadores",
+    "answer": "Hay 13 jugadores registrados: Alisson Becker, Gavi, Harry Kane, Joshua Kimmich, Jude Bellingham y 8 más.",
+    "data": [
+        {
+            "nombre": "Alisson Becker",
+            "nacionalidad": "Brasileña",
+            "posicion": "Portero",
+            "equipo": "Liverpool FC"
+        },
+        {
+            "nombre": "Gavi",
+            "nacionalidad": "Española",
+            "posicion": "Mediocampista",
+            "equipo": "FC Barcelona"
+        },
+        {
+            "nombre": "Harry Kane",
+            "nacionalidad": "Inglesa",
+            "posicion": "Delantero",
+            "equipo": "Bayern Munchen"
+        },
+        {
+            "nombre": "Joshua Kimmich",
+            "nacionalidad": "Alemana",
+            "posicion": "Mediocampista",
+            "equipo": "Bayern Munchen"
+        },
+        {
+            "nombre": "Jude Bellingham",
+            "nacionalidad": "Inglesa",
+            "posicion": "Mediocampista",
+            "equipo": "Real Madrid"
+        },
+        {
+            "nombre": "Kylian Mbappé",
+            "nacionalidad": "Francesa",
+            "posicion": "Delantero",
+            "equipo": "Real Madrid"
+        },
+        {
+            "nombre": "Leroy Sané",
+            "nacionalidad": "Alemana",
+            "posicion": "Delantero",
+            "equipo": "Bayern Munchen"
+        },
+        {
+            "nombre": "Luka Modric",
+            "nacionalidad": "Croata",
+            "posicion": "Mediocampista",
+            "equipo": "Real Madrid"
+        },
+        {
+            "nombre": "Ousmane Dembélé",
+            "nacionalidad": "Francesa",
+            "posicion": "Delantero",
+            "equipo": "Paris Saint-Germain"
+        },
+        {
+            "nombre": "Pedri",
+            "nacionalidad": "Española",
+            "posicion": "Mediocampista",
+            "equipo": "FC Barcelona"
+        },
+        {
+            "nombre": "Robert Lewandowski",
+            "nacionalidad": "Polaca",
+            "posicion": "Delantero",
+            "equipo": "FC Barcelona"
+        },
+        {
+            "nombre": "Rodrygo Goes",
+            "nacionalidad": "Brasileña",
+            "posicion": "Delantero",
+            "equipo": "Real Madrid"
+        },
+        {
+            "nombre": "Vinícius Júnior",
+            "nacionalidad": "Brasileña",
+            "posicion": "Delantero",
+            "equipo": "Real Madrid"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #7
+================================================================================
+Idioma: es
+Pregunta: ¿Cuándo nació Jude Bellingham?
+
+Respuesta:
+{
+    "query": "¿Cuándo nació Jude Bellingham?",
+    "intent": "info_fecha_nacimiento",
+    "answer": "La fecha de nacimiento de Jude Bellingham es el 2003-06-29.",
+    "data": {
+        "nombre": "Jude Bellingham",
+        "fecha_nacimiento": "2003-06-29"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #8
+================================================================================
+Idioma: es
+Pregunta: ¿Es titular Mbappé?
+
+Respuesta:
+{
+    "query": "¿Es titular Mbappé?",
+    "intent": "es_titular",
+    "answer": "Sí, Kylian Mbappé es un jugador titular en el Real Madrid.",
+    "data": {
+        "nombre": "Kylian Mbappé",
+        "es_titular": true,
+        "equipo": "Real Madrid"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #9
+================================================================================
+Idioma: es
+Pregunta: ¿Quién entrena al Liverpool?
+
+Respuesta:
+{
+    "query": "¿Quién entrena al Liverpool?",
+    "intent": "info_equipo",
+    "answer": "El entrenador del Liverpool FC es Jürgen Klopp.",
+    "data": {
+        "nombre": "Liverpool FC",
+        "ciudad": "Liverpool",
+        "pais": "Inglaterra",
+        "estadio": "Anfield",
+        "entrenador": "Jürgen Klopp",
+        "liga": "Premier League"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #10
+================================================================================
+Idioma: es
+Pregunta: ¿Quién es el capitán del Real Madrid?
+
+Respuesta:
+{
+    "query": "¿Quién es el capitán del Real Madrid?",
+    "intent": "capitan_equipo",
+    "answer": "El capitán del Real Madrid es Luka Modric (Dorsal #10, Mediocampista).",
+    "data": {
+        "nombre": "Luka Modric",
+        "dorsal": "10",
+        "posicion": "Mediocampista",
+        "equipo": "Real Madrid"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #11
+================================================================================
+Idioma: es
+Pregunta: Estadio del FC Barcelona?
+
+Respuesta:
+{
+    "query": "Estadio del FC Barcelona?",
+    "intent": "info_equipo",
+    "answer": "El estadio del FC Barcelona es el Camp Nou.",
+    "data": {
+        "nombre": "FC Barcelona",
+        "ciudad": "Barcelona",
+        "pais": "España",
+        "estadio": "Camp Nou",
+        "entrenador": "Carlo Ancelotti",
+        "liga": "La Liga"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #12
+================================================================================
+Idioma: es
+Pregunta: ¿Qué equipos hay?
+
+Respuesta:
+{
+    "query": "¿Qué equipos hay?",
+    "intent": "todos_equipos",
+    "answer": "Hay 5 equipos registrados: Bayern Munchen, FC Barcelona, Liverpool FC, Paris Saint-Germain y Real Madrid.",
+    "data": [
+        {
+            "nombre": "Bayern Munchen",
+            "ciudad": "Munich",
+            "pais": "Alemania",
+            "estadio": "Parc des Princes"
+        },
+        {
+            "nombre": "FC Barcelona",
+            "ciudad": "Barcelona",
+            "pais": "España",
+            "estadio": "Camp Nou"
+        },
+        {
+            "nombre": "Liverpool FC",
+            "ciudad": "Liverpool",
+            "pais": "Inglaterra",
+            "estadio": "Anfield"
+        },
+        {
+            "nombre": "Paris Saint-Germain",
+            "ciudad": "Paris",
+            "pais": "Francia",
+            "estadio": "Parc des Princes"
+        },
+        {
+            "nombre": "Real Madrid",
+            "ciudad": "Madrid",
+            "pais": "España",
+            "estadio": "Santiago Bernabéu"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #13
+================================================================================
+Idioma: es
+Pregunta: ¿Cuáles son los equipos de Alemania?
+
+Respuesta:
+{
+    "query": "¿Cuáles son los equipos de Alemania?",
+    "intent": "equipos_por_pais",
+    "answer": "Encontré 1 equipos de alemania: Bayern Munchen.",
+    "data": [
+        {
+            "nombre": "Bayern Munchen",
+            "ciudad": "Munich",
+            "estadio": "Parc des Princes"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #14
+================================================================================
+Idioma: es
+Pregunta: ¿Cuál es el resultado entre Real Madrid y FC Barcelona?
+
+Respuesta:
+{
+    "query": "¿Cuál es el resultado entre Real Madrid y FC Barcelona?",
+    "intent": "resultado_partido",
+    "answer": "El resultado fue Real Madrid 2 - 1 FC Barcelona.",
+    "data": {
+        "local": "Real Madrid",
+        "visitante": "FC Barcelona",
+        "goles_local": "2",
+        "goles_visitante": "1",
+        "fecha": "2024-10-26",
+        "estadio": "Santiago Bernabéu",
+        "arbitro": "Antonio Mateu Lahoz",
+        "competicion": "La Liga"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #15
+================================================================================
+Idioma: es
+Pregunta: ¿Cuántos goles marcó Vinícius Júnior?
+
+Respuesta:
+{
+    "query": "¿Cuántos goles marcó Vinícius Júnior?",
+    "intent": "goles_partido",
+    "answer": "Vinícius Júnior tiene 2 gol(es) registrado(s) en la ontología.",
+    "data": {
+        "jugador": "Vinícius Júnior",
+        "goles": 2
+    },
+    "found": true
+}
+
+================================================================================
+TEST #16
+================================================================================
+Idioma: es
+Pregunta: ¿Quién es el máximo goleador?
+
+Respuesta:
+{
+    "query": "¿Quién es el máximo goleador?",
+    "intent": "goleadores_ranking",
+    "answer": "Top goleadores: Rodrygo Goes (2), Vinícius Júnior (2), Ousmane Dembélé (2).",
+    "data": [
+        {
+            "jugador": "Rodrygo Goes",
+            "goles": 2
+        },
+        {
+            "jugador": "Vinícius Júnior",
+            "goles": 2
+        },
+        {
+            "jugador": "Ousmane Dembélé",
+            "goles": 2
+        },
+        {
+            "jugador": "Harry Kane",
+            "goles": 1
+        },
+        {
+            "jugador": "Kylian Mbappé",
+            "goles": 1
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #17
+================================================================================
+Idioma: es
+Pregunta: Partidos jugados en la UEFA Champions League
+
+Respuesta:
+{
+    "query": "Partidos jugados en la UEFA Champions League",
+    "intent": "partidos_competicion",
+    "answer": "Se encontraron 2 partido(s) de la competición UEFA Champions LEAGUE.",
+    "data": [
+        {
+            "fecha": "2024-11-02",
+            "local": "Bayern Munchen",
+            "visitante": "Paris Saint-Germain",
+            "goles_local": "3",
+            "goles_visitante": "3",
+            "competicion": "UEFA Champions LEAGUE"
+        },
+        {
+            "fecha": "2024-11-25",
+            "local": "Paris Saint-Germain",
+            "visitante": "Real Madrid",
+            "goles_local": "1",
+            "goles_visitante": "3",
+            "competicion": "UEFA Champions LEAGUE"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #18
+================================================================================
+Idioma: es
+Pregunta: Todos los partidos
+
+Respuesta:
+{
+    "query": "Todos los partidos",
+    "intent": "todos_partidos",
+    "answer": "Se encontraron 5 partidos registrados.",
+    "data": [
+        {
+            "fecha": "",
+            "local": "?",
+            "visitante": "?",
+            "goles_local": "1",
+            "goles_visitante": "0",
+            "competicion": "?"
+        },
+        {
+            "fecha": "2024-10-26",
+            "local": "Real Madrid",
+            "visitante": "FC Barcelona",
+            "goles_local": "2",
+            "goles_visitante": "1",
+            "competicion": "La Liga"
+        },
+        {
+            "fecha": "2024-11-02",
+            "local": "Bayern Munchen",
+            "visitante": "Paris Saint-Germain",
+            "goles_local": "3",
+            "goles_visitante": "3",
+            "competicion": "UEFA Champions LEAGUE"
+        },
+        {
+            "fecha": "2024-11-15",
+            "local": "Bayern Munchen",
+            "visitante": "Liverpool FC",
+            "goles_local": "0",
+            "goles_visitante": "2",
+            "competicion": "Bundesliga"
+        },
+        {
+            "fecha": "2024-11-25",
+            "local": "Paris Saint-Germain",
+            "visitante": "Real Madrid",
+            "goles_local": "1",
+            "goles_visitante": "3",
+            "competicion": "UEFA Champions LEAGUE"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #19
+================================================================================
+Idioma: es
+Pregunta: ¿Quién le dio la asistencia de gol a Mbappé?
+
+Respuesta:
+{
+    "query": "¿Quién le dio la asistencia de gol a Mbappé?",
+    "intent": "asistencia_gol",
+    "answer": "Pedri le dio la asistencia a Kylian Mbappé en el minuto 13 (Primer tiempo).",
+    "data": [
+        {
+            "asistidor": "Pedri",
+            "goleador": "Kylian Mbappé",
+            "minuto": "13",
+            "tiempo": "Primer tiempo"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #20
+================================================================================
+Idioma: es
+Pregunta: ¿Cuáles son los torneos internacionales?
+
+Respuesta:
+{
+    "query": "¿Cuáles son los torneos internacionales?",
+    "intent": "torneos_internacionales",
+    "answer": "Hay 2 torneos internacionales registrados: Copa América y UEFA Champions LEAGUE.",
+    "data": [
+        {
+            "nombre": "Copa América",
+            "tipo": "TorneoInternacional"
+        },
+        {
+            "nombre": "UEFA Champions LEAGUE",
+            "tipo": "TorneoInternacional"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #21
+================================================================================
+Idioma: es
+Pregunta: ¿Cuánta capacidad tiene el Santiago Bernabéu?
+
+Respuesta:
+{
+    "query": "¿Cuánta capacidad tiene el Santiago Bernabéu?",
+    "intent": "estadios",
+    "answer": "La capacidad del estadio Santiago Bernabéu es de 83186 espectadores.",
+    "data": {
+        "nombre": "Santiago Bernabéu",
+        "capacidad": "83186",
+        "ciudad": "Madrid",
+        "pais": "España"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #22
+================================================================================
+Idioma: es
+Pregunta: Estadios en España
+
+Respuesta:
+{
+    "query": "Estadios en España",
+    "intent": "estadios_ubicacion",
+    "answer": "Se encontraron 3 estadio(s) en españa: Camp Nou, Metropolitano y Santiago Bernabéu.",
+    "data": [
+        {
+            "nombre": "Camp Nou",
+            "capacidad": "99354",
+            "ciudad": "Barcelona",
+            "pais": "España"
+        },
+        {
+            "nombre": "Metropolitano",
+            "capacidad": "75024",
+            "ciudad": "Madrid",
+            "pais": "España"
+        },
+        {
+            "nombre": "Santiago Bernabéu",
+            "capacidad": "83186",
+            "ciudad": "Madrid",
+            "pais": "España"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #23
+================================================================================
+Idioma: es
+Pregunta: ¿Cuáles son los árbitros?
+
+Respuesta:
+{
+    "query": "¿Cuáles son los árbitros?",
+    "intent": "arbitros",
+    "answer": "Hay 9 árbitros registrados: Andrés Cunha, Antonio Mateu Lahoz, Clément Turpin, Daniele Orsato, Felix Zwayer y 4 más.",
+    "data": [
+        {
+            "nombre": "Andrés Cunha",
+            "nacionalidad": "Uruguaya"
+        },
+        {
+            "nombre": "Antonio Mateu Lahoz",
+            "nacionalidad": "Española"
+        },
+        {
+            "nombre": "Clément Turpin",
+            "nacionalidad": "Francesa"
+        },
+        {
+            "nombre": "Daniele Orsato",
+            "nacionalidad": "Italiana"
+        },
+        {
+            "nombre": "Felix Zwayer",
+            "nacionalidad": "Alemana"
+        },
+        {
+            "nombre": "Jesús Gil Manzano",
+            "nacionalidad": "Española"
+        },
+        {
+            "nombre": "Néstor Pitana",
+            "nacionalidad": "Argentina"
+        },
+        {
+            "nombre": "Raphael Claus",
+            "nacionalidad": "Brasileña"
+        },
+        {
+            "nombre": "Wilmar Roldán",
+            "nacionalidad": "Colombiana"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #24
+================================================================================
+Idioma: es
+Pregunta: Muestra las tarjetas
+
+Respuesta:
+{
+    "query": "Muestra las tarjetas",
+    "intent": "tarjetas",
+    "answer": "Se encontraron 5 tarjetas registradas en total.",
+    "data": [
+        {
+            "tipo": "Amarilla",
+            "jugador": "Luka Modric",
+            "minuto": "34",
+            "tiempo": "Segundo tiempo",
+            "motivo": "Demorar juego"
+        },
+        {
+            "tipo": "Roja",
+            "jugador": "Leroy Sané",
+            "minuto": "44",
+            "tiempo": "Primer tiempo",
+            "motivo": "Doble amarilla"
+        },
+        {
+            "tipo": "Amarilla",
+            "jugador": "Gavi",
+            "minuto": "44",
+            "tiempo": "Primer tiempo",
+            "motivo": "Sujetar al rival"
+        },
+        {
+            "tipo": "Amarilla",
+            "jugador": "Pedri",
+            "minuto": "11",
+            "tiempo": "Segundo tiempo",
+            "motivo": "Juego brusco"
+        },
+        {
+            "tipo": "Amarilla",
+            "jugador": "Jude Bellingham",
+            "minuto": "11",
+            "tiempo": "Primer tiempo",
+            "motivo": "Falta fuerte"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #25
+================================================================================
+Idioma: es
+Pregunta: Sustituciones realizadas
+
+Respuesta:
+{
+    "query": "Sustituciones realizadas",
+    "intent": "sustituciones",
+    "answer": "Se encontraron 5 sustituciones registradas.",
+    "data": [
+        {
+            "entra": "Pedri",
+            "sale": "Gavi",
+            "minuto": "5",
+            "tiempo": "Segundo tiempo"
+        },
+        {
+            "entra": "Leroy Sané",
+            "sale": "Harry Kane",
+            "minuto": "10",
+            "tiempo": "Segundo tiempo"
+        },
+        {
+            "entra": "Ousmane Dembélé",
+            "sale": "Kylian Mbappé",
+            "minuto": "15",
+            "tiempo": "Segundo tiempo"
+        },
+        {
+            "entra": "Joshua Kimmich",
+            "sale": "Vinícius Júnior",
+            "minuto": "19",
+            "tiempo": "Segundo tiempo"
+        },
+        {
+            "entra": "Luka Modric",
+            "sale": "Jude Bellingham",
+            "minuto": "42",
+            "tiempo": "Segundo tiempo"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #26
+================================================================================
+Idioma: es
+Pregunta: ¿Qué jugador fue amonestado por Juego brusco?
+
+Respuesta:
+{
+    "query": "¿Qué jugador fue amonestado por Juego brusco?",
+    "intent": "tarjeta_por_motivo",
+    "answer": "Se encontraron 2 tarjetas por motivos similares a 'juego brusco'. Jugadores amonestados/expulsados: Pedri y Pedri.",
+    "data": [
+        {
+            "jugador": "Pedri",
+            "motivo": "Juego brusco",
+            "tipo": "Amarilla",
+            "minuto": "11",
+            "tiempo": "Segundo tiempo"
+        },
+        {
+            "jugador": "Pedri",
+            "motivo": "Juego brusco",
+            "tipo": "Amarilla",
+            "minuto": "11",
+            "tiempo": "Segundo tiempo"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #27
+================================================================================
+Idioma: es
+Pregunta: ¿Qué partidos se jugaron el 2024-11-25?
+
+Respuesta:
+{
+    "query": "¿Qué partidos se jugaron el 2024-11-25?",
+    "intent": "partidos_fecha",
+    "answer": "Se encontraron 1 partidos el 2024-11-25: Paris Saint-Germain 1 - 3 Real Madrid.",
+    "data": [
+        {
+            "fecha": "2024-11-25",
+            "local": "Paris Saint-Germain",
+            "visitante": "Real Madrid",
+            "goles_local": "1",
+            "goles_visitante": "3",
+            "competicion": "UEFA Champions LEAGUE",
+            "estadio": "Parc des Princes",
+            "arbitro": "Andrés Cunha"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #28
+================================================================================
+Idioma: en
+Pregunta: Who is Vinícius Júnior?
+
+Respuesta:
+{
+    "query": "Who is Vinícius Júnior?",
+    "intent": "info_jugador",
+    "answer": "Vinícius Júnior is a player of Brazilian nationality who plays as a forward for Real Madrid. He wears number #7 and has 2 registered goals.",
+    "data": {
+        "name": "Vinícius Júnior",
+        "number": "7",
+        "position": "forward",
+        "nationality": "Brazilian",
+        "team": "Real Madrid",
+        "goals": 2,
+        "captain": false
+    },
+    "found": true
+}
+
+================================================================================
+TEST #29
+================================================================================
+Idioma: en
+Pregunta: What position does Luka Modric play?
+
+Respuesta:
+{
+    "query": "What position does Luka Modric play?",
+    "intent": "info_jugador",
+    "answer": "Luka Modric plays as a midfielder.",
+    "data": {
+        "name": "Luka Modric",
+        "number": "10",
+        "position": "midfielder",
+        "nationality": "Croatian",
+        "team": "Real Madrid",
+        "goals": 0,
+        "captain": true
+    },
+    "found": true
+}
+
+================================================================================
+TEST #30
+================================================================================
+Idioma: en
+Pregunta: Where is Harry Kane from?
+
+Respuesta:
+{
+    "query": "Where is Harry Kane from?",
+    "intent": "info_jugador",
+    "answer": "Harry Kane is a player of English nationality who plays as a forward for Bayern Munich (captain). He wears number #9 and has 1 registered goals.",
+    "data": {
+        "name": "Harry Kane",
+        "number": "9",
+        "position": "forward",
+        "nationality": "English",
+        "team": "Bayern Munich",
+        "goals": 1,
+        "captain": true
+    },
+    "found": true
+}
+
+================================================================================
+TEST #31
+================================================================================
+Idioma: en
+Pregunta: Which players are Brazilian?
+
+Respuesta:
+{
+    "query": "Which players are Brazilian?",
+    "intent": "jugadores_nacionalidad",
+    "answer": "Found 3 players with nationality Brazilian, including: Alisson Becker, Rodrygo Goes and Vinícius Júnior.",
+    "data": [
+        {
+            "name": "Alisson Becker",
+            "nationality": "Brazilian",
+            "team": "Liverpool FC",
+            "position": "goalkeeper"
+        },
+        {
+            "name": "Rodrygo Goes",
+            "nationality": "Brazilian",
+            "team": "Real Madrid",
+            "position": "forward"
+        },
+        {
+            "name": "Vinícius Júnior",
+            "nationality": "Brazilian",
+            "team": "Real Madrid",
+            "position": "forward"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #32
+================================================================================
+Idioma: en
+Pregunta: Who wears number 7 for Real Madrid?
+
+Respuesta:
+{
+    "query": "Who wears number 7 for Real Madrid?",
+    "intent": "jugador_por_dorsal",
+    "answer": "The player who wears number #7 at Real Madrid is Vinícius Júnior.",
+    "data": {
+        "name": "Vinícius Júnior",
+        "number": "7",
+        "team": "Real Madrid"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #33
+================================================================================
+Idioma: en
+Pregunta: Who are all the players?
+
+Respuesta:
+{
+    "query": "Who are all the players?",
+    "intent": "todos_jugadores",
+    "answer": "There are 13 registered players: Alisson Becker, Gavi, Harry Kane, Joshua Kimmich, Jude Bellingham and 8 more.",
+    "data": [
+        {
+            "name": "Alisson Becker",
+            "nationality": "Brazilian",
+            "position": "goalkeeper",
+            "team": "Liverpool FC"
+        },
+        {
+            "name": "Gavi",
+            "nationality": "Spanish",
+            "position": "midfielder",
+            "team": "FC Barcelona"
+        },
+        {
+            "name": "Harry Kane",
+            "nationality": "English",
+            "position": "forward",
+            "team": "Bayern Munich"
+        },
+        {
+            "name": "Joshua Kimmich",
+            "nationality": "German",
+            "position": "midfielder",
+            "team": "Bayern Munich"
+        },
+        {
+            "name": "Jude Bellingham",
+            "nationality": "English",
+            "position": "midfielder",
+            "team": "Real Madrid"
+        },
+        {
+            "name": "Kylian Mbappé",
+            "nationality": "French",
+            "position": "forward",
+            "team": "Real Madrid"
+        },
+        {
+            "name": "Leroy Sané",
+            "nationality": "German",
+            "position": "forward",
+            "team": "Bayern Munich"
+        },
+        {
+            "name": "Luka Modric",
+            "nationality": "Croatian",
+            "position": "midfielder",
+            "team": "Real Madrid"
+        },
+        {
+            "name": "Ousmane Dembélé",
+            "nationality": "French",
+            "position": "forward",
+            "team": "Paris Saint-Germain"
+        },
+        {
+            "name": "Pedri",
+            "nationality": "Spanish",
+            "position": "midfielder",
+            "team": "FC Barcelona"
+        },
+        {
+            "name": "Robert Lewandowski",
+            "nationality": "Polish",
+            "position": "forward",
+            "team": "FC Barcelona"
+        },
+        {
+            "name": "Rodrygo Goes",
+            "nationality": "Brazilian",
+            "position": "forward",
+            "team": "Real Madrid"
+        },
+        {
+            "name": "Vinícius Júnior",
+            "nationality": "Brazilian",
+            "position": "forward",
+            "team": "Real Madrid"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #34
+================================================================================
+Idioma: en
+Pregunta: When was Jude Bellingham born?
+
+Respuesta:
+{
+    "query": "When was Jude Bellingham born?",
+    "intent": "info_fecha_nacimiento",
+    "answer": "Jude Bellingham's date of birth is 2003-06-29.",
+    "data": {
+        "name": "Jude Bellingham",
+        "birth_date": "2003-06-29"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #35
+================================================================================
+Idioma: en
+Pregunta: Is Mbappé a starter?
+
+Respuesta:
+{
+    "query": "Is Mbappé a starter?",
+    "intent": "es_titular",
+    "answer": "Yes, Kylian Mbappé is a starting player for Real Madrid.",
+    "data": {
+        "name": "Kylian Mbappé",
+        "is_starter": true,
+        "team": "Real Madrid"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #36
+================================================================================
+Idioma: en
+Pregunta: Who coaches Liverpool?
+
+Respuesta:
+{
+    "query": "Who coaches Liverpool?",
+    "intent": "info_equipo",
+    "answer": "The coach of Liverpool FC is Jürgen Klopp.",
+    "data": {
+        "name": "Liverpool FC",
+        "city": "Liverpool",
+        "country": "England",
+        "stadium": "Anfield",
+        "coach": "Jürgen Klopp",
+        "league": "Premier League"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #37
+================================================================================
+Idioma: en
+Pregunta: Who is the captain of Real Madrid?
+
+Respuesta:
+{
+    "query": "Who is the captain of Real Madrid?",
+    "intent": "capitan_equipo",
+    "answer": "The captain of Real Madrid is Luka Modric (Number #10, midfielder).",
+    "data": {
+        "name": "Luka Modric",
+        "number": "10",
+        "position": "midfielder",
+        "team": "Real Madrid"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #38
+================================================================================
+Idioma: en
+Pregunta: What is FC Barcelona's stadium?
+
+Respuesta:
+{
+    "query": "What is FC Barcelona's stadium?",
+    "intent": "info_equipo",
+    "answer": "The stadium of FC Barcelona is Camp Nou.",
+    "data": {
+        "name": "FC Barcelona",
+        "city": "Barcelona",
+        "country": "Spain",
+        "stadium": "Camp Nou",
+        "coach": "Carlo Ancelotti",
+        "league": "La Liga"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #39
+================================================================================
+Idioma: en
+Pregunta: Which teams are registered?
+
+Respuesta:
+{
+    "query": "Which teams are registered?",
+    "intent": "todos_equipos",
+    "answer": "There are 5 registered teams: Bayern Munich, FC Barcelona, Liverpool FC, Paris Saint-Germain and Real Madrid.",
+    "data": [
+        {
+            "name": "Bayern Munich",
+            "city": "Munich",
+            "country": "Germany",
+            "stadium": "Parc des Princes"
+        },
+        {
+            "name": "FC Barcelona",
+            "city": "Barcelona",
+            "country": "Spain",
+            "stadium": "Camp Nou"
+        },
+        {
+            "name": "Liverpool FC",
+            "city": "Liverpool",
+            "country": "England",
+            "stadium": "Anfield"
+        },
+        {
+            "name": "Paris Saint-Germain",
+            "city": "Paris",
+            "country": "France",
+            "stadium": "Parc des Princes"
+        },
+        {
+            "name": "Real Madrid",
+            "city": "Madrid",
+            "country": "Spain",
+            "stadium": "Santiago Bernabeu Stadium"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #40
+================================================================================
+Idioma: en
+Pregunta: Which teams are from Germany?
+
+Respuesta:
+{
+    "query": "Which teams are from Germany?",
+    "intent": "equipos_por_pais",
+    "answer": "Found 1 teams from Germany: Bayern Munich.",
+    "data": [
+        {
+            "name": "Bayern Munich",
+            "city": "Munich",
+            "stadium": "Parc des Princes"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #41
+================================================================================
+Idioma: en
+Pregunta: Result of Real Madrid vs FC Barcelona
+
+Respuesta:
+{
+    "query": "Result of Real Madrid vs FC Barcelona",
+    "intent": "resultado_partido",
+    "answer": "The result was Real Madrid 2 - 1 FC Barcelona.",
+    "data": {
+        "home": "Real Madrid",
+        "away": "FC Barcelona",
+        "home_goals": "2",
+        "away_goals": "1",
+        "date": "2024-10-26",
+        "stadium": "Santiago Bernabeu Stadium",
+        "referee": "Antonio Mateu Lahoz",
+        "competition": "La Liga"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #42
+================================================================================
+Idioma: en
+Pregunta: How many goals did Vinícius Júnior score?
+
+Respuesta:
+{
+    "query": "How many goals did Vinícius Júnior score?",
+    "intent": "goles_partido",
+    "answer": "Vinícius Júnior has 2 goal(s) registered in the ontology.",
+    "data": {
+        "player": "Vinícius Júnior",
+        "goals": 2
+    },
+    "found": true
+}
+
+================================================================================
+TEST #43
+================================================================================
+Idioma: en
+Pregunta: Who is the top scorer?
+
+Respuesta:
+{
+    "query": "Who is the top scorer?",
+    "intent": "goleadores_ranking",
+    "answer": "Top scorers: Rodrygo Goes (2), Vinícius Júnior (2), Ousmane Dembélé (2).",
+    "data": [
+        {
+            "player": "Rodrygo Goes",
+            "goals": 2
+        },
+        {
+            "player": "Vinícius Júnior",
+            "goals": 2
+        },
+        {
+            "player": "Ousmane Dembélé",
+            "goals": 2
+        },
+        {
+            "player": "Harry Kane",
+            "goals": 1
+        },
+        {
+            "player": "Kylian Mbappé",
+            "goals": 1
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #44
+================================================================================
+Idioma: en
+Pregunta: Matches in the UEFA Champions League
+
+Respuesta:
+{
+    "query": "Matches in the UEFA Champions League",
+    "intent": "partidos_competicion",
+    "answer": "Found 2 match(es) from competition UEFA Champions LEAGUE.",
+    "data": [
+        {
+            "date": "2024-11-02",
+            "home": "Bayern Munich",
+            "away": "Paris Saint-Germain",
+            "home_goals": "3",
+            "away_goals": "3",
+            "competition": "UEFA Champions LEAGUE"
+        },
+        {
+            "date": "2024-11-25",
+            "home": "Paris Saint-Germain",
+            "away": "Real Madrid",
+            "home_goals": "1",
+            "away_goals": "3",
+            "competition": "UEFA Champions LEAGUE"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #45
+================================================================================
+Idioma: en
+Pregunta: All matches
+
+Respuesta:
+{
+    "query": "All matches",
+    "intent": "todos_partidos",
+    "answer": "Found 5 registered matches.",
+    "data": [
+        {
+            "date": "",
+            "home": "?",
+            "away": "?",
+            "home_goals": "1",
+            "away_goals": "0",
+            "competition": "?"
+        },
+        {
+            "date": "2024-10-26",
+            "home": "Real Madrid",
+            "away": "FC Barcelona",
+            "home_goals": "2",
+            "away_goals": "1",
+            "competition": "La Liga"
+        },
+        {
+            "date": "2024-11-02",
+            "home": "Bayern Munich",
+            "away": "Paris Saint-Germain",
+            "home_goals": "3",
+            "away_goals": "3",
+            "competition": "UEFA Champions LEAGUE"
+        },
+        {
+            "date": "2024-11-15",
+            "home": "Bayern Munich",
+            "away": "Liverpool FC",
+            "home_goals": "0",
+            "away_goals": "2",
+            "competition": "Bundesliga"
+        },
+        {
+            "date": "2024-11-25",
+            "home": "Paris Saint-Germain",
+            "away": "Real Madrid",
+            "home_goals": "1",
+            "away_goals": "3",
+            "competition": "UEFA Champions LEAGUE"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #46
+================================================================================
+Idioma: en
+Pregunta: Who assisted Mbappé's goal?
+
+Respuesta:
+{
+    "query": "Who assisted Mbappé's goal?",
+    "intent": "asistencia_gol",
+    "answer": "Pedri assisted Kylian Mbappé in minute 13 (First half).",
+    "data": [
+        {
+            "assister": "Pedri",
+            "goalscorer": "Kylian Mbappé",
+            "minute": "13",
+            "period": "First half"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #47
+================================================================================
+Idioma: en
+Pregunta: Which are the international tournaments?
+
+Respuesta:
+{
+    "query": "Which are the international tournaments?",
+    "intent": "torneos_internacionales",
+    "answer": "There are 2 registered international tournaments: Copa América and UEFA Champions LEAGUE.",
+    "data": [
+        {
+            "name": "Copa América",
+            "type": "TorneoInternacional"
+        },
+        {
+            "name": "UEFA Champions LEAGUE",
+            "type": "TorneoInternacional"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #48
+================================================================================
+Idioma: en
+Pregunta: What is the capacity of Santiago Bernabéu?
+
+Respuesta:
+{
+    "query": "What is the capacity of Santiago Bernabéu?",
+    "intent": "estadios",
+    "answer": "The capacity of the stadium Santiago Bernabeu Stadium is 83186 spectators.",
+    "data": {
+        "name": "Santiago Bernabeu Stadium",
+        "capacity": "83186",
+        "city": "Madrid",
+        "country": "Spain"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #49
+================================================================================
+Idioma: en
+Pregunta: Stadiums in Spain
+
+Respuesta:
+{
+    "query": "Stadiums in Spain",
+    "intent": "estadios_ubicacion",
+    "answer": "Found 3 stadium(s) in Spain: Camp Nou, Metropolitano and Santiago Bernabeu Stadium.",
+    "data": [
+        {
+            "name": "Camp Nou",
+            "capacity": "99354",
+            "city": "Barcelona",
+            "country": "Spain"
+        },
+        {
+            "name": "Metropolitano",
+            "capacity": "75024",
+            "city": "Madrid",
+            "country": "Spain"
+        },
+        {
+            "name": "Santiago Bernabeu Stadium",
+            "capacity": "83186",
+            "city": "Madrid",
+            "country": "Spain"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #50
+================================================================================
+Idioma: en
+Pregunta: Who are the referees?
+
+Respuesta:
+{
+    "query": "Who are the referees?",
+    "intent": "arbitros",
+    "answer": "There are 9 registered referees: Andrés Cunha, Antonio Mateu Lahoz, Clément Turpin, Daniele Orsato, Felix Zwayer and 4 more.",
+    "data": [
+        {
+            "name": "Andrés Cunha",
+            "nationality": "Uruguayan"
+        },
+        {
+            "name": "Antonio Mateu Lahoz",
+            "nationality": "Spanish"
+        },
+        {
+            "name": "Clément Turpin",
+            "nationality": "French"
+        },
+        {
+            "name": "Daniele Orsato",
+            "nationality": "Italian"
+        },
+        {
+            "name": "Felix Zwayer",
+            "nationality": "German"
+        },
+        {
+            "name": "Jesús Gil Manzano",
+            "nationality": "Spanish"
+        },
+        {
+            "name": "Néstor Pitana",
+            "nationality": "Argentinian"
+        },
+        {
+            "name": "Raphael Claus",
+            "nationality": "Brazilian"
+        },
+        {
+            "name": "Wilmar Roldán",
+            "nationality": "Colombian"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #51
+================================================================================
+Idioma: en
+Pregunta: Show the cards
+
+Respuesta:
+{
+    "query": "Show the cards",
+    "intent": "tarjetas",
+    "answer": "Found 5 cards registered in total.",
+    "data": [
+        {
+            "type": "Yellow",
+            "player": "Luka Modric",
+            "minute": "34",
+            "period": "Second half",
+            "reason": "delaying the restart of play"
+        },
+        {
+            "type": "Red",
+            "player": "Leroy Sané",
+            "minute": "44",
+            "period": "First half",
+            "reason": "second yellow card"
+        },
+        {
+            "type": "Yellow",
+            "player": "Gavi",
+            "minute": "44",
+            "period": "First half",
+            "reason": "holding the opponent"
+        },
+        {
+            "type": "Yellow",
+            "player": "Pedri",
+            "minute": "11",
+            "period": "Second half",
+            "reason": "rough play"
+        },
+        {
+            "type": "Yellow",
+            "player": "Jude Bellingham",
+            "minute": "11",
+            "period": "First half",
+            "reason": "hard foul"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #52
+================================================================================
+Idioma: en
+Pregunta: Substitutions made
+
+Respuesta:
+{
+    "query": "Substitutions made",
+    "intent": "sustituciones",
+    "answer": "Found 5 registered substitutions.",
+    "data": [
+        {
+            "enters": "Pedri",
+            "exits": "Gavi",
+            "minute": "5",
+            "period": "Second half"
+        },
+        {
+            "enters": "Leroy Sané",
+            "exits": "Harry Kane",
+            "minute": "10",
+            "period": "Second half"
+        },
+        {
+            "enters": "Ousmane Dembélé",
+            "exits": "Kylian Mbappé",
+            "minute": "15",
+            "period": "Second half"
+        },
+        {
+            "enters": "Joshua Kimmich",
+            "exits": "Vinícius Júnior",
+            "minute": "19",
+            "period": "Second half"
+        },
+        {
+            "enters": "Luka Modric",
+            "exits": "Jude Bellingham",
+            "minute": "42",
+            "period": "Second half"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #53
+================================================================================
+Idioma: en
+Pregunta: Which player was booked for rough play?
+
+Respuesta:
+{
+    "query": "Which player was booked for rough play?",
+    "intent": "tarjeta_por_motivo",
+    "answer": "Found 2 cards for motives similar to 'rough play'. Booked/sent-off players: Pedri and Pedri.",
+    "data": [
+        {
+            "player": "Pedri",
+            "reason": "rough play",
+            "type": "Yellow",
+            "minute": "11",
+            "period": "Second half"
+        },
+        {
+            "player": "Pedri",
+            "reason": "rough play",
+            "type": "Yellow",
+            "minute": "11",
+            "period": "Second half"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #54
+================================================================================
+Idioma: en
+Pregunta: What matches were played on 2024-11-25?
+
+Respuesta:
+{
+    "query": "What matches were played on 2024-11-25?",
+    "intent": "partidos_fecha",
+    "answer": "Found 1 matches on 2024-11-25: Paris Saint-Germain 1 - 3 Real Madrid.",
+    "data": [
+        {
+            "date": "2024-11-25",
+            "home": "Paris Saint-Germain",
+            "away": "Real Madrid",
+            "home_goals": "1",
+            "away_goals": "3",
+            "competition": "UEFA Champions LEAGUE",
+            "stadium": "Parc des Princes",
+            "referee": "Andrés Cunha"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #55
+================================================================================
+Idioma: fr
+Pregunta: Qui est Vinícius Júnior ?
+
+Respuesta:
+{
+    "query": "Qui est Vinícius Júnior ?",
+    "intent": "info_jugador",
+    "answer": "Vinícius Júnior est un joueur de nationalité brésilienne qui joue comme attaquant au Real Madrid. Il porte le numéro #7 et a 2 buts enregistrés.",
+    "data": {
+        "nom": "Vinícius Júnior",
+        "numéro": "7",
+        "poste": "attaquant",
+        "nationalité": "brésilienne",
+        "équipe": "Real Madrid",
+        "buts": 2,
+        "capitaine": false
+    },
+    "found": true
+}
+
+================================================================================
+TEST #56
+================================================================================
+Idioma: fr
+Pregunta: À quel poste joue Luka Modric ?
+
+Respuesta:
+{
+    "query": "À quel poste joue Luka Modric ?",
+    "intent": "info_jugador",
+    "answer": "Luka Modric joue au poste de milieu.",
+    "data": {
+        "nom": "Luka Modric",
+        "numéro": "10",
+        "poste": "milieu",
+        "nationalité": "croate",
+        "équipe": "Real Madrid",
+        "buts": 0,
+        "capitaine": true
+    },
+    "found": true
+}
+
+================================================================================
+TEST #57
+================================================================================
+Idioma: fr
+Pregunta: D'où vient Harry Kane ?
+
+Respuesta:
+{
+    "query": "D'où vient Harry Kane ?",
+    "intent": "info_jugador",
+    "answer": "Harry Kane est un joueur de nationalité anglaise qui joue comme attaquant au Bayern Munich (capitaine). Il porte le numéro #9 et a 1 buts enregistrés.",
+    "data": {
+        "nom": "Harry Kane",
+        "numéro": "9",
+        "poste": "attaquant",
+        "nationalité": "anglaise",
+        "équipe": "Bayern Munich",
+        "buts": 1,
+        "capitaine": true
+    },
+    "found": true
+}
+
+================================================================================
+TEST #58
+================================================================================
+Idioma: fr
+Pregunta: Quels joueurs sont brésiliens ?
+
+Respuesta:
+{
+    "query": "Quels joueurs sont brésiliens ?",
+    "intent": "jugadores_nacionalidad",
+    "answer": "Trouvé 3 joueurs de nationalité brésilienne, dont : Alisson Becker, Rodrygo Goes et Vinícius Júnior.",
+    "data": [
+        {
+            "nom": "Alisson Becker",
+            "nationalité": "brésilienne",
+            "équipe": "Liverpool FC",
+            "poste": "gardien de but"
+        },
+        {
+            "nom": "Rodrygo Goes",
+            "nationalité": "brésilienne",
+            "équipe": "Real Madrid",
+            "poste": "attaquant"
+        },
+        {
+            "nom": "Vinícius Júnior",
+            "nationalité": "brésilienne",
+            "équipe": "Real Madrid",
+            "poste": "attaquant"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #59
+================================================================================
+Idioma: fr
+Pregunta: Qui porte le numéro 7 au Real Madrid ?
+
+Respuesta:
+{
+    "query": "Qui porte le numéro 7 au Real Madrid ?",
+    "intent": "jugador_por_dorsal",
+    "answer": "Le joueur qui porte le numéro #7 au Real Madrid est Vinícius Júnior.",
+    "data": {
+        "nom": "Vinícius Júnior",
+        "numéro": "7",
+        "équipe": "Real Madrid"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #60
+================================================================================
+Idioma: fr
+Pregunta: Quels sont tous les joueurs ?
+
+Respuesta:
+{
+    "query": "Quels sont tous les joueurs ?",
+    "intent": "todos_jugadores",
+    "answer": "Il y a 13 joueurs enregistrés : Alisson Becker, Gavi, Harry Kane, Joshua Kimmich, Jude Bellingham et 8 plus.",
+    "data": [
+        {
+            "nom": "Alisson Becker",
+            "nationalité": "brésilienne",
+            "poste": "gardien de but",
+            "équipe": "Liverpool FC"
+        },
+        {
+            "nom": "Gavi",
+            "nationalité": "espagnole",
+            "poste": "milieu",
+            "équipe": "FC Barcelone"
+        },
+        {
+            "nom": "Harry Kane",
+            "nationalité": "anglaise",
+            "poste": "attaquant",
+            "équipe": "Bayern Munich"
+        },
+        {
+            "nom": "Joshua Kimmich",
+            "nationalité": "allemande",
+            "poste": "milieu",
+            "équipe": "Bayern Munich"
+        },
+        {
+            "nom": "Jude Bellingham",
+            "nationalité": "anglaise",
+            "poste": "milieu",
+            "équipe": "Real Madrid"
+        },
+        {
+            "nom": "Kylian Mbappé",
+            "nationalité": "française",
+            "poste": "attaquant",
+            "équipe": "Real Madrid"
+        },
+        {
+            "nom": "Leroy Sané",
+            "nationalité": "allemande",
+            "poste": "attaquant",
+            "équipe": "Bayern Munich"
+        },
+        {
+            "nom": "Luka Modric",
+            "nationalité": "croate",
+            "poste": "milieu",
+            "équipe": "Real Madrid"
+        },
+        {
+            "nom": "Ousmane Dembélé",
+            "nationalité": "française",
+            "poste": "attaquant",
+            "équipe": "Paris Saint-Germain"
+        },
+        {
+            "nom": "Pedri",
+            "nationalité": "espagnole",
+            "poste": "milieu",
+            "équipe": "FC Barcelone"
+        },
+        {
+            "nom": "Robert Lewandowski",
+            "nationalité": "polonaise",
+            "poste": "attaquant",
+            "équipe": "FC Barcelone"
+        },
+        {
+            "nom": "Rodrygo Goes",
+            "nationalité": "brésilienne",
+            "poste": "attaquant",
+            "équipe": "Real Madrid"
+        },
+        {
+            "nom": "Vinícius Júnior",
+            "nationalité": "brésilienne",
+            "poste": "attaquant",
+            "équipe": "Real Madrid"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #61
+================================================================================
+Idioma: fr
+Pregunta: Quand est né Jude Bellingham ?
+
+Respuesta:
+{
+    "query": "Quand est né Jude Bellingham ?",
+    "intent": "info_fecha_nacimiento",
+    "answer": "La date de naissance de Jude Bellingham est le 2003-06-29.",
+    "data": {
+        "nom": "Jude Bellingham",
+        "date_naissance": "2003-06-29"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #62
+================================================================================
+Idioma: fr
+Pregunta: Mbappé est-il titulaire ?
+
+Respuesta:
+{
+    "query": "Mbappé est-il titulaire ?",
+    "intent": "es_titular",
+    "answer": "Oui, Kylian Mbappé est un joueur titulaire au Real Madrid.",
+    "data": {
+        "nom": "Kylian Mbappé",
+        "est_titulaire": true,
+        "équipe": "Real Madrid"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #63
+================================================================================
+Idioma: fr
+Pregunta: Qui entraîne Liverpool ?
+
+Respuesta:
+{
+    "query": "Qui entraîne Liverpool ?",
+    "intent": "info_equipo",
+    "answer": "Liverpool FC est une équipe de Liverpool, Angleterre, entraînée par Jürgen Klopp. Elle joue ses matchs à domicile au Anfield et participe à Premier League.",
+    "data": {
+        "nom": "Liverpool FC",
+        "ville": "Liverpool",
+        "pays": "Angleterre",
+        "stade": "Anfield",
+        "entraîneur": "Jürgen Klopp",
+        "ligue": "Premier League"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #64
+================================================================================
+Idioma: fr
+Pregunta: Qui est le capitaine du Real Madrid ?
+
+Respuesta:
+{
+    "query": "Qui est le capitaine du Real Madrid ?",
+    "intent": "capitan_equipo",
+    "answer": "Le capitaine du Real Madrid est Luka Modric (Numéro #10, milieu).",
+    "data": {
+        "nom": "Luka Modric",
+        "numéro": "10",
+        "poste": "milieu",
+        "équipe": "Real Madrid"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #65
+================================================================================
+Idioma: fr
+Pregunta: Quel est le stade du FC Barcelone ?
+
+Respuesta:
+{
+    "query": "Quel est le stade du FC Barcelone ?",
+    "intent": "info_equipo",
+    "answer": "Le stade de FC Barcelone est Camp Nou.",
+    "data": {
+        "nom": "FC Barcelone",
+        "ville": "Barcelona",
+        "pays": "Espagne",
+        "stade": "Camp Nou",
+        "entraîneur": "Carlo Ancelotti",
+        "ligue": "La Liga"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #66
+================================================================================
+Idioma: fr
+Pregunta: Quelles équipes existent ?
+
+Respuesta:
+{
+    "query": "Quelles équipes existent ?",
+    "intent": "todos_equipos",
+    "answer": "Il y a 5 équipes enregistrées : Bayern Munich, FC Barcelone, Liverpool FC, Paris Saint-Germain et Real Madrid.",
+    "data": [
+        {
+            "nom": "Bayern Munich",
+            "ville": "Munich",
+            "pays": "Allemagne",
+            "stade": "Parc des Princes"
+        },
+        {
+            "nom": "FC Barcelone",
+            "ville": "Barcelona",
+            "pays": "Espagne",
+            "stade": "Camp Nou"
+        },
+        {
+            "nom": "Liverpool FC",
+            "ville": "Liverpool",
+            "pays": "Angleterre",
+            "stade": "Anfield"
+        },
+        {
+            "nom": "Paris Saint-Germain",
+            "ville": "Paris",
+            "pays": "France",
+            "stade": "Parc des Princes"
+        },
+        {
+            "nom": "Real Madrid",
+            "ville": "Madrid",
+            "pays": "Espagne",
+            "stade": "Stade Santiago Bernabéu"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #67
+================================================================================
+Idioma: fr
+Pregunta: Quelles équipes viennent d'Allemagne ?
+
+Respuesta:
+{
+    "query": "Quelles équipes viennent d'Allemagne ?",
+    "intent": "equipos_por_pais",
+    "answer": "Trouvé 1 équipes de Allemagne: Bayern Munich.",
+    "data": [
+        {
+            "nom": "Bayern Munich",
+            "ville": "Munich",
+            "stade": "Parc des Princes"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #68
+================================================================================
+Idioma: fr
+Pregunta: Résultat du Real Madrid contre le FC Barcelone
+
+Respuesta:
+{
+    "query": "Résultat du Real Madrid contre le FC Barcelone",
+    "intent": "resultado_partido",
+    "answer": "Le résultat était Real Madrid 2 - 1 FC Barcelone.",
+    "data": {
+        "domicile": "Real Madrid",
+        "visiteur": "FC Barcelone",
+        "buts_domicile": "2",
+        "buts_visiteur": "1",
+        "date": "2024-10-26",
+        "stade": "Stade Santiago Bernabéu",
+        "arbitre": "Antonio Mateu Lahoz",
+        "compétition": "La Liga"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #69
+================================================================================
+Idioma: fr
+Pregunta: Combien de buts Vinícius Júnior a-t-il marqués ?
+
+Respuesta:
+{
+    "query": "Combien de buts Vinícius Júnior a-t-il marqués ?",
+    "intent": "goles_partido",
+    "answer": "Vinícius Júnior a 2 but(s) enregistré(s) dans l'ontologie.",
+    "data": {
+        "joueur": "Vinícius Júnior",
+        "buts": 2
+    },
+    "found": true
+}
+
+================================================================================
+TEST #70
+================================================================================
+Idioma: fr
+Pregunta: Qui est le meilleur buteur ?
+
+Respuesta:
+{
+    "query": "Qui est le meilleur buteur ?",
+    "intent": "goleadores_ranking",
+    "answer": "Meilleurs buteurs : Rodrygo Goes (2), Vinícius Júnior (2), Ousmane Dembélé (2).",
+    "data": [
+        {
+            "joueur": "Rodrygo Goes",
+            "buts": 2
+        },
+        {
+            "joueur": "Vinícius Júnior",
+            "buts": 2
+        },
+        {
+            "joueur": "Ousmane Dembélé",
+            "buts": 2
+        },
+        {
+            "joueur": "Harry Kane",
+            "buts": 1
+        },
+        {
+            "joueur": "Kylian Mbappé",
+            "buts": 1
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #71
+================================================================================
+Idioma: fr
+Pregunta: Matchs de l’UEFA Champions League
+
+Respuesta:
+{
+    "query": "Matchs de l’UEFA Champions League",
+    "intent": "partidos_competicion",
+    "answer": "Trouvé 2 match(s) de la compétition UEFA Champions LEAGUE.",
+    "data": [
+        {
+            "date": "2024-11-02",
+            "domicile": "Bayern Munich",
+            "visiteur": "Paris Saint-Germain",
+            "buts_domicile": "3",
+            "buts_visiteur": "3",
+            "compétition": "UEFA Champions LEAGUE"
+        },
+        {
+            "date": "2024-11-25",
+            "domicile": "Paris Saint-Germain",
+            "visiteur": "Real Madrid",
+            "buts_domicile": "1",
+            "buts_visiteur": "3",
+            "compétition": "UEFA Champions LEAGUE"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #72
+================================================================================
+Idioma: fr
+Pregunta: Tous les matchs
+
+Respuesta:
+{
+    "query": "Tous les matchs",
+    "intent": "todos_partidos",
+    "answer": "Trouvé 5 matchs enregistrés.",
+    "data": [
+        {
+            "date": "",
+            "domicile": "?",
+            "visiteur": "?",
+            "buts_domicile": "1",
+            "buts_visiteur": "0",
+            "compétition": "?"
+        },
+        {
+            "date": "2024-10-26",
+            "domicile": "Real Madrid",
+            "visiteur": "FC Barcelone",
+            "buts_domicile": "2",
+            "buts_visiteur": "1",
+            "compétition": "La Liga"
+        },
+        {
+            "date": "2024-11-02",
+            "domicile": "Bayern Munich",
+            "visiteur": "Paris Saint-Germain",
+            "buts_domicile": "3",
+            "buts_visiteur": "3",
+            "compétition": "UEFA Champions LEAGUE"
+        },
+        {
+            "date": "2024-11-15",
+            "domicile": "Bayern Munich",
+            "visiteur": "Liverpool FC",
+            "buts_domicile": "0",
+            "buts_visiteur": "2",
+            "compétition": "Bundesliga"
+        },
+        {
+            "date": "2024-11-25",
+            "domicile": "Paris Saint-Germain",
+            "visiteur": "Real Madrid",
+            "buts_domicile": "1",
+            "buts_visiteur": "3",
+            "compétition": "UEFA Champions LEAGUE"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #73
+================================================================================
+Idioma: fr
+Pregunta: Qui a fait la passe décisive pour Mbappé ?
+
+Respuesta:
+{
+    "query": "Qui a fait la passe décisive pour Mbappé ?",
+    "intent": "asistencia_gol",
+    "answer": "Pedri a fait la passe décisive à Kylian Mbappé à la minute 13 (Première mi-temps).",
+    "data": [
+        {
+            "passeur": "Pedri",
+            "buteur": "Kylian Mbappé",
+            "minute": "13",
+            "période": "Première mi-temps"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #74
+================================================================================
+Idioma: fr
+Pregunta: Quels sont les tournois internationaux ?
+
+Respuesta:
+{
+    "query": "Quels sont les tournois internationaux ?",
+    "intent": "torneos_internacionales",
+    "answer": "Il y a 2 tournois internationaux enregistrés : Copa América et UEFA Champions LEAGUE.",
+    "data": [
+        {
+            "nom": "Copa América",
+            "type": "TorneoInternacional"
+        },
+        {
+            "nom": "UEFA Champions LEAGUE",
+            "type": "TorneoInternacional"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #75
+================================================================================
+Idioma: fr
+Pregunta: Quelle est la capacité du Santiago Bernabéu ?
+
+Respuesta:
+{
+    "query": "Quelle est la capacité du Santiago Bernabéu ?",
+    "intent": "estadios",
+    "answer": "Le stade Stade Santiago Bernabéu est à Madrid, Espagne, avec une capacité de 83186 spectateurs.",
+    "data": {
+        "nom": "Stade Santiago Bernabéu",
+        "capacité": "83186",
+        "ville": "Madrid",
+        "pays": "Espagne"
+    },
+    "found": true
+}
+
+================================================================================
+TEST #76
+================================================================================
+Idioma: fr
+Pregunta: Stades en Espagne
+
+Respuesta:
+{
+    "query": "Stades en Espagne",
+    "intent": "estadios_ubicacion",
+    "answer": "Trouvé 3 stade(s) à Espagne : Camp Nou, Metropolitano et Stade Santiago Bernabéu.",
+    "data": [
+        {
+            "nom": "Camp Nou",
+            "capacité": "99354",
+            "ville": "Barcelona",
+            "pays": "Espagne"
+        },
+        {
+            "nom": "Metropolitano",
+            "capacité": "75024",
+            "ville": "Madrid",
+            "pays": "Espagne"
+        },
+        {
+            "nom": "Stade Santiago Bernabéu",
+            "capacité": "83186",
+            "ville": "Madrid",
+            "pays": "Espagne"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #77
+================================================================================
+Idioma: fr
+Pregunta: Quels sont les arbitres ?
+
+Respuesta:
+{
+    "query": "Quels sont les arbitres ?",
+    "intent": "arbitros",
+    "answer": "Il y a 9 arbitres enregistrés : Andrés Cunha, Antonio Mateu Lahoz, Clément Turpin, Daniele Orsato, Felix Zwayer et 4 plus.",
+    "data": [
+        {
+            "nom": "Andrés Cunha",
+            "nationalité": "uruguayenne"
+        },
+        {
+            "nom": "Antonio Mateu Lahoz",
+            "nationalité": "espagnole"
+        },
+        {
+            "nom": "Clément Turpin",
+            "nationalité": "française"
+        },
+        {
+            "nom": "Daniele Orsato",
+            "nationalité": "italienne"
+        },
+        {
+            "nom": "Felix Zwayer",
+            "nationalité": "allemande"
+        },
+        {
+            "nom": "Jesús Gil Manzano",
+            "nationalité": "espagnole"
+        },
+        {
+            "nom": "Néstor Pitana",
+            "nationalité": "argentine"
+        },
+        {
+            "nom": "Raphael Claus",
+            "nationalité": "brésilienne"
+        },
+        {
+            "nom": "Wilmar Roldán",
+            "nationalité": "colombienne"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #78
+================================================================================
+Idioma: fr
+Pregunta: Montre les cartons
+
+Respuesta:
+{
+    "query": "Montre les cartons",
+    "intent": "tarjetas",
+    "answer": "Trouvé 5 cartons enregistrés au total.",
+    "data": [
+        {
+            "type": "Jaune",
+            "joueur": "Luka Modric",
+            "minute": "34",
+            "période": "Seconde mi-temps",
+            "motif": "retarder le jeu"
+        },
+        {
+            "type": "Rouge",
+            "joueur": "Leroy Sané",
+            "minute": "44",
+            "période": "Première mi-temps",
+            "motif": "deuxième carton jaune"
+        },
+        {
+            "type": "Jaune",
+            "joueur": "Gavi",
+            "minute": "44",
+            "période": "Première mi-temps",
+            "motif": "retenir l'adversaire"
+        },
+        {
+            "type": "Jaune",
+            "joueur": "Pedri",
+            "minute": "11",
+            "période": "Seconde mi-temps",
+            "motif": "jeu dangereux"
+        },
+        {
+            "type": "Jaune",
+            "joueur": "Jude Bellingham",
+            "minute": "11",
+            "période": "Première mi-temps",
+            "motif": "faute grave"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #79
+================================================================================
+Idioma: fr
+Pregunta: Remplacements effectués
+
+Respuesta:
+{
+    "query": "Remplacements effectués",
+    "intent": "sustituciones",
+    "answer": "Trouvé 5 substitutions enregistrées.",
+    "data": [
+        {
+            "entre": "Pedri",
+            "sort": "Gavi",
+            "minute": "5",
+            "période": "Seconde mi-temps"
+        },
+        {
+            "entre": "Leroy Sané",
+            "sort": "Harry Kane",
+            "minute": "10",
+            "période": "Seconde mi-temps"
+        },
+        {
+            "entre": "Ousmane Dembélé",
+            "sort": "Kylian Mbappé",
+            "minute": "15",
+            "période": "Seconde mi-temps"
+        },
+        {
+            "entre": "Joshua Kimmich",
+            "sort": "Vinícius Júnior",
+            "minute": "19",
+            "période": "Seconde mi-temps"
+        },
+        {
+            "entre": "Luka Modric",
+            "sort": "Jude Bellingham",
+            "minute": "42",
+            "période": "Seconde mi-temps"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #80
+================================================================================
+Idioma: fr
+Pregunta: Quel joueur a été averti pour jeu dangereux ?
+
+Respuesta:
+{
+    "query": "Quel joueur a été averti pour jeu dangereux ?",
+    "intent": "tarjeta_por_motivo",
+    "answer": "Trouvé 2 cartons pour des motifs similaires à 'jeu dangereux'. Joueurs avertis/expulsés : Pedri et Pedri.",
+    "data": [
+        {
+            "joueur": "Pedri",
+            "motif": "jeu dangereux",
+            "type": "Jaune",
+            "minute": "11",
+            "période": "Seconde mi-temps"
+        },
+        {
+            "joueur": "Pedri",
+            "motif": "jeu dangereux",
+            "type": "Jaune",
+            "minute": "11",
+            "période": "Seconde mi-temps"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #81
+================================================================================
+Idioma: fr
+Pregunta: Quels matchs ont été joués le 2024-11-25 ?
+
+Respuesta:
+{
+    "query": "Quels matchs ont été joués le 2024-11-25 ?",
+    "intent": "partidos_fecha",
+    "answer": "1 matchs trouvés le 2024-11-25 : Paris Saint-Germain 1 - 3 Real Madrid.",
+    "data": [
+        {
+            "date": "2024-11-25",
+            "domicile": "Paris Saint-Germain",
+            "visiteur": "Real Madrid",
+            "buts_domicile": "1",
+            "buts_visiteur": "3",
+            "compétition": "UEFA Champions LEAGUE",
+            "stade": "Parc des Princes",
+            "arbitre": "Andrés Cunha"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #82
+================================================================================
+Idioma: es
+Pregunta: ¿Cuáles son los delanteros del Real Madrid?
+
+Respuesta:
+{
+    "query": "¿Cuáles son los delanteros del Real Madrid?",
+    "intent": "jugadores_posicion",
+    "answer": "El Real Madrid tiene 3 jugador(es) de posición Delantero: Kylian Mbappé, Rodrygo Goes y Vinícius Júnior.",
+    "data": [
+        {
+            "nombre": "Kylian Mbappé",
+            "equipo": "Real Madrid",
+            "dorsal": "10",
+            "nacionalidad": "Francesa"
+        },
+        {
+            "nombre": "Rodrygo Goes",
+            "equipo": "Real Madrid",
+            "dorsal": "11",
+            "nacionalidad": "Brasileña"
+        },
+        {
+            "nombre": "Vinícius Júnior",
+            "equipo": "Real Madrid",
+            "dorsal": "7",
+            "nacionalidad": "Brasileña"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #83
+================================================================================
+Idioma: es
+Pregunta: ¿Cuáles son los mediocampistas del FC Barcelona?
+
+Respuesta:
+{
+    "query": "¿Cuáles son los mediocampistas del FC Barcelona?",
+    "intent": "jugadores_posicion",
+    "answer": "El FC Barcelona tiene 2 jugador(es) de posición Mediocampista: Gavi y Pedri.",
+    "data": [
+        {
+            "nombre": "Gavi",
+            "equipo": "FC Barcelona",
+            "dorsal": "6",
+            "nacionalidad": "Española"
+        },
+        {
+            "nombre": "Pedri",
+            "equipo": "FC Barcelona",
+            "dorsal": "8",
+            "nacionalidad": "Española"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #84
+================================================================================
+Idioma: es
+Pregunta: ¿Cuáles son los porteros del Bayern Munchen?
+
+Respuesta:
+{
+    "query": "¿Cuáles son los porteros del Bayern Munchen?",
+    "intent": "jugadores_posicion",
+    "answer": "No encontré jugadores de posición Portero en el Bayern Munchen.",
+    "data": null,
+    "found": false
+}
+
+================================================================================
+TEST #85
+================================================================================
+Idioma: es
+Pregunta: ¿Cuáles son los defensas del Liverpool FC?
+
+Respuesta:
+{
+    "query": "¿Cuáles son los defensas del Liverpool FC?",
+    "intent": "jugadores_posicion",
+    "answer": "No encontré jugadores de posición Defensa en el Liverpool FC.",
+    "data": null,
+    "found": false
+}
+
+================================================================================
+TEST #86
+================================================================================
+Idioma: en
+Pregunta: Who are the forwards of Real Madrid?
+
+Respuesta:
+{
+    "query": "Who are the forwards of Real Madrid?",
+    "intent": "jugadores_posicion",
+    "answer": "Real Madrid has 3 forward player(s): Kylian Mbappé, Rodrygo Goes and Vinícius Júnior.",
+    "data": [
+        {
+            "name": "Kylian Mbappé",
+            "team": "Real Madrid",
+            "number": "10",
+            "nationality": "French"
+        },
+        {
+            "name": "Rodrygo Goes",
+            "team": "Real Madrid",
+            "number": "11",
+            "nationality": "Brazilian"
+        },
+        {
+            "name": "Vinícius Júnior",
+            "team": "Real Madrid",
+            "number": "7",
+            "nationality": "Brazilian"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #87
+================================================================================
+Idioma: en
+Pregunta: Who are the midfielders of FC Barcelona?
+
+Respuesta:
+{
+    "query": "Who are the midfielders of FC Barcelona?",
+    "intent": "jugadores_posicion",
+    "answer": "FC Barcelona has 2 midfielder player(s): Gavi and Pedri.",
+    "data": [
+        {
+            "name": "Gavi",
+            "team": "FC Barcelona",
+            "number": "6",
+            "nationality": "Spanish"
+        },
+        {
+            "name": "Pedri",
+            "team": "FC Barcelona",
+            "number": "8",
+            "nationality": "Spanish"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #88
+================================================================================
+Idioma: en
+Pregunta: Who are the goalkeepers of Bayern Munchen?
+
+Respuesta:
+{
+    "query": "Who are the goalkeepers of Bayern Munchen?",
+    "intent": "jugadores_posicion",
+    "answer": "No goalkeeper players found in Bayern Munich.",
+    "data": null,
+    "found": false
+}
+
+================================================================================
+TEST #89
+================================================================================
+Idioma: en
+Pregunta: Who are the defenders of Liverpool FC?
+
+Respuesta:
+{
+    "query": "Who are the defenders of Liverpool FC?",
+    "intent": "jugadores_posicion",
+    "answer": "No defender players found in Liverpool FC.",
+    "data": null,
+    "found": false
+}
+
+================================================================================
+TEST #90
+================================================================================
+Idioma: fr
+Pregunta: Quels sont les attaquants du Real Madrid?
+
+Respuesta:
+{
+    "query": "Quels sont les attaquants du Real Madrid?",
+    "intent": "jugadores_posicion",
+    "answer": "Real Madrid compte 3 joueur(s) au poste de attaquant : Kylian Mbappé, Rodrygo Goes et Vinícius Júnior.",
+    "data": [
+        {
+            "nom": "Kylian Mbappé",
+            "équipe": "Real Madrid",
+            "numéro": "10",
+            "nationalité": "française"
+        },
+        {
+            "nom": "Rodrygo Goes",
+            "équipe": "Real Madrid",
+            "numéro": "11",
+            "nationalité": "brésilienne"
+        },
+        {
+            "nom": "Vinícius Júnior",
+            "équipe": "Real Madrid",
+            "numéro": "7",
+            "nationalité": "brésilienne"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #91
+================================================================================
+Idioma: fr
+Pregunta: Quels sont les milieux du FC Barcelona?
+
+Respuesta:
+{
+    "query": "Quels sont les milieux du FC Barcelona?",
+    "intent": "jugadores_posicion",
+    "answer": "FC Barcelone compte 2 joueur(s) au poste de milieu : Gavi et Pedri.",
+    "data": [
+        {
+            "nom": "Gavi",
+            "équipe": "FC Barcelone",
+            "numéro": "6",
+            "nationalité": "espagnole"
+        },
+        {
+            "nom": "Pedri",
+            "équipe": "FC Barcelone",
+            "numéro": "8",
+            "nationalité": "espagnole"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #92
+================================================================================
+Idioma: fr
+Pregunta: Quels sont les gardiens du Bayern Munchen?
+
+Respuesta:
+{
+    "query": "Quels sont les gardiens du Bayern Munchen?",
+    "intent": "jugadores_posicion",
+    "answer": "Aucun joueur au poste de gardien de but trouvé dans Bayern Munich.",
+    "data": null,
+    "found": false
+}
+
+================================================================================
+TEST #93
+================================================================================
+Idioma: fr
+Pregunta: Quels sont les défenseurs du Liverpool FC?
+
+Respuesta:
+{
+    "query": "Quels sont les défenseurs du Liverpool FC?",
+    "intent": "jugadores_posicion",
+    "answer": "Aucun joueur au poste de défenseur trouvé dans Liverpool FC.",
+    "data": null,
+    "found": false
+}
+

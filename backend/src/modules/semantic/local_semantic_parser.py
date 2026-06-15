@@ -184,6 +184,7 @@ class LocalSemanticParser:
 
     INTENTS_BY_LANG = {
         "es": [
+            ("partidos_fecha",      ["partidos del", "partidos de la fecha", "partidos el", "partidos por fecha", "partido del"]),
             ("goleadores_ranking",  ["máximo goleador", "maximo goleador", "ranking goles",
                                       "quién marcó más", "quien marcó más", "quien marcó mas",
                                       "top goleador", "mejor goleador"]),
@@ -212,6 +213,7 @@ class LocalSemanticParser:
                                       "entrena al", "entrena a", "quien entrena", "quién entrena",
                                       "estadio del", "estadio de", "ciudad del", "ciudad de",
                                       "información del equipo", "informacion del equipo"]),
+            ("tarjeta_por_motivo",  ["tarjeta por", "amonestado por", "expulsado por"]),
             ("tarjetas",            ["tarjeta", "tarjetas", "amonestado", "expulsado", "amarilla", "roja"]),
             ("sustituciones",       ["sustitución", "sustitucion", "sustituciones", "cambio",
                                       "entró", "entro", "salió", "salio", "cambios"]),
@@ -224,14 +226,20 @@ class LocalSemanticParser:
             ("es_titular",          ["es titular", "jugadores titulares", "es un jugador titular", "titular"]),
             ("torneos_internacionales", ["torneos internacionales", "competiciones internacionales", "tipo de torneo"]),
             ("asistencia_gol",      ["asistencia de gol", "asistencia para el gol", "asistencia de", "dio la asistencia", "asistencia para"]),
-            ("tarjeta_por_motivo",  ["tarjeta por", "amonestado por", "expulsado por"]),
-            ("jugadores_posicion",  ["delanteros", "mediocampistas", "porteros", "defensas",
-                                      "jugadores de posición", "jugadores que juegan de",
-                                      "qué delanteros", "que delanteros"]),
+            ("jugadores_posicion",  ["delanteros del", "mediocampistas del", "porteros del", "defensas del",
+                                       "delanteros de", "mediocampistas de", "porteros de", "defensas de",
+                                       "delanteros", "mediocampistas", "porteros", "defensas",
+                                       "jugadores de posición", "jugadores que juegan de",
+                                       "cuáles son los delanteros", "cuales son los delanteros",
+                                       "cuáles son los mediocampistas", "cuales son los mediocampistas",
+                                       "cuáles son los porteros", "cuales son los porteros",
+                                       "cuáles son los defensas", "cuales son los defensas",
+                                       "qué delanteros", "que delanteros"]),
             ("info_entrenador",     ["entrenador", "entrenadores", "técnico", "tecnico",
                                       "DT", "quien dirige", "quién dirige"]),
         ],
         "en": [
+            ("partidos_fecha",      ["matches on", "matches of the date", "matches from", "matches played on", "matches by date", "match on"]),
             ("goleadores_ranking",  ["top scorer", "best scorer", "ranking goals", "most goals", "who scored most", "who scored the most", "goal ranking"]),
             ("partidos_competicion",["matches of the", "matches of", "matches in the", "games in the", "played in"]),
             ("todos_partidos",      ["all matches", "list of matches", "played matches", "all games"]),
@@ -252,6 +260,7 @@ class LocalSemanticParser:
             ("estadios_ubicacion",  ["stadiums in", "stadium in", "what stadiums are in", "stadiums of"]),
             ("estadios",            ["stadium", "capacity", "attendance", "spectators"]),
             ("info_equipo",         ["coach of", "trainer of", "who coaches", "city of", "information of the team", "info of the team", "information of", "info of"]),
+            ("tarjeta_por_motivo",  ["card for", "booked for", "sent off for", "carded for", "booked for rough", "rough play"]),
             ("tarjetas",            ["card", "cards", "booked", "sent off", "yellow", "red", "show the cards", "show cards"]),
             ("sustituciones",       ["substitution", "substitutions", "change", "changes", "came on", "went off", "substituted"]),
             ("arbitros",            ["referee", "referees"]),
@@ -260,12 +269,18 @@ class LocalSemanticParser:
                                        "birth date", "birthday", "born on", "born"]),
             ("es_titular",          ["is starter", "starting players", "is a starter", "starter", "starting"]),
             ("torneos_internacionales", ["international tournaments", "international competitions", "tournament type"]),
-            ("asistencia_gol",      ["assist", "assists", "gave the assist", "assist for"]),
-            ("tarjeta_por_motivo",  ["card for", "booked for", "sent off for"]),
-            ("jugadores_posicion",  ["forwards", "midfielders", "goalkeepers", "defenders", "players of position", "players who play as", "what forwards"]),
+            ("asistencia_gol",      ["who assisted", "who gave the assist", "gave the assist", "assist for", "assist to", "assisted", "assists", "assist"]),
+            ("jugadores_posicion",  ["forwards of", "midfielders of", "goalkeepers of", "defenders of",
+                                       "forwards in", "midfielders in", "goalkeepers in", "defenders in",
+                                       "forwards", "midfielders", "goalkeepers", "defenders",
+                                       "players of position", "players who play as",
+                                       "who are the forwards", "who are the midfielders",
+                                       "who are the goalkeepers", "who are the defenders",
+                                       "what forwards", "what midfielders", "what goalkeepers", "what defenders"]),
             ("info_entrenador",     ["coach", "manager", "trainer", "who manages", "who directs"]),
         ],
         "fr": [
+            ("partidos_fecha",      ["matchs du", "matchs le", "matchs de la date", "matchs par date", "match du"]),
             ("goleadores_ranking",  ["meilleur buteur", "classement des buteurs", "top buteur", "qui a marqué le plus", "classement buts"]),
             # partidos_competicion: include "matchs de l'" so 'Matchs de l'UEFA' is captured
             ("partidos_competicion",["matchs de l'", "matchs de la", "matchs du", "matchs en", "joués en"]),
@@ -287,6 +302,7 @@ class LocalSemanticParser:
             ("estadios",            ["capacité", "affluence", "spectateurs"]),
             ("info_equipo",         ["qui entraîne", "qui entraine", "entraîneur de", "entraineur de",
                                       "stade du", "stade de l'", "stade de", "ville de", "informations sur l'équipe", "info sur l'équipe"]),
+            ("tarjeta_por_motivo",  ["carton pour", "averti pour", "expulsé pour", "averti pour jeu dangereux", "jeu dangereux"]),
             ("tarjetas",            ["carton", "cartons", "averti", "expulsé", "jaune", "rouge", "montre les cartons"]),
             ("sustituciones",       ["substitution", "substitutions", "changement", "changements", "est entré", "est sorti", "remplacement", "remplacements", "remplacements effectués", "remplacements effectues"]),
             ("arbitros",            ["arbitre", "arbitres"]),
@@ -296,8 +312,13 @@ class LocalSemanticParser:
             ("es_titular",          ["est titulaire", "joueurs titulaires", "titulaire"]),
             ("torneos_internacionales", ["tournois internationaux", "compétitions internationales", "type de tournoi"]),
             ("asistencia_gol",      ["passe décisive", "passe decisive", "a fait la passe", "passe décisive pour"]),
-            ("tarjeta_por_motivo",  ["carton pour", "averti pour", "expulsé pour"]),
-            ("jugadores_posicion",  ["attaquants", "milieux", "gardiens", "défenseurs", "joueurs de position", "joueurs qui jouent comme", "quels attaquants"]),
+            ("jugadores_posicion",  ["attaquants du", "milieux du", "gardiens du", "défenseurs du",
+                                       "attaquants de", "milieux de", "gardiens de", "défenseurs de",
+                                       "attaquants", "milieux", "gardiens", "défenseurs",
+                                       "joueurs de position", "joueurs qui jouent comme",
+                                       "quels sont les attaquants", "quels sont les milieux",
+                                       "quels sont les gardiens", "quels sont les défenseurs",
+                                       "quels attaquants", "quels milieux", "quels gardiens", "quels défenseurs"]),
             ("info_entrenador",     ["entraîneur", "entraineur", "technicien", "qui dirige", "coach"]),
         ]
     }
@@ -333,23 +354,32 @@ class LocalSemanticParser:
 
         # ── 1. Detectar intent por keywords ──────────────────────────────
         intent = None
-        for intnt, keywords in LocalSemanticParser.INTENTS_BY_LANG[lang]:
-            if keywords:
-                # Comprobar palabra completa usando límites de palabra si es alfanumérico
-                matched = False
-                for kw in keywords:
-                    pattern = ""
-                    if kw[0].isalnum() or kw[0] == '_':
-                        pattern += r'\b'
-                    pattern += re.escape(kw)
-                    if kw[-1].isalnum() or kw[-1] == '_':
-                        pattern += r'\b'
-                    if re.search(pattern, q_lower):
-                        matched = True
+
+        # Override for date-based match queries
+        has_date = bool(re.search(r'\b\d{4}-\d{2}-\d{2}\b', q_lower))
+        if has_date:
+            match_keywords = ["partido", "partidos", "match", "matches", "matchs", "jugar", "jugaron", "played", "joué", "joues", "joués", "result", "score", "résultat", "resultado"]
+            if any(w in q_lower for w in match_keywords):
+                intent = "partidos_fecha"
+
+        if intent is None:
+            for intnt, keywords in LocalSemanticParser.INTENTS_BY_LANG[lang]:
+                if keywords:
+                    # Comprobar palabra completa usando límites de palabra si es alfanumérico
+                    matched = False
+                    for kw in keywords:
+                        pattern = ""
+                        if kw[0].isalnum() or kw[0] == '_':
+                            pattern += r'\b'
+                        pattern += re.escape(kw)
+                        if kw[-1].isalnum() or kw[-1] == '_':
+                            pattern += r'\b'
+                        if re.search(pattern, q_lower):
+                            matched = True
+                            break
+                    if matched:
+                        intent = intnt
                         break
-                if matched:
-                    intent = intnt
-                    break
 
         # ── 2. Si no hay keyword, detectar por catálogo de nombres ───────
         if intent is None:
@@ -409,7 +439,10 @@ class LocalSemanticParser:
     # ── Dispatch de extracción ────────────────────────────────────────────
     @staticmethod
     def _extract_entities(q_lower: str, intent: str, lang: str) -> list:
-        if intent in ("resultado_partido", "goles_partido"):
+        if intent == "partidos_fecha":
+            return LocalSemanticParser._extract_fecha_entities(q_lower, lang)
+
+        elif intent in ("resultado_partido", "goles_partido"):
             return LocalSemanticParser._extract_partido_entities(q_lower, lang)
 
         elif intent in ("jugadores_equipo", "info_equipo", "capitan_equipo"):
@@ -450,6 +483,14 @@ class LocalSemanticParser:
         return [AliasMapper.resolve(q_lower.strip(" ¿?!"))]
 
     # ── Extractores ───────────────────────────────────────────────────────
+
+    @staticmethod
+    def _extract_fecha_entities(q_lower: str, lang: str) -> list:
+        # Search for YYYY-MM-DD pattern
+        match = re.search(r'(\d{4}-\d{2}-\d{2})', q_lower)
+        if match:
+            return [match.group(1)]
+        return []
 
     @staticmethod
     def _extract_partido_entities(q_lower: str, lang: str) -> list:
@@ -809,13 +850,31 @@ class LocalSemanticParser:
 
     @staticmethod
     def _extract_motivo_tarjeta(q_lower: str, lang: str) -> list:
+        # 1. First try to find a known motivo phrase directly in the query
+        known_motivos = [
+            # ES (longer first)
+            "juego brusco", "conducta violenta", "sujetar al rival",
+            "conducta antideportiva", "mano", "falta",
+            # EN
+            "rough play", "dangerous play", "violent conduct",
+            "holding the opponent", "holding", "unsporting behaviour",
+            "unsporting behavior", "handball", "foul", "simulation",
+            "time wasting", "dissent",
+            # FR
+            "jeu dangereux", "jeu brutal", "conduite violente",
+            "retenir l'adversaire", "comportement antisportif",
+            "main", "faute", "protestation",
+        ]
+        for m in known_motivos:
+            if m in q_lower:
+                return [m]
+
+        # 2. Fall back to prefix stripping for generic patterns
         cleaned = q_lower
         kws = [
             "tarjeta por", "amonestado por", "expulsado por",
-            # EN
-            "card for", "booked for", "sent off for",
-            # FR
-            "carton pour", "averti pour", "expulsé pour"
+            "carded for", "sent off for", "booked for", "card for",
+            "averti pour", "carton pour",
         ]
         for kw in kws:
             if kw in cleaned:
@@ -827,8 +886,13 @@ class LocalSemanticParser:
     
     @staticmethod
     def _extract_posicion_entities(q_lower: str, lang: str) -> list:
-        """Detecta la posición pedida y la normaliza al valor de la ontología."""
+        """Detecta la posición pedida y el equipo (opcional) y los normaliza.
+        Retorna [posicion] o [posicion, nombre_equipo].
+        """
         mapeo = {
+            # ES — frases largas primero
+            "milieu de terrain": "Mediocampista",
+            "gardien de but": "Portero",
             # ES
             "delantero": "Delantero", "delanteros": "Delantero",
             "mediocampista": "Mediocampista", "mediocampistas": "Mediocampista",
@@ -845,14 +909,32 @@ class LocalSemanticParser:
             "defender": "Defensa", "defenders": "Defensa",
             # FR
             "attaquant": "Delantero", "attaquants": "Delantero",
-            "milieu de terrain": "Mediocampista", "milieu": "Mediocampista", "milieux": "Mediocampista",
-            "gardien de but": "Portero", "gardien": "Portero", "gardiens": "Portero",
-            "défenseur": "Defensa", "defenseur": "Defensa", "défenseurs": "Defensa", "defenseurs": "Defensa"
+            "milieu": "Mediocampista", "milieux": "Mediocampista",
+            "gardien": "Portero", "gardiens": "Portero",
+            "défenseur": "Defensa", "defenseur": "Defensa",
+            "défenseurs": "Defensa", "defenseurs": "Defensa"
         }
-        for kw, valor in mapeo.items():
+
+        posicion = None
+        # Ordenar de más largo a más corto para evitar falsos positivos
+        for kw in sorted(mapeo.keys(), key=len, reverse=True):
             if kw in q_lower:
-                return [valor]
-        return []
+                posicion = mapeo[kw]
+                break
+
+        if not posicion:
+            return []
+
+        # Intentar extraer el equipo de la query
+        equipo_nombre = None
+        for name in sorted(EQUIPOS_CONOCIDOS, key=len, reverse=True):
+            if name in q_lower:
+                equipo_nombre = AliasMapper.resolve(name)
+                break
+
+        if equipo_nombre:
+            return [posicion, equipo_nombre]
+        return [posicion]
 
     @staticmethod
     def _extract_entrenador_entities(q_lower: str, lang: str) -> list:

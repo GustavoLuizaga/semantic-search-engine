@@ -508,6 +508,24 @@ class SPARQLBuilder:
         """
 
     @staticmethod
+    def query_jugadores_por_posicion_y_equipo(posicion: str, eq_id: str) -> str:
+        """Jugadores que juegan en una posición dada dentro de un equipo específico."""
+        return PREFIX + f"""
+        SELECT ?nombre ?equipo_nombre ?dorsal ?nacionalidad
+        WHERE {{
+            ?jug a :Jugador ;
+                 :tieneNombre ?nombre ;
+                 :tienePosicion ?pos ;
+                 :juegaEn :{eq_id} .
+            FILTER(LCASE(str(?pos)) = "{posicion.lower()}")
+            OPTIONAL {{ ?jug :juegaEn ?eq . ?eq :tieneNombre ?equipo_nombre }}
+            OPTIONAL {{ ?jug :tieneDorsal ?dorsal }}
+            OPTIONAL {{ ?jug :tieneNacionalidad ?nacionalidad }}
+        }}
+        ORDER BY ?nombre
+        """
+
+    @staticmethod
     def query_todos_entrenadores() -> str:
         """Lista todos los entrenadores con su equipo actual."""
         return PREFIX + """
@@ -534,4 +552,29 @@ class SPARQLBuilder:
             OPTIONAL {{ :{dt_id} :tieneFechaNacimiento ?fecha_nac }}
             OPTIONAL {{ ?eq :esDirigidoPor :{dt_id} . ?eq :tieneNombre ?equipo_nombre }}
         }}
+        """
+
+    @staticmethod
+    def query_partidos_por_fecha(fecha: str) -> str:
+        """Todos los partidos jugados en una fecha específica."""
+        return PREFIX + f"""
+        SELECT ?partido ?golesLocal ?golesVisitante ?fecha
+               ?estadio_nombre ?arbitro_nombre ?comp_nombre
+               ?eq_local_nom ?eq_visitante_nom
+        WHERE {{
+            ?partido a :Partido ;
+                     :tieneFecha ?fecha .
+            FILTER(CONTAINS(str(?fecha), "{fecha}"))
+            OPTIONAL {{ ?partido :tieneEquipoLocal ?eql . ?eql :tieneNombre ?eq_local_nom }}
+            OPTIONAL {{ ?partido :tieneEquipoVisitante ?eqv . ?eqv :tieneNombre ?eq_visitante_nom }}
+            OPTIONAL {{ ?partido :seJuegaEn ?est . ?est :tieneNombre ?estadio_nombre }}
+            OPTIONAL {{ ?partido :esArbitradoPor ?arb . ?arb :tieneNombre ?arbitro_nombre }}
+            OPTIONAL {{ ?partido :perteneceA ?comp . ?comp :tieneNombre ?comp_nombre }}
+            OPTIONAL {{
+                ?res :resultadoDe ?partido .
+                ?res :tieneGolesLocal ?golesLocal ;
+                     :tieneGolesVisitante ?golesVisitante .
+            }}
+        }}
+        ORDER BY ?partido
         """

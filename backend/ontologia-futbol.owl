@@ -1135,7 +1135,7 @@
     <recibeTarjeta rdf:resource="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/jugador_08"/>
     <motivoTarjeta>Sujetar al rival</motivoTarjeta>
     <tieneTiempo>Primer tiempo</tieneTiempo>
-    <tieneTiempo rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">44</tieneTiempo>
+    <tieneMinuto rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">44</tieneMinuto>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/entrenador_02">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>

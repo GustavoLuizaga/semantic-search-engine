@@ -155,6 +155,88 @@ def _fmt_fecha(f_str: str) -> str:
     return f_str.split("T")[0]
 
 
+def translate_tipo_tarjeta(tipo: str, lang: str) -> str:
+    if not tipo:
+        return ""
+    t_lower = tipo.lower().strip()
+    mapeo = {
+        "en": {
+            "amarilla": "Yellow",
+            "tarjetaamarilla": "Yellow",
+            "roja": "Red",
+            "tarjetaroja": "Red"
+        },
+        "fr": {
+            "amarilla": "Jaune",
+            "tarjetaamarilla": "Jaune",
+            "roja": "Rouge",
+            "tarjetaroja": "Rouge"
+        }
+    }
+    if t_lower.startswith("tarjeta") and t_lower != "tarjeta":
+        sub = t_lower[7:]
+        val = mapeo.get(lang, {}).get(sub, tipo)
+        if val != tipo:
+            return val
+    return mapeo.get(lang, {}).get(t_lower, tipo)
+
+
+def translate_tiempo(tiempo: str, lang: str) -> str:
+    if not tiempo:
+        return ""
+    t_lower = tiempo.lower().strip()
+    mapeo = {
+        "en": {
+            "primer tiempo": "First half",
+            "segundo tiempo": "Second half",
+            "tiempo extra": "Extra time"
+        },
+        "fr": {
+            "primer tiempo": "Première mi-temps",
+            "segundo tiempo": "Seconde mi-temps",
+            "tiempo extra": "Prolongation"
+        }
+    }
+    return mapeo.get(lang, {}).get(t_lower, tiempo)
+
+
+def translate_motivo(motivo: str, lang: str) -> str:
+    if not motivo:
+        return ""
+    m_lower = motivo.lower().strip().replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u")
+    mapeo = {
+        "en": {
+            "juego brusco": "rough play",
+            "conducta antideportiva": "unsporting behaviour",
+            "conducta violenta": "violent conduct",
+            "sujetar al rival": "holding the opponent",
+            "mano": "handball",
+            "falta": "foul",
+            "simulacion": "simulation",
+            "perdida de tiempo": "time wasting",
+            "protestar al arbitro": "dissent",
+            "demorar juego": "delaying the restart of play",
+            "doble amarilla": "second yellow card",
+            "falta fuerte": "hard foul"
+        },
+        "fr": {
+            "juego brusco": "jeu dangereux",
+            "conducta antideportiva": "comportement antisportif",
+            "conducta violenta": "conduite violente",
+            "sujetar al rival": "retenir l'adversaire",
+            "mano": "main",
+            "falta": "faute",
+            "simulacion": "simulation",
+            "perdida de tiempo": "perte de temps",
+            "protestar al arbitro": "protestation",
+            "demorar juego": "retarder le jeu",
+            "doble amarilla": "deuxième carton jaune",
+            "falta fuerte": "faute grave"
+        }
+    }
+    return mapeo.get(lang, {}).get(m_lower, motivo)
+
+
 # ── Data Key Translations ──────────────────────────────────────────────────
 # Maps Spanish key names → translated key names per language
 _KEY_MAP = {
@@ -318,6 +400,8 @@ T = {
         
         "no_todos_partidos": "No se encontraron partidos registrados.",
         "todos_partidos_fmt": "Se encontraron {cant} partidos registrados.",
+        "no_partidos_fecha": "No encontré partidos jugados el {fecha}.",
+        "partidos_fecha_fmt": "Se encontraron {cant} partidos el {fecha}: {lista}.",
         
         "no_todos_equipos": "No hay equipos registrados.",
         "todos_equipos_fmt": "Hay {cant} equipos registrados: {lista}.",
@@ -356,6 +440,8 @@ T = {
         "no_posicion": "No pude identificar la posición en tu consulta.",
         "no_jugadores_posicion": "No encontré jugadores que jueguen de {posicion}.",
         "jugadores_posicion_fmt": "Hay {cant} jugadores de posición {posicion}: {lista}.",
+        "no_jugadores_posicion_equipo": "No encontré jugadores de posición {posicion} en el {equipo}.",
+        "jugadores_posicion_equipo_fmt": "El {equipo} tiene {cant} jugador(es) de posición {posicion}: {lista}.",
         
         "no_entrenadores": "No hay entrenadores registrados.",
         "entrenadores_registrados": "Hay {cant} entrenadores registrados: {lista}.",
@@ -442,6 +528,8 @@ T = {
         
         "no_todos_partidos": "No registered matches found.",
         "todos_partidos_fmt": "Found {cant} registered matches.",
+        "no_partidos_fecha": "No matches found played on {fecha}.",
+        "partidos_fecha_fmt": "Found {cant} matches on {fecha}: {lista}.",
         
         "no_todos_equipos": "No registered teams found.",
         "todos_equipos_fmt": "There are {cant} registered teams: {lista}.",
@@ -480,6 +568,8 @@ T = {
         "no_posicion": "I couldn't identify the position in your query.",
         "no_jugadores_posicion": "No players found playing as {posicion}.",
         "jugadores_posicion_fmt": "There are {cant} players in the position of {posicion}: {lista}.",
+        "no_jugadores_posicion_equipo": "No {posicion} players found in {equipo}.",
+        "jugadores_posicion_equipo_fmt": "{equipo} has {cant} {posicion} player(s): {lista}.",
         
         "no_entrenadores": "No registered coaches found.",
         "entrenadores_registrados": "There are {cant} registered coaches: {lista}.",
@@ -566,6 +656,8 @@ T = {
         
         "no_todos_partidos": "Aucun match enregistré trouvé.",
         "todos_partidos_fmt": "Trouvé {cant} matchs enregistrés.",
+        "no_partidos_fecha": "Aucun match trouvé le {fecha}.",
+        "partidos_fecha_fmt": "{cant} matchs trouvés le {fecha} : {lista}.",
         
         "no_todos_equipos": "Aucune équipe enregistrée trouvée.",
         "todos_equipos_fmt": "Il y a {cant} équipes enregistrées : {lista}.",
@@ -604,6 +696,8 @@ T = {
         "no_posicion": "Je n'ai pas pu identifier la position dans votre requête.",
         "no_jugadores_posicion": "Aucun joueur trouvé jouant comme {posicion}.",
         "jugadores_posicion_fmt": "Il y a {cant} joueurs au poste de {posicion} : {lista}.",
+        "no_jugadores_posicion_equipo": "Aucun joueur au poste de {posicion} trouvé dans {equipo}.",
+        "jugadores_posicion_equipo_fmt": "{equipo} compte {cant} joueur(s) au poste de {posicion} : {lista}.",
         
         "no_entrenadores": "Aucun entraîneur enregistré trouvé.",
         "entrenadores_registrados": "Il y a {cant} entraîneurs enregistrés : {lista}.",
@@ -672,6 +766,7 @@ class SearchService:
             "equipos_por_pais":       lambda: self._equipos_por_pais(matched, lang),
             "jugadores_posicion":     lambda: self._jugadores_posicion(matched, lang),
             "info_entrenador":        lambda: self._info_entrenador(matched, parsed, lang),
+            "partidos_fecha":         lambda: self._partidos_fecha(matched, lang),
         }
 
         fn = dispatch.get(intent)
@@ -766,7 +861,7 @@ class SearchService:
                 NS_BASE = "http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/"
                 raw_id = fila.get("id", "")
                 jug_id = raw_id[len(NS_BASE):] if raw_id.startswith(NS_BASE) else raw_id.split("#")[-1]
-                print(f"  [goles_partido] jugador detectado: {nom!r} → {jug_id!r}")
+                print(f"  [goles_partido] jugador detectado: {nom!r} -> {jug_id!r}")
                 goles_r = executor.query(SPARQLBuilder.query_goles_jugador(jug_id))
                 total   = int(goles_r[0].get("total", 0)) if goles_r else 0
                 answer  = T[lang]["jugador_goles"].format(nom=nom, total=total)
@@ -796,11 +891,12 @@ class SearchService:
             goles_r = executor.query(SPARQLBuilder.query_goles_partido(p_id))
             print(f"  [goles_partido] → {len(goles_r)} goles")
             for g in goles_r:
+                tiempo_val = translate_tiempo(g.get("tiempo", ""), lang)
                 all_goles.append({
                     "anotador":  g.get("anotador_nom", "?"),
                     "asistidor": g.get("asistidor_nom", ""),
                     "minuto":    g.get("minuto", "?"),
-                    "tiempo":    g.get("tiempo", ""),
+                    "tiempo":    tiempo_val,
                 })
 
         if not all_goles:
@@ -1142,12 +1238,15 @@ class SearchService:
             return T[lang]["no_tarjetas"], None, False
         data = []
         for f in resultados:
+            tipo_val = translate_tipo_tarjeta(f.get("tipo_clase", "?"), lang)
+            tiempo_val = translate_tiempo(f.get("tiempo", ""), lang)
+            motivo_val = translate_motivo(f.get("motivo", ""), lang)
             data.append({
-                "tipo":    translate_entity(f.get("tipo_clase", "?"), lang),
+                "tipo":    tipo_val,
                 "jugador": f.get("nombre_jugador", "?"),
                 "minuto":  f.get("minuto", "?"),
-                "tiempo":  f.get("tiempo", ""),
-                "motivo":  f.get("motivo", "")
+                "tiempo":  tiempo_val,
+                "motivo":  motivo_val
             })
         answer = T[lang]["tarjetas_registradas"].format(cant=len(data))
         return answer, translate_data_keys(data, lang), True
@@ -1159,9 +1258,15 @@ class SearchService:
         print(f"  [sustituciones] filas={len(resultados)}")
         if not resultados:
             return T[lang]["no_sustituciones"], None, False
-        data = [{"entra":  f.get("entra_nom", "?"), "sale":   f.get("sale_nom",  "?"),
-                 "minuto": f.get("minuto", "?"),     "tiempo": f.get("tiempo", "")}
-                for f in resultados]
+        data = []
+        for f in resultados:
+            tiempo_val = translate_tiempo(f.get("tiempo", ""), lang)
+            data.append({
+                "entra":  f.get("entra_nom", "?"),
+                "sale":   f.get("sale_nom", "?"),
+                "minuto": f.get("minuto", "?"),
+                "tiempo": tiempo_val
+            })
         answer = T[lang]["sustituciones_registradas"].format(cant=len(data))
         return answer, translate_data_keys(data, lang), True
 
@@ -1368,7 +1473,15 @@ class SearchService:
         if not resultados:
             return T[lang]["no_asistencias"], None, False
 
-        data = [{"asistidor": f.get("asistidor_nom", "?"), "goleador": f.get("goleador_nom", "?"), "minuto": f.get("minuto", "?"), "tiempo": f.get("tiempo", "?")} for f in resultados]
+        data = []
+        for f in resultados:
+            tiempo_val = translate_tiempo(f.get("tiempo", "?"), lang)
+            data.append({
+                "asistidor": f.get("asistidor_nom", "?"),
+                "goleador":  f.get("goleador_nom", "?"),
+                "minuto":    f.get("minuto", "?"),
+                "tiempo":    tiempo_val
+            })
         
         if len(data) == 1:
             i = data[0]
@@ -1382,25 +1495,57 @@ class SearchService:
     # ── tarjeta_por_motivo ─────────────────────────────────────────────────
     @staticmethod
     def _tarjeta_por_motivo(matched: dict, lang: str):
-        motivo = matched.get("motivo", "").strip()
-        if not motivo:
+        motivo_raw = (matched.get("motivo") or "").strip()
+        if not motivo_raw:
             return T[lang]["no_motivo_tarjeta"], None, False
+
+        # Translate EN/FR motivo keywords to their Spanish ontology equivalents
+        _MOTIVO_MAP = {
+            # EN
+            "rough play":             "Juego brusco",
+            "rough":                  "Juego brusco",
+            "dangerous play":         "Juego brusco",
+            "violent conduct":        "Conducta violenta",
+            "holding":                "Sujetar al rival",
+            "holding the opponent":   "Sujetar al rival",
+            "unsporting behaviour":   "Conducta antideportiva",
+            "unsporting behavior":    "Conducta antideportiva",
+            "handball":               "Mano",
+            "foul":                   "Falta",
+            "simulation":             "Simulacion",
+            "time wasting":           "Perdida de tiempo",
+            "dissent":                "Protestar al arbitro",
+            # FR
+            "jeu dangereux":          "Juego brusco",
+            "jeu brutal":             "Juego brusco",
+            "conduite violente":      "Conducta violenta",
+            "retenir l'adversaire":   "Sujetar al rival",
+            "comportement antisportif": "Conducta antideportiva",
+            "main":                   "Mano",
+            "faute":                  "Falta",
+            "protestation":           "Protestar al arbitro",
+        }
+        motivo = _MOTIVO_MAP.get(motivo_raw.lower(), motivo_raw)
+        print(f"  [tarjeta_por_motivo] motivo_raw={motivo_raw!r}  -> motivo={motivo!r}")
 
         resultados = executor.query(SPARQLBuilder.query_tarjeta_por_motivo(motivo))
         if not resultados:
-            return T[lang]["no_tarjetas_motivo"].format(motivo=motivo), None, False
+            return T[lang]["no_tarjetas_motivo"].format(motivo=motivo_raw), None, False
 
         data = []
         for f in resultados:
+            tipo_val = translate_tipo_tarjeta(f.get("tipo_tarjeta", "?"), lang)
+            tiempo_val = translate_tiempo(f.get("tiempo", "?"), lang)
+            motivo_val = translate_motivo(f.get("motivo_exacto", "?"), lang)
             data.append({
                 "jugador": f.get("nombre_jugador", "?"),
-                "motivo":  f.get("motivo_exacto", "?"),
-                "tipo":    translate_entity(f.get("tipo_tarjeta", "?"), lang),
+                "motivo":  motivo_val,
+                "tipo":    tipo_val,
                 "minuto":  f.get("minuto", "?"),
-                "tiempo":  f.get("tiempo", "?")
+                "tiempo":  tiempo_val
             })
         nombres = [d["jugador"] for d in data]
-        answer = T[lang]["tarjetas_motivo_fmt"].format(cant=len(data), motivo=motivo, lista=_resumir_lista(nombres, lang))
+        answer = T[lang]["tarjetas_motivo_fmt"].format(cant=len(data), motivo=motivo_raw, lista=_resumir_lista(nombres, lang))
         return answer, translate_data_keys(data, lang), True
 
     # ── gol_propia_puerta ──────────────────────────────────────────────────
@@ -1410,7 +1555,14 @@ class SearchService:
         if not resultados:
             return T[lang]["no_goles_propia_puerta"], None, False
 
-        data = [{"jugador": f.get("nombre_jugador", "?"), "minuto": f.get("minuto", "?"), "tiempo": f.get("tiempo", "?")} for f in resultados]
+        data = []
+        for f in resultados:
+            tiempo_val = translate_tiempo(f.get("tiempo", "?"), lang)
+            data.append({
+                "jugador": f.get("nombre_jugador", "?"),
+                "minuto":  f.get("minuto", "?"),
+                "tiempo":  tiempo_val
+            })
         nombres = [d["jugador"] for d in data]
         answer = T[lang]["goles_propia_puerta_fmt"].format(cant=len(data), lista=_resumir_lista(nombres, lang))
         return answer, translate_data_keys(data, lang), True
@@ -1422,7 +1574,14 @@ class SearchService:
         if not resultados:
             return T[lang]["no_goles_penal"], None, False
 
-        data = [{"jugador": f.get("nombre_jugador", "?"), "minuto": f.get("minuto", "?"), "tiempo": f.get("tiempo", "?")} for f in resultados]
+        data = []
+        for f in resultados:
+            tiempo_val = translate_tiempo(f.get("tiempo", "?"), lang)
+            data.append({
+                "jugador": f.get("nombre_jugador", "?"),
+                "minuto":  f.get("minuto", "?"),
+                "tiempo":  tiempo_val
+            })
         nombres = [d["jugador"] for d in data]
         answer = T[lang]["goles_penal_fmt"].format(cant=len(data), lista=_resumir_lista(nombres, lang))
         return answer, translate_data_keys(data, lang), True
@@ -1431,16 +1590,29 @@ class SearchService:
     @staticmethod
     def _jugadores_posicion(matched: dict, lang: str):
         posicion = (matched.get("posicion") or "").strip()
-        print(f"  [jugadores_posicion] posicion={posicion!r}")
+        eq_id = matched.get("equipo_id")
+        print(f"  [jugadores_posicion] posicion={posicion!r} eq_id={eq_id!r}")
 
         if not posicion:
             return T[lang]["no_posicion"], None, False
 
-        resultados = executor.query(SPARQLBuilder.query_jugadores_por_posicion(posicion))
+        pos_display = translate_pos(posicion, lang)
+
+        if eq_id:
+            resultados = executor.query(SPARQLBuilder.query_jugadores_por_posicion_y_equipo(posicion, eq_id))
+        else:
+            resultados = executor.query(SPARQLBuilder.query_jugadores_por_posicion(posicion))
+            
         print(f"  [jugadores_posicion] jugadores={len(resultados)}")
 
         if not resultados:
-            return T[lang]["no_jugadores_posicion"].format(posicion=posicion), None, False
+            if eq_id:
+                eq_info = executor.query(SPARQLBuilder.query_info_equipo(eq_id))
+                eq_nom = eq_info[0].get("nombre", eq_id) if eq_info else eq_id
+                eq_nom = translate_entity(eq_nom, lang)
+                return T[lang]["no_jugadores_posicion_equipo"].format(posicion=pos_display, equipo=eq_nom), None, False
+            else:
+                return T[lang]["no_jugadores_posicion"].format(posicion=pos_display), None, False
 
         data = []
         for f in resultados:
@@ -1452,8 +1624,11 @@ class SearchService:
             })
 
         nombres = [d["nombre"] for d in data]
-        pos_display = translate_pos(posicion, lang)
-        answer  = T[lang]["jugadores_posicion_fmt"].format(cant=len(data), posicion=pos_display, lista=_resumir_lista(nombres, lang))
+        if eq_id:
+            eq_nom = data[0]["equipo"]
+            answer = T[lang]["jugadores_posicion_equipo_fmt"].format(cant=len(data), equipo=eq_nom, posicion=pos_display, lista=_resumir_lista(nombres, lang))
+        else:
+            answer  = T[lang]["jugadores_posicion_fmt"].format(cant=len(data), posicion=pos_display, lista=_resumir_lista(nombres, lang))
         return answer, translate_data_keys(data, lang), True
 
     # ── info_entrenador ────────────────────────────────────────────────────
@@ -1502,6 +1677,41 @@ class SearchService:
 
         data = {"nombre": nom, "nacionalidad": nac,
                 "fecha_nacimiento": fecha, "equipo": equipo}
+        return answer, translate_data_keys(data, lang), True
+
+    # ── partidos_fecha ─────────────────────────────────────────────────────
+    @staticmethod
+    def _partidos_fecha(matched: dict, lang: str):
+        fecha = (matched.get("fecha") or "").strip()
+        print(f"  [partidos_fecha] fecha={fecha!r}")
+        if not fecha:
+            return T[lang]["no_partidos_fecha"].format(fecha="?"), None, False
+
+        resultados = executor.query(SPARQLBuilder.query_partidos_por_fecha(fecha))
+        print(f"  [partidos_fecha] filas={len(resultados)}")
+
+        if not resultados:
+            return T[lang]["no_partidos_fecha"].format(fecha=fecha), None, False
+
+        data = []
+        for f in resultados:
+            data.append({
+                "fecha":           _fmt_fecha(f.get("fecha", "")),
+                "local":           translate_entity(f.get("eq_local_nom", "?"), lang),
+                "visitante":       translate_entity(f.get("eq_visitante_nom", "?"), lang),
+                "goles_local":     f.get("golesLocal", f.get("goles_local", "-")),
+                "goles_visitante": f.get("golesVisitante", f.get("goles_visitante", "-")),
+                "competicion":     translate_entity(f.get("comp_nombre", "?"), lang),
+                "estadio":         translate_entity(f.get("estadio_nombre", "?"), lang),
+                "arbitro":         f.get("arbitro_nombre", "?")
+            })
+
+        fmt_list = []
+        for d in data:
+            fmt_list.append(f"{d['local']} {d['goles_local']} - {d['goles_visitante']} {d['visitante']}")
+        
+        lista_str = _resumir_lista(fmt_list, lang)
+        answer = T[lang]["partidos_fecha_fmt"].format(cant=len(data), fecha=fecha, lista=lista_str)
         return answer, translate_data_keys(data, lang), True
     
 # Instancia global compartida por el Router
