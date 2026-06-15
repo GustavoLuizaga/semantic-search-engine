@@ -91,6 +91,9 @@ class OntologyMatcher:
         elif intent == "tarjeta_por_motivo":
             return {"motivo": entities[0] if entities else ""}
 
+        elif intent == "partidos_fecha":
+            return {"fecha": entities[0] if entities else ""}
+
         elif intent in ("torneos_internacionales", "gol_propia_puerta", "gol_de_penal", "goleadores_ranking"):
             return {}
         

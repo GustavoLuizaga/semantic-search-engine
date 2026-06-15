@@ -400,6 +400,8 @@ T = {
         
         "no_todos_partidos": "No se encontraron partidos registrados.",
         "todos_partidos_fmt": "Se encontraron {cant} partidos registrados.",
+        "no_partidos_fecha": "No encontré partidos jugados el {fecha}.",
+        "partidos_fecha_fmt": "Se encontraron {cant} partidos el {fecha}: {lista}.",
         
         "no_todos_equipos": "No hay equipos registrados.",
         "todos_equipos_fmt": "Hay {cant} equipos registrados: {lista}.",
@@ -524,6 +526,8 @@ T = {
         
         "no_todos_partidos": "No registered matches found.",
         "todos_partidos_fmt": "Found {cant} registered matches.",
+        "no_partidos_fecha": "No matches found played on {fecha}.",
+        "partidos_fecha_fmt": "Found {cant} matches on {fecha}: {lista}.",
         
         "no_todos_equipos": "No registered teams found.",
         "todos_equipos_fmt": "There are {cant} registered teams: {lista}.",
@@ -648,6 +652,8 @@ T = {
         
         "no_todos_partidos": "Aucun match enregistré trouvé.",
         "todos_partidos_fmt": "Trouvé {cant} matchs enregistrés.",
+        "no_partidos_fecha": "Aucun match trouvé le {fecha}.",
+        "partidos_fecha_fmt": "{cant} matchs trouvés le {fecha} : {lista}.",
         
         "no_todos_equipos": "Aucune équipe enregistrée trouvée.",
         "todos_equipos_fmt": "Il y a {cant} équipes enregistrées : {lista}.",
@@ -754,6 +760,7 @@ class SearchService:
             "equipos_por_pais":       lambda: self._equipos_por_pais(matched, lang),
             "jugadores_posicion":     lambda: self._jugadores_posicion(matched, lang),
             "info_entrenador":        lambda: self._info_entrenador(matched, parsed, lang),
+            "partidos_fecha":         lambda: self._partidos_fecha(matched, lang),
         }
 
         fn = dispatch.get(intent)
@@ -1648,6 +1655,41 @@ class SearchService:
 
         data = {"nombre": nom, "nacionalidad": nac,
                 "fecha_nacimiento": fecha, "equipo": equipo}
+        return answer, translate_data_keys(data, lang), True
+
+    # ── partidos_fecha ─────────────────────────────────────────────────────
+    @staticmethod
+    def _partidos_fecha(matched: dict, lang: str):
+        fecha = (matched.get("fecha") or "").strip()
+        print(f"  [partidos_fecha] fecha={fecha!r}")
+        if not fecha:
+            return T[lang]["no_partidos_fecha"].format(fecha="?"), None, False
+
+        resultados = executor.query(SPARQLBuilder.query_partidos_por_fecha(fecha))
+        print(f"  [partidos_fecha] filas={len(resultados)}")
+
+        if not resultados:
+            return T[lang]["no_partidos_fecha"].format(fecha=fecha), None, False
+
+        data = []
+        for f in resultados:
+            data.append({
+                "fecha":           _fmt_fecha(f.get("fecha", "")),
+                "local":           translate_entity(f.get("eq_local_nom", "?"), lang),
+                "visitante":       translate_entity(f.get("eq_visitante_nom", "?"), lang),
+                "goles_local":     f.get("golesLocal", f.get("goles_local", "-")),
+                "goles_visitante": f.get("golesVisitante", f.get("goles_visitante", "-")),
+                "competicion":     translate_entity(f.get("comp_nombre", "?"), lang),
+                "estadio":         translate_entity(f.get("estadio_nombre", "?"), lang),
+                "arbitro":         f.get("arbitro_nombre", "?")
+            })
+
+        fmt_list = []
+        for d in data:
+            fmt_list.append(f"{d['local']} {d['goles_local']} - {d['goles_visitante']} {d['visitante']}")
+        
+        lista_str = _resumir_lista(fmt_list, lang)
+        answer = T[lang]["partidos_fecha_fmt"].format(cant=len(data), fecha=fecha, lista=lista_str)
         return answer, translate_data_keys(data, lang), True
     
 # Instancia global compartida por el Router

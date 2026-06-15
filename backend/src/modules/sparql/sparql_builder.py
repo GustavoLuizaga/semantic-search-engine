@@ -535,3 +535,28 @@ class SPARQLBuilder:
             OPTIONAL {{ ?eq :esDirigidoPor :{dt_id} . ?eq :tieneNombre ?equipo_nombre }}
         }}
         """
+
+    @staticmethod
+    def query_partidos_por_fecha(fecha: str) -> str:
+        """Todos los partidos jugados en una fecha específica."""
+        return PREFIX + f"""
+        SELECT ?partido ?golesLocal ?golesVisitante ?fecha
+               ?estadio_nombre ?arbitro_nombre ?comp_nombre
+               ?eq_local_nom ?eq_visitante_nom
+        WHERE {{
+            ?partido a :Partido ;
+                     :tieneFecha ?fecha .
+            FILTER(CONTAINS(str(?fecha), "{fecha}"))
+            OPTIONAL {{ ?partido :tieneEquipoLocal ?eql . ?eql :tieneNombre ?eq_local_nom }}
+            OPTIONAL {{ ?partido :tieneEquipoVisitante ?eqv . ?eqv :tieneNombre ?eq_visitante_nom }}
+            OPTIONAL {{ ?partido :seJuegaEn ?est . ?est :tieneNombre ?estadio_nombre }}
+            OPTIONAL {{ ?partido :esArbitradoPor ?arb . ?arb :tieneNombre ?arbitro_nombre }}
+            OPTIONAL {{ ?partido :perteneceA ?comp . ?comp :tieneNombre ?comp_nombre }}
+            OPTIONAL {{
+                ?res :resultadoDe ?partido .
+                ?res :tieneGolesLocal ?golesLocal ;
+                     :tieneGolesVisitante ?golesVisitante .
+            }}
+        }}
+        ORDER BY ?partido
+        """

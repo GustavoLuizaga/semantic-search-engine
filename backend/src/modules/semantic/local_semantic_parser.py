@@ -184,6 +184,7 @@ class LocalSemanticParser:
 
     INTENTS_BY_LANG = {
         "es": [
+            ("partidos_fecha",      ["partidos del", "partidos de la fecha", "partidos el", "partidos por fecha", "partido del"]),
             ("goleadores_ranking",  ["máximo goleador", "maximo goleador", "ranking goles",
                                       "quién marcó más", "quien marcó más", "quien marcó mas",
                                       "top goleador", "mejor goleador"]),
@@ -232,6 +233,7 @@ class LocalSemanticParser:
                                       "DT", "quien dirige", "quién dirige"]),
         ],
         "en": [
+            ("partidos_fecha",      ["matches on", "matches of the date", "matches from", "matches played on", "matches by date", "match on"]),
             ("goleadores_ranking",  ["top scorer", "best scorer", "ranking goals", "most goals", "who scored most", "who scored the most", "goal ranking"]),
             ("partidos_competicion",["matches of the", "matches of", "matches in the", "games in the", "played in"]),
             ("todos_partidos",      ["all matches", "list of matches", "played matches", "all games"]),
@@ -266,6 +268,7 @@ class LocalSemanticParser:
             ("info_entrenador",     ["coach", "manager", "trainer", "who manages", "who directs"]),
         ],
         "fr": [
+            ("partidos_fecha",      ["matchs du", "matchs le", "matchs de la date", "matchs par date", "match du"]),
             ("goleadores_ranking",  ["meilleur buteur", "classement des buteurs", "top buteur", "qui a marqué le plus", "classement buts"]),
             # partidos_competicion: include "matchs de l'" so 'Matchs de l'UEFA' is captured
             ("partidos_competicion",["matchs de l'", "matchs de la", "matchs du", "matchs en", "joués en"]),
@@ -333,23 +336,32 @@ class LocalSemanticParser:
 
         # ── 1. Detectar intent por keywords ──────────────────────────────
         intent = None
-        for intnt, keywords in LocalSemanticParser.INTENTS_BY_LANG[lang]:
-            if keywords:
-                # Comprobar palabra completa usando límites de palabra si es alfanumérico
-                matched = False
-                for kw in keywords:
-                    pattern = ""
-                    if kw[0].isalnum() or kw[0] == '_':
-                        pattern += r'\b'
-                    pattern += re.escape(kw)
-                    if kw[-1].isalnum() or kw[-1] == '_':
-                        pattern += r'\b'
-                    if re.search(pattern, q_lower):
-                        matched = True
+
+        # Override for date-based match queries
+        has_date = bool(re.search(r'\b\d{4}-\d{2}-\d{2}\b', q_lower))
+        if has_date:
+            match_keywords = ["partido", "partidos", "match", "matches", "matchs", "jugar", "jugaron", "played", "joué", "joues", "joués", "result", "score", "résultat", "resultado"]
+            if any(w in q_lower for w in match_keywords):
+                intent = "partidos_fecha"
+
+        if intent is None:
+            for intnt, keywords in LocalSemanticParser.INTENTS_BY_LANG[lang]:
+                if keywords:
+                    # Comprobar palabra completa usando límites de palabra si es alfanumérico
+                    matched = False
+                    for kw in keywords:
+                        pattern = ""
+                        if kw[0].isalnum() or kw[0] == '_':
+                            pattern += r'\b'
+                        pattern += re.escape(kw)
+                        if kw[-1].isalnum() or kw[-1] == '_':
+                            pattern += r'\b'
+                        if re.search(pattern, q_lower):
+                            matched = True
+                            break
+                    if matched:
+                        intent = intnt
                         break
-                if matched:
-                    intent = intnt
-                    break
 
         # ── 2. Si no hay keyword, detectar por catálogo de nombres ───────
         if intent is None:
@@ -409,7 +421,10 @@ class LocalSemanticParser:
     # ── Dispatch de extracción ────────────────────────────────────────────
     @staticmethod
     def _extract_entities(q_lower: str, intent: str, lang: str) -> list:
-        if intent in ("resultado_partido", "goles_partido"):
+        if intent == "partidos_fecha":
+            return LocalSemanticParser._extract_fecha_entities(q_lower, lang)
+
+        elif intent in ("resultado_partido", "goles_partido"):
             return LocalSemanticParser._extract_partido_entities(q_lower, lang)
 
         elif intent in ("jugadores_equipo", "info_equipo", "capitan_equipo"):
@@ -450,6 +465,14 @@ class LocalSemanticParser:
         return [AliasMapper.resolve(q_lower.strip(" ¿?!"))]
 
     # ── Extractores ───────────────────────────────────────────────────────
+
+    @staticmethod
+    def _extract_fecha_entities(q_lower: str, lang: str) -> list:
+        # Search for YYYY-MM-DD pattern
+        match = re.search(r'(\d{4}-\d{2}-\d{2})', q_lower)
+        if match:
+            return [match.group(1)]
+        return []
 
     @staticmethod
     def _extract_partido_entities(q_lower: str, lang: str) -> list:
