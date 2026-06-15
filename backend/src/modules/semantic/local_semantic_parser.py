@@ -212,6 +212,7 @@ class LocalSemanticParser:
                                       "entrena al", "entrena a", "quien entrena", "quién entrena",
                                       "estadio del", "estadio de", "ciudad del", "ciudad de",
                                       "información del equipo", "informacion del equipo"]),
+            ("tarjeta_por_motivo",  ["tarjeta por", "amonestado por", "expulsado por"]),
             ("tarjetas",            ["tarjeta", "tarjetas", "amonestado", "expulsado", "amarilla", "roja"]),
             ("sustituciones",       ["sustitución", "sustitucion", "sustituciones", "cambio",
                                       "entró", "entro", "salió", "salio", "cambios"]),
@@ -224,7 +225,6 @@ class LocalSemanticParser:
             ("es_titular",          ["es titular", "jugadores titulares", "es un jugador titular", "titular"]),
             ("torneos_internacionales", ["torneos internacionales", "competiciones internacionales", "tipo de torneo"]),
             ("asistencia_gol",      ["asistencia de gol", "asistencia para el gol", "asistencia de", "dio la asistencia", "asistencia para"]),
-            ("tarjeta_por_motivo",  ["tarjeta por", "amonestado por", "expulsado por"]),
             ("jugadores_posicion",  ["delanteros", "mediocampistas", "porteros", "defensas",
                                       "jugadores de posición", "jugadores que juegan de",
                                       "qué delanteros", "que delanteros"]),
@@ -252,6 +252,7 @@ class LocalSemanticParser:
             ("estadios_ubicacion",  ["stadiums in", "stadium in", "what stadiums are in", "stadiums of"]),
             ("estadios",            ["stadium", "capacity", "attendance", "spectators"]),
             ("info_equipo",         ["coach of", "trainer of", "who coaches", "city of", "information of the team", "info of the team", "information of", "info of"]),
+            ("tarjeta_por_motivo",  ["card for", "booked for", "sent off for", "carded for", "booked for rough", "rough play"]),
             ("tarjetas",            ["card", "cards", "booked", "sent off", "yellow", "red", "show the cards", "show cards"]),
             ("sustituciones",       ["substitution", "substitutions", "change", "changes", "came on", "went off", "substituted"]),
             ("arbitros",            ["referee", "referees"]),
@@ -260,8 +261,7 @@ class LocalSemanticParser:
                                        "birth date", "birthday", "born on", "born"]),
             ("es_titular",          ["is starter", "starting players", "is a starter", "starter", "starting"]),
             ("torneos_internacionales", ["international tournaments", "international competitions", "tournament type"]),
-            ("asistencia_gol",      ["assist", "assists", "gave the assist", "assist for"]),
-            ("tarjeta_por_motivo",  ["card for", "booked for", "sent off for"]),
+            ("asistencia_gol",      ["who assisted", "who gave the assist", "gave the assist", "assist for", "assist to", "assisted", "assists", "assist"]),
             ("jugadores_posicion",  ["forwards", "midfielders", "goalkeepers", "defenders", "players of position", "players who play as", "what forwards"]),
             ("info_entrenador",     ["coach", "manager", "trainer", "who manages", "who directs"]),
         ],
@@ -287,6 +287,7 @@ class LocalSemanticParser:
             ("estadios",            ["capacité", "affluence", "spectateurs"]),
             ("info_equipo",         ["qui entraîne", "qui entraine", "entraîneur de", "entraineur de",
                                       "stade du", "stade de l'", "stade de", "ville de", "informations sur l'équipe", "info sur l'équipe"]),
+            ("tarjeta_por_motivo",  ["carton pour", "averti pour", "expulsé pour", "averti pour jeu dangereux", "jeu dangereux"]),
             ("tarjetas",            ["carton", "cartons", "averti", "expulsé", "jaune", "rouge", "montre les cartons"]),
             ("sustituciones",       ["substitution", "substitutions", "changement", "changements", "est entré", "est sorti", "remplacement", "remplacements", "remplacements effectués", "remplacements effectues"]),
             ("arbitros",            ["arbitre", "arbitres"]),
@@ -296,7 +297,6 @@ class LocalSemanticParser:
             ("es_titular",          ["est titulaire", "joueurs titulaires", "titulaire"]),
             ("torneos_internacionales", ["tournois internationaux", "compétitions internationales", "type de tournoi"]),
             ("asistencia_gol",      ["passe décisive", "passe decisive", "a fait la passe", "passe décisive pour"]),
-            ("tarjeta_por_motivo",  ["carton pour", "averti pour", "expulsé pour"]),
             ("jugadores_posicion",  ["attaquants", "milieux", "gardiens", "défenseurs", "joueurs de position", "joueurs qui jouent comme", "quels attaquants"]),
             ("info_entrenador",     ["entraîneur", "entraineur", "technicien", "qui dirige", "coach"]),
         ]
@@ -809,13 +809,31 @@ class LocalSemanticParser:
 
     @staticmethod
     def _extract_motivo_tarjeta(q_lower: str, lang: str) -> list:
+        # 1. First try to find a known motivo phrase directly in the query
+        known_motivos = [
+            # ES (longer first)
+            "juego brusco", "conducta violenta", "sujetar al rival",
+            "conducta antideportiva", "mano", "falta",
+            # EN
+            "rough play", "dangerous play", "violent conduct",
+            "holding the opponent", "holding", "unsporting behaviour",
+            "unsporting behavior", "handball", "foul", "simulation",
+            "time wasting", "dissent",
+            # FR
+            "jeu dangereux", "jeu brutal", "conduite violente",
+            "retenir l'adversaire", "comportement antisportif",
+            "main", "faute", "protestation",
+        ]
+        for m in known_motivos:
+            if m in q_lower:
+                return [m]
+
+        # 2. Fall back to prefix stripping for generic patterns
         cleaned = q_lower
         kws = [
             "tarjeta por", "amonestado por", "expulsado por",
-            # EN
-            "card for", "booked for", "sent off for",
-            # FR
-            "carton pour", "averti pour", "expulsé pour"
+            "carded for", "sent off for", "booked for", "card for",
+            "averti pour", "carton pour",
         ]
         for kw in kws:
             if kw in cleaned:

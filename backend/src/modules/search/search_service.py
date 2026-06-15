@@ -155,6 +155,88 @@ def _fmt_fecha(f_str: str) -> str:
     return f_str.split("T")[0]
 
 
+def translate_tipo_tarjeta(tipo: str, lang: str) -> str:
+    if not tipo:
+        return ""
+    t_lower = tipo.lower().strip()
+    mapeo = {
+        "en": {
+            "amarilla": "Yellow",
+            "tarjetaamarilla": "Yellow",
+            "roja": "Red",
+            "tarjetaroja": "Red"
+        },
+        "fr": {
+            "amarilla": "Jaune",
+            "tarjetaamarilla": "Jaune",
+            "roja": "Rouge",
+            "tarjetaroja": "Rouge"
+        }
+    }
+    if t_lower.startswith("tarjeta") and t_lower != "tarjeta":
+        sub = t_lower[7:]
+        val = mapeo.get(lang, {}).get(sub, tipo)
+        if val != tipo:
+            return val
+    return mapeo.get(lang, {}).get(t_lower, tipo)
+
+
+def translate_tiempo(tiempo: str, lang: str) -> str:
+    if not tiempo:
+        return ""
+    t_lower = tiempo.lower().strip()
+    mapeo = {
+        "en": {
+            "primer tiempo": "First half",
+            "segundo tiempo": "Second half",
+            "tiempo extra": "Extra time"
+        },
+        "fr": {
+            "primer tiempo": "Première mi-temps",
+            "segundo tiempo": "Seconde mi-temps",
+            "tiempo extra": "Prolongation"
+        }
+    }
+    return mapeo.get(lang, {}).get(t_lower, tiempo)
+
+
+def translate_motivo(motivo: str, lang: str) -> str:
+    if not motivo:
+        return ""
+    m_lower = motivo.lower().strip().replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u")
+    mapeo = {
+        "en": {
+            "juego brusco": "rough play",
+            "conducta antideportiva": "unsporting behaviour",
+            "conducta violenta": "violent conduct",
+            "sujetar al rival": "holding the opponent",
+            "mano": "handball",
+            "falta": "foul",
+            "simulacion": "simulation",
+            "perdida de tiempo": "time wasting",
+            "protestar al arbitro": "dissent",
+            "demorar juego": "delaying the restart of play",
+            "doble amarilla": "second yellow card",
+            "falta fuerte": "hard foul"
+        },
+        "fr": {
+            "juego brusco": "jeu dangereux",
+            "conducta antideportiva": "comportement antisportif",
+            "conducta violenta": "conduite violente",
+            "sujetar al rival": "retenir l'adversaire",
+            "mano": "main",
+            "falta": "faute",
+            "simulacion": "simulation",
+            "perdida de tiempo": "perte de temps",
+            "protestar al arbitro": "protestation",
+            "demorar juego": "retarder le jeu",
+            "doble amarilla": "deuxième carton jaune",
+            "falta fuerte": "faute grave"
+        }
+    }
+    return mapeo.get(lang, {}).get(m_lower, motivo)
+
+
 # ── Data Key Translations ──────────────────────────────────────────────────
 # Maps Spanish key names → translated key names per language
 _KEY_MAP = {
@@ -766,7 +848,7 @@ class SearchService:
                 NS_BASE = "http://www.semanticweb.org/valer/ontologies/2026/2/ontologia_futbol/"
                 raw_id = fila.get("id", "")
                 jug_id = raw_id[len(NS_BASE):] if raw_id.startswith(NS_BASE) else raw_id.split("#")[-1]
-                print(f"  [goles_partido] jugador detectado: {nom!r} → {jug_id!r}")
+                print(f"  [goles_partido] jugador detectado: {nom!r} -> {jug_id!r}")
                 goles_r = executor.query(SPARQLBuilder.query_goles_jugador(jug_id))
                 total   = int(goles_r[0].get("total", 0)) if goles_r else 0
                 answer  = T[lang]["jugador_goles"].format(nom=nom, total=total)
@@ -796,11 +878,12 @@ class SearchService:
             goles_r = executor.query(SPARQLBuilder.query_goles_partido(p_id))
             print(f"  [goles_partido] → {len(goles_r)} goles")
             for g in goles_r:
+                tiempo_val = translate_tiempo(g.get("tiempo", ""), lang)
                 all_goles.append({
                     "anotador":  g.get("anotador_nom", "?"),
                     "asistidor": g.get("asistidor_nom", ""),
                     "minuto":    g.get("minuto", "?"),
-                    "tiempo":    g.get("tiempo", ""),
+                    "tiempo":    tiempo_val,
                 })
 
         if not all_goles:
@@ -1142,12 +1225,15 @@ class SearchService:
             return T[lang]["no_tarjetas"], None, False
         data = []
         for f in resultados:
+            tipo_val = translate_tipo_tarjeta(f.get("tipo_clase", "?"), lang)
+            tiempo_val = translate_tiempo(f.get("tiempo", ""), lang)
+            motivo_val = translate_motivo(f.get("motivo", ""), lang)
             data.append({
-                "tipo":    translate_entity(f.get("tipo_clase", "?"), lang),
+                "tipo":    tipo_val,
                 "jugador": f.get("nombre_jugador", "?"),
                 "minuto":  f.get("minuto", "?"),
-                "tiempo":  f.get("tiempo", ""),
-                "motivo":  f.get("motivo", "")
+                "tiempo":  tiempo_val,
+                "motivo":  motivo_val
             })
         answer = T[lang]["tarjetas_registradas"].format(cant=len(data))
         return answer, translate_data_keys(data, lang), True
@@ -1159,9 +1245,15 @@ class SearchService:
         print(f"  [sustituciones] filas={len(resultados)}")
         if not resultados:
             return T[lang]["no_sustituciones"], None, False
-        data = [{"entra":  f.get("entra_nom", "?"), "sale":   f.get("sale_nom",  "?"),
-                 "minuto": f.get("minuto", "?"),     "tiempo": f.get("tiempo", "")}
-                for f in resultados]
+        data = []
+        for f in resultados:
+            tiempo_val = translate_tiempo(f.get("tiempo", ""), lang)
+            data.append({
+                "entra":  f.get("entra_nom", "?"),
+                "sale":   f.get("sale_nom", "?"),
+                "minuto": f.get("minuto", "?"),
+                "tiempo": tiempo_val
+            })
         answer = T[lang]["sustituciones_registradas"].format(cant=len(data))
         return answer, translate_data_keys(data, lang), True
 
@@ -1368,7 +1460,15 @@ class SearchService:
         if not resultados:
             return T[lang]["no_asistencias"], None, False
 
-        data = [{"asistidor": f.get("asistidor_nom", "?"), "goleador": f.get("goleador_nom", "?"), "minuto": f.get("minuto", "?"), "tiempo": f.get("tiempo", "?")} for f in resultados]
+        data = []
+        for f in resultados:
+            tiempo_val = translate_tiempo(f.get("tiempo", "?"), lang)
+            data.append({
+                "asistidor": f.get("asistidor_nom", "?"),
+                "goleador":  f.get("goleador_nom", "?"),
+                "minuto":    f.get("minuto", "?"),
+                "tiempo":    tiempo_val
+            })
         
         if len(data) == 1:
             i = data[0]
@@ -1382,25 +1482,57 @@ class SearchService:
     # ── tarjeta_por_motivo ─────────────────────────────────────────────────
     @staticmethod
     def _tarjeta_por_motivo(matched: dict, lang: str):
-        motivo = matched.get("motivo", "").strip()
-        if not motivo:
+        motivo_raw = (matched.get("motivo") or "").strip()
+        if not motivo_raw:
             return T[lang]["no_motivo_tarjeta"], None, False
+
+        # Translate EN/FR motivo keywords to their Spanish ontology equivalents
+        _MOTIVO_MAP = {
+            # EN
+            "rough play":             "Juego brusco",
+            "rough":                  "Juego brusco",
+            "dangerous play":         "Juego brusco",
+            "violent conduct":        "Conducta violenta",
+            "holding":                "Sujetar al rival",
+            "holding the opponent":   "Sujetar al rival",
+            "unsporting behaviour":   "Conducta antideportiva",
+            "unsporting behavior":    "Conducta antideportiva",
+            "handball":               "Mano",
+            "foul":                   "Falta",
+            "simulation":             "Simulacion",
+            "time wasting":           "Perdida de tiempo",
+            "dissent":                "Protestar al arbitro",
+            # FR
+            "jeu dangereux":          "Juego brusco",
+            "jeu brutal":             "Juego brusco",
+            "conduite violente":      "Conducta violenta",
+            "retenir l'adversaire":   "Sujetar al rival",
+            "comportement antisportif": "Conducta antideportiva",
+            "main":                   "Mano",
+            "faute":                  "Falta",
+            "protestation":           "Protestar al arbitro",
+        }
+        motivo = _MOTIVO_MAP.get(motivo_raw.lower(), motivo_raw)
+        print(f"  [tarjeta_por_motivo] motivo_raw={motivo_raw!r}  -> motivo={motivo!r}")
 
         resultados = executor.query(SPARQLBuilder.query_tarjeta_por_motivo(motivo))
         if not resultados:
-            return T[lang]["no_tarjetas_motivo"].format(motivo=motivo), None, False
+            return T[lang]["no_tarjetas_motivo"].format(motivo=motivo_raw), None, False
 
         data = []
         for f in resultados:
+            tipo_val = translate_tipo_tarjeta(f.get("tipo_tarjeta", "?"), lang)
+            tiempo_val = translate_tiempo(f.get("tiempo", "?"), lang)
+            motivo_val = translate_motivo(f.get("motivo_exacto", "?"), lang)
             data.append({
                 "jugador": f.get("nombre_jugador", "?"),
-                "motivo":  f.get("motivo_exacto", "?"),
-                "tipo":    translate_entity(f.get("tipo_tarjeta", "?"), lang),
+                "motivo":  motivo_val,
+                "tipo":    tipo_val,
                 "minuto":  f.get("minuto", "?"),
-                "tiempo":  f.get("tiempo", "?")
+                "tiempo":  tiempo_val
             })
         nombres = [d["jugador"] for d in data]
-        answer = T[lang]["tarjetas_motivo_fmt"].format(cant=len(data), motivo=motivo, lista=_resumir_lista(nombres, lang))
+        answer = T[lang]["tarjetas_motivo_fmt"].format(cant=len(data), motivo=motivo_raw, lista=_resumir_lista(nombres, lang))
         return answer, translate_data_keys(data, lang), True
 
     # ── gol_propia_puerta ──────────────────────────────────────────────────
@@ -1410,7 +1542,14 @@ class SearchService:
         if not resultados:
             return T[lang]["no_goles_propia_puerta"], None, False
 
-        data = [{"jugador": f.get("nombre_jugador", "?"), "minuto": f.get("minuto", "?"), "tiempo": f.get("tiempo", "?")} for f in resultados]
+        data = []
+        for f in resultados:
+            tiempo_val = translate_tiempo(f.get("tiempo", "?"), lang)
+            data.append({
+                "jugador": f.get("nombre_jugador", "?"),
+                "minuto":  f.get("minuto", "?"),
+                "tiempo":  tiempo_val
+            })
         nombres = [d["jugador"] for d in data]
         answer = T[lang]["goles_propia_puerta_fmt"].format(cant=len(data), lista=_resumir_lista(nombres, lang))
         return answer, translate_data_keys(data, lang), True
@@ -1422,7 +1561,14 @@ class SearchService:
         if not resultados:
             return T[lang]["no_goles_penal"], None, False
 
-        data = [{"jugador": f.get("nombre_jugador", "?"), "minuto": f.get("minuto", "?"), "tiempo": f.get("tiempo", "?")} for f in resultados]
+        data = []
+        for f in resultados:
+            tiempo_val = translate_tiempo(f.get("tiempo", "?"), lang)
+            data.append({
+                "jugador": f.get("nombre_jugador", "?"),
+                "minuto":  f.get("minuto", "?"),
+                "tiempo":  tiempo_val
+            })
         nombres = [d["jugador"] for d in data]
         answer = T[lang]["goles_penal_fmt"].format(cant=len(data), lista=_resumir_lista(nombres, lang))
         return answer, translate_data_keys(data, lang), True
