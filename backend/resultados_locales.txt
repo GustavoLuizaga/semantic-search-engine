@@ -2566,3 +2566,279 @@ Respuesta:
     "found": true
 }
 
+================================================================================
+TEST #82
+================================================================================
+Idioma: es
+Pregunta: ¿Cuáles son los delanteros del Real Madrid?
+
+Respuesta:
+{
+    "query": "¿Cuáles son los delanteros del Real Madrid?",
+    "intent": "jugadores_posicion",
+    "answer": "El Real Madrid tiene 3 jugador(es) de posición Delantero: Kylian Mbappé, Rodrygo Goes y Vinícius Júnior.",
+    "data": [
+        {
+            "nombre": "Kylian Mbappé",
+            "equipo": "Real Madrid",
+            "dorsal": "10",
+            "nacionalidad": "Francesa"
+        },
+        {
+            "nombre": "Rodrygo Goes",
+            "equipo": "Real Madrid",
+            "dorsal": "11",
+            "nacionalidad": "Brasileña"
+        },
+        {
+            "nombre": "Vinícius Júnior",
+            "equipo": "Real Madrid",
+            "dorsal": "7",
+            "nacionalidad": "Brasileña"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #83
+================================================================================
+Idioma: es
+Pregunta: ¿Cuáles son los mediocampistas del FC Barcelona?
+
+Respuesta:
+{
+    "query": "¿Cuáles son los mediocampistas del FC Barcelona?",
+    "intent": "jugadores_posicion",
+    "answer": "El FC Barcelona tiene 2 jugador(es) de posición Mediocampista: Gavi y Pedri.",
+    "data": [
+        {
+            "nombre": "Gavi",
+            "equipo": "FC Barcelona",
+            "dorsal": "6",
+            "nacionalidad": "Española"
+        },
+        {
+            "nombre": "Pedri",
+            "equipo": "FC Barcelona",
+            "dorsal": "8",
+            "nacionalidad": "Española"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #84
+================================================================================
+Idioma: es
+Pregunta: ¿Cuáles son los porteros del Bayern Munchen?
+
+Respuesta:
+{
+    "query": "¿Cuáles son los porteros del Bayern Munchen?",
+    "intent": "jugadores_posicion",
+    "answer": "No encontré jugadores de posición Portero en el Bayern Munchen.",
+    "data": null,
+    "found": false
+}
+
+================================================================================
+TEST #85
+================================================================================
+Idioma: es
+Pregunta: ¿Cuáles son los defensas del Liverpool FC?
+
+Respuesta:
+{
+    "query": "¿Cuáles son los defensas del Liverpool FC?",
+    "intent": "jugadores_posicion",
+    "answer": "No encontré jugadores de posición Defensa en el Liverpool FC.",
+    "data": null,
+    "found": false
+}
+
+================================================================================
+TEST #86
+================================================================================
+Idioma: en
+Pregunta: Who are the forwards of Real Madrid?
+
+Respuesta:
+{
+    "query": "Who are the forwards of Real Madrid?",
+    "intent": "jugadores_posicion",
+    "answer": "Real Madrid has 3 forward player(s): Kylian Mbappé, Rodrygo Goes and Vinícius Júnior.",
+    "data": [
+        {
+            "name": "Kylian Mbappé",
+            "team": "Real Madrid",
+            "number": "10",
+            "nationality": "French"
+        },
+        {
+            "name": "Rodrygo Goes",
+            "team": "Real Madrid",
+            "number": "11",
+            "nationality": "Brazilian"
+        },
+        {
+            "name": "Vinícius Júnior",
+            "team": "Real Madrid",
+            "number": "7",
+            "nationality": "Brazilian"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #87
+================================================================================
+Idioma: en
+Pregunta: Who are the midfielders of FC Barcelona?
+
+Respuesta:
+{
+    "query": "Who are the midfielders of FC Barcelona?",
+    "intent": "jugadores_posicion",
+    "answer": "FC Barcelona has 2 midfielder player(s): Gavi and Pedri.",
+    "data": [
+        {
+            "name": "Gavi",
+            "team": "FC Barcelona",
+            "number": "6",
+            "nationality": "Spanish"
+        },
+        {
+            "name": "Pedri",
+            "team": "FC Barcelona",
+            "number": "8",
+            "nationality": "Spanish"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #88
+================================================================================
+Idioma: en
+Pregunta: Who are the goalkeepers of Bayern Munchen?
+
+Respuesta:
+{
+    "query": "Who are the goalkeepers of Bayern Munchen?",
+    "intent": "jugadores_posicion",
+    "answer": "No goalkeeper players found in Bayern Munich.",
+    "data": null,
+    "found": false
+}
+
+================================================================================
+TEST #89
+================================================================================
+Idioma: en
+Pregunta: Who are the defenders of Liverpool FC?
+
+Respuesta:
+{
+    "query": "Who are the defenders of Liverpool FC?",
+    "intent": "jugadores_posicion",
+    "answer": "No defender players found in Liverpool FC.",
+    "data": null,
+    "found": false
+}
+
+================================================================================
+TEST #90
+================================================================================
+Idioma: fr
+Pregunta: Quels sont les attaquants du Real Madrid?
+
+Respuesta:
+{
+    "query": "Quels sont les attaquants du Real Madrid?",
+    "intent": "jugadores_posicion",
+    "answer": "Real Madrid compte 3 joueur(s) au poste de attaquant : Kylian Mbappé, Rodrygo Goes et Vinícius Júnior.",
+    "data": [
+        {
+            "nom": "Kylian Mbappé",
+            "équipe": "Real Madrid",
+            "numéro": "10",
+            "nationalité": "française"
+        },
+        {
+            "nom": "Rodrygo Goes",
+            "équipe": "Real Madrid",
+            "numéro": "11",
+            "nationalité": "brésilienne"
+        },
+        {
+            "nom": "Vinícius Júnior",
+            "équipe": "Real Madrid",
+            "numéro": "7",
+            "nationalité": "brésilienne"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #91
+================================================================================
+Idioma: fr
+Pregunta: Quels sont les milieux du FC Barcelona?
+
+Respuesta:
+{
+    "query": "Quels sont les milieux du FC Barcelona?",
+    "intent": "jugadores_posicion",
+    "answer": "FC Barcelone compte 2 joueur(s) au poste de milieu : Gavi et Pedri.",
+    "data": [
+        {
+            "nom": "Gavi",
+            "équipe": "FC Barcelone",
+            "numéro": "6",
+            "nationalité": "espagnole"
+        },
+        {
+            "nom": "Pedri",
+            "équipe": "FC Barcelone",
+            "numéro": "8",
+            "nationalité": "espagnole"
+        }
+    ],
+    "found": true
+}
+
+================================================================================
+TEST #92
+================================================================================
+Idioma: fr
+Pregunta: Quels sont les gardiens du Bayern Munchen?
+
+Respuesta:
+{
+    "query": "Quels sont les gardiens du Bayern Munchen?",
+    "intent": "jugadores_posicion",
+    "answer": "Aucun joueur au poste de gardien de but trouvé dans Bayern Munich.",
+    "data": null,
+    "found": false
+}
+
+================================================================================
+TEST #93
+================================================================================
+Idioma: fr
+Pregunta: Quels sont les défenseurs du Liverpool FC?
+
+Respuesta:
+{
+    "query": "Quels sont les défenseurs du Liverpool FC?",
+    "intent": "jugadores_posicion",
+    "answer": "Aucun joueur au poste de défenseur trouvé dans Liverpool FC.",
+    "data": null,
+    "found": false
+}
+

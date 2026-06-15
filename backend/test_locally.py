@@ -94,6 +94,22 @@ questions = [
     {"query": "Remplacements effectués", "language": "fr"},
     {"query": "Quel joueur a été averti pour jeu dangereux ?", "language": "fr"},
     {"query": "Quels matchs ont été joués le 2024-11-25 ?", "language": "fr"},
+
+    # ES - posición + equipo
+    {"query": "¿Cuáles son los delanteros del Real Madrid?", "language": "es"},
+    {"query": "¿Cuáles son los mediocampistas del FC Barcelona?", "language": "es"},
+    {"query": "¿Cuáles son los porteros del Bayern Munchen?", "language": "es"},
+    {"query": "¿Cuáles son los defensas del Liverpool FC?", "language": "es"},
+    # EN - position + team
+    {"query": "Who are the forwards of Real Madrid?", "language": "en"},
+    {"query": "Who are the midfielders of FC Barcelona?", "language": "en"},
+    {"query": "Who are the goalkeepers of Bayern Munchen?", "language": "en"},
+    {"query": "Who are the defenders of Liverpool FC?", "language": "en"},
+    # FR - position + équipe
+    {"query": "Quels sont les attaquants du Real Madrid?", "language": "fr"},
+    {"query": "Quels sont les milieux du FC Barcelona?", "language": "fr"},
+    {"query": "Quels sont les gardiens du Bayern Munchen?", "language": "fr"},
+    {"query": "Quels sont les défenseurs du Liverpool FC?", "language": "fr"},
 ]
 
 output_file = "resultados_locales.txt"

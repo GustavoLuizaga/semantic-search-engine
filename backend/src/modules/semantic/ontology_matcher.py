@@ -98,7 +98,10 @@ class OntologyMatcher:
             return {}
         
         elif intent == "jugadores_posicion":
-            return {"posicion": entities[0] if entities else ""}
+            posicion = entities[0] if len(entities) > 0 else ""
+            equipo_nombre = entities[1] if len(entities) > 1 else ""
+            eq_id = self._find_id_by_name(equipo_nombre, "Equipo") if equipo_nombre else None
+            return {"posicion": posicion, "equipo_id": eq_id}
 
         elif intent == "info_entrenador":
             return self._match_entrenador(entities)

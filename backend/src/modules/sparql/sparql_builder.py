@@ -508,6 +508,24 @@ class SPARQLBuilder:
         """
 
     @staticmethod
+    def query_jugadores_por_posicion_y_equipo(posicion: str, eq_id: str) -> str:
+        """Jugadores que juegan en una posición dada dentro de un equipo específico."""
+        return PREFIX + f"""
+        SELECT ?nombre ?equipo_nombre ?dorsal ?nacionalidad
+        WHERE {{
+            ?jug a :Jugador ;
+                 :tieneNombre ?nombre ;
+                 :tienePosicion ?pos ;
+                 :juegaEn :{eq_id} .
+            FILTER(LCASE(str(?pos)) = "{posicion.lower()}")
+            OPTIONAL {{ ?jug :juegaEn ?eq . ?eq :tieneNombre ?equipo_nombre }}
+            OPTIONAL {{ ?jug :tieneDorsal ?dorsal }}
+            OPTIONAL {{ ?jug :tieneNacionalidad ?nacionalidad }}
+        }}
+        ORDER BY ?nombre
+        """
+
+    @staticmethod
     def query_todos_entrenadores() -> str:
         """Lista todos los entrenadores con su equipo actual."""
         return PREFIX + """

@@ -440,6 +440,8 @@ T = {
         "no_posicion": "No pude identificar la posición en tu consulta.",
         "no_jugadores_posicion": "No encontré jugadores que jueguen de {posicion}.",
         "jugadores_posicion_fmt": "Hay {cant} jugadores de posición {posicion}: {lista}.",
+        "no_jugadores_posicion_equipo": "No encontré jugadores de posición {posicion} en el {equipo}.",
+        "jugadores_posicion_equipo_fmt": "El {equipo} tiene {cant} jugador(es) de posición {posicion}: {lista}.",
         
         "no_entrenadores": "No hay entrenadores registrados.",
         "entrenadores_registrados": "Hay {cant} entrenadores registrados: {lista}.",
@@ -566,6 +568,8 @@ T = {
         "no_posicion": "I couldn't identify the position in your query.",
         "no_jugadores_posicion": "No players found playing as {posicion}.",
         "jugadores_posicion_fmt": "There are {cant} players in the position of {posicion}: {lista}.",
+        "no_jugadores_posicion_equipo": "No {posicion} players found in {equipo}.",
+        "jugadores_posicion_equipo_fmt": "{equipo} has {cant} {posicion} player(s): {lista}.",
         
         "no_entrenadores": "No registered coaches found.",
         "entrenadores_registrados": "There are {cant} registered coaches: {lista}.",
@@ -692,6 +696,8 @@ T = {
         "no_posicion": "Je n'ai pas pu identifier la position dans votre requête.",
         "no_jugadores_posicion": "Aucun joueur trouvé jouant comme {posicion}.",
         "jugadores_posicion_fmt": "Il y a {cant} joueurs au poste de {posicion} : {lista}.",
+        "no_jugadores_posicion_equipo": "Aucun joueur au poste de {posicion} trouvé dans {equipo}.",
+        "jugadores_posicion_equipo_fmt": "{equipo} compte {cant} joueur(s) au poste de {posicion} : {lista}.",
         
         "no_entrenadores": "Aucun entraîneur enregistré trouvé.",
         "entrenadores_registrados": "Il y a {cant} entraîneurs enregistrés : {lista}.",
@@ -1584,16 +1590,29 @@ class SearchService:
     @staticmethod
     def _jugadores_posicion(matched: dict, lang: str):
         posicion = (matched.get("posicion") or "").strip()
-        print(f"  [jugadores_posicion] posicion={posicion!r}")
+        eq_id = matched.get("equipo_id")
+        print(f"  [jugadores_posicion] posicion={posicion!r} eq_id={eq_id!r}")
 
         if not posicion:
             return T[lang]["no_posicion"], None, False
 
-        resultados = executor.query(SPARQLBuilder.query_jugadores_por_posicion(posicion))
+        pos_display = translate_pos(posicion, lang)
+
+        if eq_id:
+            resultados = executor.query(SPARQLBuilder.query_jugadores_por_posicion_y_equipo(posicion, eq_id))
+        else:
+            resultados = executor.query(SPARQLBuilder.query_jugadores_por_posicion(posicion))
+            
         print(f"  [jugadores_posicion] jugadores={len(resultados)}")
 
         if not resultados:
-            return T[lang]["no_jugadores_posicion"].format(posicion=posicion), None, False
+            if eq_id:
+                eq_info = executor.query(SPARQLBuilder.query_info_equipo(eq_id))
+                eq_nom = eq_info[0].get("nombre", eq_id) if eq_info else eq_id
+                eq_nom = translate_entity(eq_nom, lang)
+                return T[lang]["no_jugadores_posicion_equipo"].format(posicion=pos_display, equipo=eq_nom), None, False
+            else:
+                return T[lang]["no_jugadores_posicion"].format(posicion=pos_display), None, False
 
         data = []
         for f in resultados:
@@ -1605,8 +1624,11 @@ class SearchService:
             })
 
         nombres = [d["nombre"] for d in data]
-        pos_display = translate_pos(posicion, lang)
-        answer  = T[lang]["jugadores_posicion_fmt"].format(cant=len(data), posicion=pos_display, lista=_resumir_lista(nombres, lang))
+        if eq_id:
+            eq_nom = data[0]["equipo"]
+            answer = T[lang]["jugadores_posicion_equipo_fmt"].format(cant=len(data), equipo=eq_nom, posicion=pos_display, lista=_resumir_lista(nombres, lang))
+        else:
+            answer  = T[lang]["jugadores_posicion_fmt"].format(cant=len(data), posicion=pos_display, lista=_resumir_lista(nombres, lang))
         return answer, translate_data_keys(data, lang), True
 
     # ── info_entrenador ────────────────────────────────────────────────────
