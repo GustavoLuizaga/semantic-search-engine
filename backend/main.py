@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.modules.search.search_router import router
+from dotenv import load_dotenv
 
+
+load_dotenv()
 app = FastAPI(
     title="Metabuscador Semántico — Ontología Fútbol",
     version="1.0.0"

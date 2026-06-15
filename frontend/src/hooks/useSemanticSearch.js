@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-import { searchQuery } from "../services/search-service";
+import { useState, useRef, useEffect } from "react";
+import { searchQuery, checkOfflineStatus } from "../services/search-service";
 import { translations } from "../utils/translations";
 
 export function useSemanticSearch() {
@@ -10,6 +10,21 @@ export function useSemanticSearch() {
   const [error, setError] = useState(null);
   const [source, setSource] = useState("local");
   const [language, setLanguage] = useState("es");
+  
+  // Nuevos estados para el modo offline
+  const [mode, setMode] = useState("online");
+  const [offlineAvailable, setOfflineAvailable] = useState(false);
+
+  // Verificamos si Fuseki está disponible al cargar la app
+  useEffect(() => {
+    const verifyOffline = async () => {
+      const isAvailable = await checkOfflineStatus();
+      setOfflineAvailable(isAvailable);
+      // Si no está disponible, forzamos el modo online por seguridad
+      if (!isAvailable) setMode("online");
+    };
+    verifyOffline();
+  }, []);
 
   const handleSearch = async (e) => {
     const t = translations[language] || translations.es;
@@ -20,29 +35,20 @@ export function useSemanticSearch() {
     if (!query) return;
 
     setIsLoading(true);
-
-    // limpiar errores anteriores
     setError(null);
 
     try {
-      const searchResults = await searchQuery(query, source, language);
-
+      // Pasamos el mode a la petición
+      const searchResults = await searchQuery(query, source, language, mode);
       setResults(searchResults);
     } catch (err) {
       console.error(err);
-
-      // limpiar resultados anteriores
       setResults(null);
 
-      // backend muerto / sin conexión
       if (err.name === "TypeError") {
-        setError(
-          t.errorBackend
-        );
+        setError(t.errorBackend);
       } else {
-        setError(
-          t.errorGeneric
-        );
+        setError(t.errorGeneric);
       }
     } finally {
       setIsLoading(false);
@@ -59,5 +65,9 @@ export function useSemanticSearch() {
     setSource,
     language,
     setLanguage,
+    // Exportamos las nuevas propiedades
+    mode,
+    setMode,
+    offlineAvailable
   };
 }

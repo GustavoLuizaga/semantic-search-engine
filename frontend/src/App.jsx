@@ -1,5 +1,3 @@
-// App.jsx MODIFICADO
-
 import { useSemanticSearch } from "./hooks/useSemanticSearch";
 import { useTheme } from "./hooks/useTheme";
 import SourceBadge from "./components/SourceBadge";
@@ -20,7 +18,12 @@ function App() {
     setSource,
     language,
     setLanguage,
+    // ✨ 1. EXTRAEMOS LAS NUEVAS VARIABLES DEL HOOK
+    mode,
+    setMode,
+    offlineAvailable,
   } = useSemanticSearch();
+
   const { isDarkMode, toggleTheme } = useTheme();
   const t = translations[language] || translations.es;
 
@@ -54,6 +57,9 @@ function App() {
           language={language}
           setLanguage={setLanguage}
           inputRef={inputRef}
+          mode={mode}
+          setMode={setMode}
+          offlineAvailable={offlineAvailable}
         />
       </main>
     </div>

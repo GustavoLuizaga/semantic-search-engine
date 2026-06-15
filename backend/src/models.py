@@ -4,6 +4,7 @@ from typing import Any, Optional
 class SearchRequest(BaseModel):
     query: str
     language: str = "es"
+    mode: Optional[str] = "online"
 
 class SearchResponse(BaseModel):
     query: str
